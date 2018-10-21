@@ -1,0 +1,255 @@
+class FSM
+{
+  fsmName = "IsAdmin";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "d_admin_idd = -9999;" \n
+       "d_adm_currentvec = objNull;" \n
+       "d_adm_currentvec_lockstate = false;" \n
+       "private _vec = objNull;" \n
+       "" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class __alive_player
+        {
+          priority = 20.000000;
+          to="Reset";
+          precondition = "";
+          condition="!alive player || {player getVariable [""xr_pluncon"", false] || {player getVariable [""ace_isunconscious"", false]}}";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="Dummy";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Dummy
+    {
+      name = "Dummy";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class Fix_for_those_children
+        {
+          priority = 1.000000;
+          to="Kick_those__kindergarden";
+          precondition = "";
+          condition="!d_pisadminp && {isMultiplayer}";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="Spectating";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Check_for_nearEn
+    {
+      name = "Check_for_nearEn";
+      init = "private _no = player nearEntities [[""Air"",""Car"",""Motorcycle"",""Tank""], 9];" \n
+       "_vec = if !(_no isEqualTo []) then {_no select 0} else {objNull};" \n
+       "disableUserInput false;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Logged_out_or__a
+        {
+          priority = 2.000000;
+          to="Reset";
+          precondition = "";
+          condition="(isMultiplayer && {!d_pisadminp}) || {!alive player || {player getVariable [""xr_pluncon"", false] || {player getVariable [""ace_isunconscious"", false]}}}";
+          action="";
+        };
+        class isNull__vec
+        {
+          priority = 1.000000;
+          to="Check_1";
+          precondition = "";
+          condition="isNull _vec";
+          action="";
+        };
+        class __isNull__vec
+        {
+          priority = 1.000000;
+          to="Check";
+          precondition = "";
+          condition="!isNull _vec";
+          action="";
+        };
+      };
+    };
+    class Reset
+    {
+      name = "Reset";
+      init = "if (d_admin_idd != -9999) then {" \n
+       "	if (!isNull d_adm_currentvec) then {" \n
+       "		d_adm_currentvec removeAction d_admin_idd;" \n
+       "	};" \n
+       "	d_admin_idd =  -9999;" \n
+       "};" \n
+       "d_adm_currentvec = objNull;" \n
+       "d_adm_currentvec_lockstate = false;" \n
+       "disableUserInput false;" \n
+       "d_clientScriptsAr set [0, false];" \n
+       "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class Check
+    {
+      name = "Check";
+      init = "if (alive _vec) then {" \n
+       "	if (_vec != d_adm_currentvec) then {" \n
+       "		if (d_admin_idd != -9999) then {" \n
+       "			if (!isNull d_adm_currentvec) then {" \n
+       "				d_adm_currentvec removeAction d_admin_idd;" \n
+       "			};" \n
+       "			d_admin_idd = -9999;" \n
+       "		};" \n
+       "		if (_vec call d_fnc_isVecLocked) then {" \n
+       "			d_admin_idd = _vec addAction [format [""<t color='#AAD9EF'>%1</t>"", localize ""STR_DOM_MISSIONSTRING_1418""], {_this call d_fnc_lockc},1,-1,false];" \n
+       "			d_adm_currentvec_lockstate = true;" \n
+       "		} else {" \n
+       "			d_admin_idd = _vec addAction [format [""<t color='#AAD9EF'>%1</t>"", localize ""STR_DOM_MISSIONSTRING_1419""], {_this call d_fnc_lockc},0,-1,false];" \n
+       "			d_adm_currentvec_lockstate = false;" \n
+       "		};" \n
+       "		d_adm_currentvec = _vec;" \n
+       "	} else {" \n
+       "		if (d_adm_currentvec_lockstate && {!(_vec call d_fnc_isVecLocked)}) then {" \n
+       "			d_adm_currentvec removeAction d_admin_idd;" \n
+       "			d_admin_idd = _vec addAction [format [""<t color='#AAD9EF'>%1</t>"", localize ""STR_DOM_MISSIONSTRING_1419""], {_this call d_fnc_lockc},0,-1,false];" \n
+       "			d_adm_currentvec_lockstate = false;" \n
+       "		} else {" \n
+       "			if (!d_adm_currentvec_lockstate && {(_vec call d_fnc_isVecLocked)}) then {" \n
+       "				d_adm_currentvec removeAction d_admin_idd;" \n
+       "				d_admin_idd = _vec addAction [format [""<t color='#AAD9EF'>%1</t>"", localize ""STR_DOM_MISSIONSTRING_1418""], {_this call d_fnc_lockc},1,-1,false];" \n
+       "				d_adm_currentvec_lockstate = true;" \n
+       "			};" \n
+       "		};" \n
+       "	};" \n
+       "} else {" \n
+       "	if (d_admin_idd != -9999) then {" \n
+       "		if (!isNull d_adm_currentvec) then {" \n
+       "			d_adm_currentvec removeAction d_admin_idd;" \n
+       "		};" \n
+       "		d_admin_idd = -9999;" \n
+       "	};" \n
+       "	d_adm_currentvec = objNull;" \n
+       "	d_adm_currentvec_lockstate = false;" \n
+       "};" \n
+       "private _timenow = time + 2;" \n
+       "			";
+      precondition = "";
+      class Links
+      {
+        class Delay_2s
+        {
+          priority = 0.000000;
+          to="Check_for_nearEn";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Check_1
+    {
+      name = "Check_1";
+      init = "if (d_admin_idd != -9999) then {" \n
+       "	if (!isNull d_adm_currentvec) then {" \n
+       "		d_adm_currentvec removeAction d_admin_idd;" \n
+       "		d_admin_idd = -9999;" \n
+       "	};" \n
+       "};" \n
+       "d_adm_currentvec = objNull;" \n
+       "d_adm_currentvec_lockstate = false;" \n
+       "private _timenow = time + 2;";
+      precondition = "";
+      class Links
+      {
+        class Delay_2s
+        {
+          priority = 0.000000;
+          to="Check_for_nearEn";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Spectating
+    {
+      name = "Spectating";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Check_for_nearEn";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Kick_those__kindergarden
+    {
+      name = "Kick_those__kindergarden";
+      init = "[player, d_name_pl, 3] remoteExecCall [""d_fnc_KickPlayerBS"", 2];";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Dummy";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "Reset",
+  };
+};

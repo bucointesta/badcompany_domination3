@@ -1,0 +1,69 @@
+class FSM
+{
+  fsmName = "PlayerAmmobox";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "params [""_box"", ""_box_array""];" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "private _timeend = time + 1500 + random 500;";
+      precondition = "";
+      class Links
+      {
+        class time_____timeend
+        {
+          priority = 0.000000;
+          to="_";
+          precondition = "";
+          condition="time >= _timeend || {!alive _box}";
+          action="";
+        };
+      };
+    };
+    class _
+    {
+      name = "_";
+      init = "if (!isNull _box) then {deleteVehicle _box;};" \n
+       "_box = d_the_base_box createVehicleLocal [0,0,0];" \n
+       "_box setDir (_box_array select 1);" \n
+       "_box setPos (_box_array select 0);" \n
+       "player reveal _box;" \n
+       "[_box] call d_fnc_weaponcargo ;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+  };
+};

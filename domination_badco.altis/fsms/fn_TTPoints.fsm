@@ -1,0 +1,100 @@
+class FSM
+{
+  fsmName = "TTPoints";
+  class States
+  {
+    class Start_
+    {
+      name = "Start_";
+      init = "private _points_blufor_old = -1;" \n
+       "private _points_opfor_old = -1;" \n
+       "private _kill_points_blufor_old = -1;" \n
+       "private _kill_points_opfor_old = -1;";
+      precondition = "";
+      class Links
+      {
+        class Not_is_server_
+        {
+          priority = 1.000000;
+          to="Exit_";
+          precondition = "";
+          condition="!isServer";
+          action="";
+        };
+        class Allways
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="true";
+          action="";
+        };
+      };
+    };
+    class Exit_
+    {
+      name = "Exit_";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "private _timenow = time + 1.516;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Send_Points____
+        {
+          priority = 1.000000;
+          to="Send_Points_";
+          precondition = "";
+          condition="d_public_points";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time >= _timenow";
+          action="";
+        };
+      };
+    };
+    class Send_Points_
+    {
+      name = "Send_Points_";
+      init = "if (d_points_blufor != _points_blufor_old || {d_points_opfor != _points_opfor_old || {d_kill_points_blufor != _kill_points_blufor_old || {d_kill_points_opfor != _kill_points_opfor_old}}}) then {" \n
+       "	d_points_array = [d_points_blufor,d_points_opfor,d_kill_points_blufor,d_kill_points_opfor];" \n
+       "	publicVariable ""d_points_array"";" \n
+       "	_points_blufor_old = d_points_blufor;" \n
+       "	_points_opfor_old = d_points_opfor;" \n
+       "	_kill_points_blufor_old = d_kill_points_blufor;" \n
+       "	_kill_points_opfor_old = d_kill_points_opfor;" \n
+       "};" \n
+       "private _timenow = time + 1.516;";
+      precondition = "";
+      class Links
+      {
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time >= _timenow";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start_";
+  finalStates[] =
+  {
+    "Exit_",
+  };
+};

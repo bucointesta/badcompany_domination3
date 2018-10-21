@@ -1,0 +1,174 @@
+class FSM
+{
+  fsmName = "RetakeCamp";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "params [""_wf"", ""_recapside""];" \n
+       "private _patgrps = [];" \n
+       "if (isNil ""d_camp_cap_groups"") then {" \n
+       "	d_camp_cap_groups = [];" \n
+       "};" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop_";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Check
+    {
+      name = "Check";
+      init = "private _counter = 0;" \n
+       "{" \n
+       "	_grp = _x;" \n
+       "	if ((_grp call d_fnc_GetAliveUnitsGrp) > 0 && {!(_grp in d_camp_cap_groups)}) then {" \n
+       "		_lead = leader _grp;" \n
+       "		//player sideChat format [""_lead: %1, side _lead: %2, _recapside: %3, _curcap: %4"", _lead, side _lead, _recapside, _wf getVariable ""D_CURCAPTURER""];" \n
+       "		//diag_log format [""_lead: %1, side _lead: %2, _recapside: %3, _curcap: %4"", _lead, side _lead, _recapside, _wf getVariable ""D_CURCAPTURER""];" \n
+       "		if (!isPlayer _lead && {_lead distance2D _wf < 300 && {(getPosATL _lead) select 2 < 10}}) then {" \n
+       "			if (!isNil {_grp getVariable ""D_PATR""}) then {_patgrps pushBack _grp};" \n
+       "			d_camp_cap_groups pushBack _grp;" \n
+       "			if (_lead distance2D _wf > 7) then {" \n
+       "				_usewpidx = -1;" \n
+       "				_wpo = [];" \n
+       "				_weps = waypoints _grp;" \n
+       "				{" \n
+       "					if ((waypointPosition _x) distance2D _wf < 10) exitWith {" \n
+       "						_usewpidx = _forEachIndex;" \n
+       "						_wpo = _x;" \n
+       "					};" \n
+       "				} forEach _weps;" \n
+       "				if (_usewpidx != -1) then {" \n
+       "					_grp setCurrentWaypoint _wpo;" \n
+       "				} else {" \n
+       "					(_weps select (currentWaypoint _grp)) setWPPos (getPosATL _wf);" \n
+       "				};" \n
+       "			};" \n
+       "			_counter = _counter + 1;" \n
+       "		};" \n
+       "	};" \n
+       "	if (_counter == 3) exitWith {false};" \n
+       "	false" \n
+       "} count (allGroups select {str(side _x) == _recapside});" \n
+       "" \n
+       "private _timeend = time + 30 + (random 15);" \n
+       "" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class ___wf_getVariable
+        {
+          priority = 10.000000;
+          to="End";
+          precondition = "";
+          condition="(_wf getVariable ""D_CURCAPTURER"") == _recapside";
+          action="";
+        };
+        class Sleep
+        {
+          priority = 0.000000;
+          to="Loop_";
+          precondition = "";
+          condition="time > _timeend";
+          action="";
+        };
+      };
+    };
+    class End
+    {
+      name = "End";
+      init = "{" \n
+       "	if (!isNull _x) then {" \n
+       "		_grp = _x;" \n
+       "		if ((_grp call d_fnc_GetAliveUnitsGrp) > 0) then {" \n
+       "			private _min = 1 + random 15;" \n
+       "			private _max = _min + (1 + random 15);" \n
+       "			private _mid = _min + (random (_max - _min));" \n
+       "			if (isNil {_grp getVariable ""D_PATR_ISLE""}) then {" \n
+       "				_ppos = _wf getVariable ""D_TARGET_MID_POS"";" \n
+       "//diag_log [""called from RetakeCamp.fsm""];" \n
+       "				[_grp, _ppos, [_ppos, d_cur_target_radius], [_min, _mid, _max], _grp getVariable [""d_wpexec"", """"]] spawn d_fnc_MakePatrolWPX;" \n
+       "			} else {" \n
+       "				[_grp, getPosATL (leader _grp), [d_with_isledefense select 0,d_with_isledefense select 1,d_with_isledefense select 2,d_with_isledefense select 3], [_min, _mid, _max], _grp getVariable [""d_wpexec"", """"]] spawn d_fnc_MakePatrolWPX;" \n
+       "			};" \n
+       "		};" \n
+       "		d_camp_cap_groups = d_camp_cap_groups - [_x];" \n
+       "	};" \n
+       "	false" \n
+       "} count _patgrps;" \n
+       "d_camp_cap_groups = d_camp_cap_groups - [objNull, grpNull];" \n
+       "" \n
+       "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class Loop_
+    {
+      name = "Loop_";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class ___wf_getVariable
+        {
+          priority = 10.000000;
+          to="End";
+          precondition = "";
+          condition="(_wf getVariable ""D_CURCAPTURER"") == _recapside";
+          action="";
+        };
+        class Is_MP
+        {
+          priority = 5.000000;
+          to="Sleep";
+          precondition = "";
+          condition="isMultiplayer && {(call d_fnc_PlayersNumber) == 0}";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="Check";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Sleep
+    {
+      name = "Sleep";
+      init = "_timenow = time + 2.38;";
+      precondition = "";
+      class Links
+      {
+        class Delay2
+        {
+          priority = 0.000000;
+          to="Loop_";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "End",
+  };
+};

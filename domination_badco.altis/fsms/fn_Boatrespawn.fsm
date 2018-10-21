@@ -1,0 +1,144 @@
+class FSM
+{
+  fsmName = "Boatrespawn";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "_timenow = time + 46;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Not_Server
+        {
+          priority = 1.000000;
+          to="End";
+          precondition = "";
+          condition="!isServer";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Init";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class End
+    {
+      name = "End";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class Init
+    {
+      name = "Init";
+      init = "private _boats_a = [];" \n
+       "for ""_i"" from 1 to 30 do {" \n
+       "	private _boatx = missionNamespace getVariable format [""d_boat_%1"", _i];" \n
+       "	if (!isNil ""_boatx"") then {" \n
+       "		_boats_a pushBack [_boatx, getPosATL _boatx, direction _boatx, typeof _boatx];" \n
+       "	};" \n
+       "};" \n
+       "private _timenow = time + 300;";
+      precondition = "";
+      class Links
+      {
+        class Delay_300
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "_timenow = time + (10 + random 5);";
+      precondition = "";
+      class Links
+      {
+        class Is_MP
+        {
+          priority = 1.000000;
+          to="Sleep";
+          precondition = "";
+          condition="isMultiplayer && {(call d_fnc_PlayersNumber) == 0}";
+          action="";
+        };
+        class Delay_Random
+        {
+          priority = 0.000000;
+          to="Check_Boats";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Sleep
+    {
+      name = "Sleep";
+      init = "_timenow = time + 5.32;";
+      precondition = "";
+      class Links
+      {
+        class Delay2
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Check_Boats
+    {
+      name = "Check_Boats";
+      init = "{" \n
+       "	private _boat_a = _x;" \n
+       "	private _boat = _boat_a select 0;" \n
+       "	if (damage _boat >= 0.9 || {!alive _boat}) then {" \n
+       "		if ({alive _x} count (crew _boat) == 0) then {" \n
+       "			deleteVehicle _boat;" \n
+       "			_boat = createVehicle [_boat_a select 3, _boat_a select 1, [], 0, ""NONE""];" \n
+       "			_boat setDir (_boat_a select 2);" \n
+       "			_boat setPos (_boat_a select 1);" \n
+       "			_boat_a set [0, _boat];" \n
+       "		};" \n
+       "	};" \n
+       "	false" \n
+       "} count _boats_a;" \n
+       "_timenow = time + (120 + random 5);";
+      precondition = "";
+      class Links
+      {
+        class Delay_Random2
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "End",
+  };
+};

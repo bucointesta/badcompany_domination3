@@ -1,0 +1,232 @@
+class FSM
+{
+  fsmName = "HandleCamps2";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "params [""_wf"", ""_flag""];" \n
+       "private _delay = 3;";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "private _units = _wf nearEntities [[""CAManBase"", ""Tank"", ""Car""], 12];" \n
+       "private _enemy = d_side_enemy countSide _units;" \n
+       "private _friendly = 0;" \n
+       "{" \n
+       "	_friendly = _friendly + (_x countSide _units);" \n
+       "	false" \n
+       "} count d_own_sides_o;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class target_clear
+        {
+          priority = 10.000000;
+          to="End";
+          precondition = "";
+          condition="d_target_clear || {d_counterattack}";
+          action="";
+        };
+        class _____enemy____0
+        {
+          priority = 2.000000;
+          to="Check";
+          precondition = "";
+          condition="(!(_enemy == 0 && {_friendly == 0})) && {!(_enemy == _friendly)}";
+          action="";
+        };
+        class _
+        {
+          priority = 1.000000;
+          to="_";
+          precondition = "";
+          condition="_enemy > 0 && {_friendly > 0}";
+          action="";
+        };
+        class __1
+        {
+          priority = 0.000000;
+          to="Reset_cap_time";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class End
+    {
+      name = "End";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class Reset_cap_time
+    {
+      name = "Reset_cap_time";
+      init = "private _timeend = time + _delay;";
+      precondition = "";
+      class Links
+      {
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time >= _timeend";
+          action="";
+        };
+      };
+    };
+    class Check
+    {
+      name = "Check";
+      init = "private _captime = _wf getVariable ""D_CAPTIME"";" \n
+       "private _curcaptime = _wf getVariable ""D_CURCAPTIME"";" \n
+       "private _curside = _wf getVariable ""D_SIDE"";" \n
+       "private _curcapturer = _wf getVariable ""D_CURCAPTURER"";" \n
+       "" \n
+       "if (_curside == d_enemy_side && {_friendly > 0 && {_enemy == 0}}) then {" \n
+       "	if (_curcapturer == d_enemy_side) then {" \n
+       "		_wf setVariable [""D_CAPTIME"", 40 + (floor random 10), true];" \n
+       "		_curcaptime = 0;" \n
+       "		_wf setVariable [""D_CURCAPTURER"", d_own_side];" \n
+       "	};" \n
+       "	_curcaptime = _curcaptime + (3 max _friendly);" \n
+       "	_wf setVariable [""D_CURCAPTIME"", _curcaptime, true];" \n
+       "	if (_wf getVariable ""d_STALL"") then {" \n
+       "		_wf setVariable [""d_STALL"", false, true];" \n
+       "	};" \n
+       "} else {" \n
+       "	if (_curside == d_own_side && {_enemy > 0 && {_friendly == 0}}) then {" \n
+       "		if (_curcapturer == d_own_side) then {" \n
+       "			_wf setVariable [""D_CAPTIME"", 10, true];" \n
+       "			_curcaptime = 0;" \n
+       "			_wf setVariable [""D_CURCAPTURER"", d_enemy_side];" \n
+       "		};" \n
+       "		_curcaptime = _curcaptime + (3 max _enemy);" \n
+       "		_wf setVariable [""D_CURCAPTIME"", _curcaptime, true];" \n
+       "		if (_wf getVariable ""d_STALL"") then {" \n
+       "			_wf setVariable [""d_STALL"", false, true];" \n
+       "		};" \n
+       "	};" \n
+       "};" \n
+       "private _timeend = time + _delay;";
+      precondition = "";
+      class Links
+      {
+        class _curcaptime____
+        {
+          priority = 1.000000;
+          to="Captured";
+          precondition = "";
+          condition="_curcaptime >= _captime";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time >= _timeend";
+          action="";
+        };
+      };
+    };
+    class Captured
+    {
+      name = "Captured";
+      init = "private _mar = format [""d_camp%1"", _wf getVariable ""D_INDEX""];" \n
+       "private _texture = """";" \n
+       "private _mcolor = """";" \n
+       "switch (_curside) do {" \n
+       "	case d_enemy_side: {" \n
+       "		_wf setVariable [""D_SIDE"", d_own_side, true];" \n
+       "		_texture = switch (d_own_side) do {" \n
+       "			case ""WEST"": {d_flag_str_blufor};" \n
+       "			case ""EAST"": {d_flag_str_opfor};" \n
+       "			case ""GUER"": {d_flag_str_independent};" \n
+       "		};" \n
+       "		_mcolor = ""ColorBLUFOR"";" \n
+       "		d_campscaptured = d_campscaptured + 1; publicVariable ""d_campscaptured"";" \n
+       "		//[_wf, d_enemy_side] call d_fnc_RetakeCamp;" \n
+       "		[_wf, d_enemy_side] execFSM ""fsms\fn_RetakeCamp.fsm"";" \n
+       "	};" \n
+       "	case d_own_side: {" \n
+       "		_wf setVariable [""D_SIDE"", d_enemy_side, true];" \n
+       "		_texture = call d_fnc_getenemyflagtex;" \n
+       "		_mcolor = ""ColorBlack"";" \n
+       "		d_campscaptured = d_campscaptured - 1; publicVariable ""d_campscaptured"";" \n
+       "	};" \n
+       "};" \n
+       "if (!isNull _flag) then {" \n
+       "	_flag setFlagTexture _texture;" \n
+       "};" \n
+       "[_mar, _mcolor] remoteExecCall [""setMarkerColor"", 2];" \n
+       "_wf setVariable [""D_CURCAPTIME"", 0, true];" \n
+       "" \n
+       "private _sent = switch (_wf getVariable ""D_SIDE"") do {" \n
+       "	case ""WEST"": {""CapCampByBlufor""};" \n
+       "	case ""EAST"": {""CapCampByOpfor""};" \n
+       "	case ""GUER"": {""CapCampByGuer""};" \n
+       "};" \n
+       "[44, _sent] remoteExecCall [""d_fnc_DoKBMsg"", 2];" \n
+       """d_Ui_cc"" remoteExecCall [""playSound""];" \n
+       "" \n
+       "private _timeend = time + _delay;";
+      precondition = "";
+      class Links
+      {
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time >= _timeend";
+          action="";
+        };
+      };
+    };
+    class _
+    {
+      name = "_";
+      init = "if !(_wf getVariable ""d_STALL"") then {" \n
+       "	_wf setVariable [""d_STALL"", true, true];" \n
+       "};";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "End",
+  };
+};

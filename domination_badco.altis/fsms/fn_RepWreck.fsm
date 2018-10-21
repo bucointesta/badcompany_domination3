@@ -1,0 +1,301 @@
+class FSM
+{
+  fsmName = "RepWreck";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "private _endtime = time + 17;";
+      precondition = "";
+      class Links
+      {
+        class Not_Server
+        {
+          priority = 1.000000;
+          to="End";
+          precondition = "";
+          condition="!isServer";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Init";
+          precondition = "";
+          condition="time > _endtime";
+          action="";
+        };
+      };
+    };
+    class End
+    {
+      name = "End";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class Init
+    {
+      name = "Init";
+      init = "params [""_rep_station"", ""_name"", ""_types""];" \n
+       "" \n
+       "private _rep_station_side = [civilian, [opfor, blufor] select (_rep_station == d_wreck_rep)] select d_tt_ver;" \n
+       "" \n
+       "private _pos_rep_station = getPosATL _rep_station;" \n
+       "private _timenow = time + 10;" \n
+       "" \n
+       "_rep_station setVariable [""d_curreptime"", -1, true];";
+      precondition = "";
+      class Links
+      {
+        class Delay_10
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class Is_MP
+        {
+          priority = 1.000000;
+          to="Sleep";
+          precondition = "";
+          condition="isMultiplayer && {(call d_fnc_PlayersNumber) == 0}";
+          action="";
+        };
+        class Allways
+        {
+          priority = 0.000000;
+          to="Check";
+          precondition = "";
+          condition="true";
+          action="";
+        };
+      };
+    };
+    class Sleep
+    {
+      name = "Sleep";
+      init = "_timenow = time + 2.34;";
+      precondition = "";
+      class Links
+      {
+        class Delay2
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Check
+    {
+      name = "Check";
+      init = "private _wreck = [_pos_rep_station, _types] call d_fnc_GetWreck;" \n
+       "_timenow = time + 3.432;";
+      precondition = "";
+      class Links
+      {
+        class Not_Null_Wreck
+        {
+          priority = 1.000000;
+          to="Rebuild";
+          precondition = "";
+          condition="!isNull _wreck";
+          action="";
+        };
+        class Delay_2
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Rebuild
+    {
+      name = "Rebuild";
+      init = "private _type = typeOf _wreck;" \n
+       "private _dpos = getPosATL _wreck;" \n
+       "private _ddir = direction _wreck;" \n
+       "private _sidevar = _wreck getVariable ""D_VEC_SIDE"";" \n
+       "private _maxrep = _wreck getVariable ""d_WreckMaxRepair"";" \n
+       "if (unitIsUAV _wreck) then {" \n
+       "	{_wreck deleteVehicleCrew _x;false} count (crew _wreck);" \n
+       "};" \n
+       "deleteVehicle _wreck;" \n
+       "" \n
+       "if (d_database_found) then {" \n
+       "	if (!d_tt_ver) then {" \n
+       "		d_bonus_vecs_db = d_bonus_vecs_db - [objNull];" \n
+       "	} else {" \n
+       "		switch (_rep_station_side) do {" \n
+       "			case blufor: {d_bonus_vecs_db_w = d_bonus_vecs_db_w - [objNull]};" \n
+       "			case opfor: {d_bonus_vecs_db_e = d_bonus_vecs_db_e - [objNull]};" \n
+       "		};" \n
+       "	};" \n
+       "};" \n
+       "" \n
+       "_timenow = time + 0.6;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="_";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Unlock_Vehicle
+    {
+      name = "Unlock_Vehicle";
+      init = "d_wreck_cur_ar = d_wreck_cur_ar - [_new_vec];" \n
+       "_rep_station setVariable [""d_curreptime"", -1, true];" \n
+       "_new_vec lock false;" \n
+       "_new_vec addMPEventHandler [""MPKilled"", {if (isServer) then {_this call d_fnc_bonusvecfnc}}];" \n
+       "if (!d_tt_ver) then {" \n
+       "	d_kb_logic1 kbTell [d_kb_logic2,d_kb_topic_side,""WreckRepaired"",[""1"","""",_type_name,[]],[""2"","""",_name,[]],d_kbtel_chan];" \n
+       "} else {" \n
+       "	switch (_rep_station_side) do {" \n
+       "		case blufor: {d_hq_logic_blufor1 kbTell [d_hq_logic_blufor2,""HQ_W"",""WreckRepaired"",[""1"","""",_type_name,[]],[""2"","""",_name,[]],""SIDE""]};" \n
+       "		case opfor: {d_hq_logic_opfor1 kbTell [d_hq_logic_opfor2,""HQ_E"",""WreckRepaired"",[""1"","""",_type_name,[]],[""2"","""",_name,[]],""SIDE""]};" \n
+       "	};" \n
+       "};" \n
+       "" \n
+       "_new_vec addEventHandler [""getIn"", {" \n
+       "	private _ma = (param [0]) getVariable ""d_abandoned_ma"";" \n
+       "	if (!isNil ""_ma"") then {" \n
+       "		deleteMarker _ma;" \n
+       "		(param [0]) setVariable [""d_abandoned_ma"", nil];" \n
+       "	};" \n
+       "}];" \n
+       "" \n
+       "_new_vec addEventHandler [""getOut"", {" \n
+       "	params [""_vec""];" \n
+       "	if (!d_tt_ver) then {" \n
+       "		if (alive _vec && {{alive _x} count crew _vec == 0 && {_vec distance2D d_FLAG_BASE > 800}}) then {" \n
+       "			_mname = format [""%1_ab%2"", _vec, time];" \n
+       "			[_mname, _vec, ""ICON"", ""ColorBlue"", [1,1], format [localize ""STR_DOM_MISSIONSTRING_1566"", [typeOf _vec, ""CfgVehicles""] call d_fnc_GetDisplayName], 0, ""mil_triangle""] call d_fnc_CreateMarkerGlobal;" \n
+       "			_vec setVariable [""d_abandoned_ma"", _mname];" \n
+       "		};" \n
+       "	} else {" \n
+       "		private _vside = _vec getVariable ""D_VEC_SIDE"";" \n
+       "		if (alive _vec && {{alive _x} count crew _vec == 0} && {_vside == 2 && {_vec distance2D d_WFLAG_BASE > 800} || {_vside == 1 && {_vec distance2D d_EFLAG_BASE > 800}}}) then {" \n
+       "			_vec setVariable [""d_abandoned_ma"", [format [""%1_ab%2"", _vec, time], _vec, ""ICON"", ""ColorBlue"", [1,1], format [localize ""STR_DOM_MISSIONSTRING_1566"", [typeOf _vec, ""CfgVehicles""] call d_fnc_GetDisplayName], 0, ""mil_triangle""] call d_fnc_CreateMarkerGlobal];" \n
+       "			if (_vside == 1) then {" \n
+       "				(_vec getVariable ""d_abandoned_ma"") remoteExecCall [""deleteMarkerLocal"", west];" \n
+       "			} else {" \n
+       "				(_vec getVariable ""d_abandoned_ma"") remoteExecCall [""deleteMarkerLocal"", east];" \n
+       "			};" \n
+       "		};" \n
+       "	};" \n
+       "}];" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Allways
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="true";
+          action="";
+        };
+      };
+    };
+    class _
+    {
+      name = "_";
+      init = "private _new_vec = createVehicle [_type, _dpos, [], 0, ""NONE""];" \n
+       "if (unitIsUAV _new_vec) then {" \n
+       "	createVehicleCrew _new_vec;" \n
+       "	_new_vec allowCrewInImmobile true;" \n
+       "	private _crew = crew _new_vec;" \n
+       "	if !(_crew isEqualTo []) then {" \n
+       "		_new_vec setVariable [""d_bonus_ar"", [_crew, group (_crew select 0)]];" \n
+       "	};" \n
+       "};" \n
+       "_new_vec setDir _ddir;" \n
+       "_new_vec setPos [_dpos select 0, _dpos select 1, 0];" \n
+       "_new_vec lock true;" \n
+       "_new_vec setVelocity [0,0,-0.01];" \n
+       "_type_name = [_type, ""CfgVehicles""] call d_fnc_GetDisplayName;" \n
+       "if (!isNil ""_sidevar"") then {_new_vec setVariable [""D_VEC_SIDE"", _sidevar]};" \n
+       "if (isNil ""_maxrep"") then {_maxrep = d_WreckMaxRepair};" \n
+       "_new_vec setVariable [""d_WreckMaxRepair"", _maxrep, true];" \n
+       "" \n
+       "d_wreck_cur_ar pushBack _new_vec;" \n
+       "" \n
+       "private _sleep_time = call {" \n
+       "	if (_new_vec isKindOf ""Plane"") exitWith {300};" \n
+       "	if (_new_vec isKindOf ""Helicopter"") exitWith {240};" \n
+       "	180;" \n
+       "};" \n
+       "private _totaltime = _sleep_time + random 10;" \n
+       "" \n
+       "if (!d_tt_ver) then {" \n
+       "	d_kb_logic1 kbTell [d_kb_logic2,d_kb_topic_side,""RebuildWreck"",[""1"","""",_type_name,[]],[""2"","""",_name,[]],[""3"","""",str(round _totaltime),[]],d_kbtel_chan];" \n
+       "} else {" \n
+       "	switch (_rep_station_side) do {" \n
+       "		case blufor: {d_hq_logic_blufor1 kbTell [d_hq_logic_blufor2,""HQ_W"",""RebuildWreck"",[""1"","""",_type_name,[]],[""2"","""",_name,[]],[""3"","""",str(round _totaltime),[]],""SIDE""]};" \n
+       "		case opfor: {d_hq_logic_opfor1 kbTell [d_hq_logic_opfor2,""HQ_E"",""RebuildWreck"",[""1"","""",_type_name,[]],[""2"","""",_name,[]],[""3"","""",str(round _totaltime),[]],""SIDE""]};" \n
+       "	};" \n
+       "};" \n
+       "" \n
+       "_timenow = time + _totaltime;" \n
+       "_rep_station setVariable [""d_curreptime"", _timenow, true];" \n
+       "" \n
+       "if (d_database_found) then {" \n
+       "	if (!d_tt_ver) then {" \n
+       "		d_bonus_vecs_db pushBack _new_vec;" \n
+       "	} else {" \n
+       "		switch (_rep_station_side) do {" \n
+       "			case blufor: {d_bonus_vecs_db_w pushBack _new_vec};" \n
+       "			case opfor: {d_bonus_vecs_db_e pushBack _new_vec};" \n
+       "		};" \n
+       "	};" \n
+       "};" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Delay_Rebuildtim
+        {
+          priority = 0.000000;
+          to="Unlock_Vehicle";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "End",
+  };
+};

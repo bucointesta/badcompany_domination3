@@ -1,0 +1,194 @@
+class FSM
+{
+  fsmName = "RespawnGroups";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "private _timenow = time + 60;" \n
+       "" \n
+       "d_rsp_gr_nums = 0;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "private _timenow2 = time + 5.33;";
+      precondition = "";
+      class Links
+      {
+        class d_mt_done
+        {
+          priority = 100.000000;
+          to="End";
+          precondition = "";
+          condition="d_mt_done";
+          action="";
+        };
+        class Is_MP
+        {
+          priority = 5.000000;
+          to="Sleep";
+          precondition = "";
+          condition="isMultiplayer && {(call d_fnc_PlayersNumber) == 0}";
+          action="";
+        };
+        class __count__d_respawn
+        {
+          priority = 1.000000;
+          to="Check";
+          precondition = "";
+          condition="d_mt_spotted && {!(d_respawn_ai_groups isEqualTo [])}";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow2";
+          action="";
+        };
+      };
+    };
+    class Check
+    {
+      name = "Check";
+      init = "private _counter = 0;";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop2";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Loop2
+    {
+      name = "Loop2";
+      init = "if (_counter >= count d_respawn_ai_groups) exitWith {};" \n
+       "private _onegrpar = d_respawn_ai_groups select _counter;" \n
+       "private _dowaitfg = false;" \n
+       "if (_onegrpar isEqualType []) then {" \n
+       "	private _grp = _onegrpar select 0;" \n
+       "	if (isNull _grp || {(_grp call d_fnc_GetAliveUnitsGrp) == 0}) then {" \n
+       "		_mg_array = _onegrpar select 1;" \n
+       "		_resp_mid = _mg_array select 10;" \n
+       "		_mg_array set [1, [[_resp_mid select 0, 600, 400, _resp_mid select 1] call d_fnc_GetRanPointSquare]];" \n
+       "		d_respawn_ai_groups set [_counter, -1];" \n
+       "		_mg_array call d_fnc_makegroup;" \n
+       "		_dowaitfg = true;" \n
+       "	};" \n
+       "} else {" \n
+       "	d_respawn_ai_groups set [_counter, -1];" \n
+       "};" \n
+       "" \n
+       "_counter = _counter + 1;" \n
+       "" \n
+       "_timenow = if (_dowaitfg) then {" \n
+       "	time + (((300 - (([1, count (allPlayers - (entities ""HeadlessClient_F""))] select isMultiplayer) * 5)) max 200) + random 10)" \n
+       "} else {" \n
+       "	time + 1" \n
+       "};" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class ___counter____count
+        {
+          priority = 1.000000;
+          to="_";
+          precondition = "";
+          condition="d_mt_done || {(_counter >= count d_respawn_ai_groups)}";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop2";
+          precondition = "";
+          condition="time > _timenow && {!d_mt_done}";
+          action="";
+        };
+      };
+    };
+    class _
+    {
+      name = "_";
+      init = "d_respawn_ai_groups = d_respawn_ai_groups - [-1];" \n
+       "_timenow = time + 5.1;" \n
+       "d_rsp_gr_nums = d_rsp_gr_nums + 1;" \n
+       "" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 100.000000;
+          to="End";
+          precondition = "";
+          condition="d_mt_done";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Sleep
+    {
+      name = "Sleep";
+      init = "_timenow = time + 5.32;";
+      precondition = "";
+      class Links
+      {
+        class Delay2
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class End
+    {
+      name = "End";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "End",
+  };
+};

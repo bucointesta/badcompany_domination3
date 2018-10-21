@@ -1,0 +1,148 @@
+class FSM
+{
+  fsmName = "Parahandler";
+  class States
+  {
+    class START
+    {
+      name = "START";
+      init = "private _timenow = time + 33;";
+      precondition = "";
+      class Links
+      {
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class mt_radio_down
+        {
+          priority = 2.000000;
+          to="End";
+          precondition = "";
+          condition="d_mt_radio_down";
+          action="";
+        };
+        class not_mt_radio_dow
+        {
+          priority = 0.000000;
+          to="React";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class React
+    {
+      name = "React";
+      init = "_timenow = time + 10;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class mt_radio_down
+        {
+          priority = 2.000000;
+          to="End";
+          precondition = "";
+          condition="d_mt_radio_down";
+          action="";
+        };
+        class New_Paras
+        {
+          priority = 1.000000;
+          to="Create";
+          precondition = "";
+          condition="d_create_new_paras";
+          action="";
+        };
+        class Delay_10
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class End
+    {
+      name = "End";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class Create
+    {
+      name = "Create";
+      init = "private _start_pos = call d_fnc_GetRanPointOuterAir;" \n
+       "private _end_pos = [0,0,0];" \n
+       "if (!d_tt_ver) then {" \n
+       "	while {_start_pos distance2D D_FLAG_BASE < 1000} do {" \n
+       "		_start_pos = call d_fnc_GetRanPointOuterAir;" \n
+       "	};" \n
+       "	_end_pos = call d_fnc_GetRanPointOuterAir;" \n
+       "	while {_end_pos distance2D D_FLAG_BASE < 1000} do {" \n
+       "		_end_pos = call d_fnc_GetRanPointOuterAir;" \n
+       "	};" \n
+       "} else {" \n
+       "	while {_start_pos distance2D D_WFLAG_BASE < 1000 && {_start_pos distance2D D_EFLAG_BASE < 1000}} do {" \n
+       "		_start_pos = call d_fnc_GetRanPointOuterAir;" \n
+       "	};" \n
+       "	_end_pos = call d_fnc_GetRanPointOuterAir;" \n
+       "	while {_end_pos distance2D D_WFLAG_BASE < 1000 && {_end_pos distance2D D_EFLAG_BASE < 1000}} do {" \n
+       "		_end_pos = call d_fnc_GetRanPointOuterAir;" \n
+       "	};" \n
+       "};" \n
+       "private _num_p = call d_fnc_PlayersNumber;" \n
+       "private _vecs = [(ceil (_num_p * 0.13)) min 4, 1] select (_num_p == 0);" \n
+       "d_create_new_paras = false;" \n
+       "" \n
+       "private _attack_pos = [d_cur_tgt_pos, 200] call d_fnc_GetRanPointCircleOld;" \n
+       "private _flytopos = _start_pos getPos [(_start_pos distance2D _attack_pos) + 1500, _start_pos getDir _attack_pos];" \n
+       "[_start_pos, _attack_pos, _flytopos, _end_pos, _vecs] spawn d_fnc_createpara3x;" \n
+       "_timenow = time + 10;";
+      precondition = "";
+      class Links
+      {
+        class mt_radio_down
+        {
+          priority = 2.000000;
+          to="End";
+          precondition = "";
+          condition="d_mt_radio_down";
+          action="";
+        };
+        class Delay_10
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+  };
+  initState="START";
+  finalStates[] =
+  {
+    "End",
+  };
+};

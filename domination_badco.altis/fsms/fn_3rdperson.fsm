@@ -1,0 +1,122 @@
+class FSM
+{
+  fsmName = "3rdperson";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "private _view = ""INTERNAL"";" \n
+       "private _nogo = [""EXTERNAL"",""GROUP""];";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class __alive_player
+        {
+          priority = 2.000000;
+          to="Dummy";
+          precondition = "";
+          condition="!alive player || {player getVariable [""xr_pluncon"", false] || {player getVariable [""ace_isunconscious"", false]}}";
+          action="";
+        };
+        class cameraView_in__n
+        {
+          priority = 0.000000;
+          to="Dummy_1";
+          precondition = "";
+          condition="cameraView in _nogo";
+          action="";
+        };
+      };
+    };
+    class Dummy
+    {
+      name = "Dummy";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class alive_player
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="!(player getVariable ""xr_pluncon"") || {alive player}";
+          action="";
+        };
+      };
+    };
+    class Dummy_1
+    {
+      name = "Dummy_1";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class __alive_player
+        {
+          priority = 2.000000;
+          to="Dummy";
+          precondition = "";
+          condition="!alive player || {player getVariable [""xr_pluncon"", false] || {player getVariable [""ace_isunconscious"", false]}}";
+          action="";
+        };
+        class vehicle_player_
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="!isNull objectParent player";
+          action="";
+        };
+        class vehicle_player__1
+        {
+          priority = 0.000000;
+          to="Switch";
+          precondition = "";
+          condition="isNull objectParent player";
+          action="";
+        };
+      };
+    };
+    class Switch
+    {
+      name = "Switch";
+      init = "player switchCamera _view;" \n
+       "systemChat (localize ""STR_DOM_MISSIONSTRING_1410"");";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+  };
+};

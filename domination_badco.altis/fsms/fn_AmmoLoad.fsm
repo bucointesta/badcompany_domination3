@@ -1,0 +1,381 @@
+class FSM
+{
+  fsmName = "AmmoLoad";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "params [""_ammoload""];" \n
+       "private _old_vec = objNull;" \n
+       "private _vec = objNull;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "private _nobjs = _ammoload nearEntities [d_check_ammo_load_vecs, 9];";
+      precondition = "";
+      class Links
+      {
+        class __d_player_in_ve
+        {
+          priority = 50.000000;
+          to="End";
+          precondition = "";
+          condition="!d_player_in_vec";
+          action="";
+        };
+        class count__nobjs___
+        {
+          priority = 1.000000;
+          to="Sleep";
+          precondition = "";
+          condition="_nobjs isEqualTo []";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="_";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Sleep
+    {
+      name = "Sleep";
+      init = "_vec = objNull;" \n
+       "_old_vec = objNull;" \n
+       "private _timenow = time + 1.023;";
+      precondition = "";
+      class Links
+      {
+        class __d_player_in_ve
+        {
+          priority = 50.000000;
+          to="End_1";
+          precondition = "";
+          condition="!d_player_in_vec";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class _
+    {
+      name = "_";
+      init = "_vec = _nobjs select 0;" \n
+       "private _timenow = time + 1.023;";
+      precondition = "";
+      class Links
+      {
+        class __d_player_in_ve
+        {
+          priority = 50.000000;
+          to="End_1";
+          precondition = "";
+          condition="!d_player_in_vec";
+          action="";
+        };
+        class __isNull__vec__
+        {
+          priority = 1.000000;
+          to="__1";
+          precondition = "";
+          condition="alive _vec";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __1
+    {
+      name = "__1";
+      init = "private _timenow = time + 1.023;";
+      precondition = "";
+      class Links
+      {
+        class __d_player_in_ve
+        {
+          priority = 50.000000;
+          to="End_1";
+          precondition = "";
+          condition="!d_player_in_vec";
+          action="";
+        };
+        class local__driver__vec
+        {
+          priority = 1.000000;
+          to="__2";
+          precondition = "";
+          condition="player == driver _vec";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __2
+    {
+      name = "__2";
+      init = "_thebox = _vec getVariable [""d_ammobox"", false];" \n
+       "private _timenow = time + 1.023;";
+      precondition = "";
+      class Links
+      {
+        class __d_player_in_ve
+        {
+          priority = 50.000000;
+          to="End_1";
+          precondition = "";
+          condition="!d_player_in_vec";
+          action="";
+        };
+        class _vec_____old_vec
+        {
+          priority = 1.000000;
+          to="__3";
+          precondition = "";
+          condition="_vec != _old_vec";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __3
+    {
+      name = "__3";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class _thebox
+        {
+          priority = 1.000000;
+          to="__4";
+          precondition = "";
+          condition="_thebox";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="__5";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class __4
+    {
+      name = "__4";
+      init = "[_vec, [""d_boxcargo"", nil]] remoteExecCall [""setVariable"", [0, -2] select isDedicated];" \n
+       "" \n
+       "_vec vehicleChat (localize ""STR_DOM_MISSIONSTRING_269"");" \n
+       "_old_vec = _vec;" \n
+       "private _timenow = time + 1.023;";
+      precondition = "";
+      class Links
+      {
+        class __d_player_in_ve
+        {
+          priority = 50.000000;
+          to="End_1";
+          precondition = "";
+          condition="!d_player_in_vec";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __5
+    {
+      name = "__5";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class ammo_boxes____d
+        {
+          priority = 1.000000;
+          to="__6";
+          precondition = "";
+          condition="d_num_ammo_boxes >= d_MaxNumAmmoboxes";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="__7";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class __6
+    {
+      name = "__6";
+      init = "_vec vehicleChat format [localize ""STR_DOM_MISSIONSTRING_1411"", d_MaxNumAmmoboxes];" \n
+       "_old_vec = _vec;" \n
+       "private _timenow = time + 1.023;";
+      precondition = "";
+      class Links
+      {
+        class __d_player_in_ve
+        {
+          priority = 50.000000;
+          to="End_1";
+          precondition = "";
+          condition="!d_player_in_vec";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __7
+    {
+      name = "__7";
+      init = "_vec vehicleChat (localize ""STR_DOM_MISSIONSTRING_1412"");" \n
+       "private _oposvec = getPosWorld _vec;" \n
+       "private _timenow = time + 5;";
+      precondition = "";
+      class Links
+      {
+        class __d_player_in_ve
+        {
+          priority = 50.000000;
+          to="End_2";
+          precondition = "";
+          condition="!d_player_in_vec";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="__8";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __8
+    {
+      name = "__8";
+      init = "_pvec2 = getPosATLVisual _vec;" \n
+       "if (_oposvec distance2D _pvec2 < 6) then {" \n
+       "	_vec setVariable [""d_ammobox"", true, true];" \n
+       "	_old_vec = _vec;" \n
+       "	_vec vehicleChat (localize ""STR_DOM_MISSIONSTRING_1413"");" \n
+       "	d_num_ammo_boxes = d_num_ammo_boxes + 1; publicVariable ""d_num_ammo_boxes"";" \n
+       "	_vec setVariable [""d_boxcargo"", nil, true];" \n
+       "} else {" \n
+       "	_vec vehicleChat (localize ""STR_DOM_MISSIONSTRING_1414"");" \n
+       "};";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class End
+    {
+      name = "End";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class End_1
+    {
+      name = "End_1";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class End_2
+    {
+      name = "End_2";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "End",
+    "End_1",
+    "End_2",
+  };
+};

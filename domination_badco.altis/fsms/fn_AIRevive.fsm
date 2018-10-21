@@ -1,0 +1,317 @@
+class FSM
+{
+  fsmName = "AIRevive";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "params [""_unit""];" \n
+       "private _timeend = time + 5 + random 20;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Pre_unit_check
+        {
+          priority = 1.000000;
+          to="End";
+          precondition = "";
+          condition="!alive _unit";
+          action="";
+        };
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timeend";
+          action="";
+        };
+      };
+    };
+    class Loop
+    {
+      name = "Loop";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class __alive__unit
+        {
+          priority = 100.000000;
+          to="End";
+          precondition = "";
+          condition="!alive _unit";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="Check_other_unit";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class End
+    {
+      name = "End";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class _
+    {
+      name = "_";
+      init = "if (alive _unit && {_tohelp  getVariable ""xr_pluncon"" && {alive _tohelp}}) then {" \n
+       "	_toHelp setVariable [""xr_pluncon"", false, true];" \n
+       "	if (xr_revivemsg) then {" \n
+       "		[""AI"", name _tohelp] remoteExecCall [""xr_fnc_rmsg"", side (group _tohelp)];" \n
+       "	};" \n
+       "};";
+      precondition = "";
+      class Links
+      {
+        class __alive__unit
+        {
+          priority = 100.000000;
+          to="End";
+          precondition = "";
+          condition="!alive _unit";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="____FAKE____";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Check_other_unit
+    {
+      name = "Check_other_unit";
+      init = "private _no = (_unit nearEntities [""CAManBase"", 50]) select {isPlayer _x};";
+      precondition = "";
+      class Links
+      {
+        class No_objects
+        {
+          priority = 5.000000;
+          to="Sleep";
+          precondition = "";
+          condition="_no isEqualTo []";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="iterate_through";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Sleep
+    {
+      name = "Sleep";
+      init = "_timeend = time + 30 + random 20;";
+      precondition = "";
+      class Links
+      {
+        class Delay
+        {
+          priority = 0.000000;
+          to="Loop";
+          precondition = "";
+          condition="time > _timeend";
+          action="";
+        };
+      };
+    };
+    class iterate_through
+    {
+      name = "iterate_through";
+      init = "private _tohelp = objNull;" \n
+       "_sgu = side (group _unit);" \n
+       "{" \n
+       "	if (side (group _x) == _sgu && {_x getVariable [""xr_pluncon"", false] && {!(_x getVariable [""xr_dragged"", false])}}) exitWith {" \n
+       "		_tohelp = _x;" \n
+       "		false" \n
+       "	};" \n
+       "	false" \n
+       "} count _no;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class __alive__unit
+        {
+          priority = 100.000000;
+          to="End";
+          precondition = "";
+          condition="!alive _unit";
+          action="";
+        };
+        class null_object
+        {
+          priority = 1.000000;
+          to="Sleep";
+          precondition = "";
+          condition="isNull _tohelp";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="Move_unit_to_unit";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Move_unit_to_unit
+    {
+      name = "Move_unit_to_unit";
+      init = "private _tohelppos = getPosATLVisual _tohelp;" \n
+       "if (_unit distance2D _tohelppos >= 3) then {" \n
+       "	_unit domove _tohelppos;" \n
+       "};" \n
+       "_timeend = time + 60;";
+      precondition = "";
+      class Links
+      {
+        class __alive__unit
+        {
+          priority = 100.000000;
+          to="End";
+          precondition = "";
+          condition="!alive _unit";
+          action="";
+        };
+        class check_move
+        {
+          priority = 0.000000;
+          to="Timed_out";
+          precondition = "";
+          condition="_unit distance2D _tohelppos < 4 || {time > _timeend || {!alive _unit || {!alive _tohelp}}}";
+          action="";
+        };
+      };
+    };
+    class Timed_out
+    {
+      name = "Timed_out";
+      init = "private _timedout = time > _timeend;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class __alive__unit
+        {
+          priority = 100.000000;
+          to="End";
+          precondition = "";
+          condition="!alive _unit";
+          action="";
+        };
+        class timeout
+        {
+          priority = 1.000000;
+          to="Return_to_format";
+          precondition = "";
+          condition="_timedout || {!alive _tohelp || {!alive _unit}}";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="Help_unit";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Help_unit
+    {
+      name = "Help_unit";
+      init = "_p1 = getPosWorld _unit;" \n
+       "_p2 = getPosWorld _tohelp;" \n
+       "_unit setFormDir (_unit getDir _tohelp);" \n
+       "_unit playMove ""AinvPknlMstpSlayWrflDnon_medic"";" \n
+       "" \n
+       "_timeend = time + 8;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class __alive__unit
+        {
+          priority = 100.000000;
+          to="End";
+          precondition = "";
+          condition="!alive _unit";
+          action="";
+        };
+        class _
+        {
+          priority = 1.000000;
+          to="____FAKE____";
+          precondition = "";
+          condition="!(_tohelp  getVariable ""xr_pluncon"")";
+          action="";
+        };
+        class __1
+        {
+          priority = 0.000000;
+          to="_";
+          precondition = "";
+          condition="time >= _timeend";
+          action="";
+        };
+      };
+    };
+    class Return_to_format
+    {
+      name = "Return_to_format";
+      init = "if (alive _unit && {_unit != (leader (group _unit))}) then {" \n
+       "	_unit doFollow (leader (group _unit)); " \n
+       "};";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 0.000000;
+          to="Sleep";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class ____FAKE____
+    {
+      name = "____FAKE____";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "End",
+  };
+};

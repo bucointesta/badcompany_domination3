@@ -1,0 +1,68 @@
+class FSM
+{
+  fsmName = "WeatherServer";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "private _wchange = time + 1800 + random 600;" \n
+       "private _old_winter = d_winterw;" \n
+       "" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Delay
+        {
+          priority = 0.000000;
+          to="Change_Weather";
+          precondition = "";
+          condition="time > _wchange";
+          action="";
+        };
+      };
+    };
+    class Change_Weather
+    {
+      name = "Change_Weather";
+      init = "private _overCast = random 0.5;" \n
+       "" \n
+       "private _ransecs = 1800 + random 600;" \n
+       "0 setRain 0;" \n
+       "_ransecs setOvercast _overCast;" \n
+       "_wchange = time + _ransecs;" \n
+       "" \n
+       "if (d_enable_fog == 0) then {" \n
+       "	private _fog = [[0,0,0], [random 0.1, 0.1, 20 + (random 40)]] select (random 100 > 90);" \n
+       "	400 setFog _fog;" \n
+       "} else {" \n
+       "	0 setFog [0,0,0];" \n
+       "};" \n
+       "" \n
+       "if (d_WithWinterWeather == 0) then {" \n
+       "	private _ww = if (_overCast > 0.5) then {if (rain <= 0.3) then {1} else {2}} else {0};" \n
+       "	if (_ww != d_winterw) then {" \n
+       "		d_winterw = _ww;" \n
+       "		publicVariable ""d_winterw"";" \n
+       "	};" \n
+       "};";
+      precondition = "";
+      class Links
+      {
+        class Delay
+        {
+          priority = 0.000000;
+          to="Change_Weather";
+          precondition = "";
+          condition="time > _wchange";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+  };
+};

@@ -1,0 +1,412 @@
+class FSM
+{
+  fsmName = "Recapture";
+  class States
+  {
+    class Start
+    {
+      name = "Start";
+      init = "private _endtime = time + 1200 + random 1200;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class __time____timenow
+        {
+          priority = 0.000000;
+          to="_";
+          precondition = "";
+          condition="time > _endtime";
+          action="";
+        };
+      };
+    };
+    class _
+    {
+      name = "_";
+      init = "private _x_can_recapture = {" \n
+       "	private _ret = false;" \n
+       "	if (d_max_recaptures != -1) then {" \n
+       "		if (count d_recapture_indices < d_max_recaptures) then {" \n
+       "			_ret = true" \n
+       "		}" \n
+       "	} else {" \n
+       "		_ret = true" \n
+       "	};" \n
+       "	_ret" \n
+       "};" \n
+       "" \n
+       "private _allready_recaptured = [];" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 5.000000;
+          to="End";
+          precondition = "";
+          condition="isServer && {!isNil""HC_D_UNIT""}";
+          action="";
+        };
+        class __1
+        {
+          priority = 0.000000;
+          to="__1";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class __1
+    {
+      name = "__1";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class Is_MP
+        {
+          priority = 1.000000;
+          to="Sleep";
+          precondition = "";
+          condition="isMultiplayer && {(call d_fnc_PlayersNumber) == 0}";
+          action="";
+        };
+        class main_target_read
+        {
+          priority = 0.000000;
+          to="Dummy";
+          precondition = "";
+          condition="d_main_target_ready";
+          action="";
+        };
+      };
+    };
+    class Sleep
+    {
+      name = "Sleep";
+      init = "private _timenow = time + 2.38;";
+      precondition = "";
+      class Links
+      {
+        class Delay2
+        {
+          priority = 0.000000;
+          to="__1";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class Dummy
+    {
+      name = "Dummy";
+      init = "private _recap_index = -1;" \n
+       "private _loop_running = true;" \n
+       "private _timenow = time + (1800 + random 600);" \n
+       "" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Big_Check
+        {
+          priority = 1.000000;
+          to="__2";
+          precondition = "";
+          condition="!d_the_end && {count d_resolved_targets > 1 && {count d_recapture_indices < count d_resolved_targets - 1 && {call _x_can_recapture}}}";
+          action="";
+        };
+        class __time____timenow
+        {
+          priority = 0.000000;
+          to="__1";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __2
+    {
+      name = "__2";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class _loop_running
+        {
+          priority = 1.000000;
+          to="__3";
+          precondition = "";
+          condition="_loop_running";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="__11";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class __3
+    {
+      name = "__3";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class Is_MP
+        {
+          priority = 1.000000;
+          to="Sleep_1";
+          precondition = "";
+          condition="isMultiplayer && {(call d_fnc_PlayersNumber) == 0}";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="__4";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class Sleep_1
+    {
+      name = "Sleep_1";
+      init = "private _timenow = time + 2.38;";
+      precondition = "";
+      class Links
+      {
+        class Delay2
+        {
+          priority = 0.000000;
+          to="__3";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __4
+    {
+      name = "__4";
+      init = "_recap_index = selectRandom d_resolved_targets;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class recap_index_vali
+        {
+          priority = 1.000000;
+          to="__5";
+          precondition = "";
+          condition="!(_recap_index in d_recapture_indices) && {!(_recap_index in _allready_recaptured)}";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="__7";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class __5
+    {
+      name = "__5";
+      init = "private _target_array = d_target_names select _recap_index;" \n
+       "private _target_pos = _target_array select 0;" \n
+       "private _target_radius = _target_array select 2;" \n
+       "private _checktrigger = [_target_pos, [_target_radius + 100,_target_radius + 100, 0, false], [d_own_side, d_enemy_side, false], [""this"","""",""""]] call d_fnc_createtriggerlocal;" \n
+       "" \n
+       "private _timenow = time + 125;";
+      precondition = "";
+      class Links
+      {
+        class Delay_125
+        {
+          priority = 0.000000;
+          to="__6";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __6
+    {
+      name = "__6";
+      init = "if (list _checktrigger isEqualTo []) then {_loop_running = false};" \n
+       "deleteVehicle _checktrigger;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class _loop_running
+        {
+          priority = 1.000000;
+          to="__8";
+          precondition = "";
+          condition="_loop_running";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="__11";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class __7
+    {
+      name = "__7";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class _loop_running
+        {
+          priority = 1.000000;
+          to="__8";
+          precondition = "";
+          condition="_loop_running";
+          action="";
+        };
+        class _
+        {
+          priority = 0.000000;
+          to="__11";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+    class __8
+    {
+      name = "__8";
+      init = "private _timenow = time + 25;";
+      precondition = "";
+      class Links
+      {
+        class Delay_25
+        {
+          priority = 0.000000;
+          to="__2";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __9
+    {
+      name = "__9";
+      init = "private _target_array = d_target_names select _recap_index;" \n
+       "private _target_pos = _target_array select 0;" \n
+       "private _target_name = _target_array select 1;" \n
+       "private _radius = _target_array select 2;" \n
+       "" \n
+       "_dtar = missionNamespace getVariable format [""d_target_%1"", _recap_index];" \n
+       "_dtar setVariable [""d_recaptured"", true, true];" \n
+       "" \n
+       "d_recapture_indices pushBack _recap_index;" \n
+       "_allready_recaptured pushBack _recap_index;" \n
+       "// create enemy troops, add to an array, check if units in array are still alive !!! if not, recapture over" \n
+       "[_target_pos, _radius,_recap_index,_dtar] spawn d_fnc_dorecapture;" \n
+       "private _timenow = time + 5;" \n
+       "";
+      precondition = "";
+      class Links
+      {
+        class Delay_5
+        {
+          priority = 0.000000;
+          to="__10";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class __10
+    {
+      name = "__10";
+      init = "// send to players" \n
+       "private _target_array = d_target_names select _recap_index;" \n
+       "private _target_name = _target_array select 1;" \n
+       "[_target_name, d_e_marker_color, ""FDiagonal""] remoteExecCall [""d_fnc_s_mrecap_g"", 2];" \n
+       "[format [""d_%1_dommtm"", _target_name], d_e_marker_color_alpha] remoteExecCall [""setMarkerAlpha"", 2];" \n
+       "[_recap_index, 0] remoteExecCall [""d_fnc_RecapturedUpdate"", [0, -2] select isDedicated];" \n
+       "[46, _target_name,_target_name] remoteExecCall [""d_fnc_DoKBMsg"", 2];" \n
+       "" \n
+       "private _timenow = time + (1800 + random 600);";
+      precondition = "";
+      class Links
+      {
+        class __time____timenow
+        {
+          priority = 0.000000;
+          to="__1";
+          precondition = "";
+          condition="time > _timenow";
+          action="";
+        };
+      };
+    };
+    class End
+    {
+      name = "End";
+      init = "";
+      precondition = "";
+      class Links
+      {
+      };
+    };
+    class __11
+    {
+      name = "__11";
+      init = "";
+      precondition = "";
+      class Links
+      {
+        class _
+        {
+          priority = 1.000000;
+          to="__1";
+          precondition = "";
+          condition="isNil ""_recap_index""";
+          action="";
+        };
+        class __1
+        {
+          priority = 0.000000;
+          to="__9";
+          precondition = "";
+          condition="";
+          action="";
+        };
+      };
+    };
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "End",
+  };
+};
