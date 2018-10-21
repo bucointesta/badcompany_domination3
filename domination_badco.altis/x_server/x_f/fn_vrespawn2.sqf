@@ -58,19 +58,21 @@ while {true} do {
 			};
 		};
 		
-
-		//add respawn timer (currently 15 minutes for all)
+		//add respawn for dead timer
 		if (_number_v < 1000) then {  
 			if ((!alive _vec) || {underwater _vec}) then {
 				private _respawnTimer = _vec_a select 5;
 				if (_respawnTimer == -1) then {
-					_vec_a set [5, time + 900]; // abandoned timeout
+					_vec_a set [5, time + 900]; // currently 15 minutes for all)
+					d_vrespawn2_ar set [_forEachIndex, _vec_a];
 				} else {
 					if (time > _respawnTimer) then {
 						private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
 						sleep 0.1;
 						if (!(_runits isEqualTo []) && {{_x distance2D _vec < 50} count _runits == 0}) then { //distance from other player
-							_disabled = true;
+							_disabled = true; //do respawn
+							_vec_a set [5, -1]; //reset timer
+							d_vrespawn2_ar set [_forEachIndex, _vec_a];
 						};
 					};
 				};

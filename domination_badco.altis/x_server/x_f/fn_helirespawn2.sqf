@@ -48,7 +48,7 @@ while {true} do {
 			_vec setVariable ["d_vec_islocked", _vec call d_fnc_isVecLocked];
 		};
 			
-		if (!_disabled && {damage _vec >= 0.9}) then {_disabled = true};
+		if (!_disabled && {!_ifdamage} && {damage _vec >= 0.9}) then {_disabled = true};
 		
 		if (_empty && {!_disabled && {alive _vec && {_vec call d_fnc_OutOfBounds}}}) then {
 			private _outb = _vec getVariable "d_OUT_OF_SPACE";
@@ -59,6 +59,26 @@ while {true} do {
 			};
 		} else {
 			_vec setVariable ["d_OUT_OF_SPACE", -1];
+		};
+		
+		//add respawn for dead timer
+		if (_ifdamage && {(!alive _vec) || {underwater _vec}}) then {
+			private _respawnTimer = _vec_a select 7;
+			if (_respawnTimer == -1) then {
+				_vec_a set [7, time + _vec_a select 8];
+				d_helirespawn2_ar set [_forEachIndex, _vec_a];
+			} else {
+				if (time > _respawnTimer) then {
+					private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
+					sleep 0.1;
+					if (!(_runits isEqualTo []) && {{_x distance2D _vec < 50} count _runits == 0}) then { //distance from other player
+						_disabled = true; //do respawn
+						_vec_a set [7, -1]; //reset timer
+						d_helirespawn2_ar set [_forEachIndex, _vec_a];
+						
+					};
+				};
+			};
 		};
 		
 		sleep 0.01;

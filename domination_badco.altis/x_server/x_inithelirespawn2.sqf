@@ -14,7 +14,8 @@ each chopper is an array composed like this:
 4) vertical position relative to ground + 0.1
 5) direction
 6) config class name
-7) time of inactivity before respawn or -1 
+7) time of inactivity left (during countdown) before respawn or -1 
+8) time of inactivity before respawn or -1 
 */
 d_helirespawn2_ar = [];
 {
@@ -25,7 +26,7 @@ d_helirespawn2_ar = [];
 		private _ifdamage = _vec_a select 2;
 		_vposp = getPosATL _vec;
 		_vposp set [2, (_vposp select 2) + 0.1];
-		d_helirespawn2_ar pushBack [_vec, _number_v, _ifdamage, -1, _vposp, direction _vec, typeOf _vec, if (_ifdamage) then {-1} else {_vec_a select 3}];
+		d_helirespawn2_ar pushBack [_vec, _number_v, _ifdamage, -1, _vposp, direction _vec, typeOf _vec, (if (_ifdamage) then {-1} else {_vec_a select 3}),_vec_a select 3];
 		
 		_vec setVariable ["d_OUT_OF_SPACE", -1];
 		_vec setVariable ["d_vec", _number_v, true];
