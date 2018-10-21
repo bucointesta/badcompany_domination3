@@ -150,8 +150,8 @@ d_pilot_uniforms = ["B_Parachute","U_B_HeliPilotCoveralls","U_B_PilotCoveralls",
 
 } foreach d_hitech_optics;
 
-// in case of any "contamination"...
 d_whitelistWeapons = d_whitelistWeapons - d_defaultWeapons;
 d_whitelistMagazines = d_whitelistMagazines - d_defaultMagazines;
 d_whitelistBackpacks = d_whitelistBackpacks - d_defaultBackpacks;
 d_whitelistItems = d_whitelistItems - d_defaultItems;
+d_badco_items = d_badco_items - d_defaultWeapons - d_defaultMagazines - d_defaultBackpacks - d_defaultItems;
