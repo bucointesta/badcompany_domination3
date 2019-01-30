@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={15274.963,78.890602,17377.74};
-		dir[]={-0.2366928,-0.93373299,0.26859903};
-		up[]={-0.6173476,0.35789311,0.70056647};
-		aside[]={0.75026959,1.3166573e-007,0.66114771};
+		pos[]={15218.611,35.703072,17298.084};
+		dir[]={-0.33365735,-0.88071579,0.33627111};
+		up[]={-0.62035394,0.47357666,0.62521333};
+		aside[]={0.7098819,5.1828101e-007,0.70436567};
 	};
 };
 binarizationWanted=0;
@@ -38,6 +38,7 @@ addons[]=
 	"A3_Boat_F_Boat_Armed_01",
 	"A3_Soft_F_Beta_Truck_01",
 	"A3_Soft_F_Gamma_Truck_01",
+	"Blastcore_VEP",
 	"A3_Modules_F",
 	"A3_Air_F_Heli_Heli_Transport_03",
 	"A3_Structures_F_Ind_AirPort",
@@ -128,6 +129,7 @@ addons[]=
 	"A3_Weapons_F_Rifles_MX",
 	"A3_Weapons_F_Acc",
 	"A3_Weapons_F_Pistols_P07",
+	"jsrs_soundmod_weapons",
 	"A3_Weapons_F_Items",
 	"A3_Characters_F_Mark",
 	"A3_Weapons_F_Mark_Rifles_MX",
@@ -147,6 +149,7 @@ addons[]=
 	"A3_Characters_F_Orange_Headgear",
 	"A3_Air_F_Heli_Light_02",
 	"A3_Data_F_Curator_Intel",
+	"cba_xeh",
 	"A3_Armor_F_EPC_MBT_01",
 	"A3_Structures_F_Orange_Humanitarian_Flags",
 	"A3_Armor_F_Beta_APC_Wheeled_01",
@@ -159,7 +162,7 @@ class AddonsMetaData
 {
 	class List
 	{
-		items=50;
+		items=52;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -225,285 +228,296 @@ class AddonsMetaData
 		};
 		class Item9
 		{
+			className="Blastcore_VEP";
+			name="Blastcore_VEP";
+		};
+		class Item10
+		{
 			className="A3_Modules_F";
 			name="Arma 3 Alpha - Scripted Modules";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item10
+		class Item11
 		{
 			className="A3_Air_F_Heli";
 			name="Arma 3 Helicopters - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item11
+		class Item12
 		{
 			className="A3_Structures_F_Ind";
 			name="Arma 3 - Industrial Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item12
+		class Item13
 		{
 			className="A3_Air_F_EPC";
 			name="Arma 3 Win Episode - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item13
+		class Item14
 		{
 			className="A3_Air_F_Jets";
 			name="Arma 3 Jets - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item14
+		class Item15
 		{
 			className="A3_Supplies_F_Heli";
 			name="Arma 3 Helicopters - Ammoboxes and Supplies";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item15
+		class Item16
 		{
 			className="A3_Structures_F_Exp_Commercial";
 			name="Arma 3 Apex - Commercial Buildings";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item16
+		class Item17
 		{
 			className="A3_Structures_F_Bootcamp";
 			name="Arma 3 Bootcamp Update - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item17
+		class Item18
 		{
 			className="A3_Structures_F_Heli";
 			name="Arma 3 Helicopters - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item18
+		class Item19
 		{
 			className="A3_Structures_F_Exp";
 			name="Arma 3 Apex - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item19
+		class Item20
 		{
 			className="A3_Weapons_F";
 			name="Arma 3 Alpha - Weapons and Accessories";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item20
+		class Item21
 		{
 			className="A3_Props_F_Jets";
 			name="Arma 3 Jets - Decorative and Mission Objects";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item21
+		class Item22
 		{
 			className="A3_Structures_F_Wrecks";
 			name="Arma 3 - Vehicle Wrecks";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item22
+		class Item23
 		{
 			className="A3_Structures_F_Exp_Industrial";
 			name="Arma 3 Apex - Industrial Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item23
+		class Item24
 		{
 			className="A3_Soft_F_Orange";
 			name="Arma 3 Orange - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item24
+		class Item25
 		{
 			className="A3_Props_F_Exp";
 			name="Arma 3 Apex - Decorative and Mission Objects";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item25
+		class Item26
 		{
 			className="A3_Props_F_Orange";
 			name="Arma 3 Orange - Decorative and Mission Objects";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item26
+		class Item27
 		{
 			className="A3_Structures_F_EPA";
 			name="Arma 3 Survive Episode - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item27
+		class Item28
 		{
 			className="A3_Armor_F_Gamma";
 			name="Arma 3 - Armored Land Vehicles";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item28
+		class Item29
 		{
 			className="A3_Soft_F";
 			name="Arma 3 Alpha - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item29
+		class Item30
 		{
 			className="A3_Structures_F_Argo";
 			name="Arma 3 Malden - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item30
+		class Item31
 		{
 			className="A3_Signs_F";
 			name="Arma 3 - Signs";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item31
+		class Item32
 		{
 			className="A3_Supplies_F_Exp";
 			name="Arma 3 Apex - Ammoboxes and Supplies";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item32
+		class Item33
 		{
 			className="A3_Structures_F_EPB";
 			name="Arma 3 Adapt Episode - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item33
+		class Item34
 		{
 			className="A3_Structures_F_EPC";
 			name="Arma 3 Win Episode - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item34
+		class Item35
 		{
 			className="A3_Air_F_Exp";
 			name="Arma 3 Apex - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item35
+		class Item36
 		{
 			className="A3_Characters_F";
 			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item36
+		class Item37
 		{
 			className="A3_Characters_F_Exp";
 			name="Arma 3 Apex - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item37
+		class Item38
 		{
 			className="A3_Static_F";
 			name="Arma 3 Alpha - Turrets";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item38
+		class Item39
 		{
 			className="A3_Structures_F_Mark";
 			name="Arma 3 Marksmen - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item39
+		class Item40
 		{
 			className="A3_Soft_F_Exp";
 			name="Arma 3 Apex - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item40
+		class Item41
+		{
+			className="jsrs_soundmod_weapons";
+			name="jsrs_soundmod_weapons";
+			author="lordjarhead";
+		};
+		class Item42
 		{
 			className="A3_Characters_F_Mark";
 			name="Arma 3 Marksmen - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item41
+		class Item43
 		{
 			className="A3_Weapons_F_Mark";
 			name="Arma 3 Marksmen - Weapons and Accessories";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item42
+		class Item44
 		{
 			className="A3_Sounds_F";
 			name="Arma 3 - Sound Effects";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item43
+		class Item45
 		{
 			className="A3_Weapons_F_Orange";
 			name="Arma 3 Orange - Weapons and Accessories";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item44
+		class Item46
 		{
 			className="A3_Characters_F_Orange";
 			name="Arma 3 Orange - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item45
+		class Item47
 		{
 			className="A3_Data_F_Curator";
 			name="Arma 3 Zeus Update - Main Configuration";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item46
+		class Item48
 		{
 			className="A3_Armor_F_EPC";
 			name="Arma 3 Win Episode - Armored Land Vehicles";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item47
+		class Item49
 		{
 			className="A3_Structures_F_Orange";
 			name="Arma 3 Orange - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item48
+		class Item50
 		{
 			className="A3_Armor_F_Tank";
 			name="Arma 3 Tank - Armored Land Vehicles";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item49
+		class Item51
 		{
 			className="A3_Soft_F_Kart";
 			name="Arma 3 Karts - Unarmored Land Vehicles";
@@ -598,8 +612,8 @@ class Mission
 		year=2035;
 		month=6;
 		day=24;
-		hour=21;
-		minute=-24;
+		hour=12;
+		minute=-10;
 		startFogBase=0.001;
 		forecastFogBase=0.001;
 		startFogDecay=0.0049999999;
@@ -43767,7 +43781,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -54586,7 +54600,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -85565,7 +85579,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -98813,7 +98827,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -99031,7 +99045,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -99249,7 +99263,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -99467,7 +99481,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -99691,7 +99705,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -99925,7 +99939,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -105313,7 +105327,7 @@ class Mission
 				class Attribute0
 				{
 					property="groupID";
-					expression="_this setGroupID [_value];";
+					expression="[_this, _value] call CBA_fnc_setCallsign";
 					class Value
 					{
 						class data
@@ -106715,7 +106729,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""arifle_CTAR_ghex_F"",""arifle_CTAR_hex_F"",""arifle_CTAR_GL_ghex_F"",""arifle_CTAR_GL_hex_F"",""arifle_CTARS_ghex_F"",""arifle_CTARS_hex_F"",""arifle_Mk20_plain_F"",""arifle_Mk20_F"",""arifle_Mk20_GL_plain_F"",""arifle_Mk20_GL_F"",""arifle_Mk20C_plain_F"",""arifle_Mk20C_F"",""arifle_MX_GL_F"",""arifle_MX_GL_khk_F"",""arifle_MX_F"",""arifle_MX_khk_F"",""arifle_MXC_F"",""arifle_MXC_khk_F"",""arifle_MXM_F"",""arifle_MXM_khk_F"",""arifle_SDAR_F"",""arifle_SPAR_01_khk_F"",""arifle_SPAR_01_snd_F"",""arifle_SPAR_01_GL_khk_F"",""arifle_SPAR_01_GL_snd_F"",""arifle_TRG20_F"",""arifle_TRG21_F"",""arifle_TRG21_GL_F"",""arifle_ARX_ghex_F"",""arifle_ARX_hex_F""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]],[[""10Rnd_50BW_Mag_F"",""20Rnd_556x45_UW_mag"",""30Rnd_556x45_Stanag_red"",""30Rnd_556x45_Stanag_Tracer_Red"",""30Rnd_580x42_Mag_F"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag_Tracer"",""30Rnd_65x39_caseless_green"",""30Rnd_545x39_Mag_F"",""30Rnd_762x39_Mag_F"",""10Rnd_127x54_Mag"",""10Rnd_338_Mag"",""130Rnd_338_Mag"",""7Rnd_408_Mag"",""5Rnd_127x108_Mag"",""5Rnd_127x108_APDS_Mag"",""200Rnd_556x45_Box_Red_F"",""200Rnd_556x45_Box_Tracer_Red_F"",""200Rnd_65x39_cased_Box"",""20Rnd_650x39_Cased_Mag_F"",""150Rnd_762x54_Box"",""150Rnd_762x54_Box_Tracer"",""20Rnd_762x51_Mag"",""10Rnd_762x54_Mag"",""10Rnd_93x64_DMR_05_Mag"",""150Rnd_93x64_Mag"",""150Rnd_556x45_Drum_Mag_F"",""100Rnd_580x42_Mag_F"",""100Rnd_65x39_caseless_mag"",""30Rnd_556x45_Stanag""],[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
+							value="[[[[""arifle_CTAR_ghex_F"",""arifle_CTAR_hex_F"",""arifle_CTAR_GL_ghex_F"",""arifle_CTAR_GL_hex_F"",""arifle_Mk20_plain_F"",""arifle_Mk20_F"",""arifle_Mk20_GL_plain_F"",""arifle_Mk20_GL_F"",""arifle_Mk20C_plain_F"",""arifle_Mk20C_F"",""arifle_MX_GL_F"",""arifle_MX_GL_khk_F"",""arifle_MX_F"",""arifle_MX_khk_F"",""arifle_MXC_F"",""arifle_MXC_khk_F"",""arifle_SDAR_F"",""arifle_SPAR_01_khk_F"",""arifle_SPAR_01_snd_F"",""arifle_SPAR_01_GL_khk_F"",""arifle_SPAR_01_GL_snd_F"",""arifle_TRG20_F"",""arifle_TRG21_F"",""arifle_TRG21_GL_F"",""arifle_ARX_ghex_F"",""arifle_ARX_hex_F""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]],[[""10Rnd_50BW_Mag_F"",""20Rnd_556x45_UW_mag"",""30Rnd_556x45_Stanag_red"",""30Rnd_556x45_Stanag_Tracer_Red"",""30Rnd_580x42_Mag_F"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag_Tracer"",""30Rnd_65x39_caseless_green"",""30Rnd_545x39_Mag_F"",""30Rnd_762x39_Mag_F"",""10Rnd_127x54_Mag"",""10Rnd_338_Mag"",""130Rnd_338_Mag"",""7Rnd_408_Mag"",""5Rnd_127x108_Mag"",""5Rnd_127x108_APDS_Mag"",""200Rnd_556x45_Box_Red_F"",""200Rnd_556x45_Box_Tracer_Red_F"",""200Rnd_65x39_cased_Box"",""20Rnd_650x39_Cased_Mag_F"",""150Rnd_762x54_Box"",""150Rnd_762x54_Box_Tracer"",""20Rnd_762x51_Mag"",""10Rnd_762x54_Mag"",""10Rnd_93x64_DMR_05_Mag"",""150Rnd_93x64_Mag"",""150Rnd_556x45_Drum_Mag_F"",""100Rnd_580x42_Mag_F"",""100Rnd_65x39_caseless_mag"",""30Rnd_556x45_Stanag""],[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -107158,7 +107172,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""srifle_DMR_07_ghex_F"",""srifle_DMR_07_hex_F"",""srifle_DMR_05_hex_F"",""srifle_DMR_05_tan_f"",""srifle_GM6_F"",""srifle_GM6_camo_F"",""srifle_GM6_ghex_F"",""srifle_LRR_camo_F"",""srifle_LRR_tna_F"",""srifle_DMR_02_camo_F"",""srifle_DMR_02_sniper_F"",""srifle_DMR_03_multicam_F"",""srifle_DMR_03_khaki_F"",""srifle_DMR_03_tan_F"",""srifle_DMR_06_camo_F"",""srifle_DMR_06_olive_F"",""srifle_EBR_F"",""arifle_SPAR_03_khk_F"",""arifle_SPAR_03_snd_F"",""srifle_LRR_F""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]],[[""10Rnd_338_Mag"",""7Rnd_408_Mag"",""5Rnd_127x108_Mag"",""5Rnd_127x108_APDS_Mag"",""20Rnd_650x39_Cased_Mag_F"",""20Rnd_762x51_Mag"",""10Rnd_93x64_DMR_05_Mag""],[20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
+							value="[[[[""srifle_DMR_07_ghex_F"",""srifle_DMR_07_hex_F"",""srifle_DMR_05_hex_F"",""srifle_DMR_05_tan_f"",""srifle_GM6_F"",""srifle_GM6_camo_F"",""srifle_GM6_ghex_F"",""srifle_LRR_camo_F"",""srifle_LRR_tna_F"",""srifle_DMR_02_camo_F"",""srifle_DMR_02_sniper_F"",""srifle_DMR_03_multicam_F"",""srifle_DMR_03_khaki_F"",""srifle_DMR_03_tan_F"",""srifle_DMR_06_camo_F"",""srifle_DMR_06_olive_F"",""srifle_EBR_F"",""arifle_SPAR_03_khk_F"",""arifle_SPAR_03_snd_F"",""srifle_LRR_F"",""arifle_MXM_F"",""arifle_MXM_khk_F""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]],[[""10Rnd_338_Mag"",""7Rnd_408_Mag"",""5Rnd_127x108_Mag"",""5Rnd_127x108_APDS_Mag"",""20Rnd_650x39_Cased_Mag_F"",""20Rnd_762x51_Mag"",""10Rnd_93x64_DMR_05_Mag""],[20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -107259,7 +107273,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""arifle_MX_SW_F"",""LMG_03_F"",""LMG_Mk200_F"",""arifle_MX_SW_khk_F"",""MMG_01_hex_F"",""MMG_01_tan_F"",""arifle_SPAR_02_khk_F"",""arifle_SPAR_02_snd_F"",""MMG_02_camo_F"",""MMG_02_sand_F""],[5,5,5,5,5,5,5,5,5,5]],[[""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag_Tracer"",""130Rnd_338_Mag"",""150Rnd_556x45_Drum_Mag_F"",""150Rnd_556x45_Drum_Mag_Tracer_F"",""200Rnd_556x45_Box_Red_F"",""200Rnd_556x45_Box_Tracer_Red_F"",""100Rnd_65x39_caseless_mag"",""100Rnd_65x39_caseless_mag_Tracer"",""200Rnd_65x39_cased_Box"",""150Rnd_93x64_Mag""],[20,20,20,20,20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
+							value="[[[[""arifle_MX_SW_F"",""LMG_03_F"",""LMG_Mk200_F"",""arifle_MX_SW_khk_F"",""MMG_01_hex_F"",""MMG_01_tan_F"",""arifle_SPAR_02_khk_F"",""arifle_SPAR_02_snd_F"",""MMG_02_camo_F"",""MMG_02_sand_F"",""arifle_CTARS_ghex_F"",""arifle_CTARS_hex_F""],[5,5,5,5,5,5,5,5,5,5,5,5]],[[""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag_Tracer"",""130Rnd_338_Mag"",""150Rnd_556x45_Drum_Mag_F"",""150Rnd_556x45_Drum_Mag_Tracer_F"",""200Rnd_556x45_Box_Red_F"",""200Rnd_556x45_Box_Tracer_Red_F"",""100Rnd_65x39_caseless_mag"",""100Rnd_65x39_caseless_mag_Tracer"",""200Rnd_65x39_cased_Box"",""150Rnd_93x64_Mag""],[20,20,20,20,20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -107360,7 +107374,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""SMG_01_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""hgun_ACPC2_F"",""hgun_P07_khk_F"",""hgun_Pistol_01_F"",""SMG_05_F"",""SMG_02_F""],[5,5,5,5,5,5,5,5]],[[""16Rnd_9x21_Mag"",""11Rnd_45ACP_Mag"",""9Rnd_45ACP_Mag"",""10Rnd_9x21_Mag"",""16Rnd_9x21_red_Mag"",""30Rnd_9x21_Mag"",""30Rnd_9x21_Red_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_45ACP_Mag_SMG_01_Tracer_Red"",""30Rnd_9x21_Mag_SMG_02"",""30Rnd_9x21_Mag_SMG_02_Tracer_Red""],[20,20,20,20,20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
+							value="[[[[""SMG_01_F"",""hgun_P07_F"",""hgun_Pistol_heavy_01_F"",""hgun_ACPC2_F"",""hgun_P07_khk_F"",""hgun_Pistol_01_F"",""SMG_05_F"",""SMG_02_F"",""SMG_03_camo"",""SMG_03_hex"",""SMG_03_khaki"",""SMG_03_TR_camo"",""SMG_03_TR_hex"",""SMG_03_TR_khaki"",""SMG_03C_camo"",""SMG_03C_hex"",""SMG_03C_khaki"",""SMG_03C_TR_camo"",""SMG_03C_TR_hex"",""SMG_03C_TR_khaki""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]],[[""16Rnd_9x21_Mag"",""11Rnd_45ACP_Mag"",""9Rnd_45ACP_Mag"",""10Rnd_9x21_Mag"",""16Rnd_9x21_red_Mag"",""30Rnd_9x21_Mag"",""30Rnd_9x21_Red_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""30Rnd_45ACP_Mag_SMG_01_Tracer_Red"",""30Rnd_9x21_Mag_SMG_02"",""30Rnd_9x21_Mag_SMG_02_Tracer_Red""],[20,20,20,20,20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -107460,7 +107474,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""arifle_AK12_F"",""arifle_AK12_GL_F"",""arifle_AKM_F"",""arifle_AKS_F"",""arifle_CTAR_blk_F"",""arifle_CTAR_GL_blk_F"",""arifle_CTARS_blk_F"",""arifle_Katiba_F"",""arifle_Katiba_C_F"",""arifle_Katiba_GL_F"",""arifle_MX_GL_Black_F"",""arifle_MX_Black_F"",""arifle_MXC_Black_F"",""arifle_MXM_Black_F"",""arifle_SPAR_01_blk_F"",""arifle_SPAR_01_GL_blk_F"",""arifle_ARX_blk_F""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]],[[""30Rnd_45ACP_Mag_SMG_01_Tracer_Yellow"",""30Rnd_545x39_Mag_F"",""30Rnd_545x39_Mag_Tracer_F"",""30Rnd_556x45_Stanag"",""30Rnd_556x45_Stanag_Tracer_Yellow"",""30Rnd_762x39_Mag_F"",""30Rnd_762x39_Mag_Tracer_F"",""16Rnd_9x21_yellow_Mag"",""30Rnd_9x21_Mag_SMG_02_Tracer_Yellow"",""30Rnd_9x21_Yellow_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""10Rnd_127x54_Mag"",""20Rnd_556x45_UW_mag"",""30Rnd_580x42_Mag_F"",""30Rnd_580x42_Mag_Tracer_F"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag_Tracer"",""30Rnd_65x39_caseless_green"",""10Rnd_9x21_Mag"",""16Rnd_9x21_Mag"",""30Rnd_9x21_Mag"",""30Rnd_9x21_Mag_SMG_02""],[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
+							value="[[[[""arifle_AK12_F"",""arifle_AK12_GL_F"",""arifle_AKM_F"",""arifle_AKS_F"",""arifle_CTAR_blk_F"",""arifle_CTAR_GL_blk_F"",""arifle_Katiba_F"",""arifle_Katiba_C_F"",""arifle_Katiba_GL_F"",""arifle_MX_GL_Black_F"",""arifle_MX_Black_F"",""arifle_MXC_Black_F"",""arifle_SPAR_01_blk_F"",""arifle_SPAR_01_GL_blk_F"",""arifle_ARX_blk_F"",""SMG_03_black"",""SMG_03_TR_black"",""SMG_03C_black"",""SMG_03C_TR_black""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]],[[""30Rnd_45ACP_Mag_SMG_01_Tracer_Yellow"",""30Rnd_545x39_Mag_F"",""30Rnd_545x39_Mag_Tracer_F"",""30Rnd_556x45_Stanag"",""30Rnd_556x45_Stanag_Tracer_Yellow"",""30Rnd_762x39_Mag_F"",""30Rnd_762x39_Mag_Tracer_F"",""16Rnd_9x21_yellow_Mag"",""30Rnd_9x21_Mag_SMG_02_Tracer_Yellow"",""30Rnd_9x21_Yellow_Mag"",""30Rnd_45ACP_Mag_SMG_01"",""10Rnd_127x54_Mag"",""20Rnd_556x45_UW_mag"",""30Rnd_580x42_Mag_F"",""30Rnd_580x42_Mag_Tracer_F"",""30Rnd_65x39_caseless_mag"",""30Rnd_65x39_caseless_mag_Tracer"",""30Rnd_65x39_caseless_green"",""10Rnd_9x21_Mag"",""16Rnd_9x21_Mag"",""30Rnd_9x21_Mag"",""30Rnd_9x21_Mag_SMG_02""],[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -107500,7 +107514,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""arifle_MX_SW_Black_F"",""arifle_SPAR_02_blk_F"",""MMG_02_black_F"",""LMG_Zafir_F""],[5,5,5,5]],[[""200Rnd_556x45_Box_F"",""200Rnd_556x45_Box_Tracer_F"",""200Rnd_65x39_cased_Box_Tracer""],[10,10,10]],[[],[]],[[],[]]],false]";
+							value="[[[[""arifle_MX_SW_Black_F"",""arifle_SPAR_02_blk_F"",""MMG_02_black_F"",""LMG_Zafir_F"",""arifle_CTARS_blk_F""],[5,5,5,5,5]],[[""200Rnd_556x45_Box_F"",""200Rnd_556x45_Box_Tracer_F"",""200Rnd_65x39_cased_Box_Tracer""],[10,10,10]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -107540,7 +107554,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""srifle_DMR_07_blk_F"",""srifle_DMR_05_blk_F"",""srifle_DMR_02_F"",""srifle_DMR_03_F"",""srifle_DMR_01_F"",""arifle_SPAR_03_blk_F""],[5,5,5,5,5,5]],[[],[]],[[],[]],[[],[]]],false]";
+							value="[[[[""srifle_DMR_07_blk_F"",""srifle_DMR_05_blk_F"",""srifle_DMR_02_F"",""srifle_DMR_03_F"",""srifle_DMR_01_F"",""arifle_SPAR_03_blk_F"",""arifle_MXM_Black_F""],[5,5,5,5,5,5,5]],[[],[]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -117177,7 +117191,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={15049.618,24.599579,16994.293};
-				angles[]={-0,1.3089969,0};
+				angles[]={0,1.3089969,0};
 			};
 			side="Empty";
 			flags=4;
@@ -117688,7 +117702,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={14181.174,19.698914,16273.554};
-				angles[]={-0,0,0.0012918708};
+				angles[]={0,0,0.0012918708};
 			};
 			side="Empty";
 			flags=4;
@@ -117763,7 +117777,7 @@ class Mission
 			};
 			id=6165;
 			type="PortableHelipadLight_01_yellow_F";
-			atlOffset=5.7220459e-006;
+			atlOffset=-3.8146973e-006;
 		};
 		class Item3333
 		{
