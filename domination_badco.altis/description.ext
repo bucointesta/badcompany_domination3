@@ -331,7 +331,7 @@ class Params {
 	class d_timemultiplier {
 		title = "$STR_DOM_MISSIONSTRING_1533";
 		values[] = {1,2,3,6,12,30,45,60,90,120};
-		default = 2;
+		default = 1;
 		texts[] = {"$STR_DOM_MISSIONSTRING_363","2","3","6","12","30","45","60","90","120"};
 	};
 	

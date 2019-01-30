@@ -21,16 +21,19 @@ if (!isServer) then {
 };
 
 if (isserver) then {
-	d_sunrise = (date call BIS_fnc_sunriseSunsetTime) select 0;
-	d_sunset = (date call BIS_fnc_sunriseSunsetTime) select 1;
-	d_daystart = (round d_sunrise) - 1;
-	d_dayend = (round d_sunset) + 1;
-	["itemAdd", ["updatetime", { 
-		d_publicServerTime = date;
-        publicVariable "d_publicServerTime";
-        setdate d_publicServerTime;
-		if (daytime > d_daystart && daytime < d_dayend) then {setTimeMultiplier d_timemultiplier} else {setTimeMultiplier (d_timemultiplier * 6)};		
-	}, 300]] call BIS_fnc_loop;
+	[] spawn {
+		sleep 10;
+		d_sunrise = (date call BIS_fnc_sunriseSunsetTime) select 0;
+		d_sunset = (date call BIS_fnc_sunriseSunsetTime) select 1;
+		d_daystart = (round d_sunrise) - 1;
+		d_dayend = (round d_sunset) + 1;
+		["itemAdd", ["updatetime", { 
+			d_publicServerTime = date;
+					publicVariable "d_publicServerTime";
+					setdate d_publicServerTime;
+			if (daytime > d_daystart && daytime < d_dayend) then {setTimeMultiplier d_timemultiplier} else {setTimeMultiplier (d_timemultiplier * 6)};		
+		}, 300]] call BIS_fnc_loop;
+	};
 };    
 
 diag_log [diag_frameno, diag_ticktime, time, "Dom x_timeinit.sqf processed"];
