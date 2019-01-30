@@ -92,6 +92,13 @@ player addEventhandler ["Take", {_this call d_fnc_ptakeweapon}];
 player addEventhandler ["Put", {_this call d_fnc_pputweapon}];
 player addEventhandler ["Reloaded", {call d_fnc_save_layoutgear}];
 
+removeAllWeapons player;
+removeallItems player;
+removeAllAssignedItems player;
+removeVest player;
+removeBackpack player;
+removeHeadgear player;
+removeGoggles player;
 
 if (d_MissionType != 2) then {
 	if !(d_resolved_targets isEqualTo []) then {
@@ -585,6 +592,13 @@ player addEventhandler ["getInMan", {
 		d_player_in_vec = false;
 	};
 }];
+
+player addEventHandler ["SeatSwitchedMan", {
+	
+	_this call d_fnc_checkswitchseat;
+	
+}];
+
 player addEventhandler ["getOutMan", {
 	d_player_in_vec = false;
 	d_vec_role_pl = [];

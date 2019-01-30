@@ -43,6 +43,7 @@ d_engineer_only =["Toolkit", "V_EOD_olive_F"];
 d_sniper_only = ["U_B_FullGhillie_ard","U_B_T_FullGhillie_tna_F","U_B_FullGhillie_lsh","U_B_FullGhillie_sard","U_B_T_Sniper_F","U_B_GhillieSuit"];
 d_saboteur_only = ["srifle_DMR_04_F", "srifle_DMR_04_Tan_F", "NVGogglesB_grn_F", "NVGogglesB_gry_F", "U_B_CTRG_Soldier_F", "U_B_CTRG_Soldier_2_F", "U_B_CTRG_Soldier_3_F", "H_HelmetB_TI_tna_F"];
 d_pilot_uniforms = ["B_Parachute","U_B_HeliPilotCoveralls","U_B_PilotCoveralls","H_PilotHelmetFighter_B","H_PilotHelmetHeli_B"];
+d_pilot_only = ["U_B_HeliPilotCoveralls","U_B_PilotCoveralls","H_PilotHelmetFighter_B","H_PilotHelmetHeli_B"];
 
 /*associations between container and his cargo*/
 {

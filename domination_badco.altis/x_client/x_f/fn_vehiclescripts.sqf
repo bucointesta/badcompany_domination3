@@ -29,8 +29,6 @@ if ((d_pilots_only == 0) && {(_position == "driver") || {(_turret select 0 == 0)
 	};
 };
 if (_do_exit) exitWith {};
-//_enterer addEventHandler ["seatSwitchedMan", {call d_fnc_checkswitchseat}];
-
 
 if (_vec isKindOf "Air") then {
 	if (_vec isKindOf "Helicopter") then {

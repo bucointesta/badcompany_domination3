@@ -11,7 +11,7 @@ if ((_vecnum == 3011) && {!(_enterer == "d_admin")}) exitWith {hintSilent "This 
 if (((_vecnum == 3009) || {_vecnum == 3010}) && {!((_enterer == "d_admin") || {(_enterer == "d_badco_1") || {_enterer == "d_badco_2"}})}) exitWith {hintSilent "Only Bad Company members can fly this chopper";false};
 if ((_vecnum == 3009) || {_vecnum == 3010}) exitWith {true};
 if (((_vecnum == 806) || {(_vecnum == 807) || {_vecnum == 808}}) && {!((_enterer == "d_admin") || {_enterer in d_uid_reserved_slots})}) exitWith {hintSilent "Only Bad Company members can drive this car";false};
-if (((_vecnum == 3008) || {(_vecnum == 3101) || {_vecnum == 3102}}) && {!(_enterer in d_attack_pilots)}) exitWith {hintSilent "You need to be an attack pilot to fly this vehicle";false};
+if (((_vecnum == 3008) || {_vecnum == 3101} || {_vecnum == 3102} || {_vecnum == 3005}) && {!(_enterer in d_attack_pilots)}) exitWith {hintSilent "You need to be an attack pilot to fly this vehicle";false};
 if ((_vec isKindOf "Air") && {!((_enterer in d_attack_pilots) || {_enterer in d_transport_pilots})}) exitWith {hintSilent "You need to be a pilot to fly this vehicle";false};
 
 true

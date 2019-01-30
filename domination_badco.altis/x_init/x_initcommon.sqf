@@ -261,7 +261,8 @@ d_choppers = [
 
 d_planes = [
 	["D_PL1",3,"d_plane1",3101,"n_plane","ColorBlue","Hog", ""],
-	["D_HR1",3,"d_plane2",3102,"n_plane","ColorBlue","Lightning", ""]
+	["D_HR1",3,"d_plane2",3102,"n_plane","ColorBlue","Lightning", ""],
+	["D_CJ1",3,"d_plane3",3103,"n_plane","ColorBlue","Runner", ""]
 ];
 
 // vehicle varname, unique number (same as in d_init.sqf), marker name, marker type, marker color, marker text, vehicle string name

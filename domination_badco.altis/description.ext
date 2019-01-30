@@ -281,8 +281,8 @@ class Params {
 	
 	class d_weather {
 		title = "$STR_DOM_MISSIONSTRING_1164";
-		values[] = {0};
-		default = 0;
+		values[] = {1};
+		default = 1;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
 	};
 	

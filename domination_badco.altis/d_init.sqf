@@ -261,7 +261,7 @@ if (isServer) then {
 		[d_chopper_4,3004,true,1200],[d_chopper_5,3005,true,1200],[d_chopper_6,3006,true,900],
 		[d_chopper_7,3007,true,900],[d_chopper_8,3008,true,1200],[d_chopper_9,3009,true,1200],
 		[d_chopper_10,3010,true,900],[d_chopper_11,3011,true,1200],[d_attack_1,3101,true,1800],
-		[d_attack_2,3102,true,1800]
+		[d_attack_2,3102,true,1800],[d_plane_1,3103,true,1800]
 		] call compile preprocessFileLineNumbers "x_server\x_inithelirespawn2.sqf";
 
 	// editor varname, unique number

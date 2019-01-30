@@ -34,19 +34,19 @@ if ([player, _item] call d_fnc_checkitem) then {
 		};
 	};
 	if (_itemtype == "Backpack") then {
-		{if ([player, _x] call d_fnc_checkitem) exitWith {call d_fnc_forbidden_item}; false} count (backpackItems player);
+		{if !([player, _x] call d_fnc_checkitem) exitWith {debug_forbidden_item = _x; call d_fnc_forbidden_item}; false} count (backpackItems player);
 	} else {
 		if (_itemtype == "Vest") then {
-			{if ([player, _x] call d_fnc_checkitem) exitWith {call d_fnc_forbidden_item}; false} count (vestItems player);
+			{if !([player, _x] call d_fnc_checkitem) exitWith {debug_forbidden_item = _x; call d_fnc_forbidden_item}; false} count (vestItems player);
 		} else {
 			if (_itemtype == "Uniform") then {
-				{if ([player, _x] call d_fnc_checkitem) exitWith {call d_fnc_forbidden_item}; false} count (uniformItems player);
+				{if !([player, _x] call d_fnc_checkitem) exitWith {debug_forbidden_item = _x; call d_fnc_forbidden_item}; false} count (uniformItems player);
 			};
 		};
 	};
 	call d_fnc_allowed_item;
 } else {
-	call d_fnc_forbidden_item;
+	debug_forbidden_item = _item; call d_fnc_forbidden_item;
 };
 
 if ((_itemtype == "Uniform") && {str _unit in d_badcompany}) exitWith {

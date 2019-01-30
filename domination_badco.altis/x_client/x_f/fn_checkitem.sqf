@@ -22,7 +22,7 @@ if ((_item in d_badco_items) && {!(_unit in d_badcompany)}) exitWith {hint "Only
 /*pilots restriction
 allowed; pistols, submachineguns, flashlight, smokes, nightvisors, binocular, gps, parachute, first aid kit*/
 if (((_unit in d_attack_pilots) || {_unit in d_transport_pilots}) && {!((_item in d_public_items) || {_item in d_pilot_uniforms})}) exitWith {hint "Pilots can't use this item !"; false};
-if ((_item in d_pilot_only)  && {!((_unit in d_attack_pilots) || {_unit in d_transport_pilots})}) exitWith {hint "You can't wear pilot uniform !"; false};
+if ((_item in d_pilot_only)  && {!((_unit in d_attack_pilots) || {_unit in d_transport_pilots})}) exitWith {hint "You can't wear pilot uniforms!"; false};
 
 /*medic items*/
 if ((_item in d_medic_only) && {!(_unit in d_medics)}) exitWith {hint "Only medics can use this item !"; false};

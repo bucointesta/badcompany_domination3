@@ -136,6 +136,7 @@ class cfgFunctions {
 			addc(checkdriver_wreck);
 			addc(db_load_savegame);
 			addc(checkitem);
+			addc(checkswitchseat);
 			addc(allowed_item);
 			addc(forbidden_item);
 		};

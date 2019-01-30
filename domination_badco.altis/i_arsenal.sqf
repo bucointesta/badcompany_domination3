@@ -2,6 +2,8 @@ _cratePositionMarkers = ["arsenalMain","arsenalBadCo"];
 _unit = str player;
 
 d_arsenal_boxes = [];
+item_check_isArsenal = false;
+item_check_arsenalChecked = false;
 
 {
 
@@ -199,14 +201,18 @@ addMissionEventHandler ["Draw3D", {
 
 
 // disable unneeded functions that can override restrictions...
+// save loadout for restriction handling in case of saved loadout use
 [missionNamespace, "arsenalOpened", {
 		disableSerialization;
 		params ["_display"];
+		item_check_arsenalSavedLoadout = getUnitLoadout player;
 		_display displayRemoveAllEventHandlers "keydown";
 		_display displayAddEventHandler ["keydown", "_this select 3"];
-		{(_display displayCtrl _x) ctrlShow false} forEach [44151, 44150, 44146, 44147, 44148, 44149, 44346];
+		{(_display displayCtrl _x) ctrlShow false} forEach [/*44151,*/44150,/*44146,44147,*/44148, 44149, 44346];
 }] call BIS_fnc_addScriptedEventHandler;
 
+//apply badco uniform
+//check for restricted gear in case of saved loadout used
 [missionNamespace, "arsenalClosed", {
 
 	if ((str player) in d_badcompany) then {
@@ -214,5 +220,19 @@ addMissionEventHandler ["Draw3D", {
 		player remoteExecCall ["d_fnc_badco_uniform",-2];
 	
 	};
+	
+	item_check_isArsenal = true;
+	item_check_arsenalChecked = false;
+	
+	{
+	
+		[player,objnull,_x] call d_fnc_ptakeweapon;
+	
+	} foreach ((weapons player) + (magazines player) + (items player) + [uniform player] + [backpack player] + [vest player] + (assigneditems player) + [goggles player] + [headgear player]);
+	
+	if (item_check_arsenalChecked) then {hint "Your loadout contains items that are restricted depending on your current role.\n\nYou can only use items that you see in the Arsenal."};
+	
+	item_check_isArsenal = false;
+	item_check_arsenalChecked = false;
 
 }] call BIS_fnc_addScriptedEventHandler;

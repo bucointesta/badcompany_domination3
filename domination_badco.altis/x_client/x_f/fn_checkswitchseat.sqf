@@ -4,9 +4,32 @@
 
 if (isDedicated) exitWith {};
 
-if ({(assignedVehicleRole player) select 0 == "Driver"} || {(assignedVehicleRole player) select 1 == 0}) then {
-	_player action ["getOut", vehicle player];
-	hintSilent "You are not allowed to drive this vehicle !";
-	player removeAllEventHandlers "seatSwitchedMan";
+_vec = _this select 2;
+_vehRole = assignedVehicleRole player;
+_position = _vehRole select 0;
+
+if (isnil "_position") exitWith {};
+
+_turret = [0];
+if (_position != "Driver") then {
+
+	_turret = _vehRole select 1;
+
+};
+
+if ((d_pilots_only == 0) && {(_position == "Driver") || {((_turret select 0) == 0) && {_position == "Turret"}}}) then {
+
+	if (!([str player, _vec] call d_fnc_checkpilot)) then {
+	
+		_vec spawn {
+		
+				moveout player;
+				sleep 0.1;
+				player moveInCargo _this;
+				
+			};		
+		 
+	};
+
 };
 
