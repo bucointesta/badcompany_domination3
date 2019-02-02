@@ -1,4 +1,5 @@
 // by Xeno
+//#define __DEBUG__
 #define THIS_FILE "fn_helilift_wreck.sqf"
 #include "..\..\x_setup.sqf"
 
@@ -21,15 +22,15 @@ sleep 10.123;
 
 while {alive _chopper && {alive player && {player in _chopper}}} do {
 	if (driver _chopper == player) then {
-		private _pos = getPosATLVisual _chopper;
+		private _pos = getPosVisual _chopper;
 		
-		if (!(_chopper getVariable ["d_vec_attached", false]) && {_pos select 2 > 2.5 && {_pos select 2 < 50}}) then {
+		if (!(_chopper getVariable ["d_vec_attached", false]) && {_pos # 2 > 2.5 && {_pos # 2 < 50}}) then {
 			_liftobj = objNull;
 			private _nobjects = nearestObjects [_chopper, ["LandVehicle","Air"], 70];
 			if !(_nobjects isEqualTo []) then {
-				private _dummy = _nobjects select 0;
+				_nobjects params ["_dummy"];
 				if (_dummy == _chopper) then {
-					if (count _nobjects > 1) then {_liftobj = _nobjects select 1};
+					if (count _nobjects > 1) then {_liftobj = _nobjects # 1};
 				} else {
 					_liftobj = _dummy;
 				};
@@ -48,9 +49,6 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 			};
 			sleep 0.1;
 			if ((_liftobj getVariable ["d_WreckMaxRepair", d_WreckMaxRepair]) > 0 && {!isNull _liftobj && {_liftobj != _chopper getVariable "d_Attached_Vec"}}) then {
-				//_liftobj_pos = getPosATLVisual _liftobj;
-				//private _nx = _liftobj_pos select 0;private _ny = _liftobj_pos select 1;private _px = _pos select 0;private _py = _pos select 1;
-				//if ((_px <= _nx + 10 && {_px >= _nx - 10}) && {(_py <= _ny + 10 && {_py >= _ny - 10})}) then {
 				if (_chopper inArea [_liftobj, 10, 10, 0, false]) then {
 					if (!_menu_lift_shown) then {
 						_id = _chopper addAction [format ["<t color='#AAD9EF'>%1</t>", localize "STR_DOM_MISSIONSTRING_254"], {_this call d_fnc_heli_action},-1,100000];
@@ -66,6 +64,7 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 				};
 			};
 		} else {
+			__TRACE_1("","_menu_lift_shown")
 			if (_menu_lift_shown) then {
 				_chopper removeAction _id;
 				_id = -1212;
@@ -78,6 +77,7 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 				_chopper setVariable ["d_vec_attached", false];
 				_chopper setVariable ["d_vec_released", false];
 			} else {
+				__TRACE_1("","_liftobj")
 				if (_chopper getVariable "d_vec_attached") then {
 					_release_id = _chopper addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_255"], {_this call d_fnc_heli_release}, -1, 100000];
 					_chopper vehicleChat (localize "STR_DOM_MISSIONSTRING_252");
@@ -94,11 +94,15 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 					_liftobj engineOn false;
 					_liftobj attachTo [_chopper, [0, 0, -15]];
 					_chopper setVariable ["d_attachedto_v", _liftobj, true];
+					if (d_with_ranked || {d_database_found}) then {
+						_liftobj setVariable ["d_lift_pilot", player, true];
+					};
 					
 					while {alive _chopper && {player in _chopper && {!isNull _liftobj && {alive player && {!isNull attachedTo _liftobj && {!(_chopper getVariable "d_vec_released")}}}}}} do {
 						_chopper setFuel ((fuel _chopper) - _fuelloss);
 						sleep 0.312;
 					};
+					__TRACE("Out of while loop")
 					
 					if (!isNull attachedTo _liftobj) then {
 						detach _liftobj;
@@ -116,21 +120,23 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 					
 					_chopper setVariable ["d_Attached_Vec", objNull];
 					
-					if (!alive _liftobj || {!alive _chopper}) then {
+					if (alive _chopper) then {
+						if (alive player) then {_chopper vehicleChat (localize "STR_DOM_MISSIONSTRING_253")};
 						_chopper removeAction _release_id;
 						_release_id = -1212;
-					} else {
-						if (alive _chopper && {alive player}) then {_chopper vehicleChat (localize "STR_DOM_MISSIONSTRING_253")};
 					};
 					
-					if (!(_liftobj isKindOf "StaticWeapon") && {(getPosATLVisual _liftobj) select 2 < 200}) then {
-						waitUntil {sleep 0.222;(getPosATLVisual _liftobj) select 2 < 10};
-					} else {
-						private _npos = getPosATLVisual _liftobj;
-						_liftobj setPos [_npos select 0, _npos select 1, 0];
-					};
+					if (!isNull _liftobj) then {
+						if (!(_liftobj isKindOf "StaticWeapon") && {(getPosVisual _liftobj) # 2 < 200}) then {
+							waitUntil {sleep 0.222;(getPosVisual _liftobj) # 2 < 10};
+						} else {
+							private _npos = getPosVisual _liftobj;
+							_liftobj setPos [_npos # 0, _npos # 1, 0];
+						};					
 					
-					[_liftobj, [0,0,0]] remoteExecCall ["setVelocity", _liftobj];
+						detach _liftobj;
+						[_liftobj, [0,0,0]] remoteExecCall ["setVelocity", _liftobj];
+					};
 					
 					sleep 1.012;
 				};

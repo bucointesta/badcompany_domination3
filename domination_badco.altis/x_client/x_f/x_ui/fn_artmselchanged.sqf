@@ -11,16 +11,16 @@ __TRACE_1("","_this")
 
 private _disp = uiNamespace getVariable "d_ArtilleryDialog2";
 
-private _selIdx = param [1];
+private _selIdx = _this select 1;
 if (_selIdx == -1) exitWith {};
 
-private _lbctrl = param [0];
+private _lbctrl = _this select 0;
 
 private _arele = d_cur_art_marker_ar select (_lbctrl lbValue _selIdx);
 
 (_disp displayCtrl 2000) ctrlSetText (_lbctrl lbText _selIdx);
-(_disp displayCtrl 2001) ctrlSetText getText(configFile>>"CfgMagazines">>(_arele select 2)>>"displayName");
-(_disp displayCtrl 2002) ctrlSetText str (_arele select 3);
+(_disp displayCtrl 2001) ctrlSetText getText(configFile>>"CfgMagazines">>(_arele # 2)>>"displayName");
+(_disp displayCtrl 2002) ctrlSetText str (_arele # 3);
 
 private _ctrlmap = _disp displayCtrl 1001;
 ctrlMapAnimClear _ctrlmap;

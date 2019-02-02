@@ -4,29 +4,32 @@
 #include "..\..\x_setup.sqf"
 if (!isServer || {!d_database_found}) exitWith{};
 
-__TRACE_1("","_this")
-
 params ["", "_uid", "_name"];
 
-__TRACE_2("","_uid","_name")
-
-if (__name == "__SERVER__") exitWith {};
-
-__TRACE_1("","allPlayers")
+if (_name == "__SERVER__" || {_name == "headlessclient"}) exitWith {};
 
 private _unit = objNull;
-{
-	if (getPlayerUID _x == _uid) exitWith {
+(allPlayers - entities "HeadlessClient_F") findIf {
+	if (getPlayerUID _x == _uid) then {
 		_unit = _x;
+		true
+	} else {
+		false
 	};
-	false
-} count (allPlayers - entities "HeadlessClient_F");
+};
+__TRACE_1("","_this")
+__TRACE_1("","allPlayers")
+__TRACE_2("","_uid","_name")
 __TRACE_1("1","_unit")
 
-if (isNull _unit) exitWith {};
+if (isNil "_unit" || {!isNil {_unit getVariable "d_no_side_change"}}) exitWith {
+	__TRACE_2("No database update","_unit","_name")
+};
 
 private _pa = d_player_store getVariable _uid;
-private _ps = if (!isNull _unit) then {getPlayerScores _unit} else {_pa select 12};
+private _ps = if (!isNull _unit) then {getPlayerScores _unit} else {_pa # 12};
+private _scpl = if (!isNull _unit) then {score _unit} else {-1};
+__TRACE_1("","getPlayerScores _unit")
 __TRACE_1("","_ps")
 if (_ps isEqualTo []) exitWith {};
 //  [infantry kills, soft vehicle kills, armor kills, air kills, deaths, total score]
@@ -37,18 +40,19 @@ if (_ps isEqualTo []) then {
 	_ps = [0, 0, 0, 0, 0, 0];
 };
 // only add diff to db
-private _infkills = (_ps select 0) - (_t_ps select 0);
-private _softveckills = (_ps select 1) - (_t_ps select 1);
-private _armorkills = (_ps select 2) - (_t_ps select 2);
-private _airkills = (_ps select 3) - (_t_ps select 3);
-private _deaths = (_ps select 4) - (_t_ps select 4);
-private _totalscore = (_ps select 5) - (_t_ps select 5);
+private _infkills = (_ps # 0) - (_t_ps # 0);
+private _softveckills = (_ps # 1) - (_t_ps # 1);
+private _armorkills = (_ps # 2) - (_t_ps # 2);
+private _airkills = (_ps # 3) - (_t_ps # 3);
+private _deaths = (_ps # 4) - (_t_ps # 4);
+private _totalscore = if (_scpl != -1) then {_scpl} else {_ps # 5};
+//(_ps # 5) - (_t_ps # 5)
 d_player_store setVariable [_usc, _ps];
 
 __TRACE_3("","_infkills","_softveckills","_armorkills")
 __TRACE_3("","_airkills","_deaths","_totalscore")
 
-private _playtime = if (!isNil "_pa") then {[0, round (time - (_pa select 1))] select (!isNil "_pa")} else {0};
+private _playtime = if (!isNil "_pa") then {[0, round (time - (_pa # 1))] select (!isNil "_pa")} else {0};
 
 __TRACE_1("","_playtime")
 

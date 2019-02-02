@@ -69,8 +69,8 @@ switch (_sec_kind) do {
 		__vkilled(gov_dead);
 		if (d_with_ai && {d_with_ranked}) then {
 			_vec addEventHandler ["Killed", {
-				[1, param [1]] remoteExecCall ["d_fnc_addkillsai", 2];
-				(param [0]) removeAllEventHandlers "Killed";
+				[1, _this select 1] remoteExecCall ["d_fnc_addkillsai", 2];
+				(_this select 0) removeAllEventHandlers "Killed";
 			}];
 		};
 		removeFromRemainsCollector [_vec];
@@ -78,6 +78,9 @@ switch (_sec_kind) do {
 		if (d_with_dynsim == 0) then {
 			_vec enableDynamicSimulation true;
 		};
+#ifdef __TT__
+		_vec addEventHandler ["Killed", {[[15, 3, 2, 1], _this # 1, _this # 0] remoteExecCall ["d_fnc_AddKills", 2]}];
+#endif
 		sleep 1.0112;
 		__specops;
 	};
@@ -94,6 +97,7 @@ switch (_sec_kind) do {
 			};
 		};
 		_vec setPos _poss;
+		_vec setVectorUp [0,0,1];
 		__vkilled(radar_down);
 		d_fixor_var = _vec;
 		d_mtmissionobj = _vec;
@@ -134,7 +138,7 @@ switch (_sec_kind) do {
 		_vec setPos _poss;
 		_vec lock true;
 		_vec addEventHandler ["killed", {
-			_this pushBack "apc_down";
+			_this pushBack "med_down";
 			_this call d_fnc_MTSMTargetKilled;
 			_this call d_fnc_handleDeadVec;
 		}];
@@ -173,6 +177,7 @@ switch (_sec_kind) do {
 		};
 		_vec setDir (floor random 360);
 		_vec setPos _poss;
+		_vec setVectorUp [0,0,1];
 		__vkilled(light_down);
 		d_fixor_var = _vec;
 		d_mtmissionobj = _vec;
@@ -196,6 +201,7 @@ switch (_sec_kind) do {
 		};
 		_vec setDir (floor random 360);
 		_vec setPos _poss;
+		_vec setVectorUp [0,0,1];
 		__vkilled(heavy_down);
 		d_fixor_var = _vec;
 		d_mtmissionobj = _vec;
@@ -213,6 +219,7 @@ switch (_sec_kind) do {
 		};
 		_vec setDir (floor random 360);
 		_vec setPos _poss;
+		_vec setVectorUp [0,0,1];
 		__vkilled(airrad_down);
 		d_fixor_var = _vec;
 		d_mtmissionobj = _vec;
@@ -253,8 +260,8 @@ switch (_sec_kind) do {
 		__vkilled(lopo_dead);
 		if (d_with_ai && {d_with_ranked}) then {
 			_vec addEventHandler ["Killed", {
-				[1, param [1]] remoteExecCall ["d_fnc_addkillsai", 2];
-				(param [0]) removeAllEventHandlers "Killed";
+				[1, _this select 1] remoteExecCall ["d_fnc_addkillsai", 2];
+				(_this select 0) removeAllEventHandlers "Killed";
 			}];
 		};
 		removeFromRemainsCollector [_vec];
@@ -262,6 +269,9 @@ switch (_sec_kind) do {
 		if (d_with_dynsim == 0) then {
 			_vec enableDynamicSimulation true;
 		};
+#ifdef __TT__
+		_vec addEventHandler ["Killed", {[[15, 3, 2, 1], _this # 1, _this # 0] remoteExecCall ["d_fnc_AddKills", 2]}];
+#endif
 		sleep 1.0112;
 		__specops;
 	};
@@ -299,8 +309,8 @@ switch (_sec_kind) do {
 		__vkilled(dealer_dead);
 		if (d_with_ai && {d_with_ranked}) then {
 			_vec addEventHandler ["Killed", {
-				[1, param [1]] remoteExecCall ["d_fnc_addkillsai", 2];
-				(param [0]) removeAllEventHandlers "Killed";
+				[1, _this select 1] remoteExecCall ["d_fnc_addkillsai", 2];
+				(_this select 0) removeAllEventHandlers "Killed";
 			}];
 		};
 		removeFromRemainsCollector [_vec];
@@ -308,6 +318,9 @@ switch (_sec_kind) do {
 		if (d_with_dynsim == 0) then {
 			_vec enableDynamicSimulation true;
 		};
+#ifdef __TT__
+		_vec addEventHandler ["Killed", {[[15, 3, 2, 1], _this # 1, _this # 0] remoteExecCall ["d_fnc_AddKills", 2]}];
+#endif
 		sleep 1.0112;
 		__specops;
 	};
@@ -351,7 +364,11 @@ if (d_current_target_index != -1) then {
 } else {
 	_s = localize "STR_DOM_MISSIONSTRING_905";
 };
+#ifndef __TT__
 [18, _s] remoteExecCall ["d_fnc_DoKBMsg", 2];
+#else
+[19, _s] remoteExecCall ["d_fnc_DoKBMsg", 2];
+#endif
 
 if (d_IS_HC_CLIENT) then {
 	[missionNamespace, ["d_fixor_var", d_fixor_var]] remoteExecCall ["setVariable", 2];

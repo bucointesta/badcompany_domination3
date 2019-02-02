@@ -15,9 +15,9 @@ if (hasInterface) then {
 };
 
 if (call d_fnc_checkSHC) then {
-	[d_x_sm_pos select 0, "naval"] spawn d_fnc_sidemines;
+	[d_x_sm_pos # 0, "naval"] spawn d_fnc_sidemines;
 	sleep 2.123;
-	private _pos_other = d_x_sm_pos select 1;
+	private _pos_other = d_x_sm_pos # 1;
 	["specops", 2, "allmen", 4, _pos_other, 150, true] spawn d_fnc_CreateInf;
 	sleep 2.123;
 	private _random_point = [_pos_other, 100] call d_fnc_GetRanPointCircle;

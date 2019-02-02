@@ -236,3 +236,10 @@ addMissionEventHandler ["Draw3D", {
 	item_check_arsenalChecked = false;
 
 }] call BIS_fnc_addScriptedEventHandler;
+
+
+{
+
+	(_x select 0) hideObject true;
+
+} foreach d_static_ammoboxes;

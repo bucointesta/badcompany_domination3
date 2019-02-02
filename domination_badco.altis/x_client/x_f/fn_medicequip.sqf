@@ -3,7 +3,7 @@
 #include "..\..\x_setup.sqf"
 params ["_healer", "_injured"];
 
-if (!local _healer) exitWith {};
+if (!local _healer || {_healer distance2D d_FLAG_BASE < 30}) exitWith {};
 
 private _objs = [];
 

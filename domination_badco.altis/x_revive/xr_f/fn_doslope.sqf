@@ -18,4 +18,4 @@ while {_sl >= 0.78} do {
 	};
 	if (_found) exitWith {};
 };
-if (_found) then {_unit setPos [_pos select 0, _pos select 1, _unit distance _pos]};
+if (_found) then {_unit setPos [_pos # 0, _pos # 1, _unit distance _pos]};

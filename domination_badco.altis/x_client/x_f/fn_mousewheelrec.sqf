@@ -15,9 +15,9 @@ private _ct = if (isNull objectParent player) then {
 
 if (!alive _ct) exitWith {false};
 
-if (!_pin_v && {_ct distance2D player > 20 || {!(_ct isKindOf "Car") && {!(_ct isKindOf "Tank") && {!(_ct isKindOf "Air")}} || {_ct isKindOf "ParachuteBase" || {_ct isKindOf "UAV_01_base_F" || {_ct isKindOf "UGV_01_base_F" || {_ct isKindOf "UAV_02_base_F" || {{alive _x} count (crew _ct) == 0}}}}}}}) exitWith {false};
+if (!_pin_v && {_ct distance2D player > 20 || {!(_ct isKindOf "Car") && {!(_ct isKindOf "Tank") && {!(_ct isKindOf "Air")}} || {_ct isKindOf "ParachuteBase" || {_ct isKindOf "UAV_01_base_F" || {_ct isKindOf "UGV_01_base_F" || {_ct isKindOf "UAV_02_base_F" || {(crew _ct) findIf {alive _x} == -1}}}}}}}) exitWith {false};
 private _crewct = crew _ct;
-if ({alive _x && {d_player_side getFriend side (group _x) >= 0.6}} count _crewct == 0) exitWith {false};
+if (_crewct findIf {alive _x && {d_player_side getFriend side (group _x) >= 0.6}} == -1) exitWith {false};
 
 _fc = fullCrew _ct;
 
@@ -27,9 +27,9 @@ private _s_p = [];
 private _s_ai = [];
 
 {
-	private _uni = _x select 0;
+	_x params ["_uni"];
 	if (alive _uni) then {
-		private _role = _x select 1;
+		private _role = _x # 1;
 		private _rpic = if (_role == "commander") then {
 			"\A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_commander_ca.paa";
 		} else {
@@ -43,15 +43,14 @@ private _s_ai = [];
 				};
 			};
 		};
-		if (isPlayer _uni) then {
+		if (_uni call d_fnc_isplayer) then {
 			_s_p pushBack format ["%1<img color='#FFFFFF' image='%2'/> <br/>", [_uni] call d_fnc_gethpname, _rpic];
 		} else {
-			_s_ai pushBack format ["%1 (AI)<img color='#FFFFFF' image='%2'/> <br/>", name _uni, _rpic];
+			_s_ai pushBack format ["%1 (AI)<img color='#FFFFFF' image='%2'/> <br/>", _uni call d_fnc_getplayername, _rpic];
 		};
 	};
-	false
-} count _fc;
-if (count _s_ai > 0) then {
+} forEach _fc;
+if !(_s_ai isEqualTo []) then {
 	_s_ai pushBack "</t>";
 } else {
 	_s_p pushBack "</t>";

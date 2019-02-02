@@ -9,7 +9,7 @@ params ["_vec"];
 
 d_cargo_selected_index = -1;
 
-if (d_no_ai && {!(player getVariable ["d_is_engineer", false])}) exitWith {hintSilent (localize "STR_DOM_MISSIONSTRING_79")};
+if (d_no_ai && {!(player getUnitTrait "engineer")}) exitWith {hintSilent (localize "STR_DOM_MISSIONSTRING_79")};
 
 private _tr_cargo_ar = _vec getVariable ["d_CARGO_AR", []];
 
@@ -18,7 +18,7 @@ if (_tr_cargo_ar isEqualTo []) exitWith {};
 d_current_truck_cargo_array = _tr_cargo_ar;
 createDialog "d_UnloadDialog";
 
-waitUntil {d_cargo_selected_index != -1 || {!d_unload_dialog_open || {!alive player || {player getVariable ["xr_pluncon", false] || {player getVariable ["ace_isunconscious", false]}}}}};
+waitUntil {!isNil "d_unload_dialog_open" && {d_cargo_selected_index != -1 || {!d_unload_dialog_open || {!alive player || {player getVariable ["xr_pluncon", false] || {player getVariable ["ace_isunconscious", false]}}}}}};
 
 if (!alive player || {player getVariable ["xr_pluncon", false] || {player getVariable ["ace_isunconscious", false]}}) exitWith {if (d_unload_dialog_open) then {closeDialog 0}};
 
@@ -28,10 +28,8 @@ if ((d_cargo_selected_index + 1) > count _tr_cargo_ar) exitWith {
 	hintSilent (localize "STR_DOM_MISSIONSTRING_83");
 };
 
-private _cargo = _tr_cargo_ar select d_cargo_selected_index;
-{
-	if (_x == _cargo) exitWith {_tr_cargo_ar deleteAt _forEachIndex};
-} forEach _tr_cargo_ar;
+private _cargo = _tr_cargo_ar # d_cargo_selected_index;
+_tr_cargo_ar deleteAt d_cargo_selected_index;
 
 _vec setVariable ["d_CARGO_AR", _tr_cargo_ar, true];
 
@@ -45,16 +43,16 @@ private _place_error = false;
 systemChat (localize "STR_DOM_MISSIONSTRING_84");
 d_e_placing_running = 0; // 0 = running, 1 = placed, 2 = placing canceled
 d_e_placing_id1 = player addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_85"], {
-	private _caller = param [1];
+	private _caller = _this select 1;
 	d_e_placing_running = 2;
-	_caller removeAction (param [2]);
+	_caller removeAction (_this select 2);
 	_caller removeAction d_e_placing_id2;
 	d_e_placing_id1 = -1000;
 	d_e_placing_id2 = -1000;
 }];
 d_e_placing_id2 = player addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_86"], {
-	private _caller = param [1];
-	private _id = param [2];
+	private _caller = _this select 1;
+	private _id = _this select 2;
 	d_e_placing_running = 1;
 	_caller removeAction _id;
 	_caller removeAction d_e_placing_id1;
@@ -66,7 +64,7 @@ while {d_e_placing_running == 0} do {
 	_dir_to_set = getDir player;
 
 	_static setDir _dir_to_set;
-	_static setPos [_pos_to_set select 0, _pos_to_set select 1, 0];
+	_static setPos [_pos_to_set # 0, _pos_to_set # 1, 0];
 	sleep 0.211;
 	if (_vec distance2D player > 20) exitWith {
 		systemChat (localize "STR_DOM_MISSIONSTRING_87");
@@ -100,7 +98,7 @@ if (d_e_placing_running == 2) exitWith {
 
 _static = createVehicle [_cargo, _pos_to_set, [], 0, "NONE"];
 _static setDir _dir_to_set;
-_static setPos [_pos_to_set select 0, _pos_to_set select 1, 0];
+_static setPos [_pos_to_set # 0, _pos_to_set # 1, 0];
 player reveal _static;
 _static lock false;
 _static remoteExecCall ["d_fnc_allunits_add", 2];

@@ -365,7 +365,7 @@ class D_RscMapControl {
 	};
 	class CustomMark {
 		icon = "\A3\ui_f\data\map\mapcontrol\custommark_ca.paa";
-		size = 24;
+		size = 18;
 		importance = 1;
 		coefMin = 1;
 		coefMax = 1;
@@ -839,6 +839,9 @@ class RscUIComboBox: RscCombo {
 	wholeHeight = 0.3;
 	colorText[] = {1,1,1,1};
 };
+class RscUIComboBox2: RscUIComboBox {
+		sizeEx = 0.03;
+};
 class RscText2 {
 	type = CT_STATIC;
 	idc = -1;
@@ -1050,6 +1053,66 @@ class RscIGUIListNBox: RscListNBox {
 		colorText[] = {1, 1, 1, 1}; \
 		text = __DOM_NVER_STR__; \
 	};
+
+#define __DDIALOG_BGN(loc_str) \
+	class BackGroundCaption: RscText2 { \
+		x = "0.0124502 * safezoneW + safezoneX"; y = "0.02 * safezoneH + safezoneY"; \
+		w = "0.965724 * safezoneW"; h = "0.04 * safezoneH"; \
+		colorBackground[] = __GUI_BCG_RGB; \
+	}; \
+	class MainCaption: RscText2 { \
+		x = "0.0405779 * safezoneW + safezoneX"; y = "0.02 * safezoneH + safezoneY"; \
+		w = "0.543806 * safezoneW"; h = "0.04 * safezoneH"; \
+		sizeEx = 0.04; \
+		colorBackground[] = {1, 1, 1, 0}; \
+		colorText[] = {1, 1, 1, 1}; \
+		text = #loc_str; \
+	}; \
+	class BackGroundMain: RscText2 { \
+		colorBackground[] = {0, 0, 0, 0.7}; \
+		x = "0.0124502 * safezoneW + safezoneX"; \
+		y = "0.07 * safezoneH + safezoneY"; \
+		w = "0.9751 * safezoneW"; \
+		h = "0.89 * safezoneH"; \
+	}; \
+	class DomVer: RscText2 { \
+		x = "0.0780818 * safezoneW + safezoneX"; y = "0.96 * safezoneH + safezoneY"; \
+		w = "0.346911 * safezoneW"; h = "0.04 * safezoneH"; \
+		sizeEx = 0.04; \
+		colorBackground[] = {1, 1, 1, 0}; \
+		colorText[] = {1, 1, 1, 1}; \
+		text = __DOM_NVER_STR__; \
+	};
+	
+#define __DDIALOG_BG2(loc_str) \
+	class BackGroundCaption: RscText2 { \
+		x = safezoneX; y = safezoneY; \
+		w = safezoneW; h = 1 / 25; \
+		colorBackground[] = __GUI_BCG_RGB; \
+	}; \
+	class MainCaption: RscText2 { \
+		x = safezoneX + 0.02; y = safezoneY; \
+		w = 0.4; h = 0.04; \
+		sizeEx = 0.04; \
+		colorBackground[] = {1, 1, 1, 0}; \
+		colorText[] = {1, 1, 1, 1}; \
+		text = #loc_str; \
+	}; \
+	class BackGroundMain: RscText2 { \
+		colorBackground[] = {0, 0, 0, 0.9}; \
+		x = safezoneX; \
+		y = safeZoneY + (1 / 25); \
+		w = safezoneW; \
+		h = safezoneH - 0.01; \
+	}; \
+	class DomVer: RscText2 { \
+		x = safezoneX + 0.02; y = safeZoneY + safezoneH - 0.05; \
+		w = 0.25; h = 0.04; \
+		sizeEx = 0.04; \
+		colorBackground[] = {1, 1, 1, 0}; \
+		colorText[] = {1, 1, 1, 1}; \
+		text = __DOM_NVER_STR__; \
+	};
 	
 #define __CANCELCLOSEB(bidc) \
 	class CancelCloseButton: RscButton { \
@@ -1058,6 +1121,28 @@ class RscIGUIListNBox: RscListNBox {
 			text = "\A3\Ui_f\data\GUI\Rsc\RscDisplayArcadeMap\icon_exit_cross_ca.paa"; \
 			action = "closeDialog 0"; \
 			x = 0.96; y = 0.003; w = 0.035; h = 0.035; \
+			colorBackground[] = __GUI_BCG_RGB; \
+			colorBackgroundActive[] = __GUI_BCG_RGB; \
+		};
+		
+#define __CANCELCLOSEB2(bidc) \
+	class CancelCloseButton: RscButton { \
+			idc = bidc; \
+			style = "0x02+48"; \
+			text = "\A3\Ui_f\data\GUI\Rsc\RscDisplayArcadeMap\icon_exit_cross_ca.paa"; \
+			action = "closeDialog 0"; \
+			x = safezoneX + safezoneW - 0.04; y = safeZoneY + 0.003; w = 0.035; h = 0.035; \
+			colorBackground[] = __GUI_BCG_RGB; \
+			colorBackgroundActive[] = __GUI_BCG_RGB; \
+		};
+		
+#define __CANCELCLOSEB3(bidc) \
+	class CancelCloseButton: RscButton { \
+			idc = bidc; \
+			style = "0x02+48"; \
+			text = "\A3\Ui_f\data\GUI\Rsc\RscDisplayArcadeMap\icon_exit_cross_ca.paa"; \
+			action = "closeDialog 0"; \
+			x = "0.959422 * safezoneW + safezoneX"; y = "0.02 * safezoneH + safezoneY"; w = "0.0281279 * safezoneW"; h = "0.04 * safezoneH"; \
 			colorBackground[] = __GUI_BCG_RGB; \
 			colorBackgroundActive[] = __GUI_BCG_RGB; \
 		};
@@ -1183,4 +1268,43 @@ class RscEdit {
 	tooltipColorText[] = {1, 1, 1, 1};
 	tooltipColorBox[] = {1, 1, 1, 1};
 	tooltipColorShade[] = {0, 0, 0, 0.65};
+};
+
+class RscCheckBox {
+	color[] = {1,1,1,0.7};
+	colorFocused[] = {1,1,1,1};
+	colorHover[] = {1,1,1,1};
+	colorPressed[] = {1,1,1,1};
+	colorDisabled[] = {1,1,1,0.2};
+	colorBackground[] = {0,0,0,0};
+	colorBackgroundFocused[] = {0,0,0,0};
+	colorBackgroundHover[] = {0,0,0,0};
+	colorBackgroundPressed[] = {0,0,0,0};
+	colorBackgroundDisabled[] = {0,0,0,0};
+	tooltipColorText[] = {1,1,1,1};
+	tooltipColorBox[] = {1,1,1,1};
+	tooltipColorShade[] = {0,0,0,0.65};
+	soundEnter[] = {"",0.1,1};
+	soundPush[] = {"",0.1,1};
+	soundClick[] = {"",0.1,1};
+	soundEscape[] = {"",0.1,1};
+	idc = -1;
+	type = 77;
+	deletable = 0;
+	style = 0;
+	checked = 0;
+	x = "0.375 * safezoneW + safezoneX";
+	y = "0.36 * safezoneH + safezoneY";
+	w = "0.025 * safezoneW";
+	h = "0.04 * safezoneH";
+	textureChecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureChecked_ca.paa";
+	textureUnchecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureUnchecked_ca.paa";
+	textureFocusedChecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureChecked_ca.paa";
+	textureFocusedUnchecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureUnchecked_ca.paa";
+	textureHoverChecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureChecked_ca.paa";
+	textureHoverUnchecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureUnchecked_ca.paa";
+	texturePressedChecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureChecked_ca.paa";
+	texturePressedUnchecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureUnchecked_ca.paa";
+	textureDisabledChecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureChecked_ca.paa";
+	textureDisabledUnchecked = "\a3\3DEN\Data\Controls\ctrlCheckbox\textureUnchecked_ca.paa";
 };

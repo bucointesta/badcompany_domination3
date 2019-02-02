@@ -7,8 +7,6 @@ if (isNil "xr_with_marker") then {
 	xr_with_marker = true;
 };
 
-if (d_sub_kill_points != 0 && {d_sub_kill_points > 0}) then {d_sub_kill_points = d_sub_kill_points * -1};
-
 xr_moansoundsar = [
 	[
 		"Person0",
@@ -50,3 +48,5 @@ if (isNil "xr_lifetime") then {xr_lifetime = 300};
 
 xr_dropAction = -3333;
 if (isNil "xr_phd_invulnerable") then {xr_phd_invulnerable = false};
+
+xr_respawn_available = false;

@@ -12,7 +12,9 @@ if (d_earplugs_fitted) then {
 } else {
 	1 fadeSound 1;
 };
-player remoteExecCall ["xr_fnc_addActions", d_own_sides_o];
+{
+	player remoteExecCall ["xr_fnc_addActions", _x];
+} forEach d_own_sides_o;
 if (!captive player) then {
 	[player, true] remoteExecCall ["setCaptive"];
 };
@@ -71,12 +73,19 @@ __TRACE("starting main uncon loop")
 		xr_u_nextcrytime = nil;
 		xr_u_doend_of = nil;
 		
-		xr_uncon_units = xr_uncon_units - [player];
+		xr_uncon_units = xr_uncon_units - [player, objNull];
+		
+		if (!d_player_in_base && {!isNil {player getVariable "d_old_eng_can_repfuel"}}) then {
+			d_eng_can_repfuel = false;
+		};
+		player setVariable ["d_old_eng_can_repfuel", nil];
 		
 		0 spawn {
 			if (!xr_u_remactions) then {
 				__TRACE("xr_u_remactions")
-				player remoteExecCall ["xr_fnc_removeActions", side (group player)];
+				{
+					player remoteExecCall ["xr_fnc_removeActions", _x];
+				} forEach d_own_sides_o;
 			};
 			if (xr_with_marker) then {
 				__TRACE("del marker")

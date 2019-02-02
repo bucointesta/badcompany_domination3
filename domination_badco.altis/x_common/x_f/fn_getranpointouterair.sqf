@@ -4,8 +4,8 @@
 #include "..\..\x_setup.sqf"
 
 // get a random point at the borders of the current island for spawning air vehicles (no slope check, no is water check, etc)
-private _width = (2 * (d_island_center select 0)) - 500;
-private _height = (2 * (d_island_center select 1)) - 500;
+private _width = (2 * (d_island_center # 0)) - 500;
+private _height = (2 * (d_island_center # 1)) - 500;
 
 private _px = 1;
 private _py = 1;

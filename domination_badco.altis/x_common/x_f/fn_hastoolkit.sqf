@@ -3,4 +3,4 @@
 #define THIS_FILE "fn_hastoolkit.sqf"
 #include "..\..\x_setup.sqf"
 
-"ToolKit" in (items _this)
+(items _this) findIf {(toUpper _x) find "TOOLKIT" > -1} > -1

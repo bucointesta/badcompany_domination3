@@ -24,32 +24,30 @@ if !(_d_medtent isEqualTo []) exitWith {systemChat (localize "STR_DOM_MISSIONSTR
 _d_medtent = player modelToWorldVisual [0,5,0];
 _d_medtent set [2,0];
 
-if (surfaceIsWater [_d_medtent select 0, _d_medtent select 1]) exitWith {
+if (surfaceIsWater [_d_medtent # 0, _d_medtent # 1]) exitWith {
 	systemChat (localize "STR_DOM_MISSIONSTRING_282");
 	d_commandingMenuIniting = false;
 };
 
 private _helper1 = d_HeliHEmpty createVehicleLocal [0,0,0];
-_helper1 setPos [_d_medtent select 0, (_d_medtent select 1) + 4, 0];
+_helper1 setPos [_d_medtent # 0, (_d_medtent # 1) + 4, 0];
 private _helper2 = d_HeliHEmpty createVehicleLocal [0,0,0];
-_helper2 setPos [_d_medtent select 0, (_d_medtent select 1) - 4, 0];
+_helper2 setPos [_d_medtent # 0, (_d_medtent # 1) - 4, 0];
 private _helper3 = d_HeliHEmpty createVehicleLocal [0,0,0];
-_helper3 setPos [(_d_medtent select 0) + 4, _d_medtent select 1, 0];
+_helper3 setPos [(_d_medtent # 0) + 4, _d_medtent # 1, 0];
 private _helper4 = d_HeliHEmpty createVehicleLocal [0,0,0];
-_helper4 setPos [(_d_medtent select 0) - 4, _d_medtent select 1, 0];
+_helper4 setPos [(_d_medtent # 0) - 4, _d_medtent # 1, 0];
 
-if ((abs (((getPosASL _helper1) select 2) - ((getPosASL _helper2) select 2)) > 2) || {(abs (((getPosASL _helper3) select 2) - ((getPosASL _helper4) select 2)) > 2)}) exitWith {
+if ((abs (((getPosASL _helper1) # 2) - ((getPosASL _helper2) # 2)) > 2) || {(abs (((getPosASL _helper3) # 2) - ((getPosASL _helper4) # 2)) > 2)}) exitWith {
 	systemChat (localize "STR_DOM_MISSIONSTRING_246");
 	{
 		deleteVehicle _x;
-		false
-	} count [_helper1, _helper2, _helper3, _helper4];
+	} forEach [_helper1, _helper2, _helper3, _helper4];
 	d_commandingMenuIniting = false;
 };
 {
 	deleteVehicle _x;
-	false
-} count [_helper1, _helper2, _helper3, _helper4];
+} forEach [_helper1, _helper2, _helper3, _helper4];
 
 player setVariable ["d_isinaction", true];
 
@@ -104,7 +102,7 @@ _medic_tent addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MI
 		
 		private _medtent_content = (player getVariable "d_medic_tent") getVariable ["d_objcont", []];
 		if !(_medtent_content isEqualTo []) then {
-			{deleteVehicle _x;false} count _medtent_content;
+			{deleteVehicle _x} forEach _medtent_content;
 		};
 		deleteVehicle (player getVariable "d_medic_tent");
 		player setVariable ["d_medic_tent", objNull];

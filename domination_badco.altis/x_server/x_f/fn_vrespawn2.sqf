@@ -8,13 +8,12 @@
 - check if out of space
 - if empty and abandoned, out of space, destroyed or underwater, then respawn it
 */
-
-sleep (8 + random 5);
+sleep (8 + round 5);
 
 while {true} do {
 	{
 		private _vec_a = _x;
-		/*composition of _x
+                /*composition of _x
 		0) ingame object (d_out_of_space = -1 or time before respawn in OOS // d_ammobox = true if contained an ammobox // d_vec = type of veichle // d_is_locked = true if locked)
 		1) id number of veichle
 		2) position
@@ -22,17 +21,14 @@ while {true} do {
 		4) type
 		5) respawn: if MHQ an identifier string, else =-1
 		*/
-
-		private _vec = _vec_a select 0;
+		_vec_a params ["_vec"];
 		private _number_v = _vec_a select 1;
 		
 		__TRACE_1("","_vec_a")
 		
 		//private _disabled = damage _vec >= 0.9; //true if destroyed
 		private _disabled = false;
-		
-		if (alive _vec) then {_vec setVariable ["d_vec_islocked", _vec call d_fnc_isVecLocked]};
-		
+			
 		private _empty = {alive _x} count (crew _vec) == 0; //true if empty
 
 /*script for respawn if abandoned, set to work only with bikes*/	
@@ -104,30 +100,60 @@ while {true} do {
 			if (_vec getVariable ["d_ammobox", false]) then {
 				d_num_ammo_boxes = d_num_ammo_boxes - 1; publicVariable "d_num_ammo_boxes";
 			};
-			/*destroy the mhq camo if it was deployed*/
 			if (_number_v < 100) then {
 				private _dhqcamo = _vec getVariable ["d_MHQ_Camo", objNull];
 				if (!isNull _dhqcamo) then {deleteVehicle _dhqcamo};
 			};
-			private _isitlocked = _vec getVariable "d_vec_islocked"; // || {_vec call d_fnc_isVecLocked};
+			private _isitlocked = _vec getVariable ["d_vec_islocked", false]; // || {_vec call d_fnc_isVecLocked};
+			private _skinpoly = _vec call d_fnc_getskinpoly;
+			__TRACE_1("","_skinpoly")
 			sleep 0.1;
-			/*respawn veichle*/
+			if (unitIsUAV _vec) then {
+				{_vec deleteVehicleCrew _x} forEach (crew _vec);
+			};
 			deleteVehicle _vec;
 			sleep 0.5;
-			_vec = createVehicle [_vec_a select 4, _vec_a select 2, [], 0, "NONE"];
+			_vec = createVehicle [_vec_a # 4, _vec_a # 2, [], 0, "NONE"];
 			if ((_number_v == 806) || (_number_v == 807)) then {
 				_vec setObjectTextureGlobal [0, "textures\offroad4.paa"];
 			};
 			if (_number_v == 808) then {
 				_vec setObjectTextureGlobal [0, "textures\suv4.paa"];
 			};
-			_vec setDir (_vec_a select 3);
-			_vec setPos (_vec_a select 2);
+			_vec setDir (_vec_a # 3);
+			_vec setPos (_vec_a # 2);
+			_vec setVariable ["d_vec_islocked", _isitlocked];
+			if (_isitlocked) then {_vec lock true};
+			if (_vec isKindOf "Air") then {
+				private _cposc = _vec_a # 2;
+				__TRACE_2("","_vec","_cposc")
+				if (surfaceIsWater _cposc) then {
+					_cposc set [2, (getPosASL d_FLAG_BASE) # 2];
+					[_vec, _cposc] spawn {
+						params ["_vec", "_cposc"];
+						sleep 1;
+						_vec setPosASL _cposc;
+						_vec setDamage 0;
+					};
+				};
+			};
 			_vec setFuel _fuelleft;
+			[_vec, _skinpoly] call d_fnc_skinpolyresp;
+			_skinpoly = nil;
+#ifdef __TT_
+			if (_number_v < 1000) then {
+				_vec addMPEventhandler ["MPKilled", {if (isServer) then {_this call d_fnc_checkveckillblufor}}];
+			} else {
+				_vec addMPEventhandler ["MPKilled", {if (isServer) then {_this call d_fnc_checkveckillopfor}}];
+			};
+#endif
 			if (_number_v < 100) then {
-				_vec addMPEventhandler ["MPKilled", {(param [0]) call d_fnc_MHQFunc}];
-				_vec setVariable ["d_vec_is_mhq", [_vec_a select 5, _number_v]];
+				_vec addMPEventhandler ["MPKilled", {(_this select 0) call d_fnc_MHQFunc}];
+				if (count _vec_a == 6) then {
+					_vec setVariable ["d_vec_is_mhq", [_vec_a # 5, _number_v]];
+				};
 				_vec addMPEventhandler ["MPKilled", {if (isServer) then {_this call d_fnc_fuelCheck; _this call d_fnc_mhqmsg}}];
+				_vec addEventHandler ["handleDamage", {_this call d_fnc_pshootatmhq}];
 			};
 			_vec addMPEventhandler ["MPKilled", {if (isServer) then {_this call d_fnc_fuelCheck}}];
 			_vec_a set [0, _vec];
@@ -137,6 +163,16 @@ while {true} do {
 			_vec setAmmoCargo 0;
 			_vec setVariable ["d_vec_islocked", _isitlocked];
 			if (_isitlocked) then {_vec lock true};
+			if (_vec isKindOf "Air") then {
+				_vec enableCopilot false;
+			} else {
+				_vec setVariable ["d_liftit", true, true];
+			};
+			if (unitIsUAV _vec) then {
+				createVehicleCrew _vec;
+				_vec allowCrewInImmobile true;
+			};
+			sleep 0.01;
 			_vec remoteExecCall ["d_fnc_initvec", [0, -2] select isDedicated];
 		};
 		sleep (8 + random 5);

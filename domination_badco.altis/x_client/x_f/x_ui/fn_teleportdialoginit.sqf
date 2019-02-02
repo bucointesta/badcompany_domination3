@@ -77,64 +77,65 @@ __TRACE_1("","d_mob_respawns")
 private _logtxt = "";
 
 {
-	private _mrs = missionNamespace getVariable [_x select 0, objNull];
+	private _mrs = missionNamespace getVariable [_x # 0, objNull];
 	__TRACE_2("","_mrs","_x")
 	if (!isNull _mrs) then {
 		private _lbcolor = call {
-			if (_mrs getVariable ["d_in_air", false]) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_592", _x select 1, _logtxt]; __COLRED};
-			if (speed _mrs > 4) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_593", _x select 1] + _logtxt + "\n"; __COLRED};
-			if (surfaceIsWater (getPosWorld _mrs)) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_594", _x select 1, _logtxt]; __COLRED};
-			if (!alive _mrs) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_595", _x select 1, _logtxt]; __COLRED};
-			if !(_mrs getVariable ["d_MHQ_Deployed", false]) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_596", _x select 1, _logtxt]; __COLRED};
-			if (_mrs getVariable ["d_enemy_near", false]) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_597", _x select 1, _logtxt]; __COLRED};
+			if (_mrs getVariable ["d_in_air", false]) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_592", _x # 1, _logtxt]; __COLRED};
+			if (speed _mrs > 4) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_593", _x # 1] + _logtxt + "\n"; __COLRED};
+			if (surfaceIsWater (getPosWorld _mrs)) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_594", _x # 1, _logtxt]; __COLRED};
+			if (!alive _mrs) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_595", _x # 1, _logtxt]; __COLRED};
+			if !(_mrs getVariable ["d_MHQ_Deployed", false]) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_596", _x # 1, _logtxt]; __COLRED};
+			if (_mrs getVariable ["d_enemy_near", false]) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_597", _x # 1, _logtxt]; __COLRED};
 			[1,1,1,1];
 		};
-		_cidx = _listctrl lbAdd (_x select 1);
-		_listctrl lbSetData [_cidx, _x select 0];
+		_cidx = _listctrl lbAdd (_x # 1);
+		_listctrl lbSetData [_cidx, _x # 0];
 		_listctrl lbSetColor [_cidx, _lbcolor];
-		if (d_last_beam_target == _x select 0 && {_lbcolor isEqualTo [1,1,1,1]}) then {
+		if (d_last_beam_target == _x # 0 && {_lbcolor isEqualTo [1,1,1,1]}) then {
 			_selidx = _cidx;
-			d_respawn_mar_str = _x select 0;
-			d_beam_target = _x select 0;
+			d_respawn_mar_str = _x # 0;
+			d_beam_target = _x # 0;
 			private _text = if (_dtype == 1 || {d_tele_dialog == 0}) then {
-				format [localize "STR_DOM_MISSIONSTRING_607", _x select 1]
+				format [localize "STR_DOM_MISSIONSTRING_607", _x # 2]
 			} else {
-				format [localize "STR_DOM_MISSIONSTRING_605", _x select 1]
+				format [localize "STR_DOM_MISSIONSTRING_605", _x # 2]
 			};
 			__CTRL(100110) ctrlSetText _text;
 		};
-		[_x select 0, visiblePositionASL _mrs, "ICON", "ColorWhite", [1.5,1.5], "", 0, "selector_selectedMission"] call d_fnc_CreateMarkerLocal;
-		d_respawn_anim_markers pushBack (_x select 0);
+		[_x # 0, visiblePositionASL _mrs, "ICON", "ColorWhite", [1.5,1.5], "", 0, "selector_selectedMission"] call d_fnc_CreateMarkerLocal;
+		d_respawn_anim_markers pushBack (_x # 0);
 	};
-	false
-} count d_mob_respawns;
+} forEach d_mob_respawns;
 
 {
-	_cidx = _listctrl lbAdd (_x select 2);
-	_listctrl lbSetData [_cidx, _x select 0];
+	__TRACE_1("","_x")
+	_cidx = _listctrl lbAdd (_x # 2);
+	_listctrl lbSetData [_cidx, _x # 0];
 	_listctrl lbSetColor [_cidx, [1,1,1,1]];
-	if (d_last_beam_target == _x select 0) then {
+	if (d_last_beam_target == _x # 0) then {
 		_selidx = _cidx;
-		d_respawn_mar_str = _x select 0;
-		d_beam_target = _x select 0;
+		d_respawn_mar_str = _x # 0;
+		d_beam_target = _x # 0;
 		private _text = if (_dtype == 1 || {d_tele_dialog == 0}) then {
-			format [localize "STR_DOM_MISSIONSTRING_607", _x select 1]
+			format [localize "STR_DOM_MISSIONSTRING_607", _x # 2]
 		} else {
-			format [localize "STR_DOM_MISSIONSTRING_605", _x select 1]
+			format [localize "STR_DOM_MISSIONSTRING_605", _x # 2]
 		};
 		__CTRL(100110) ctrlSetText _text;
 	};
-	false
-} count d_additional_respawn_points;
+	[_x # 0, _x # 1, "ICON", "ColorWhite", [1.5,1.5], "", 0, "selector_selectedMission"] call d_fnc_CreateMarkerLocal;
+	d_respawn_anim_markers pushBack (_x # 0);
+} forEach d_additional_respawn_points;
 
 private _has_sql = 0;
-if (d_respawnatsql == 0 && {!(player getVariable ["xr_isleader", false]) && {count units (group player) > 1}}) then {
+if (d_respawnatsql == 0 && {!(player getVariable ["xr_isleader", false]) && {count units (group player) > 1 && {player != leader (group player)}}}) then {
 	_cidx = _listctrl lbAdd (localize "STR_DOM_MISSIONSTRING_1705a");
 	_listctrl lbSetData [_cidx, "D_SQL_D"];
 	_has_sql = 1;
 	private _leader = leader (group player);
 	private _emptycargo = [0, (vehicle _leader) emptyPositions "cargo"] select (!isNull objectParent _leader);
-	private _lbcolor = if (alive _leader && {!(_leader getVariable ["xr_pluncon", false])} && {!(_leader getVariable ["ace_isunconscious", false])} && {_emptycargo > 0 || {(getPos _leader) select 2 < 10}} && {!(_leader call d_fnc_isswimming)} && {!underwater _leader}) then {
+	private _lbcolor = if (alive _leader && {!(_leader getVariable ["xr_pluncon", false])} && {!(_leader getVariable ["ace_isunconscious", false])} && {_emptycargo > 0 || {(getPos _leader) # 2 < 10}} && {!(_leader call d_fnc_isswimming)} && {!underwater _leader}) then {
 		[1,1,1,1.0]
 	} else {
 		_logtxt = localize "STR_DOM_MISSIONSTRING_1706";
@@ -160,6 +161,13 @@ __TRACE_1("","_logtxt")
 
 if (_logtxt != "") then {
 	__CTRL(11002) ctrlSetText _logtxt;
+};
+
+if (!isNil "xr_pl_no_lifes" && {xr_pl_no_lifes}) then {
+	__CTRL(100102) ctrlEnable false;
+};
+if (!xr_respawn_available) then {
+	__CTRL(100102) ctrlEnable false;
 };
 
 d_lb_tele_first = true;

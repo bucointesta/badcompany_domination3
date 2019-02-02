@@ -5,7 +5,7 @@
 
 __TRACE_1("","_this")
 
-if (!isNil "d_db_load_done") exitWith {};
+if (!isNil "d_db_load_done" || {getClientStateNumber > 9}) exitWith {};
 d_db_load_done = true;
 
 [d_db_savegames select _this, player] remoteExecCall ["d_fnc_db_loadsavegame_server", 2];

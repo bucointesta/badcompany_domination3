@@ -1,4 +1,3 @@
-// by Xeno
 #define THIS_FILE "fn_checkswitchseat.sqf"
 #include "..\..\x_setup.sqf"
 
@@ -19,7 +18,7 @@ if (_position != "Driver") then {
 
 if ((d_pilots_only == 0) && {(_position == "Driver") || {((_turret select 0) == 0) && {_position == "Turret"}}}) then {
 
-	if (!([str player, _vec] call d_fnc_checkpilot)) then {
+	if (!([str player,_vec,_vec getvariable ["d_vec",0]] call d_fnc_isPilotCheck)) then {
 	
 		_vec spawn {
 		

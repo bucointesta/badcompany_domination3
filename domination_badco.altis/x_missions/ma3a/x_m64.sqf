@@ -7,12 +7,12 @@ d_x_sm_pos = "d_sm_64" call d_fnc_smmapos; // index:64 radar tower Skopos
 d_x_sm_type = "normal"; // "convoy"
 
 if (hasInterface) then {
-	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_1554";
+	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_1815";
 	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_727";
 };
 
 if (call d_fnc_checkSHC) then {
-	private _poss = d_x_sm_pos select 0;
+	d_x_sm_pos params ["_poss"];
 	private _vec = createVehicle [d_illum_tower, _poss, [], 0, "NONE"];
 	_vec setPos _poss;
 	_vec setVectorUp [0,0,1];

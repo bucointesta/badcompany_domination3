@@ -11,6 +11,11 @@ _fire setPos _poss;
 d_x_sm_vec_rem_ar pushBack _fire;
 sleep 0.01;
 
+#ifdef __TT__
+d_sm_points_blufor = 0;
+d_sm_points_opfor = 0;
+#endif
+
 private _angle = 0;
 private _angle_plus = 360 / 4;
 
@@ -28,8 +33,7 @@ private _grps = ["specops", 3, "allmen", 0, _poss , _radius_p, true] call d_fnc_
 private _units = [];
 {
 	_units append (units _x);
-	false
-} count _grps;
+} forEach _grps;
 
 d_num_species = 0;
 
@@ -37,22 +41,23 @@ d_num_species = 0;
 	_x allowFleeing 0;
 	_x addEventHandler ["killed", {
 		d_num_species = d_num_species + 1;
-		(param [0]) removeAllEventHandlers "killed";
+		(_this select 0) removeAllEventHandlers "killed";
 	}];
-	false
-} count _units;
+#ifdef __TT__
+	_x addEventHandler ["handleDamage", {_this call d_fnc_AddSMPoints}];
+#endif
+} forEach _units;
 
 sleep 2.123;
 private _endnum = (count _units) - 2;
 
 while {d_num_species < _endnum} do {
 	{
-		if (alive _x && {_x distance2D _poss >= 400}) then {
+		if (_x distance2D _poss >= 400) then {
 			_x setDamage 1;
 			sleep 0.1;
 		};
-		false
-	} count _units;
+	} forEach (_units select {alive _x});
 	sleep 4.631;
 	if (d_sm_resolved) exitWith {};
 };
@@ -60,7 +65,21 @@ while {d_num_species < _endnum} do {
 _units = nil;
 
 if (!d_sm_resolved) then {
+#ifndef __TT__
 	d_sm_winner = 2;
+#else
+	if (d_sm_points_blufor > d_sm_points_opfor) then {
+		d_sm_winner = 2;
+	} else {
+		if (d_sm_points_opfor > d_sm_points_blufor) then {
+			d_sm_winner = 1;
+		} else {
+			if (d_sm_points_opfor == d_sm_points_blufor) then {
+				d_sm_winner = 123;
+			};
+		};
+	};
+#endif
 };
 
 d_sm_resolved = true;

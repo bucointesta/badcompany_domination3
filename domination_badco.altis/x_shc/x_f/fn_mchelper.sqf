@@ -5,6 +5,6 @@
 
 _this allowDamage false;
 private _pos = getPos _this;
-_this setPos [_pos select 0, _pos select 1, 10];
+_this setPos [_pos # 0, _pos # 1, 10];
 sleep 8 + random 2;
 _this allowDamage true;

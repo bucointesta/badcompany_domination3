@@ -14,7 +14,7 @@ disableSerialization;
 
 #define __CTRL(A) (_disp displayCtrl A)
 
-private _vec = param [0];
+params ["_vec"];
 if (_vec isKindOf "LandVehicle" && {!(_vec isKindOf "StaticWeapon")}) then {
 	private _vtype = _vec getVariable ["d_vec_type", ""];
 	if (_vtype == "MHQ" || {_vtype == "Engineer"}) then {
@@ -61,7 +61,7 @@ if (_vec isKindOf "LandVehicle" && {!(_vec isKindOf "StaticWeapon")}) then {
 		while {d_player_in_vec && {alive player && {!(player getVariable ["xr_pluncon", false]) && {!(player getVariable ["ace_isunconscious", false])}}}} do {
 			if (player == gunner _vec) then {
 				private _vec_string = localize "STR_DOM_MISSIONSTRING_631" + ([typeOf _vec, "CfgVehicles"] call d_fnc_GetDisplayName);
-				private _type_weap = (getArray(configFile>>"CfgVehicles">>(typeOf _vec)>>"Turrets">>"MainTurret">>"weapons")) select 0;
+				private _type_weap = (getArray(configFile>>"CfgVehicles">>(typeOf _vec)>>"Turrets">>"MainTurret">>"weapons")) # 0;
 				"d_vec_hud" cutRsc ["d_vec_hud", "PLAIN"];
 				private _disp = uiNamespace getVariable "d_vec_hud";
 				private _ison = true;
@@ -76,7 +76,7 @@ if (_vec isKindOf "LandVehicle" && {!(_vec isKindOf "StaticWeapon")}) then {
 						__CTRL(64432) ctrlSetText _vec_string;
 						__CTRL(64433) ctrlSetText format [_dam_str, round (damage _vec * 100)];
 						_vecwdir = _vec weaponDirection _type_weap;
-						private _dirtmp = round((_vecwdir select 0) atan2 (_vecwdir select 1));
+						private _dirtmp = round((_vecwdir # 0) atan2 (_vecwdir # 1));
 						if (_dirtmp < 0) then {_dirtmp = _dirtmp + 360};
 						private _gendir = _gendirlist select (round (_dirtmp/22.5));
 						__CTRL(64434) ctrlSetText format [_dir_str, _dirtmp, _gendir];

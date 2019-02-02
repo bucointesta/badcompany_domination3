@@ -7,12 +7,12 @@ d_x_sm_pos = "d_sm_5" call d_fnc_smmapos; //  destroy transformer in mine near C
 d_x_sm_type = "normal"; // "convoy"
 
 if (hasInterface) then {
-	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_870";
-	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_871";
+	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_1804";
+	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_741";
 };
 
 if (call d_fnc_checkSHC) then {
-	private _poss = d_x_sm_pos select 0;
+	d_x_sm_pos params ["_poss"];
 	private _vec = createVehicle [d_sm_land_transformer, _poss, [], 0, "NONE"];
 	_vec setDir (markerDir "d_sm_5");
 	_vec setPos _poss;

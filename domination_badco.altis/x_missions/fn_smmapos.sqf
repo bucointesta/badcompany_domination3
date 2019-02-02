@@ -4,9 +4,9 @@
 #include "..\x_setup.sqf"
 
 private _res = [markerPos _this];
-for "_i" from 1 to 100 do {
-	private _nm = format ["%1_%2", _this, _i];
-	if (markerPos _nm isEqualTo [0,0,0]) exitWith {};
-	_res pushBack (markerPos _nm);
-};
+private _mn = format ["%1_", _this];
+private _len = count _mn;
+{
+	_res pushBack (markerPos _x);
+} forEach (allMapMarkers select {_x select [0, _len] == _mn});
 _res

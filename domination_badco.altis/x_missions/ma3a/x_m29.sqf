@@ -7,7 +7,7 @@ d_x_sm_pos = "d_sm_29" call d_fnc_smmapos; // index: 29,   Tank depot in the nor
 d_x_sm_type = "normal"; // "convoy"
 
 if (hasInterface) then {
-	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_851";
+	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_1810";
 	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_767";
 };
 

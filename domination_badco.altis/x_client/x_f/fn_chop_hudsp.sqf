@@ -31,6 +31,15 @@ private _vec = vehicle player;
 private _doexitit = false;
 private _chophud_shown = false;
 private _chophud2_shown = false;
+
+if (player == driver _vec) then {
+	private _vtype = _vec getVariable ["d_vec_type", ""];
+	if (_vtype == "MHQ") then {
+		d_playerInMHQ = true;
+		[_vec, _vtype] spawn d_fnc_vec_welcome_message;
+	};
+};
+
 while {d_player_in_vec} do {
 	if (player == driver _vec) then {
 		private _chopttype = _vec getVariable ["d_choppertype", -1];
@@ -38,13 +47,11 @@ while {d_player_in_vec} do {
 		if (_chopttype > -1) then {
 			private _chop_welcome_scr = [_chopttype, _vec] spawn d_fnc_chopper_welcome2;
 			sleep 0.321;
-			waitUntil {scriptDone _chop_welcome_scr};
+			waitUntil {sleep 0.3;scriptDone _chop_welcome_scr};
 		};
 		if (_chopttype in [0,1]) then {
 			private _search_height = 0;
 			private _lift_height = 0;
-			private _possible_types = _vec getVariable ["d_lift_types", []];
-			__TRACE_2("","_vec","_possible_types")
 			if (_chopttype == 1) then {
 				_search_height = 70;
 				_lift_height = 50;
@@ -74,10 +81,10 @@ while {d_player_in_vec} do {
 						__TRACE_2("","_vec","_nobjects")
 						
 						if !(_nobjects isEqualTo []) then {
-							private _dummy = _nobjects select 0;
+							_nobjects params ["_dummy"];
 							if (isNil "_vec") then {_vec = vehicle player};
 							if (_dummy == _vec) then {
-								if (count _nobjects > 1) then {_liftobj = _nobjects select 1};
+								if (count _nobjects > 1) then {_liftobj = _nobjects # 1};
 							} else {
 								_liftobj = _dummy;
 							};
@@ -90,21 +97,20 @@ while {d_player_in_vec} do {
 								private _marp = _liftobj getVariable ["d_WreckMaxRepair", d_WreckMaxRepair];
 								__TRACE_2("","_vec","_marp")
 								
-								__TRACE_1("","_isvalid")
 								_check_cond = if (_chopttype == 1) then {
 									private _isvalid = _liftobj getVariable "d_canbewlifted";
 									if (isNil "_isvalid") then {
-										_isvalid = toUpper (typeOf _liftobj) in _possible_types;
+										_isvalid = toUpper (typeOf _liftobj) in (_vec getVariable ["d_lift_types", []]);
 										_liftobj setVariable ["d_canbewlifted", _isvalid];
 									};
 									(!isNull _liftobj && {_isvalid && {_marp > 0 && {damage _liftobj >= 1}}})
 								} else {
-									private _isvalid = _liftobj getVariable "d_canbelifted";
-									if (isNil "_isvalid") then {
-										_isvalid = toUpper (typeOf _liftobj) in _possible_types;
-										_liftobj setVariable ["d_canbelifted", _isvalid];
-									};
-									(!isNull _liftobj && {_isvalid  && {(getPosATLVisual _vec) select 2 > 2.5}})
+									private _isvalid = _liftobj getVariable ["d_liftit", false] && {!(_liftobj getVariable ["d_no_lift", false])};
+#ifndef __TT__
+									(!isNull _liftobj && {_isvalid  && {(getPosVisual _vec) # 2 > 2.5}})
+#else
+									(!isNull _liftobj && {_isvalid && {(getPosVisual _vec) # 2 > 2.5 && {_liftobj getVariable ["d_side", d_player_side] == d_player_side}}})
+#endif
 								};
 							};
 						};
@@ -149,21 +155,21 @@ while {d_player_in_vec} do {
 								if (_cam_loc isEqualTo [0,0,0]) then {
 									_cam_loc = [0,0,-2.8];
 								};
-								_cam_loc = [_cam_loc select 0, (_cam_loc select 1) - 5, (_cam_loc select 2) - 0.1];
+								_cam_loc = [_cam_loc # 0, (_cam_loc # 1) - 5, (_cam_loc # 2) - 0.1];
 							} else {
-								_cam_loc = [_cam_loc select 0, _cam_loc select 1, (_cam_loc select 2) - 0.2];
+								_cam_loc = [_cam_loc # 0, _cam_loc # 1, (_cam_loc # 2) - 0.2];
 							};
 							
 							"d_RscPIP" cutRsc ["d_RscPIP", "PLAIN", 0, false];
 							private _ctrlpip = (uiNamespace getVariable "d_RscPIP") displayCtrl 2300;
 							private _poscpip = ctrlPosition _ctrlpip;
-							_poscpip set [1, (_poscpip select 1) + 0.3];
+							_poscpip set [1, (_poscpip # 1) + 0.3];
 							_ctrlpip ctrlSetPosition _poscpip;
 							_ctrlpip ctrlSettext format ["#(argb,256,256,1)r2t(%1,1.0)", "d_choprendtar0"];
 							_ctrlpip ctrlSettextcolor [1,1,1,1];
 							_ctrlpip ctrlCommit 0;
 							
-							_sling_cam = "camera" camCreate (getPosATLVisual _vec);
+							_sling_cam = "camera" camCreate (getPosVisual _vec);
 							_sling_cam attachTo [_vec, _cam_loc];
 							//_sling_cam camPreparetarget _helper_h;
 							_sling_cam camPreparetarget _liftobj;
@@ -177,32 +183,21 @@ while {d_player_in_vec} do {
 						
 						if !(_vec getVariable ["d_vec_attached", false]) then {
 							__CTRL2(64441) ctrlSetText format [_distvstr, round (_vec distance _liftobj)];
-							//private _liftobj_pos = getPosATLVisual _liftobj;
-							//private _pos_vec = getPosATLVisual _vec;
-							//private _nx = _liftobj_pos select 0; private _ny = _liftobj_pos select 1; private _px = _pos_vec select 0; private _py = _pos_vec select 1;
-							//if ((_px <= _nx + 10 && {_px >= _nx - 10}) && {(_py <= _ny + 10 && {_py >= _ny - 10})} && {(_pos_vec select 2 < _lift_height)}) then {
-							if (_vec inArea [_liftobj, 10, 10, 0, false] && {getPosATLVisual _vec select 2 < _lift_height}) then {
+							if (_vec inArea [_liftobj, 10, 10, 0, false] && {getPosVisual _vec # 2 < _lift_height}) then {
 								__CTRL2(64448) ctrlSetText __ui_ok;
 							} else {
-								__CTRL2(64442) ctrlSetText (if (getPosATLVisual _vec select 2 >= _lift_height) then {localize "STR_DOM_MISSIONSTRING_198"} else {""});
+								__CTRL2(64442) ctrlSetText (if (getPosVisual _vec # 2 >= _lift_height) then {localize "STR_DOM_MISSIONSTRING_198"} else {""});
 								__CTRL2(64447) ctrlSetText __ui_tohigh;
-								//private _angle = _pos_vec getDir _liftobj_pos;
-								private _angle = _vec getDir _liftobj;
-								/*private _angle = 0; private _a = ((_liftobj_pos select 0) - (_pos_vec select 0));private _b = ((_liftobj_pos select 1) - (_pos_vec select 1));
-								if (_a != 0 || _b != 0) then {_angle = _a atan2 _b}; */
-								
-								private _dif = _angle - getDirVisual _vec;
-								if (_dif < 0) then {_dif = 360 + _dif};
-								if (_dif > 180) then {_dif = _dif - 360};
-								_angle = _dif;
-								__CTRL2(64444) ctrlSetText (["", __ui_forward] select (_angle >= -70 && {_angle <= 70}));
+								private _angle = _vec getRelDir _liftobj;
+								__TRACE_1("","_angle")
+								__CTRL2(64444) ctrlSetText (["", __ui_forward] select (_angle >= 290 || {_angle <= 70}));
 								__CTRL2(64446) ctrlSetText (["", __ui_right] select (_angle >= 20 && {_angle <= 160}));
-								__CTRL2(64443) ctrlSetText (["", __ui_back] select (_angle <= -110 || {_angle >= 110}));
-								__CTRL2(64445) ctrlSetText (["", __ui_left] select (_angle <= -20 && {_angle >= -160}));
+								__CTRL2(64443) ctrlSetText (["", __ui_back] select (_angle <= 250 && {_angle >= 110}));
+								__CTRL2(64445) ctrlSetText (["", __ui_left] select (_angle <= 340 && {_angle >= 200}));
 								sleep 0.001;
 							};
 						} else {
-							private _ddx1 = [round ((getPosASLVisual _liftobj) select 2), round ((getPosATLVisual _liftobj) select 2)] select (!surfaceIsWater (getPosASL _liftobj));
+							private _ddx1 = [round ((getPosASLVisual _liftobj) # 2), round ((getPosVisual _liftobj) # 2)] select (!surfaceIsWater (getPosASL _liftobj));
 							__CTRL2(64441) ctrlSetText format [_distgrstr, _ddx1];
 							__CTRL2(64442) ctrlSetText (localize "STR_DOM_MISSIONSTRING_199");
 							sleep 0.001;
@@ -294,6 +289,10 @@ while {d_player_in_vec} do {
 	};
 	if (_doexitit) exitWith {};
 	sleep 0.432;
+};
+
+if (d_playerInMHQ) then {
+	d_playerInMHQ = false;
 };
 
 //deleteVehicle _helper_h;

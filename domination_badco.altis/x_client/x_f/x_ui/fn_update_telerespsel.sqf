@@ -60,8 +60,8 @@ if (_uidx == -1) then {
 			if !(player getVariable ["xr_isleader", false]) then {
 				private _leader = leader (group player);
 				private _emptycargo = [0, (vehicle _leader) emptyPositions "cargo"] select (!isNull objectParent _leader);
-				private _lbcolor = if (alive _leader && {!(_leader getVariable ["xr_pluncon", false])} && {!(_leader getVariable ["ace_isunconscious", false])} && {_emptycargo > 0 || {(getPos _leader) select 2 < 10}} && {!(_leader call d_fnc_isswimming)} && {!underwater _leader}) then {
-				//private _lbcolor = if (alive _leader && {!(_leader getVariable ["xr_pluncon", false]) && {isNull objectParent _leader && {(getPos _leader) select 2 < 10 && {!underwater _leader}}}}) then {
+				private _lbcolor = if (alive _leader && {!(_leader getVariable ["xr_pluncon", false])} && {!(_leader getVariable ["ace_isunconscious", false])} && {_emptycargo > 0 || {(getPos _leader) # 2 < 10}} && {!(_leader call d_fnc_isswimming)} && {!underwater _leader}) then {
+				//private _lbcolor = if (alive _leader && {!(_leader getVariable ["xr_pluncon", false]) && {isNull objectParent _leader && {(getPos _leader) # 2 < 10 && {!underwater _leader}}}}) then {
 					_leadavailable = true;
 					[1,1,1,1.0]
 				} else {
@@ -79,6 +79,8 @@ d_lb_tele_first = false;
 
 __TRACE_1("","d_additional_respawn_points")
 
+__TRACE_1("","_uidx")
+
 private _end_pos = if (_uidx == -1) then {
 	if (_data == "D_BASE_D") then {
 		getPosATL d_FLAG_BASE;
@@ -90,7 +92,7 @@ private _end_pos = if (_uidx == -1) then {
 		};
 	};
 } else {
-	(d_additional_respawn_points select _uidx) select 1;
+	(d_additional_respawn_points # _uidx) # 1;
 };
 
 __TRACE_1("","_end_pos")
@@ -120,16 +122,19 @@ if (_data != "" && {_mravailable || {_data == "D_BASE_D" || {_leadavailable || {
 } else {
 	__TRACE_1("","d_beam_target")
 	__TRACE_1("","d_last_beam_target")
-	if (!xr_respawn_available) exitWith {
-		__CTRL(100102) ctrlEnable false;
-		__TRACE("enable false")
-	};
-	if (d_beam_target == "D_BASE_D" || {_uidx != -1}) exitWith {};
-	if !(d_beam_target in _not_avail_array) exitWith {};
-	d_beam_target = "";
 	__CTRL(100110) ctrlSetText "";
 	__CTRL(100102) ctrlEnable false;
 	__TRACE("enable false 2")
+	if (d_beam_target == "D_BASE_D" || {_uidx != -1}) exitWith {};
+	if !(d_beam_target in _not_avail_array) exitWith {};
+	d_beam_target = "";
+};
+
+if (!isNil "xr_pl_no_lifes" && {xr_pl_no_lifes && {ctrlEnabled __CTRL(100102)}}) then {
+	__CTRL(100102) ctrlEnable false;
+};
+if (!xr_respawn_available && {ctrlEnabled __CTRL(100102)}) then {
+	__CTRL(100102) ctrlEnable false;
 };
 
 __TRACE_1("","d_beam_target")

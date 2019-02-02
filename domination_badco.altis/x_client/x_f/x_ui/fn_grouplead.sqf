@@ -35,6 +35,4 @@ if (_isLeader && {_new_lead != player}) then {
 	};
 };
 
-xr_pl_group = group player;
-
 uiNamespace setVariable ["d_dyxn_gr_disp", nil];

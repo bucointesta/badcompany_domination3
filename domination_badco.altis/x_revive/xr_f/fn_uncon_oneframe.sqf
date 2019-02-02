@@ -8,9 +8,9 @@
 
 if (time >= xr_u_nextcrytime) then {
 	private _plsayer = floor (random 4);
-	private _nummoans = floor (random (count ((xr_moansoundsar select _plsayer) select 1)));
+	private _nummoans = floor (random (count ((xr_moansoundsar # _plsayer) # 1)));
 	__TRACE_2("next say","_plsayer","_nummoans")
-	playSound3D ["a3\sounds_f\characters\human-sfx\" + ((xr_moansoundsar select _plsayer) select 0) + "\" + (((xr_moansoundsar select _plsayer) select 1) select _nummoans), player, false, getPosASL player, 1, 1, 100];
+	playSound3D ["a3\sounds_f\characters\human-sfx\" + ((xr_moansoundsar # _plsayer) # 0) + "\" + (((xr_moansoundsar # _plsayer) # 1) # _nummoans), vehicle player, false, getPosASL player, 1, 1, 100];
 	xr_u_nextcrytime = time + 15 + (random 15);
 };
 private _tt = round ((player getVariable "xr_unconendtime") - time);
@@ -20,13 +20,13 @@ if (_tt != xr_u_ott) then {
 };
 if (xr_near_player_dist_respawn && {!xr_respawn_available && {xr_u_dcounter > 10 && {time > xr_u_xxstarttime}}}) then {
 	private _nearunit = objNull;
-	{
-		private _xm = missionNamespace getVariable _x;
-		if (!isNil "_xm" && {!isNull _xm && {_xm != player && {!(_xm getVariable ["xr_pluncon", false])}}}) exitWith {
-			_nearunit = _xm;
+	d_allplayers findIf {
+		_ret = _x != player && {!(_x getVariable ["xr_pluncon", false])};
+		if (_ret) then {
+			_nearunit = _x;
 		};
-		false
-	} count d_player_entities;
+		_ret
+	};
 	if (isNull _nearunit) then {
 		xr_respawn_available = true;
 		__spectdlg1006 ctrlSetText (localize "STR_DOM_MISSIONSTRING_922");
@@ -53,7 +53,9 @@ if (_tt <= 0) exitWith {
 			remoteExecCall ["", _jipid];
 		};
 	};
-	player remoteExecCall ["xr_fnc_removeActions", d_own_sides_o];
+	{
+		player remoteExecCall ["xr_fnc_removeActions", _x];
+	} forEach d_own_sides_o;
 	xr_u_remactions = true;
 	__TRACE("_tt <= 0, black out")
 	"xr_revtxt" cutText [localize "STR_DOM_MISSIONSTRING_932", "BLACK OUT", 1];

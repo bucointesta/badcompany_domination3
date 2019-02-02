@@ -12,12 +12,12 @@ if (hasInterface) then {
 };
 
 if (call d_fnc_checkSHC) then {
-	private _poss = d_x_sm_pos select 0;
+	d_x_sm_pos params ["_poss"];
 	private _objs = _poss nearObjects [d_sm_land_tankbig, 50];
 	//private _objs = nearestObjects [_poss, [d_sm_land_tankbig], 50];
 	sleep 2.123;
 	["specops", 2, "allmen", 1, _poss, 200, true] spawn d_fnc_CreateInf;
 	sleep 2.221;
 	["aa", 1, "tracked_apc", 1, "tank", 1, _poss, 1, 400, true] spawn d_fnc_CreateArmor;
-	[_objs select 0, _objs select 1, objNull] spawn d_fnc_sidefactory;
+	[_objs # 0, _objs # 1, objNull] spawn d_fnc_sidefactory;
 };

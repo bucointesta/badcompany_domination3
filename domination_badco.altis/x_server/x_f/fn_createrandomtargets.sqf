@@ -8,8 +8,8 @@ __TRACE_1("","_firstar")
 private _add = [];
 
 for "_i" from 0 to (count _firstar - 2) do {
-	_nn = _firstar select _i;
-	if (((d_target_names select _nn) select 0) distance2D ((d_target_names select (_firstar select (_i + 1))) select 0) < 800) then {
+	_nn = _firstar # _i;
+	if (((d_target_names # _nn) # 0) distance2D ((d_target_names select (_firstar select (_i + 1))) # 0) < 800) then {
 		_add pushBack _nn;
 		_firstar set [_i, -999];
 	};
@@ -22,7 +22,9 @@ if !(_add isEqualTo []) then {
 	_firstar append _add;
 };
 
-_firstar = _firstar select [0, d_MainTargets];
+if (count _firstar > d_MainTargets_num) then { 
+	_firstar resize d_MainTargets_num;
+};
 
 __TRACE_1("","_firstar")
 

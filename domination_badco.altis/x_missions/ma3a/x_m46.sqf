@@ -7,12 +7,12 @@ d_x_sm_pos = "d_sm_46" call d_fnc_smmapos; // index: 46,   Destroy tanks in powe
 d_x_sm_type = "normal"; // "convoy"
 
 if (hasInterface) then {
-	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_866";
+	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_864";
 	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_865";
 };
 
 if (call d_fnc_checkSHC) then {
-	private _poss = d_x_sm_pos select 0;
+	d_x_sm_pos params ["_poss"];
 	private _objs = _poss nearObjects [d_sm_land_tankbig, 150];
 	//private _objs = nearestObjects [_poss, [d_sm_land_tankbig], 150];
 	if (count _objs < 3) then {_objs set [2, objNull]};
@@ -21,5 +21,5 @@ if (call d_fnc_checkSHC) then {
 	sleep 2.221;
 	["aa", 1, "tracked_apc", 1, "tank", 1, _poss, 1, 400, true] spawn d_fnc_CreateArmor;
 	sleep 5.123;
-	[_objs select 0, _objs select 1, _objs select 2] spawn d_fnc_sidefactory;
+	[_objs # 0, _objs # 1, _objs # 2] spawn d_fnc_sidefactory;
 };

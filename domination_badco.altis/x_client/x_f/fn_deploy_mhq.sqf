@@ -17,24 +17,26 @@ private _dd = 599;
 		_mhq = _x;
 		_dd = _distt;
 	};
-	false
-} count ((player nearEntities [["LandVehicle", "Air"], 10]) select {!isNull _x && {!(_x isKindOf "ParachuteBase") && {!(_x isKindOf "BIS_Steerable_Parachute") && {(_x getVariable ["d_vec_type", ""]) == "MHQ"}}}});
+} forEach ((player nearEntities [["LandVehicle", "Air"], 10]) select {!isNull _x && {!(_x isKindOf "ParachuteBase") && {!(_x isKindOf "BIS_Steerable_Parachute") && {(_x getVariable ["d_vec_type", ""]) == "MHQ"}}}});
 
 if (isNull _mhq) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_1451")};
 
+#ifndef __TT__
 if (_mhq inArea d_base_array || {surfaceIsWater (getPosATLVisual d_curvec_dialog)}) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_213")};
+#else
+if (_mhq inArea (d_base_array # 0) || {_mhq inArea (d_base_array # 1) || {surfaceIsWater (getPosATLVisual d_curvec_dialog)}}) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_213")};
+#endif
 
-if ((_mhq getVariable ["d_MHQ_Depltime", -1]) > time) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_214")};
+if ((_mhq getVariable ["d_MHQ_Depltime", -1]) > time) exitWith {
+	systemChat (format [localize "STR_DOM_MISSIONSTRING_214", round (time - (_mhq getVariable ["d_MHQ_Depltime", -1]))])
+};
 
 __TRACE("Before reading deploy var")
 
 if !(_mhq getVariable ["d_MHQ_Deployed", false]) then {
 	__TRACE("MHQ not deployed")
-	if ({alive _x} count (crew _mhq) > 0) then {
-		{
-			moveOut _x;
-			false
-		} count (crew _mhq);
+	if ((crew _mhq) findIf {alive _x} > -1) then {
+		{moveOut _x} forEach (crew _mhq);
 		//systemChat (localize "STR_DOM_MISSIONSTRING_215");
 		__TRACE("MHQ not empty")
 	};

@@ -9,6 +9,8 @@ params ["_rtype"];
 __TRACE_1("","_rtype")
 
 if (_rtype == 0) then { // player died
+	call d_fnc_save_respawngear;
+	player setVariable ["d_currentvisionmode", currentVisionMode player];
 	if (visibleMap) then {
 		openMap false;
 	};
@@ -27,14 +29,22 @@ if (_rtype == 0) then { // player died
 		player setVariable ["d_has_ffunc_aid", -9999];
 	};
 	if (player getVariable ["d_has_sfunc_aid", false]) then {
-		player removeAction d_actionID6;
-		player removeAction d_actionID2;
+		if (d_actionID2 != -9999) then {
+			[d_orig_sfunc_obj, d_actionID2] call bis_fnc_holdActionRemove;
+			d_actionID2 = -9999;
+		};
 		player setVariable ["d_has_sfunc_aid", false];
 	};
 } else { // _rtype = 1, player has respawned
-	player setvariable ["d_layoutgear", d_respawngear];
 	d_commandingMenuIniting = false;
 	d_DomCommandingMenuBlocked = false;
+#ifdef __CARRIER__
+	if (d_WithRevive == 1) then {
+		private _resp_pos = markerPos "base_spawn_1";
+		_resp_pos set [2, (getPosASL d_FLAG_BASE) # 2];
+		player setPosASL _resp_pos;
+	};
+#endif
 	showCommandingMenu "";
 	__TRACE("adding player handleDamage eventhandler non ace")
 	if (!d_with_ace) then {
@@ -42,10 +52,13 @@ if (_rtype == 0) then { // player died
 	};
 	xr_phd_invulnerable = true;
 	player setFatigue 0;
-	
-
-	call d_fnc_retrieve_layoutgear;
-
+	if (d_weapon_respawn) then {
+		if (d_WithRevive == 1) then {
+			call d_fnc_retrieve_layoutgear;
+		} else {
+			call d_fnc_retrieve_respawngear;
+		};
+	};
 	if (player getVariable ["d_has_gps", false]) then {
 		player linkItem "ItemGPS";
 		player setVariable ["d_has_gps", false];
@@ -56,10 +69,15 @@ if (_rtype == 0) then { // player died
 	"RadialBlur" ppEffectEnable false;
 
 	if (d_WithRevive == 1) then {
-		deleteVehicle ((param [1]) select 1);
+		deleteVehicle ((_this # 1) # 1);
 	};
 	
-	//if (sunOrMoon < 0.99 && {player call d_fnc_hasnvgoggles}) then {player action ["NVGoggles",player]};
+#ifndef __IFA3LITE__
+	if (d_without_nvg == 1 && {player call d_fnc_hasnvgoggles && {sunOrMoon < 0.99 || {player getVariable ["d_currentvisionmode", 0] == 1}}}) then {
+		player action ["NVGoggles",player];
+	};
+#endif
+
 	if !(player getVariable ["xr_isdead", false]) then {
 		0 spawn {
 			scriptName "spawn_playerspawn_vul";
@@ -69,23 +87,34 @@ if (_rtype == 0) then { // player died
 		};
 	};
 	if (d_WithRevive == 1 && {!isNull (player getVariable "d_is_leader")}) then {
-		[player getVariable "d_is_leader", player] remoteExecCall ["selectLeader", groupOwner (player getVariable "d_is_leader")];
+		//[player getVariable "d_is_leader", player] remoteExecCall ["selectLeader", groupOwner (player getVariable "d_is_leader")];
+		[player getVariable "d_is_leader", player] remoteExecCall ["xr_fnc_selleader", player getVariable "d_is_leader"];
 	};
 	private _clattachedobj = player getVariable ["d_p_clattachedobj", objNull];
 	if (!isNull _clattachedobj) then {
 		_clattachedobj attachTo [player, [0, -0.03, 0.07], "LeftShoulder"]; 
 	};
-	/*
 	if (!d_no_ai || {d_string_player in d_can_use_artillery || {d_string_player in d_can_mark_artillery}}) then {
-		player setVariable ["d_ld_action", player addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_1520"],{_this call d_fnc_mark_artillery} ,  0, 9, true, false, "", "alive player && {!(player getVariable ['xr_pluncon', false]) && {!(player getVariable ['ace_isunconscious', false]) && {!(player getVariable ['d_isinaction', false]) && {!d_player_in_vec && {cameraView == 'GUNNER' && {!isNull (laserTarget player) && {currentWeapon player isKindOf ['LaserDesignator', configFile >> 'CfgWeapons']}}}}}}}"]];
+#ifndef __IFA3LITE__
+		player setVariable ["d_ld_action", player addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_1520"], {_this call d_fnc_mark_artillery} , 0, 9, true, false, "", "alive player && {!(player getVariable ['xr_pluncon', false]) && {!(player getVariable ['ace_isunconscious', false]) && {!(player getVariable ['d_isinaction', false]) && {!d_player_in_vec && {cameraView == 'GUNNER' && {!isNull (laserTarget player) && {currentWeapon player isKindOf ['LaserDesignator', configFile >> 'CfgWeapons']}}}}}}}"]];
+#else
+		player setVariable ["d_ld_action", player addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_1520"], {_this call d_fnc_mark_artillery} , 0, 9, true, false, "", "alive player && {!(player getVariable ['xr_pluncon', false]) && {!(player getVariable ['ace_isunconscious', false]) && {!(player getVariable ['d_isinaction', false]) && {!d_player_in_vec && {cameraView == 'GUNNER' && {currentWeapon player isKindOf ['Binocular', configFile >> 'CfgWeapons']}}}}}}"]];
+#endif
 	};
-	*/
 	if (!d_no_ai || {d_string_player in d_can_call_cas}) then {
+#ifndef __TT__
 		if (!d_ifa3lite) then {
 			player setVariable ["d_ccas_action", player addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_1711"], {_this call d_fnc_call_cas} , 0, 9, true, false, "", "d_cas_available && {alive player && {!(player getVariable ['xr_pluncon', false]) && {!(player getVariable ['ace_isunconscious', false]) && {!(player getVariable ['d_isinaction', false]) && {!d_player_in_vec && {cameraView == 'GUNNER' && {!isNull (laserTarget player) && {currentWeapon player isKindOf ['LaserDesignator', configFile >> 'CfgWeapons']}}}}}}}}"]];
 		} else {
 			player setVariable ["d_ccas_action", player addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_1711"], {_this call d_fnc_call_cas} , 0, 9, true, false, "", "d_cas_available && {alive player && {!(player getVariable ['xr_pluncon', false]) && {!(player getVariable ['ace_isunconscious', false]) && {!(player getVariable ['d_isinaction', false]) && {!d_player_in_vec && {cameraView == 'GUNNER' && {!(screenToWorld [0.5, 0.5] inArea d_base_array) && {currentWeapon player isKindOf ['Binocular', configFile >> 'CfgWeapons']}}}}}}}}"]];
 		};
+#else
+	if (d_player_side == blufor) then {
+		player setVariable ["d_ccas_action", player addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_1711"], {_this call d_fnc_call_cas} , 0, 9, true, false, "", "d_cas_available_w && {alive player && {!(player getVariable ['xr_pluncon', false]) && {!(player getVariable ['ace_isunconscious', false]) && {!(player getVariable ['d_isinaction', false]) && {!d_player_in_vec && {cameraView == 'GUNNER' && {!isNull (laserTarget player) && {currentWeapon player isKindOf ['LaserDesignator', configFile >> 'CfgWeapons']}}}}}}}}"]];
+	} else {
+		player setVariable ["d_ccas_action", player addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_1711"], {_this call d_fnc_call_cas} , 0, 9, true, false, "", "d_cas_available_e && {alive player && {!(player getVariable ['xr_pluncon', false]) && {!(player getVariable ['ace_isunconscious', false]) && {!(player getVariable ['d_isinaction', false]) && {!d_player_in_vec && {cameraView == 'GUNNER' && {!isNull (laserTarget player) && {currentWeapon player isKindOf ['LaserDesignator', configFile >> 'CfgWeapons']}}}}}}}}"]];
+	};
+#endif
 	};
 	if (d_enablefatigue == 0) then {
 		player enableFatigue false;
@@ -94,6 +123,7 @@ if (_rtype == 0) then { // player died
 	if (d_enablesway == 0) then {
 		player setCustomAimCoef 0.1;
 	};
+	player enableAttack false;
 	
 	d_player_in_vec = false; // just to be sure
 	
@@ -108,6 +138,7 @@ if (_rtype == 0) then { // player died
 	BIS_DeathBlur ppEffectCommit 0.0;
 	
 	player setFatigue 0;
+	player setBleedingRemaining 0;
 	
 	[player] remoteExecCall ["d_fnc_addceo", 2];
 	player remoteExecCall ["d_fnc_prison_check", 2];

@@ -14,6 +14,9 @@ _killed removeAllEventHandlers "handleDamage";
 deleteVehicle _killed;
 if (isNull _kgrp) then {
 	_kgrp = [_side] call d_fnc_creategroup;
+	if (d_with_ai) then {
+		_kgrp setVariable ["d_do_not_delete", true];
+	};
 };
 private _unit = _kgrp createUnit [typeOf _killed,[0,0,0],[],0,"NONE"];
 missionNamespace setVariable [_var, _unit];
@@ -27,11 +30,10 @@ _unit setVariable ["d_kddata", _kdata];
 
 {
 	_unit kbAddTopic[_x,"x_bikb\domkba3.bikb"];
-	false
-} count (_kdata select 0);
-_unit setIdentity (_kdata select 1);
+} forEach (_kdata # 0);
+_unit setIdentity (_kdata # 1);
 _unit setRank "COLONEL";
-_unit setGroupIdGlobal [_kdata select 2];
+_unit setGroupIdGlobal [_kdata # 2];
 _unit addEventHandler ["killed", {_this call d_fnc_kEHflogic}];
 removeAllWeapons _unit;
 [_var, _side] remoteExecCall ["d_fnc_kbunits", [0, -2] select isDedicated];

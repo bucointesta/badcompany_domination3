@@ -12,7 +12,7 @@ private _mode = "";
 private _display = uiNamespace getVariable "d_RscAnimatedLetters";
 private _Slot = 0;
 
-switch (param [1]) do  {
+switch (_this select 1) do  {
 	case 0: {_mode = "IntroAnim\animateLetter.sqf";_Slot = 0};
 	case 1: {_mode = "IntroAnim\animateLetter1.sqf";_Slot = 30};
 	case 2: {_mode = "IntroAnim\animateLetter2.sqf";_Slot = 60};
@@ -38,8 +38,8 @@ for "_i" from _Slot to (_Slot + 30) do {
 if (_doexit) exitWith {};
 for "_i" from 0 to 29 do {
 	sleep 0.06;
-	private _ctrl = d_animL_controls select 0;
-	if !(isNil "_ctrl") then {[_ctrl, _chars select _i, _i, _Slot] execVM _mode};
+	d_animL_controls params ["_ctrl"];
+	if !(isNil "_ctrl") then {[_ctrl, _chars # _i, _i, _Slot] execVM _mode};
 	sleep 0.06;
 };
 d_animL_i = d_animL_i + 1;

@@ -11,7 +11,7 @@
 params ["_center", "_radius"];
 private _ret_val = [];
 for "_co" from 0 to 99 do {
-	_isFlat = (_center getPos [random _radius, random 360]) isFlatEmpty [
+	_isFlat = (_center getPos [_radius * sqrt random 1, random 360]) isFlatEmpty [
 		1,	//--- Minimal distance from another object
 		-1,				//--- If 0, just check position. If >0, select new one // 0
 		1,				//--- Max gradient

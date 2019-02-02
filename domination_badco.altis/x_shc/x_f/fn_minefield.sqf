@@ -18,11 +18,12 @@ d_mines_created = [];
 private _mtype = selectRandom ["APERSMine", "APERSBoundingMine", "SLAMDirectionalMine", "APERSTripMine"];
 
 for "_i" from 0 to (_num_mines - 1) do {
-	private _mine = createMine [_mtype, _m_pos_ar select _i, [], 0];
-	_mine setDir (random 360);
+	private _mine = createMine [_mtype, _m_pos_ar # _i, [], 0];
+	[_mine, random 360] remoteExecCall ["setDir"];
 	d_side_enemy revealMine _mine;
 	d_mines_created pushBack _mine;
 #ifdef __GROUPDEBUG__
-	[str _mine, _m_pos_ar select _i, "ICON", "ColorBlack", [0.5, 0.5], "Mine: " + (typeOf _mine), 0, "mil_dot"] call d_fnc_CreateMarkerLocal;
+	[str _mine, _m_pos_ar # _i, "ICON", "ColorBlack", [0.5, 0.5], "Mine: " + (typeOf _mine), 0, "mil_dot"] call d_fnc_CreateMarkerLocal;
 #endif
+	sleep 0.2;
 };

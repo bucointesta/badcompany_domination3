@@ -31,6 +31,7 @@ class cfgFunctions {
 			addc(save_respawngear);
 			addc(retrieve_respawngear);
 			addc(retrieve_layoutgear);
+			addc(ispilotcheck);
 			addc(filldropedbox);
 			addc(create_boxnet);
 			addc(ataxinet);
@@ -41,7 +42,6 @@ class cfgFunctions {
 			addc(sfunc);
 			addc(ffunc);
 			addc(placedobjan);
-			addc(recapturedupdate);
 			addc(playerrank);
 			addc(getrankindex);
 			addc(getrankindex2);
@@ -52,15 +52,15 @@ class cfgFunctions {
 			addc(progbarcall);
 			addc(playerfiredeh);
 			addc(showstatus);
-			addc(settingsdialog);
 			addc(dropammoboxdx);
 			addc(loaddroppedx);
 			addc(deploy_mhq);
 			addc(teleportx);
 			addc(beam_tele);
 			addc(checktrucktrans);
-			addc(checkpilot);
-			addc(checkpilotout);
+			addc(checkhelipilot);
+			addc(checkhelipilot_wreck);
+			addc(checkhelipilotout);
 			addc(initvec);
 			addc(lockc);
 			addc(save_layoutgear);
@@ -73,9 +73,6 @@ class cfgFunctions {
 			addc(bike);
 			addc(recruitaiaction);
 			addc(restoreeng);
-			addc(searchbody);
-			addc(repanalyze);
-			addc(repengineer);
 			addc(newflagclient);
 			addc(helilift);
 			addc(helilift_wreck);
@@ -97,7 +94,7 @@ class cfgFunctions {
 			addc(weaponcargo);
 			addc(weaponcargo_ranked);
 			addc(ptakeweapon);
-			addc(pputweapon);
+			addc(store_rwitems);
 			addc(healatmash);
 			addc(mark_artillery);
 			addc(call_cas);
@@ -105,8 +102,8 @@ class cfgFunctions {
 			addc(player_name_huddo2);
 			addc(player_name_huddo);
 			addc(gethpname);
-			addc(inventoryclosed);
 			addc(inventoryopened);
+			addc(inventoryclosed);
 			addc(command_menu);
 			addc(dcmcc);
 			addc(clean_craters);
@@ -128,6 +125,8 @@ class cfgFunctions {
 			addc(getcorners);
 			addc(playerrankloop);
 			addc(waitforgps);
+			addc(waitartycompmap);
+			addc(waitforuavmap);
 			addc(seatswitchedman);
 			addc(allowedvec);
 			addc(removelinebreak);
@@ -135,10 +134,27 @@ class cfgFunctions {
 			addc(wreck_transport);
 			addc(checkdriver_wreck);
 			addc(db_load_savegame);
+			addc(arsenal_mod);
+			addc(checkdriver);
+			addc(checkenterer);
+			addc(warnplayer);
+			addc(engtrigfnc);
+			addc(engtrig1fnc);
+			addc(checkammo);
+			addc(allplayers);
+			addc(hchelper);
+			addc(cdoquake);
+			addc(getoutmaneh);
+			addc(addpylon_action);
+			addc(serverrules);
+			addc(playsound);
+			addc(repack_mags);
 			addc(checkitem);
 			addc(checkswitchseat);
 			addc(allowed_item);
 			addc(forbidden_item);
+			addc(badco_uniform);
+			addc(replenishbox);
 		};
 		class Dom_UI {
 			file = "x_client\x_f\x_ui";
@@ -178,11 +194,22 @@ class cfgFunctions {
 			addc(respawn_mar_anim);
 			addc(grouplead);
 			addc(statusdialoginit);
-			addc(settingsdialoginit);
 			addc(playerspectate);
 			addc(initdbsavedialog);
 			addc(dbsave_lbchanged);
 			addc(initdbtop10dialog);
+			addc(draw3dstuff);
+			addc(initadmindialog);
+			addc(initpylonloadoutdialog);
+			addc(pylonloadoutpresetschanged);
+			addc(pylonloadoutdialogcbselchanged);
+			addc(pylonapply);
+			addc(checkpjumppos);
+			addc(arsenalopened);
+			addc(arsenalclosed);
+			addc(inittransferscoredialog);
+			addc(tsdsliderposchanged);
+			addc(tranfserscoremsgdialog);
 		};
 		class Dom_Common {
 			file = "x_common\x_f";
@@ -204,12 +231,10 @@ class cfgFunctions {
 			addc(getslope);
 			addc(createmarkerglobal);
 			addc(createmarkerlocal);
-			addc(getaliveunitsgrp);
 			addc(createtrigger);
 			addc(createtriggerlocal);
-//#ifdef __GROUPDEBUG__
+			addc(convtime);
 			addc(linemaker2);
-//#endif
 			addc(posbehind2);
 			addc(isveclocked);
 			addc(worldboundscheck);
@@ -221,17 +246,24 @@ class cfgFunctions {
 			addc(getranpointsquare);
 			addc(getranpointouterair);
 			addc(reload);
-			addc(mpcheck);
 			addc(getenemyflagtex);
 			addc(tjetservice);
 			addc(tchopservice);
 			addc(tvecservice);
 			addc(tallservice);
 			addc(delruin);
-			addc(isnvgoogles);
-			addc(getzoom);
+			addc(isnvgoggles);
 			addc(isswimming);
 			addc(posbehindvec);
+			addc(getplayername);
+			addc(checkveckillblufor);
+			addc(checkveckillopfor);
+			addc(create_route);
+			addc(setposagls);
+			addc(isplayer);
+			addc(prison_check);
+			addc(prison_in);
+			addc(prison_out);	
 		};
 		class Dom_ext_Scripts {
 			file = "scripts";
@@ -239,6 +271,8 @@ class cfgFunctions {
 			addc(moduleCAS);
 			addc(mando_chute);
 			addc(sandstorm);
+			addc(weather_winter);
+			addc(HousePatrol);
 		};
 		class Dom_KBTell {
 			file = "x_bikb";
@@ -257,6 +291,12 @@ class cfgFunctions {
 			addc(smmapos);
 			addc(hcsmexec);
 			addc(addkillednormal);
+			addc(create_sm_bymarkers);
+			addc(addsmpoints);
+			addc(getbymarkersm);
+			addc(clearsidemission);
+			addc(addactionstd);
+			addc(smsurprise);
 		};
 		class Dom_SMMissions_Common {
 			file = "x_missions\common";
@@ -275,13 +315,17 @@ class cfgFunctions {
 			addc(sidemines);
 			addc(sidedeliver);
 			addc(sidetrafo);
+			addc(sideelimofficer);
+			addc(sideobject);
+			addc(sideobjects);
+			addc(sidetransferdata);
+			addc(sidecache);
 		};
 		class Dom_Server {
 			file = "x_server\x_f";
 			addc(addkillsai);
 			addc(getwreck);
 			addc(placedobjkilled);
-			addc(getplayerarray);
 			addc(tkkickcheck);
 			addc(kickplayerbs);
 			addc(rptmsgbs);
@@ -310,13 +354,13 @@ class cfgFunctions {
 			addc(createjumpflag);
 			addc(gettargetbonus);
 			addc(pshootatarti);
+			addc(pshootatmhq);
 			addc(createrandomtargets);
 			addc(handledisconnect);
 			addc(heli_local_check);
 			addc(chopperkilled);
 			addc(bonusvecfnc);
 			addc(cleanerfnc);
-			addc(plgroup);
 			addc(p_o_ar);
 			addc(ampoi);
 			addc(mhqdepls);
@@ -349,14 +393,20 @@ class cfgFunctions {
 			addc(db_loadsavegame_server);
 			addc(endsidemission);
 			addc(db_update);
-			addc(gate_open);
-			addc(prison_check);
-			addc(prison_in);
-			addc(prison_out);
-			addc(revive_baseinf);
-			addc(initplserver);
-			addc(badco_uniform);
-			addc(replenishbox);
+			addc(getplayerscores);
+			addc(a_p_w);
+			addc(a_p_e);
+			addc(addpoints);
+			addc(addkills);
+			addc(plcheckkillblufor);
+			addc(plcheckkillopfor);
+			addc(dbtoppasync);
+			addc(checksimminet);
+			addc(skinpolyresp);
+			addc(getskinpoly);
+			addc(handlescore);
+			addc(add_hs);
+			addc(giveplayerscore);					
 		};
 		class Dom_SHC {
 			file = "x_shc\x_f";
@@ -384,20 +434,18 @@ class cfgFunctions {
 			addc(sidemissionresolved);
 			addc(checkmtshothd);
 			addc(checkmthardtarget);
+			addc(checkmtrespawntarget);
 			addc(getsmtargetmessage);
 			addc(mtsmtargetkilled);
 			addc(isledefmarkermove);
 			addc(make_isle_grp);
-			addc(counterattack);
 			addc(createmaintarget);
 			addc(docreatenexttarget);
-			addc(dorecapture);
 			addc(minefield);
 			addc(createsecondary);
 			addc(handleobservers);
 			addc(handleattackgroups);
 			addc(cgraa);
-			addc(hcexecsm);
 			addc(dodelintelu);
 			addc(dodelrspgrps);
 			addc(xdelct);
@@ -406,6 +454,11 @@ class cfgFunctions {
 			addc(getflatarea);
 			addc(getmtmission);
 			addc(mchelper);
+			addc(sabotage);
+			addc(createpara2);
+			addc(doquake);
+			addc(createambient);
+			addc(dohousepatrol);
 		};
 		class Dom_PrePostInit {
 			file = "x_init";
@@ -451,7 +504,6 @@ class cfgFunctions {
 			addc(cdorevive);
 			addc(drop_body);
 			addc(carry);
-			addc(selfheal);
 			addc(updaterlb);
 			addc(showppos);
 			addc(no_spectating);
@@ -465,6 +517,38 @@ class cfgFunctions {
 			addc(draghelper);
 			addc(changeleader);
 			addc(spectdlginit);
+			addc(selleader);
+		};
+	};
+	class Dom_AR {
+		tag = "ar";
+		class Dom_AR_prestart {
+			file = "ar";
+			class postinit {
+				postInit = 1;
+				headerType = -1;
+			};
+		};
+		class Dom_AR {
+			file = "ar";
+			addc(Has_Addon_Animations_Installed);
+			addc(Has_Addon_Sounds_Installed);
+			addc(Rappel_All_Cargo);
+			addc(Play_Rappelling_Sounds);
+			addc(Play_3D_Sound);
+			addc(Get_Heli_Rappel_Points);
+			addc(Rappel_From_Heli);
+			addc(Client_Rappel_From_Heli);
+			addc(Current_Weapon_Type_Selected);
+			addc(Enable_Rappelling_Animation_Client);
+			addc(Rappel_Detach_Action);
+			addc(Rappel_Detach_Action_Check);
+			addc(Rappel_From_Heli_Action);
+			addc(Rappel_From_Heli_Action_Check);
+			addc(Rappel_AI_Units_From_Heli_Action_Check);
+			addc(Get_Corner_Points);
+			addc(Is_Supported_Vehicle);
+			addc(Hide_Object_Global);
 		};
 	};
 	class Dom_FSM {
@@ -481,16 +565,14 @@ class cfgFunctions {
 			class HandleCamps2{ext=".fsm";};
 			class IsAdmin{ext=".fsm";};
 			class Parahandler{ext=".fsm";};
-			class PlayerAmmobox{ext=".fsm";};
-			class Recapture{ext=".fsm";};
 			class RepWreck{ext=".fsm";};
 			class RespawnGroups{ext=".fsm";};
 			class RetakeCamp{ext=".fsm";};
 			class WeatherServer{ext=".fsm";};
 			class Wreckmarker{ext=".fsm";};
-			class XClearSidemission{ext=".fsm";};
 			class TTPoints{ext=".fsm";};
 			class HandleCampsTT2{ext=".fsm";};
+			class Infilrate{ext=".fsm";};
 		};
 	};
 };

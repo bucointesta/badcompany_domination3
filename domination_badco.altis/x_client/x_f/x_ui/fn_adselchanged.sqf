@@ -15,14 +15,14 @@ if (!d_pisadminp && {isMultiplayer}) exitWith {
 
 params ["_selection"];
 
-private _selIdx = _selection select 1;
+private _selIdx = _selection # 1;
 if (_selIdx == -1) exitWith {};
 
-private _control = _selection select 0;
+_selection params ["_control"];
 _control ctrlEnable false;
 private _unit = missionNamespace getVariable (_control lbData _selIdx);
 d_a_d_cur_uid = getPlayerUID _unit;
-d_a_d_cur_unit_name = name _unit;
+d_a_d_cur_unit_name = _unit call d_fnc_getplayername;
 __TRACE_1("adselchanged","_unit")
 d_u_r_inf = nil;
 d_a_d_cur_name = _control lbText _selIdx;
@@ -44,7 +44,7 @@ ctrlmapanimcommit _ctrl;
 private _endtime = time + 30;
 waitUntil {!isNil "d_u_r_inf" || {!d_admin_dialog_open || {!alive player || {time > _endtime}}}};
 
-d_u_r_inf = d_u_r_inf select 1;
+d_u_r_inf = d_u_r_inf # 1;
 
 if (d_u_r_inf isEqualTo [] || {!d_admin_dialog_open || {!alive player || {time > _endtime}}}) exitWith {};
 
@@ -59,8 +59,8 @@ __CTRL2(1004) ctrlSetText d_a_d_cur_uid;
 __CTRL2(1005) ctrlSetText str _unit;
 
 private _sel = 7;
-__CTRL2(1006) ctrlSetText str(d_u_r_inf select _sel);
+__CTRL2(1006) ctrlSetText str(d_u_r_inf # _sel);
 __CTRL2(1009) ctrlSetText str(score _unit);
-__CTRL2(1007) ctrlEnable ((d_u_r_inf select _sel) >= 1);
+__CTRL2(1007) ctrlEnable ((d_u_r_inf # _sel) >= 1);
 __CTRL2(1008) ctrlEnable (d_a_d_cur_name != d_name_pl);
 __CTRL2(1010) ctrlEnable (d_a_d_cur_name != d_name_pl);

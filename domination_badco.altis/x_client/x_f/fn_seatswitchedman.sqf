@@ -5,11 +5,11 @@
 
 __TRACE_1("","_this")
 
-params ["_switcher", "_unit1", "_vec"];
+params ["_switcher", "_unit2", "_vec"];
 
 __TRACE_1("","assignedVehicleRole player");
 
-if ((assignedVehicleRole player) select 0 == "Cargo" || {!isNil {_vec getVariable "d_vec_type"}}) exitWith {
+if ((assignedVehicleRole player) # 0 == "Cargo" || {!isNil {_vec getVariable "d_vec_type"}}) exitWith {
 	d_vec_role_pl = assignedVehicleRole player;
 };
 
@@ -17,9 +17,9 @@ if ((assignedVehicleRole player) select 0 == "Cargo" || {!isNil {_vec getVariabl
 
 if (_not_allowed) then {
 	private _old_assigned = [];
-	if (!isNull _unit1) then {
+	if (!isNull _unit2) then {
 		_old_assigned = assignedVehicleRole player;
-		moveOut _unit1;
+		moveOut _unit2;
 	};
 	__TRACE_1("","d_vec_role_pl");
 	private _co = count d_vec_role_pl;
@@ -29,26 +29,26 @@ if (_not_allowed) then {
 	} else {
 		if (_co == 1) then {
 			call {
-				if (d_vec_role_pl select 0 == "Driver") exitWith {moveOut player;player moveInDriver _vec};
-				if (d_vec_role_pl select 0 == "Cargo") exitWith {moveOut player;player moveInCargo _vec};
+				if (d_vec_role_pl # 0 == "Driver") exitWith {moveOut player;player moveInDriver _vec};
+				if (d_vec_role_pl # 0 == "Cargo") exitWith {moveOut player;player moveInCargo _vec};
 			};
 		} else {
 			moveOut player;
-			player moveInTurret [_vec, d_vec_role_pl select 1];
+			player moveInTurret [_vec, d_vec_role_pl # 1];
 		};
 	};
-	if (!isNull _unit1 && {!(_old_assigned isEqualTo [])}) then {
+	if (!isNull _unit2 && {!(_old_assigned isEqualTo [])}) then {
 		private _co = count _old_assigned;
 		__TRACE_1("","_co")
 		
 		if (_co == 1) then {
 			call {
-				if (_old_assigned select 0 == "Driver") exitWith {_unit1 moveInDriver _vec};
-				if (_old_assigned select 0 == "Cargo") exitWith {_unit1 moveInCargo _vec};
+				if (_old_assigned # 0 == "Driver") exitWith {_unit2 moveInDriver _vec};
+				if (_old_assigned # 0 == "Cargo") exitWith {_unit2 moveInCargo _vec};
 			};
 		} else {
 			if (_co > 1) then {
-				_unit1 moveInTurret [_vec, _old_assigned select 1];
+				_unit2 moveInTurret [_vec, _old_assigned # 1];
 			};
 		};
 	};

@@ -20,7 +20,7 @@ player setVariable ["xr_is_dragging", true];
 
 private _unit = player;
 private _name_dragee = [_dragee] call d_fnc_gethpname;
-if (isNil "_name_dragee" || {_name_dragee == ""}) then {_name_dragee = name _dragee; _dragee setVariable ["d_phname", nil]};
+if (isNil "_name_dragee" || {_name_dragee == ""}) then {_name_dragee = _dragee call d_fnc_getplayername};
 
 xr_drag_keys_ar = [DIK_C] + (actionKeys "NetworkStats") + (actionKeys "Crouch") + (actionKeys "Stand");
 xr_drag_keyDownEHId = (findDisplay 46) displayAddEventHandler ["KeyDown", {_this call xr_fnc_dragkeydown}];

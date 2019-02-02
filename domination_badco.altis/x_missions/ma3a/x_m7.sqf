@@ -12,7 +12,7 @@ if (hasInterface) then {
 };
 
 if (call d_fnc_checkSHC) then {
-	private _poss = d_x_sm_pos select 0;
+	d_x_sm_pos params ["_poss"];
 	private _vec = createVehicle [d_sm_barracks, _poss, [], 0, "NONE"];
 	_vec call d_fnc_addKilledEHSM;
 	_vec setDir 270;

@@ -7,7 +7,7 @@ d_x_sm_pos = "d_sm_32" call d_fnc_smmapos; // index: 32,   Capture the flag, nor
 d_x_sm_type = "normal"; // "convoy"
 
 if (hasInterface) then {
-	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_856";
+	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_775";
 	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_776";
 };
 

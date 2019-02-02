@@ -29,9 +29,9 @@ while {alive _vec && {alive player && {player in _vec}}} do {
 			private _nobjects = nearestObjects [_vec, ["LandVehicle", "Air"], 70];
 			__TRACE_1("","_nobjects")
 			if !(_nobjects isEqualTo []) then {
-				private _dummy = _nobjects select 0;
+				_nobjects params ["_dummy"];
 				if (_dummy == _vec) then {
-					if (count _nobjects > 1) then {_transobj = _nobjects select 1};
+					if (count _nobjects > 1) then {_transobj = _nobjects # 1};
 				} else {
 					_transobj = _dummy;
 				};
@@ -95,6 +95,9 @@ while {alive _vec && {alive player && {player in _vec}}} do {
 					_transobj engineOn false;
 					_transobj attachTo [_vec, [0, -15, 1]];
 					_vec setVariable ["d_attachedto_v", _transobj, true];
+					if (d_with_ranked || {d_database_found}) then {
+						_liftobj setVariable ["d_lift_pilot", player, true];
+					};
 					
 					while {alive _vec && {player in _vec && {!isNull _transobj && {alive player && {!isNull attachedTo _transobj && {!(_vec getVariable "d_vec_released")}}}}}} do {
 						_vec setFuel ((fuel _vec) - _fuelloss);
@@ -117,15 +120,14 @@ while {alive _vec && {alive player && {player in _vec}}} do {
 					_vec setVariable ["d_vec_released", false];
 					_vec setVariable ["d_Attached_Vec", objNull];
 					
-					if (!alive _transobj || {!alive _vec}) then {
+					if (alive _vec) then {
 						_vec removeAction _release_id;
 						_release_id = -1212;
-					} else {
-						if (alive _vec && {alive player}) then {_vec vehicleChat (localize "STR_DOM_MISSIONSTRING_253")};
+						if (alive player) then {_vec vehicleChat (localize "STR_DOM_MISSIONSTRING_253")};
 					};
 					
 					private _npos = getPosATLVisual _transobj;
-					_transobj setPos [_npos select 0, _npos select 1, 0];
+					_transobj setPos [_npos # 0, _npos # 1, 0];
 					
 					//[_transobj, [0,0,0]] remoteExecCall ["setVelocity", _transobj];
 					

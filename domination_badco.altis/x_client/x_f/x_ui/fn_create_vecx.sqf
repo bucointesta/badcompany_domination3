@@ -9,4 +9,11 @@ disableSerialization;
 private _idx = lbCurSel ((uiNamespace getVariable "d_VecDialog") displayCtrl 44449);
 closeDialog 0;
 if (_idx < 0) exitWith {};
-[0, 0, 0, [d_create_bike select _idx, 0]] spawn d_fnc_bike;
+
+if (time < d_mhqvec_create_cooldown_time) exitWith {
+	systemChat format [localize "STR_DOM_MISSIONSTRING_1823", round (d_mhqvec_create_cooldown_time - time)];
+};
+
+[0, 0, 0, [d_create_bike # _idx, 0]] spawn d_fnc_bike;
+
+d_mhqvec_create_cooldown_time = time + d_mhqvec_create_cooldown;

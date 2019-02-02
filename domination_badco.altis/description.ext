@@ -10,9 +10,9 @@ allowFunctionsLog = 1;
 #endif
 #include "cfgfunctions.hpp"
 
-author = "Xeno, modified by A.Renton [B.A.D. PMC]";
-OnLoadName = "Domination!";
-onLoadMission = __D_VER_NAME__;
+author = "Xeno, modified by A.Renton and K.Hunter";
+OnLoadName = "Bad Company Domination";
+onLoadMission = "v3.99k";
 onLoadIntroTime = false;
 onLoadMissionTime = false;
 disabledAI = 1;
@@ -23,16 +23,49 @@ showGPS = 1;
 showSquadRadar = 1;
 saving = 0;
 loadScreen = "pics\domls.paa";
-overviewText = "Seize various main targets and resolve side missions...";
+overviewText = "$STR_DOM_MISSIONSTRING_1828";
 
 #ifdef __DEBUG__
 enableDebugConsole = 2;
 #endif
 
 class Header {
+#ifndef __TT__
 	gameType = COOP;
+#else
+	gameType = CTI;
+#endif
 	minPlayers = 1;
-	maxPlayers = 78;
+#ifdef __ALTIS__
+	maxPlayers = 46;
+#endif
+#ifdef __CUP_CHERNARUS__
+	maxPlayers = 41;
+#endif
+#ifdef __CUP_TAKISTAN__
+	maxPlayers = 41;
+#endif
+#ifdef __CUP_SARA__
+	maxPlayers = 41;
+#endif
+#ifdef __IFA3LITE__
+	maxPlayers = 41;
+#endif
+#ifdef __TANOA__
+	maxPlayers = 46;
+#endif
+#ifdef __TT__
+	maxPlayers = 56;
+#endif
+#ifdef __STRATIS__
+	maxPlayers = 46;
+#endif
+#ifdef __MALDEN__
+	maxPlayers = 41;
+#endif
+#ifdef __ROSCHE__
+	maxPlayers = 46;
+#endif
 };
 
 joinUnassigned = false; // auto assign
@@ -67,7 +100,7 @@ class CfgRemoteExec {
 	// List of script functions allowed to be sent from client via remoteExec
 	class Functions {
 		// State of remoteExec: 0-turned off, 1-turned on, taking whitelist into account, 2-turned on, however, ignoring whitelists (default because of backward compatibility)
-		mode = 1;
+		mode = 2;
 		// Ability to send jip messages: 0-disabled, 1-enabled (default)
 		jip = 0;
 		//your functions here
@@ -77,14 +110,12 @@ class CfgRemoteExec {
 		//};
 		//class YourFunction2 { allowedTargets=1; }; // can target only clients
 		//class YourFunction3 { allowedTargets=2; }; // can target only the server
-		
+
 		// security risk...
-		class bis_fnc_debugconsoleexec {};		
-		
+		class bis_fnc_debugconsoleexec {};	
 		class d_fnc_delruin {};
 		class d_fnc_CreateDroppedBox {allowedTargets = 2;};
 		class d_fnc_create_boxNet {allowedTargets = 1;};
-		class d_fnc_plgroup {allowedTargets = 2;};
 		class d_fnc_airtaxiserver {allowedTargets = 2;};
 		class d_fnc_RemABox {allowedTargets = 2;};
 		class d_fnc_RemABoxC {allowedTargets = 1;};
@@ -113,7 +144,6 @@ class CfgRemoteExec {
 		class d_fnc_s_sm_up {allowedTargets = 2;};
 		class d_fnc_air_box {allowedTargets = 1;};
 		class d_fnc_the_end {allowedTargets = 1;};
-		class d_fnc_RecapturedUpdate {allowedTargets = 1;};
 		class d_fnc_doarti {allowedTargets = 1;};
 		class d_fnc_updatesupportrsc {allowedTargets = 1;};
 		class d_fnc_sm_res_client {allowedTargets = 1;};
@@ -147,15 +177,14 @@ class CfgRemoteExec {
 		class xr_fnc_yougetrevivedm {allowedTargets = 1;};
 		class xr_fnc_changeleader {};
 		class xr_fnc_draghelper {allowedTargets = 1;};
+		class xr_fnc_selleader {allowedTargets = 2;};
 		class d_fnc_cgraa {};
 		class d_fnc_docreatenexttarget {};
-		class d_fnc_counterattack {};
 		class d_fnc_deleteunits {};
 		class d_fnc_deleteempty {};
-		class d_fnc_hcexecsm {};
 		class d_fnc_dodelintelu {};
 		class d_fnc_dodelrspgrps {};
-		class d_fnc_XClearSidemission {};
+		class d_fnc_clearsidemission {};
 		class d_fnc_xdelct {};
 		class d_fnc_mct {};
 		class d_fnc_addkillsai {allowedTargets = 2;};
@@ -171,7 +200,6 @@ class CfgRemoteExec {
 		class d_fnc_moduleCAS {allowedTargets = 2;};
 		class d_fnc_storeploadout {allowedTargets = 2;};
 		class d_fnc_player_stuff {allowedTargets = 1;};
-		class d_fnc_ptakeweapon {allowedTargets = 1;};
 		class d_fnc_dpcpbv {allowedTargets = 2;};
 		class d_fnc_addceo {allowedTargets = 2;};
 		class d_fnc_addfifo {allowedTargets = 2;};
@@ -179,23 +207,33 @@ class CfgRemoteExec {
 		class d_fnc_db_loadsavegame_server {allowedTargets = 2;};
 		class d_fnc_endsidemission {allowedTargets = 2;};
 		class d_fnc_db_update {allowedTargets = 2;};
-		class d_fnc_prison_check {allowedTargets = 2;};
-		class d_fnc_prison_out {allowedTargets = 2;};
-		class d_fnc_replenishbox {allowedTargets = 2;};
-		class d_fnc_retrieve_layoutgear {allowedTargets = 2;};
-		class d_fnc_initplserver {allowedTargets = 2;};
-		class d_fnc_badco_uniform {allowedTargets = 1;};
-		class BIS_fnc_effectKilledAirDestruction {};
-		class BIS_fnc_effectKilledSecondaries {};
-		class BIS_fnc_objectVar {};
+		class d_fnc_warnplayer {allowedTargets = 1;};
+		class d_fnc_add_hs {allowedTargets=2;};
+		class d_fnc_addactionstd {allowedTargets = 1;};
+		class d_fnc_cdoquake {allowedTargets = 1;};
+		class AR_fnc_Hide_Object_Global {allowedTargets = 2;};
+		class AR_fnc_Play_Rappelling_Sounds {allowedTargets = 1;};
+		class AR_fnc_Client_Rappel_From_Heli {allowedTargets = 1;};
+		class AR_fnc_Enable_Rappelling_Animation_Client {};
+		class AR_fnc_Rappel_All_Cargo {};
+		class AR_fnc_Rappel_From_Heli {allowedTargets = 2;};
+		class d_fnc_addpylon_action {allowedTargets = 1;};
+		class d_fnc_playsound {allowedTargets = 1;};
+		class d_fnc_giveplayerscore {allowedTargets = 2;};
+#ifdef __TT__
+		class d_fnc_addpoints {allowedTargets = 2;};
+		class d_fnc_addsmpoints {allowedTargets = 2;};
+		class d_fnc_plcheckkillblufor {allowedTargets = 2;};
+		class d_fnc_plcheckkillopfor {allowedTargets = 2;};
+		class d_fnc_AddKills {allowedTargets = 2;};
+#endif
 	};
 	// List of script commands allowed to be sent from client via remoteExec
 	class Commands {
-		mode = 1;
+		mode = 2;
 		jip = 0;
 		//your commands here
 		//class YourCommand1 { allowedTargets=0; jip=0; } // can target anyone, sending jip is turned off (overrides settings in the Commands class)
-		class setDamage {};
 		class setFuel {};
 		class setCaptive {};
 		class switchMove {};
@@ -218,7 +256,15 @@ class CfgRemoteExec {
 		class sideChat {allowedTargets = 1;};
 		class setMarkerPos {allowedTargets = 2;};
 		class setMarkerAlpha {allowedTargets = 2;};
-		class createDiaryRecord {allowedTargets = 2;};
+		class createDiaryRecord {allowedTargets = 1;};
+		class deleteGroup {allowedTargets=0;};
+		class setOwner {allowedTargets = 2;};
+		class setSpeaker {allowedTargets = 1;};
+		class hint {allowedTargets = 1;};
+#ifdef __TT__
+		class deleteMarkerLocal {allowedTargets = 1;};
+		class systemChat {allowedTargets = 1;};
+#endif
 	};
 };
 
@@ -232,79 +278,179 @@ class Params {
 
 	class d_MainTargets_num {
 		title = "$STR_DOM_MISSIONSTRING_965";
-		values[] = {200,210,220,230,240,2,4,6,8,10,12,14,16,18,20,25,33};
-		texts[] = {"$STR_DOM_MISSIONSTRING_966","$STR_DOM_MISSIONSTRING_967","$STR_DOM_MISSIONSTRING_968","$STR_DOM_MISSIONSTRING_968a","$STR_DOM_MISSIONSTRING_969","$STR_DOM_MISSIONSTRING_970","$STR_DOM_MISSIONSTRING_971","$STR_DOM_MISSIONSTRING_972","$STR_DOM_MISSIONSTRING_973","$STR_DOM_MISSIONSTRING_974","$STR_DOM_MISSIONSTRING_975","$STR_DOM_MISSIONSTRING_976","$STR_DOM_MISSIONSTRING_977","$STR_DOM_MISSIONSTRING_978","$STR_DOM_MISSIONSTRING_979","$STR_DOM_MISSIONSTRING_979a","$STR_DOM_MISSIONSTRING_979b"};
-		default = 10;
+#ifdef __ALTIS__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,20,25,34};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","20","25","34"};
+#endif
+#ifdef __CUP_CHERNARUS__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,21};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","21"};
+#endif
+#ifdef __CUP_SARA__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,21};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","21"};
+#endif
+#ifdef __CUP_TAKISTAN__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,21};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","21"};
+#endif
+#ifdef __TT__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,20,25,30};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","20","25","30"};
+#endif
+#ifdef __TANOA__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,21};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","21"};
+#endif
+#ifdef __STRATIS__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,21};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","21"};
+#endif
+#ifdef __IFA3LITE__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,20,25,30};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","20","25","30"};
+#endif
+#ifdef __MALDEN__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,20,25};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","20","25"};
+#endif
+#ifdef __ROSCHE__
+		values[] = {-1,2,4,6,8,10,12,14,16,18,21};
+		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","21"};
+#endif
+		default = -1;
 	};
 
 	class d_TimeOfDay {
 		title = "$STR_DOM_MISSIONSTRING_980";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
-		default = 6;
-		texts[] = {"$STR_DOM_MISSIONSTRING_981","$STR_DOM_MISSIONSTRING_982","$STR_DOM_MISSIONSTRING_983","$STR_DOM_MISSIONSTRING_984","$STR_DOM_MISSIONSTRING_985","$STR_DOM_MISSIONSTRING_986","$STR_DOM_MISSIONSTRING_987","$STR_DOM_MISSIONSTRING_988","$STR_DOM_MISSIONSTRING_989","$STR_DOM_MISSIONSTRING_990","$STR_DOM_MISSIONSTRING_991","$STR_DOM_MISSIONSTRING_992","$STR_DOM_MISSIONSTRING_993","$STR_DOM_MISSIONSTRING_994","$STR_DOM_MISSIONSTRING_995","$STR_DOM_MISSIONSTRING_996","$STR_DOM_MISSIONSTRING_997","$STR_DOM_MISSIONSTRING_998","$STR_DOM_MISSIONSTRING_999","$STR_DOM_MISSIONSTRING_1000","$STR_DOM_MISSIONSTRING_1001","$STR_DOM_MISSIONSTRING_1002","$STR_DOM_MISSIONSTRING_1003","$STR_DOM_MISSIONSTRING_1004"};
+#ifdef __CUP_CHERNARUS__
+		default = 7;
+#endif
+#ifdef __TANOA__
+		default = 7;
+#endif
+#ifdef __ALTIS__
+		default = 5;
+#endif
+#ifdef __CUP_SARA__
+		default = 5;
+#endif
+#ifdef __CUP_TAKISTAN__
+		default = 5;
+#endif
+#ifdef __IFA3LITE__
+		default = 5;
+#endif
+#ifdef __TT__
+		default = 7;
+#endif
+#ifdef __STRATIS__
+		default = 7;
+#endif
+#ifdef __MALDEN__
+		default = 7;
+#endif
+#ifdef __ROSCHE__
+		default = 7;
+#endif
+		texts[] = {"00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"};
 	};
 	
 	class d_MissionType {
 		title = "$STR_DOM_MISSIONSTRING_1052";
-		values[] = {0};
+		values[] = {0,1,2};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1053"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1053","$STR_DOM_MISSIONSTRING_1054","$STR_DOM_MISSIONSTRING_1055"};
 	};
 	
 	class d_with_ranked {
 		title = "$STR_DOM_MISSIONSTRING_1112";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_bonus_vec_type {
 		title = "$STR_DOM_MISSIONSTRING_1736";
-		values[] = {3};
+		values[] = {0,1,2,3};
 		default = 3;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1739"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_11","$STR_DOM_MISSIONSTRING_1737","$STR_DOM_MISSIONSTRING_1738","$STR_DOM_MISSIONSTRING_1739"};
 	};
 	
 	class d_ao_check_for_ai {
 		title = "$STR_DOM_MISSIONSTRING_1717";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_mt_respawngroups {
 		title = "$STR_DOM_MISSIONSTRING_1741";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_weather {
 		title = "$STR_DOM_MISSIONSTRING_1164";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_enable_fog {
 		title = "$STR_DOM_MISSIONSTRING_1164a";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_WithWinterWeather {
 		title = "$STR_DOM_MISSIONSTRING_1731";
-		values[] = {1};
+		values[] = {0,1};
+#ifdef __WINTER__
+		default = 0;
+#else
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+#endif
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_withsandstorm {
 		title = "$STR_DOM_MISSIONSTRING_1732";
-		values[] = {1};
+		values[] = {0,1};
+#ifdef __ALTIS__
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+#endif
+#ifdef __STRATIS__
+		default = 0;
+#endif
+#ifdef __TANOA__
+		default = 1;
+#endif
+#ifdef __CUP_CHERNARUS__
+		default = 1;
+#endif
+#ifdef __CUP_TAKISTAN__
+		default = 0;
+#endif
+#ifdef __CUP_SARA__
+		default = 0;
+#endif
+#ifdef __IFA3LITE__
+		default = 1;
+#endif
+#ifdef __TT__
+		default = 1;
+#endif
+#ifdef __MALDEN__
+		default = 0;
+#endif
+#ifdef __ROSCHE__
+		default = 1;
+#endif
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_MaxNumAmmoboxes {
@@ -317,29 +463,64 @@ class Params {
 	class d_max_truck_cargo {
 		title = "$STR_DOM_MISSIONSTRING_1195";
 		values[] = {1,3,6,9,12,16};
-		default = 12;
+		default = 6;
 		texts[] = {"1","3","6","9","12","16"};
 	};
 	
 	class d_no_faks {
 		title = "$STR_DOM_MISSIONSTRING_1457";
 		values[] = {0,1};
-		default = 0;
+		default = 1;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_timemultiplier {
 		title = "$STR_DOM_MISSIONSTRING_1533";
-		values[] = {1,2,3,6,12,30,45,60,90,120};
+		values[] = {1,6,12,30,45,60,90,120};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_363","2","3","6","12","30","45","60","90","120"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_363","6","12","30","45","60","90","120"};
 	};
 	
 	class d_with_dynsim {
 		title = "$STR_DOM_MISSIONSTRING_1735";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
+	};
+	
+	class d_with_bis_dynamicgroups {
+		title = "$STR_DOM_MISSIONSTRING_1759";
+		values[] = {0,1};
+		default = 0;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
+	};
+	
+	class d_arsenal_mod {
+		title = "$STR_DOM_MISSIONSTRING_1829";
+		values[] = {0,1};
+		default = 1;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
+	};
+	
+	class d_no_mortar_ar {
+		title = "$STR_DOM_MISSIONSTRING_1831";
+		values[] = {0,1};
+		default = 1;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
+	};
+	
+	class d_with_base_sabotage {
+		title = "$STR_DOM_MISSIONSTRING_1837";
+		values[] = {0,1};
+		default = 0;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
+	};
+	
+	class d_house_patrol {
+		title = "$STR_DOM_MISSIONSTRING_1868";
+		values[] = {0,1};
+		default = 0;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_params_dl_2 {
@@ -352,15 +533,15 @@ class Params {
 	class d_InitialViewDistance {
 		title = "$STR_DOM_MISSIONSTRING_1025";
 		values[] = {1000,1500,2000,2500,3000,3500,4000,4500,5000};
-		default = 2000;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1026","$STR_DOM_MISSIONSTRING_1027","$STR_DOM_MISSIONSTRING_1028","$STR_DOM_MISSIONSTRING_1029","$STR_DOM_MISSIONSTRING_1030","$STR_DOM_MISSIONSTRING_1031","$STR_DOM_MISSIONSTRING_1032","$STR_DOM_MISSIONSTRING_1033","$STR_DOM_MISSIONSTRING_1034"};
+		default = 1500;
+		texts[] = {"1000 m","1500 m","2000 m","2500 m","3000 m","3500 m","4000 m","4500 m","5000 m"};
 	};
 	
 	class d_MaxViewDistance {
 		title = "$STR_DOM_MISSIONSTRING_1035";
 		values[] = {2000,3000,4000,5000,6000,7000,8000,9000,10000};
 		default = 10000;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1028","$STR_DOM_MISSIONSTRING_1030","$STR_DOM_MISSIONSTRING_1032","$STR_DOM_MISSIONSTRING_1034","$STR_DOM_MISSIONSTRING_1036","$STR_DOM_MISSIONSTRING_1037","$STR_DOM_MISSIONSTRING_1038","$STR_DOM_MISSIONSTRING_1039","$STR_DOM_MISSIONSTRING_1040"};
+		texts[] = {"2000 m","3000 m","4000 m","5000 m","6000 m","7000 m","8000 m","9000 m","10000 m"};
 	};
 	
 	class d_ViewdistanceChange {
@@ -380,7 +561,7 @@ class Params {
 	class d_GrasAtStart {
 		title = "$STR_DOM_MISSIONSTRING_1174";
 		values[] = {0,1};
-		default = 1;
+		default = 0;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
@@ -400,16 +581,16 @@ class Params {
 	
 	class d_WithRevive {
 		title = "$STR_DOM_MISSIONSTRING_1005";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_WithReviveSpectating {
 		title = "$STR_DOM_MISSIONSTRING_1567";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_only_medics_canrevive {
@@ -436,7 +617,7 @@ class Params {
 	class xr_respawn_available_after {
 		title = "$STR_DOM_MISSIONSTRING_1019";
 		values[] = {5,30,60,90,120,180,240,300,600};
-		default = 30;
+		default = 5;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1020a","$STR_DOM_MISSIONSTRING_1020","$STR_DOM_MISSIONSTRING_1012","$STR_DOM_MISSIONSTRING_1021","$STR_DOM_MISSIONSTRING_1013","$STR_DOM_MISSIONSTRING_1014","$STR_DOM_MISSIONSTRING_1015","$STR_DOM_MISSIONSTRING_1016","$STR_DOM_MISSIONSTRING_1017"};
 	};
 	
@@ -449,30 +630,30 @@ class Params {
 	
 	class d_show_playernames {
 		title = "$STR_DOM_MISSIONSTRING_1159";
-		values[] = {1};
-		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1447"};
+		values[] = {0,1};
+		default = 0;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1446","$STR_DOM_MISSIONSTRING_1447"};
 	};
 	
 	class d_playernames_state {
 		title = "$STR_DOM_MISSIONSTRING_1160";
-		values[] = {2};
-		default = 2;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1163"};
+		values[] = {0,1,2};
+		default = 1;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1058","$STR_DOM_MISSIONSTRING_1161", "$STR_DOM_MISSIONSTRING_1163"};
 	};
 	
 	class d_no_3rd_person {
 		title = "$STR_DOM_MISSIONSTRING_1209";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_show_player_marker {
 		title = "$STR_DOM_MISSIONSTRING_1177";
-		values[] = {1};
+		values[] = {0,1,2,3};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1178"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1058","$STR_DOM_MISSIONSTRING_1178","$STR_DOM_MISSIONSTRING_1179","$STR_DOM_MISSIONSTRING_1163"};
 	};
 	
 	class d_params_dl_8 {
@@ -485,52 +666,67 @@ class Params {
 	class d_AutoKickTime {
 		title = "$STR_DOM_MISSIONSTRING_1107";
 		values[] = {0,60, 300, 600, 1800,3600};
-		default = 1800;
+		default = 0;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1077","$STR_DOM_MISSIONSTRING_1106","$STR_DOM_MISSIONSTRING_1078","$STR_DOM_MISSIONSTRING_1079","$STR_DOM_MISSIONSTRING_1080","$STR_DOM_MISSIONSTRING_1081"};
 	};
 
 	class d_without_nvg {
 		title = "$STR_DOM_MISSIONSTRING_1100";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 
 	class d_without_vec_ti {
 		title = "$STR_DOM_MISSIONSTRING_1101";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_without_vec_nvg {
 		title = "$STR_DOM_MISSIONSTRING_1101a";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
+	};
+	
+	class d_vec_at_farp {
+		title = "$STR_DOM_MISSIONSTRING_1832";
+		values[] = {0,1};
+		default = 1;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 
 	class d_engineerfull {
 		title = "$STR_DOM_MISSIONSTRING_1193";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_enablefatigue {
 		title = "$STR_DOM_MISSIONSTRING_1568";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_enablesway {
 		title = "$STR_DOM_MISSIONSTRING_1583";
-		values[] = {1};
-		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		values[] = {0,1};
+		default = 0;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
+	};
+	
+	class d_mhqvec_create_cooldown {
+		title = "$STR_DOM_MISSIONSTRING_1824";
+		values[] = {0, 60, 120, 300, 600, 1200, 1800};
+		default = 120;
+		texts[] = {"$STR_DOM_MISSIONSTRING_363","60","120","300","600","1200","1800"};
 	};
 
+#ifndef __TT__
 	class d_params_dl_9 {
 		title = "$STR_DOM_MISSIONSTRING_1575";
 		values[] = {-99999};
@@ -540,24 +736,32 @@ class Params {
 
 	class d_with_ai {
 		title = "$STR_DOM_MISSIONSTRING_1023";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_with_ai_features {
 		title = "$STR_DOM_MISSIONSTRING_1024";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_max_ai {
 		title = "$STR_DOM_MISSIONSTRING_1176";
-		values[] = {8};
+		values[] = {6,8,10,12,14,16};
 		default = 8;
-		texts[] = {"8"};
+		texts[] = {"6","8","10","12","14","16"};
 	};
+	
+	class d_ai_alone_in_vehicle {
+		title = "$STR_DOM_MISSIONSTRING_1758";
+		values[] = {0,1};
+		default = 0;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
+	};
+#endif
 	
 	class d_params_dl_10 {
 		title = "$STR_DOM_MISSIONSTRING_1576";
@@ -568,44 +772,44 @@ class Params {
 	
 	class d_WithMHQTeleport {
 		title = "$STR_DOM_MISSIONSTRING_1056";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_MHQDisableNearMT {
 		title = "$STR_DOM_MISSIONSTRING_1057";
-		values[] = {500};
-		default = 500;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1059"};
+		values[] = {0,500,700,900,1000,2000};
+		default = 0;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1058","500 m","700 m","900 m","1000 m","2000 m"};
 	};
 	
 	class d_NoMHQTeleEnemyNear {
 		title = "$STR_DOM_MISSIONSTRING_1062";
-		values[] = {50};
-		default = 50;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1064"};
+		values[] = {0,50,100,200,500};
+		default = 100;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1063","50 m","100 m","200 m","500 m"};
 	};
 	
 	class d_with_mhq_camo {
 		title = "$STR_DOM_MISSIONSTRING_1067";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_WithTeleToBase {
 		title = "$STR_DOM_MISSIONSTRING_1068";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_respawnatsql {
 		title = "$STR_DOM_MISSIONSTRING_1705";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_params_dl_11 {
@@ -617,18 +821,11 @@ class Params {
 	
 	class d_MTTowerSatchelsOnly {
 		title = "$STR_DOM_MISSIONSTRING_1213";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 
-	class d_WithRecapture {
-		title = "$STR_DOM_MISSIONSTRING_1130";
-		values[] = {0};
-		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
-	};
-	
 	class d_params_dl_12 {
 		title = "$STR_DOM_MISSIONSTRING_1578";
 		values[] = {-99999};
@@ -638,44 +835,44 @@ class Params {
 	
 	class d_sub_kill_points {
 		title = "$STR_DOM_MISSIONSTRING_1113";
-		values[] = {0};
+		values[] = {0,1,2,3,4,5,6,7,8,9,10};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1007","$STR_DOM_MISSIONSTRING_1114","$STR_DOM_MISSIONSTRING_1115","$STR_DOM_MISSIONSTRING_1116","$STR_DOM_MISSIONSTRING_1117","$STR_DOM_MISSIONSTRING_1118","$STR_DOM_MISSIONSTRING_1119","$STR_DOM_MISSIONSTRING_1120","$STR_DOM_MISSIONSTRING_1121","$STR_DOM_MISSIONSTRING_1122","$STR_DOM_MISSIONSTRING_1123"};
 	};
 
 	class d_pilots_only {
 		title = "$STR_DOM_MISSIONSTRING_1099";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_WithLessArmor {
 		title = "$STR_DOM_MISSIONSTRING_1132";
-		values[] = {0};
+		values[] = {0,1,2};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_11"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_11","$STR_DOM_MISSIONSTRING_1133","$STR_DOM_MISSIONSTRING_405"};
 	};
 	
 	class d_WithLessArmor_side {
 		title = "$STR_DOM_MISSIONSTRING_1730";
-		values[] = {1};
-		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_405"};
+		values[] = {0,1};
+		default = 0;
+		texts[] = {"$STR_DOM_MISSIONSTRING_11","$STR_DOM_MISSIONSTRING_405"};
 	};
 
 	class d_EnemySkill {
 		title = "$STR_DOM_MISSIONSTRING_1124";
-		values[] = {3};
-		default = 3;
-		texts[] = {"$STR_DOM_MISSIONSTRING_400"};
+		values[] = {1,2,3};
+		default = 2;
+		texts[] = {"$STR_DOM_MISSIONSTRING_399","$STR_DOM_MISSIONSTRING_11","$STR_DOM_MISSIONSTRING_400"};
 	};
 
 	class d_WithIsleDefense {
 		title = "$STR_DOM_MISSIONSTRING_1128";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_params_dl_13 {
@@ -687,30 +884,30 @@ class Params {
 	
 	class d_ParaAtBase {
 		title = "$STR_DOM_MISSIONSTRING_1098";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_HALOWaitTime {
 		title = "$STR_DOM_MISSIONSTRING_1076";
-		values[] = {0};
+		values[] = {0, 300, 600, 1800, 3600};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1077"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1077","$STR_DOM_MISSIONSTRING_1078","$STR_DOM_MISSIONSTRING_1079","$STR_DOM_MISSIONSTRING_1080","$STR_DOM_MISSIONSTRING_1081"};
 	};
 	
 	class d_WithJumpFlags {
 		title = "$STR_DOM_MISSIONSTRING_1097";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_HALOJumpHeight {
 		title = "$STR_DOM_MISSIONSTRING_1108";
-		values[] = {2000};
+		values[] = {500, 700, 888, 1000, 2000, 5000};
 		default = 2000;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1028"};
+		texts[] = {"500 m","700 m","888 m","1000 m","2000 m","5000 m"};
 	};
 	
 	class d_params_dl_14 {
@@ -722,23 +919,30 @@ class Params {
 	
 	class d_LockArmored {
 		title = "$STR_DOM_MISSIONSTRING_1082";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 
 	class d_LockCars {
 		title = "$STR_DOM_MISSIONSTRING_1083";
-		values[] = {1};
-		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		values[] = {0,1};
+		default = 0;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 
 	class d_LockAir {
 		title = "$STR_DOM_MISSIONSTRING_1084";
-		values[] = {0};
+		values[] = {0,1};
 		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
+	};
+	
+	class d_enemy_vecs_lift {
+		title = "$STR_DOM_MISSIONSTRING_1830";
+		values[] = {0,1};
+		default = 1;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_params_dl_16 {
@@ -761,25 +965,18 @@ class Params {
 		default = 10;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1200","$STR_DOM_MISSIONSTRING_1201","$STR_DOM_MISSIONSTRING_1202","$STR_DOM_MISSIONSTRING_1203","$STR_DOM_MISSIONSTRING_1204","$STR_DOM_MISSIONSTRING_1205","$STR_DOM_MISSIONSTRING_1206"};
 	};
-	
-	class d_kick_base_satchel {
-		title = "$STR_DOM_MISSIONSTRING_1207";
-		values[] = {0};
-		default = 0;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1006"};
-	};
 
 	class d_no_teamkill {
 		title = "$STR_DOM_MISSIONSTRING_1208";
-		values[] = {1};
+		values[] = {0,1};
 		default = 1;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1007"};
+		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
 	class d_sub_tk_points {
 		title = "$STR_DOM_MISSIONSTRING_1194";
 		values[] = {0,1,5,10,20,30,50};
-		default = 10;
+		default = 50;
 		texts[] = {"0","1","5","10","20","30","50"};
 	};
 	
@@ -799,9 +996,9 @@ class Params {
 	
 	class d_WreckMaxRepair {
 		title = "$STR_DOM_MISSIONSTRING_1173";
-		values[] = {3};
+		values[] = {1,2,3,4,5,10,20,100000};
 		default = 3;
-		texts[] = {"3"};
+		texts[] = {"1","2","3","4","5","10","20","$STR_DOM_MISSIONSTRING_1137"};
 	};
 	
 	class d_params_dl_17 {
@@ -813,16 +1010,16 @@ class Params {
 	
 	class d_drop_radius {
 		title = "$STR_DOM_MISSIONSTRING_1186";
-		values[] = {50};
-		default = 50;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1064"};
+		values[] = {0,10,30,50,100};
+		default = 100;
+		texts[] = {"$STR_DOM_MISSIONSTRING_1187","10 m","30 m","50 m","100 m"};
 	};
 	
 	class d_drop_max_dist {
 		title = "$STR_DOM_MISSIONSTRING_1188";
-		values[] = {500};
+		values[] = {100,500,1000,2000,3000,5000,10000000};
 		default = 500;
-		texts[] = {"$STR_DOM_MISSIONSTRING_1059"};
+		texts[] = {"100 m","500 m","1000 m","2000 m","3000 m","5000 m","$STR_DOM_MISSIONSTRING_1137"};
 	};
 };
 
@@ -835,27 +1032,31 @@ class Params {
 #include "x_dlg\UnloadDialog.hpp"
 #include "x_dlg\ParajumpDialog.hpp"
 #include "x_dlg\VecDialog.hpp"
-#include "x_dlg\SettingsDialog.hpp"
 #include "x_dlg\AirDropDialog.hpp"
 #include "x_dlg\AIRecruitDialog.hpp"
 #include "x_dlg\FakeUAVDialog.hpp"
 #include "x_dlg\XR_SpectDlg.hpp"
 #include "x_dlg\DBSaveDialog.hpp"
 #include "x_dlg\DBTop10Dialog.hpp"
+#include "x_dlg\PylonLoadoutDialog.hpp"
+#include "x_dlg\TransferScoreDialog.hpp"
+#include "x_dlg\AirTaxiDialog.hpp"
 
 class CfgSounds {
 	sounds[] = {d_IncomingChallenge2};
-	class d_Thunder {name="d_Thunder";sound[]={"\sounds\thundershort2.ogg",db-5,1.0};titles[] = {};};
 	class d_IncomingChallenge2 {name="d_IncomingChallenge2";sound[]={"\sounds\incoming_challenge.wss",db,1.0};titles[] = {};};
 	class d_Notebook {name="d_Notebook";sound[]={"\sounds\notebook.wss",db-15,1.0};titles[] = {};};
 	class d_Ui_cc {name="d_Ui_cc";sound[]={"\sounds\ui_cc.wss",db,1.0};titles[] = {};};
 	class d_fanfare {name = "d_fanfare";sound[] = {"sounds\fanfare.wss",1.0,1.0};titles[] = {};};
+	//class AR_Rappel_Loop {name = "AR_Rappel_Loop"; sound[] = {"sounds\AR_Rappel_Loop.ogg", db+20, 1}; titles[] = {0,""};};
+	//class AR_Rappel_Start {name = "AR_Rappel_Start"; sound[] = {"sounds\AR_Rappel_Start.ogg", db+20, 1};titles[] = {0,""};};
+	//class AR_Rappel_End {name = "AR_Rappel_End"; sound[] = {"sounds\AR_Rappel_End.ogg", db+20, 1}; titles[] = {0,""};};
 };
 
 class d_RscAnimatedLetters {
 	idd = -1;
 	movingEnable = false;
-	onLoad = "uiNamespace setVariable ['d_RscAnimatedLetters', param [0]]";
+	onLoad = "uiNamespace setVariable ['d_RscAnimatedLetters', _this select 0]";
 	onUnLoad = "uiNamespace setVariable ['d_RscAnimatedLetters', nil]";
 	class Controls {
 		__EXEC(idc = 5000)
@@ -1085,6 +1286,7 @@ class RscTitles {
 };
 
 class CfgIdentities {
+#ifndef __IFA3LITE__
 	class DHQ_BF1 {
 		name = "Winters, HQ";
 		face = "whiteHead_04";
@@ -1097,6 +1299,8 @@ class CfgIdentities {
 		name = "Meyers, HQ";
 		speaker = "male02eng";
 	};
+#endif
+#ifdef __ALTIS__
 	class DHQ_OP1: DHQ_BF1 {
 		name = "Aziz, HQ";
 		speaker = "male03per";
@@ -1105,6 +1309,97 @@ class CfgIdentities {
 		name = "Horiz, HQ";
 		speaker = "male02per";
 	};
+#endif
+#ifdef __ROSCHE__
+	class DHQ_OP1: DHQ_BF1 {
+		name = "Aziz, HQ";
+		speaker = "male03per";
+	};
+	class DHQ_OP2: DHQ_BF1 {
+		name = "Horiz, HQ";
+		speaker = "male02per";
+	};
+#endif
+#ifdef __MALDEN__
+	class DHQ_OP1: DHQ_BF1 {
+		name = "Aziz, HQ";
+		speaker = "male03per";
+	};
+	class DHQ_OP2: DHQ_BF1 {
+		name = "Horiz, HQ";
+		speaker = "male02per";
+	};
+#endif
+#ifdef __STRATIS__
+	class DHQ_OP1: DHQ_BF1 {
+		name = "Aziz, HQ";
+		speaker = "male03per";
+	};
+	class DHQ_OP2: DHQ_BF1 {
+		name = "Horiz, HQ";
+		speaker = "male02per";
+	};
+#endif
+#ifdef __CUP_TAKISTAN__
+	class DHQ_OP1: DHQ_BF1 {
+		name = "Aziz, HQ";
+		speaker = "Male03TK";
+	};
+	class DHQ_OP2: DHQ_BF1 {
+		name = "Horiz, HQ";
+		speaker = "Male02TK";
+	};
+#endif
+#ifdef __CUP_CHERNARUS__
+	class DHQ_OP1: DHQ_BF1 {
+		name = "Rustov, HQ";
+		speaker = "Male03RU";
+	};
+	class DHQ_OP2: DHQ_BF1 {
+		name = "Krustshov, HQ";
+		speaker = "Male02RU";
+	};
+#endif
+#ifdef __CUP_SARA__
+	class DHQ_OP1: DHQ_BF1 {
+		name = "Rustov, HQ";
+		speaker = "Male03RU";
+	};
+	class DHQ_OP2: DHQ_BF1 {
+		name = "Krustshov, HQ";
+		speaker = "Male02RU";
+	};
+#endif
+#ifdef __IFA3LITE__
+	class DHQ_BF1 {
+		name = "Meier, HQ";
+		face = "whiteHead_04";
+		glasses = "None";
+		speaker = "Male03Ger";
+		pitch = 1.0;
+		nameSound = "Reynolds";
+	};
+	class DHQ_BF2: DHQ_BF1 {
+		name = "Schmitt, HQ";
+		speaker = "Male02Ger";
+	};
+	class DHQ_OP1: DHQ_BF1 {
+		name = "Rustov, HQ";
+		speaker = "Male03SU";
+	};
+	class DHQ_OP2: DHQ_BF1 {
+		name = "Krustshov, HQ";
+		speaker = "Male02SU";
+	};
+	class DHQ_IN1: DHQ_BF1 {
+		name = "Stevens, HQ";
+		speaker = "Male03ENG";
+	};
+	class DHQ_IN2: DHQ_BF1 {
+		name = "Winters, HQ";
+		speaker = "Male02ENG";
+	};
+#else
 	class DHQ_IN1: DHQ_BF1 {
 		name = "Zaziki, HQ";
 		speaker = "Male03GRE";
@@ -1113,6 +1408,17 @@ class CfgIdentities {
 		name = "Ouzo, HQ";
 		speaker = "Male02GRE";
 	};
+#endif
+#ifdef __RHS__
+	class RDHQ_OP1: DHQ_OP1 {
+		name = "Ivan, HQ";
+		speaker = "RHS_Male03RUS";
+	};
+	class RDHQ_OP2: DHQ_OP2 {
+		name = "Vasyl, HQ";
+		speaker = "RHS_Male02RUS";
+	};
+#endif
 };
 
 class CfgTaskEnhancements {
@@ -1123,6 +1429,7 @@ class CfgTaskEnhancements {
    propagate    = 0;            //0: do not propagate (default), 1: propagate shared tasks to subordinates
 };
 
+
 class CfgMusic
 {
  tracks[]={};
@@ -1130,8 +1437,11 @@ class CfgMusic
  class d_intro_music
  {
   name = "d_intro_music";
-  sound[] = {"music\intro.ogg", db+10, 1.0};
+  sound[] = {"sounds\intro.ogg", db+10, 1.0};
  };
  
 };
+
+#include "CfgVehicles.hpp"
+
 //__EXEC(diag_log [diag_frameno, diag_ticktime, time, "Dom description.ext processed"]);

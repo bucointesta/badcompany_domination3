@@ -22,20 +22,6 @@ class Sentences {
 			class 1 {type = "simple";};
 		};
 	};
-	class Captured3 {
-		text = "$STR_DOM_MISSIONSTRING_1342";
-		speech[] = {"AreaClear"};
-		class Arguments {
-			class 1 {type = "simple";};
-		};
-	};
-	class Lost {
-		text = "$STR_DOM_MISSIONSTRING_1343";
-		speech[] = {"GenLost3"};
-		class Arguments {
-			class 1 {type = "simple";};
-		};
-	};
 	class NewMission {
 		text = "$STR_DOM_MISSIONSTRING_1344";
 		speech[] = {};
@@ -119,6 +105,11 @@ class Sentences {
 			class 3 {type = "simple";};
 		};
 	};
+	class ArtilleryCanceled {
+		text = "$STR_DOM_MISSIONSTRING_1854";
+		speech[] = {};
+		class Arguments {};
+	};
 	class TellNrObservers {
 		text = "$STR_DOM_MISSIONSTRING_1360";
 		speech[] = {};
@@ -148,6 +139,28 @@ class Sentences {
 		speech[] = {};
 		class Arguments {};
 	};
+	class MTHQaBarracksBuilding {
+		text = "$STR_DOM_MISSIONSTRING_1822";
+		speech[] = {};
+		class Arguments {};
+	};
+	class MTBarracksDown {
+		text = "$STR_DOM_MISSIONSTRING_1820";
+		speech[] = {};
+		class Arguments {};
+	};
+	class OneMTBarrackDown {
+		text = "$STR_DOM_MISSIONSTRING_1855";
+		speech[] = {};
+		class Arguments {
+			class 1 {type = "simple";};
+		};
+	};
+	class MTVecBuildingDown {
+		text = "$STR_DOM_MISSIONSTRING_1821";
+		speech[] = {};
+		class Arguments {};
+	};
 	class CampAnnounce {
 		text = "$STR_DOM_MISSIONSTRING_1365";
 		speech[] = {};
@@ -156,29 +169,16 @@ class Sentences {
 		};
 	};
 	class MTSightedByEnemy {
+#ifndef __TT__
 		text = "$STR_DOM_MISSIONSTRING_1366";
+#else
+		text = "$STR_DOM_MISSIONSTRING_1367";
+#endif
 		speech[] = {};
 		class Arguments {};
 	};
 	class AllSMissionsResolved {
 		text = "$STR_DOM_MISSIONSTRING_1368";
-		speech[] = {};
-		class Arguments {};
-	};
-	class CounterattackEnemy {
-		text = "$STR_DOM_MISSIONSTRING_1369";
-		speech[] = {};
-		class Arguments {
-			class 1 {type = "simple";};
-		};
-	};
-	class CounterattackStarts {
-		text = "$STR_DOM_MISSIONSTRING_1370";
-		speech[] = {};
-		class Arguments {};
-	};
-	class CounterattackDefeated {
-		text = "$STR_DOM_MISSIONSTRING_1371";
 		speech[] = {};
 		class Arguments {};
 	};
@@ -236,8 +236,25 @@ class Sentences {
 		speech[] = {};
 		class Arguments {};
 	};
+#ifdef __TT__
+	class MTSMAnnounce {
+		text = "$STR_DOM_MISSIONSTRING_1384";
+		speech[] = {};
+		class Arguments {};
+	};
+	class MTRadioAnnounce {
+		text = "$STR_DOM_MISSIONSTRING_1385";
+		speech[] = {};
+		class Arguments {};
+	};
+#else
 	class TellAirDropAttack {
 		text = "$STR_DOM_MISSIONSTRING_1389";
+		speech[] = {};
+		class Arguments {};
+	};
+	class TellInfiltrateAttack {
+		text = "$STR_DOM_MISSIONSTRING_1835";
 		speech[] = {};
 		class Arguments {};
 	};
@@ -268,6 +285,7 @@ class Sentences {
 		speech[] = {};
 		class Arguments {};
 	};
+#endif
 	class Dummy {
 		text = "%1";
 		speech[] = {};

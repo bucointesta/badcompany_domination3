@@ -7,10 +7,11 @@
 #define __spectdlg1006e ((uiNamespace getVariable "xr_SpectDlg") displayCtrl 1006)
 
 //__TRACE("start one frame")
-xr_mouseDeltaPos set [0, xr_mouseLastX - (getMousePosition select 0)];
-xr_mouseDeltaPos set [1, xr_mouseLastY - (getMousePosition select 1)];
-xr_mouseLastX = getMousePosition select 0;
-xr_mouseLastY = getMousePosition select 1;
+getMousePosition params ["_mpx", "_mpy"];
+xr_mouseDeltaPos set [0, xr_mouseLastX - _mpx];
+xr_mouseDeltaPos set [1, xr_mouseLastY - _mpy];
+xr_mouseLastX = _mpx;
+xr_mouseLastY = _mpy;
 if (xr_MouseScroll != 0) then {
 	xr_sdistance = xr_sdistance - (xr_MouseScroll * 0.11);
 	xr_MouseScroll = xr_MouseScroll * 0.75;
@@ -24,32 +25,34 @@ if (xr_MouseScroll != 0) then {
 	if (xr_sdistance < -0.6) then {xr_sdistance = -0.6};
 };
 
-if (xr_MouseButtons select 0) then {
+if (xr_MouseButtons # 0) then {
 	if (isNull xr_spectcamtarget) exitWith {xr_cur_world_obj = objNull};
 	private _cursObj = objNull;
-	private _intsecs = [getMousePosition select 0, getMousePosition select 1, xr_spectcamtarget, vehicle xr_spectcamtarget] call BIS_fnc_getIntersectionsUnderCursor;
+	private _intsecs = [_mpx, _mpy, xr_spectcamtarget, vehicle xr_spectcamtarget] call BIS_fnc_getIntersectionsUnderCursor;
 	
 	if !(_intsecs isEqualTo []) then {
-		_cursObj = (_intsecs select 0) select 3;
+		_cursObj = (_intsecs # 0) # 3;
 	};
 	if (!isNull _cursObj && {!(_cursObj isKindOf "CAManBase")}) then {
 		if !(crew _cursObj isEqualTo []) then {
-			{
-				if (isPlayer _x) exitWith {
+			(crew _cursObj) findIf {
+				_ret = _x call d_fnc_isplayer;
+				if (_ret) then {
 					_cursObj = _x;
 				};
-				false
-			} count crew _cursObj;
+				_ret
+			};
 		} else {
 			_cursObj = objNull;
 		};
 	};
-	if (!isNull _cursObj && {side (group _cursObj) != xr_side_pl}) then {
+	if (!isNull _cursObj && {side (group _cursObj) getFriend xr_side_pl < 0.6}) then {
 		_cursObj = objNull;
 	};
 	xr_cur_world_obj = _cursObj;
 };
 
+private _fnc_gpln = d_fnc_getplayername;
 private _helperls = [];
 if (time > xr_spect_timer) then {
 	__TRACE_1("","xr_spect_timer")
@@ -64,55 +67,46 @@ if (time > xr_spect_timer) then {
 		
 		private _vecp = vehicle player;
 		private _grppl = group player;
+		private ["_dist", "_pic"];
 		{
-			private _u = missionNamespace getVariable _x;
-			//if (!isNil "_u" && {alive _u} && {side (group _u) == xr_side_pl} && {_u != player} && {!(_u getVariable ["xr_pluncon", false])}) then {
-			if (!isNil "_u" && {!isNull _u && {_u != player}}) then {
-				private _dist = (vehicle _u) distance2D _vecp;
-				private _pic = getText (configFile >>"CfgVehicles">>typeOf _u>>"icon");
+			_dist = (vehicle _x) distance2D _vecp;
+			_pic = getText (configFile >>"CfgVehicles">>typeOf _x>>"icon");
+			if (_pic != "") then {
+				_pic = getText (configFile >>"CfgVehicleIcons">>_pic);
+			};
+			_helperls pushBack [_dist, format [(_x call _fnc_gpln) + " (%1 m) %2", round _dist, ["", " (Uncon)"] select (_x getVariable ["xr_pluncon", false])], str _x, [_pic, "#(argb,8,8,3)color(1,1,1,0)"] select (_pic == ""), [d_pnhudothercolor, d_pnhudgroupcolor] select (group _x == _grppl)];
+		} forEach (d_allplayers select {_x != player});
+	} else {
+		private _sfm = markerPos "xr_playerparkmarker";
+		private ["_distup", "_pic"];
+		{
+			_distup = _x distance2D _sfm;
+			if (_distup > 100) then {
+				_pic = getText (configFile >>"CfgVehicles">>typeOf _x>>"icon");
 				if (_pic != "") then {
 					_pic = getText (configFile >>"CfgVehicleIcons">>_pic);
 				};
-				_helperls pushBack [_dist, format [name _u + " (%1 m) %2", round _dist, ["", " (Uncon)"] select (_u getVariable ["xr_pluncon", false])], str _u, [_pic, "#(argb,8,8,3)color(1,1,1,0)"] select (_pic == ""), [d_pnhudothercolor, d_pnhudgroupcolor] select (group _u == _grppl)];
+				_helperls pushBack [_distup, _x call _fnc_gpln, str _x, [_pic, "#(argb,8,8,3)color(1,1,1,0)"] select (_pic == ""), d_pnhudothercolor];
 			};
-			false
-		} count d_player_entities;
-	} else {
-		private _sfm = markerPos "xr_playerparkmarker";
-		{
-			private _u = missionNamespace getVariable _x;
-			//if (!isNil "_u" && {alive _u} && {side (group _u) == xr_side_pl} && {_u != player}) then {
-			if (!isNil "_u" && {!isNull _u && {_u != player}}) then {
-				private _distup = _u distance2D _sfm;
-				if (_distup > 100) then {
-					private _pic = getText (configFile >>"CfgVehicles">>typeOf _u>>"icon");
-					if (_pic != "") then {
-						_pic = getText (configFile >>"CfgVehicleIcons">>_pic);
-					};
-					_helperls pushBack [_distup, name _u, str _u, [_pic, "#(argb,8,8,3)color(1,1,1,0)"] select (_pic == ""), d_pnhudothercolor];
-				};
-			};
-			false
-		} count d_player_entities;
+		} forEach (d_allplayers select {_x != player});
 	};
 	xr_x_updatelb = true;
 	xr_spect_timer = time + 10;
 };
 
-//if (xr_x_updatelb && {!isNil {(uiNamespace getVariable "xr_SpectDlg")}} && {ctrlShown ((uiNamespace getVariable "xr_SpectDlg") displayCtrl 1000)}) then {
 if (xr_x_updatelb && {!isNil {uiNamespace getVariable "xr_SpectDlg"}}) then {
 	__TRACE_1("","xr_x_updatelb")
 	xr_x_updatelb = false;
 	private _lbctr = (uiNamespace getVariable "xr_SpectDlg") displayCtrl 1000;
 	lbClear _lbctr;
+	private ["_idx"];
 	{
-		private _idx = _lbctr lbAdd (_x select 1);
-		_lbctr lbSetData [_idx, _x select 2];
-		_lbctr lbSetValue [_idx, _x select 0];
-		_lbctr lbSetPicture [_idx, _x select 3];
-		_lbctr lbSetColor [_idx, _x select 4];
-		false
-	} count _helperls;
+		_idx = _lbctr lbAdd (_x # 1);
+		_lbctr lbSetData [_idx, _x # 2];
+		_lbctr lbSetValue [_idx, _x # 0];
+		_lbctr lbSetPicture [_idx, _x # 3];
+		_lbctr lbSetColor [_idx, _x # 4];
+	} forEach _helperls;
 	__TRACE_1("","_helperls")
 	private _setidx = -1;
 	if !(_helperls isEqualTo []) then {
@@ -129,7 +123,7 @@ if (xr_x_updatelb && {!isNil {uiNamespace getVariable "xr_SpectDlg"}}) then {
 };
 _helperls = nil;
 
-if (!isNull xr_cur_world_obj && {xr_MouseButtons select 0 && {xr_cur_world_obj != xr_spectcamtarget}}) then {
+if (!isNull xr_cur_world_obj && {xr_MouseButtons # 0 && {xr_cur_world_obj != xr_spectcamtarget}}) then {
 	private _lbctr = (uiNamespace getVariable "xr_SpectDlg") displayCtrl 1000;
 	private _str = str xr_cur_world_obj;
 	for "_i" from 0 to (lbSize _lbctr) - 1 do {
@@ -171,32 +165,34 @@ if ((isNil "_spectdisp" || {!ctrlShown (_spectdisp displayCtrl 1002)}) && {!xr_s
 	} else {
 		private _sfm = markerPos "xr_playerparkmarker";
 		private _visobj = objNull;
-		{
-			private _u = missionNamespace getVariable _x;
-			//if (!isNil "_u" && {alive _u} && {side (group _u) == xr_side_pl} && {_u != player} && {_u distance2D _sfm > 100}) exitWith {
-			if (!isNil "_u" && {!isNull _u && {_u != player && {_u distance2D _sfm > 100}}}) exitWith {
-					_visobj = _u;
+		d_allplayers findIf {
+			_ret = _x != player && {_x distance2D _sfm > 100};
+			if (_ret) then {
+				_visobj = _x;
 			};
-			false
-		} count d_player_entities;
+			_ret
+		};
 		if (isNull _visobj) then {_visobj = player};
 		private _nposvis = ASLToATL (visiblePositionASL (vehicle _visobj));
-		private _campos = [(_nposvis select 0) - 1 + random 2, (_nposvis select 1) - 1 + random 2, 2];
+		private _campos = [(_nposvis # 0) - 1 + random 2, (_nposvis # 1) - 1 + random 2, 2];
 		xr_spectcam = "camera" camCreate _campos;
 		xr_spectcamtarget = _visobj;
 		xr_spectcamtargetstr = str _visobj;
 		xr_spectcam cameraEffect ["INTERNAL", "Back"];
 		xr_spectcam camCommit 0;
 		cameraEffectEnableHUD true;
-		__dspctrl(1010) ctrlSetText (name _visobj);
+		__dspctrl(1010) ctrlSetText (_visobj call _fnc_gpln);
 	};
 	xr_spect_timer = -1;
 	__TRACE("ctrl not shown anymore, black in")
 	"xr_revtxt" cutText ["","BLACK IN", 1];
+	if (xr_pl_no_lifes) then {
+		endMission "KILLED";
+	};
 };
 if (isNull xr_spectcamtarget) then { // player disconnect !?!
 	//private _nposvis = ASLToATL (visiblePositionASL (vehicle player));
-	//private _campos = [(_nposvis select 0) - 1 + random 2, (_nposvis select 1) - 1 + random 2, 2];
+	//private _campos = [(_nposvis # 0) - 1 + random 2, (_nposvis # 1) - 1 + random 2, 2];
 	xr_spectcamtarget = player;
 	xr_spectcamtargetstr = xr_strpl;
 	xr_spectcam cameraEffect ["INTERNAL", "Back"];
@@ -206,13 +202,13 @@ if (isNull xr_spectcamtarget) then { // player disconnect !?!
 };
 
 private _bb = boundingBoxreal vehicle xr_spectcamtarget;
-private _l = ((_bb select 1) select 1) - ((_bb select 0) select 1);
+private _l = ((_bb # 1) # 1) - ((_bb # 0) # 1);
 #define __hstr 0.15
 if (isNil "xr_hhx") then {xr_hhx = 2};
-xr_hhx = ((((_bb select 1) select 2) - ((_bb select 0) select 2)) * __hstr) + (xr_hhx * (1 - __hstr));
+xr_hhx = ((((_bb # 1) # 2) - ((_bb # 0) # 2)) * __hstr) + (xr_hhx * (1 - __hstr));
 
 private _vpmtw = ASLToATL (visiblePositionASL (vehicle xr_spectcamtarget));
-xr_spectcam camSetTarget [_vpmtw select 0, _vpmtw select 1, (_vpmtw select 2) + (xr_hhx * 0.6)];
+xr_spectcam camSetTarget (_vpmtw vectorAdd [0, 0, xr_hhx * 0.6]);
 xr_spectcam camSetFov xr_szoom;
 
 private _lsdist = _l * (0.3 max xr_sdistance);
@@ -221,5 +217,4 @@ private _co = cos xr_fangleY;
 xr_spectcam camSetRelPos [(sin xr_fangle * _d) * _co, (cos xr_fangle * _d) * _co, sin xr_fangleY * _lsdist];
 xr_spectcam camCommit 0;
 cameraEffectEnableHUD true;
-//if (!(player getVariable "xr_pluncon") && {!xr_pl_no_lifes}) exitWith {xr_stopspect = true};
 //__TRACE("end one frame")

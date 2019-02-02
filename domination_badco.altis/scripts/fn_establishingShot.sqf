@@ -30,22 +30,19 @@ private _mode = [_this, 7, 0, [0]] call BIS_fnc_param;
 
 d_is_sat_on = true;
 
-_txt = localize "STR_DOM_MISSIONSTRING_1515" + " " + str _tgt;
+_txt = format ["%1 %2", localize "STR_DOM_MISSIONSTRING_1515", str _tgt];
 if (count _tgt == 2) then {_tgt pushBack 0};
 
 ["BIS_fnc_establishingShot",false] call BIS_fnc_blackOut;
 
 BIS_fnc_establishingShot_icons = [
-	[getText(configFile>>"CfgVehicleIcons">>getText(configFile>>"CfgVehicles">>(typeOf player)>>"icon")), [255,255,255,1], player, 1, 1, 0, name player, 0]
+	[getText(configFile>>"CfgVehicleIcons">>getText(configFile>>"CfgVehicles">>(typeOf player)>>"icon")), [255,255,255,1], player, 1, 1, 0, d_name_pl, 0]
 ];
 
 _colortouse = d_player_side call BIS_fnc_sideColor;
 {
-	_u = missionNamespace getVariable _x;
-	if (!isNil "_u" && {alive _u && {!(_u getVariable ["xr_pluncon", false]) && {_u != player && {!(_u getVariable ["ace_isunconscious", false])}}}}) then {
-		BIS_fnc_establishingShot_icons pushBack [getText(configFile>>"CfgVehicleIcons">>getText(configFile>>"CfgVehicles">>(typeOf _u)>>"icon")), _colortouse, _u, 0.8, 0.8, 0, name _u, 1];
-	};
-} forEach d_player_entities;
+	BIS_fnc_establishingShot_icons pushBack [getText(configFile>>"CfgVehicleIcons">>getText(configFile>>"CfgVehicles">>(typeOf _x)>>"icon")), _colortouse, _x, 0.8, 0.8, 0, _x call d_fnc_getplayername, 1];
+} forEach ((allPlayers - entities "HeadlessClient_F") select {alive _x && {d_player_side getFriend side (group _x) >= 0.6 && {!(_x getVariable ["xr_pluncon", false]) && {!(_x getVariable ["ace_isunconscious", false])}}}});
 
 // Create fake UAV
 if (isNil "BIS_fnc_establishingShot_fakeUAV") then {
@@ -96,13 +93,13 @@ if (_mode == 1) then {
 } else {
 	// Compile SITREP text
 
-	private _month = if (date select 1 < 10) then {format ["0%1", str (date select 1)]} else {str (date select 1)};;
-	private _day = if (date select 2 < 10) then {format ["0%1", str (date select 2)]} else {str (date select 2)};
-	private _hour = if (date select 3 < 10) then {format ["0%1", str (date select 3)]} else {str (date select 3)};
-	private _minute = if (date select 4 < 10) then {format ["0%1", str (date select 4)]} else {str (date select 4)};
+	private _month = if (date # 1 < 10) then {format ["0%1", str (date # 1)]} else {str (date # 1)};
+	private _day = if (date # 2 < 10) then {format ["0%1", str (date # 2)]} else {str (date # 2)};
+	private _hour = if (date # 3 < 10) then {format ["0%1", str (date # 3)]} else {str (date # 3)};
+	private _minute = if (date # 4 < 10) then {format ["0%1", str (date # 4)]} else {str (date # 4)};
 
 	private _time = format ["%1%2", _hour, _minute];
-	private _date = format ["%1/%2/%3", _day, _month, str (date select 0)];
+	private _date = format ["%1/%2/%3", _day, _month, str (date # 0)];
 
 	//_SITREP = format [localize "STR_A3_BIS_fnc_establishingShot_SITREP" + "||%1|%2||" + localize "STR_A3_BIS_fnc_establishingShot_Time", toUpper _txt, _date, _time];
 	
@@ -128,7 +125,7 @@ if (_mode == 1) then {
 	"d_sat_timode" cutRsc ["d_sat_timode","PLAIN"];
 	((uiNamespace getVariable "d_sat_timode") displayCtrl 50) ctrlSetText "Off";
 	private _skipEH = (findDisplay 46) displayAddEventHandler ["KeyDown", {
-			if (_this select 1 == 57) then {
+			if (_this # 1 == 57) then {
 				(findDisplay 46) displayRemoveEventHandler ["KeyDown", uiNamespace getVariable "BIS_fnc_establishingShot_skipEH"];
 				uiNamespace setVariable ["BIS_fnc_establishingShot_skipEH", nil];
 
@@ -136,7 +133,7 @@ if (_mode == 1) then {
 
 				BIS_fnc_establishingShot_skip = true;
 			} else {
-				if (_this select 1 == 0x31) then { // N
+				if (_this # 1 == 0x31) then { // N
 					d_cur_fake_uav_timode = d_cur_fake_uav_timode + 1;
 					if (d_cur_fake_uav_timode > 7) then {d_cur_fake_uav_timode = -1};
 					playSound ["click", true];
@@ -150,7 +147,7 @@ if (_mode == 1) then {
 				};
 			};
 
-			(_this select 1 != 1);
+			(_this # 1 != 1);
 		}];
 
 	uiNamespace setVariable ["BIS_fnc_establishingShot_skipEH", _skipEH];
@@ -303,7 +300,7 @@ if (isNil "BIS_fnc_establishingShot_skip") then {
 
 								// Group
 								case typeName grpNull: {
-									_condition = {alive _x} count units _target > 0;
+									_condition = (units _target) findIf {alive _x} > -1;
 									_position = getPosATLVisual leader _target;
 								};
 							};
@@ -394,7 +391,7 @@ if (isNil "BIS_fnc_establishingShot_skip") then {
 						// Make text scroll in
 						for "_i" from 0 to (count _SITREPArray - 1) do {
 							private ["_character", "_delay"];
-							_character = _SITREPArray select _i;
+							_character = _SITREPArray # _i;
 							_delay = if (_character == "|") then {_character = "<br/>"; 1} else {0.01};
 
 							_SITREPCompile = _SITREPCompile + _character;
@@ -483,7 +480,7 @@ if (_mode == 0) then {
 		_x cutText ["", "PLAIN"];
 	} forEach ["BIS_layerEstShot", "BIS_layerStatic", "BIS_layerInterlacing"];
 
-	enableEnvironment false;
+	enableEnvironment [false, true];
 	"BIS_fnc_blackOut" cutText ["","BLACK FADED",10e10];
 
 	sleep 1;

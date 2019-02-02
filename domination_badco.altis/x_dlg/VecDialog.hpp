@@ -1,7 +1,7 @@
 class D_VecDialog {
 	idd = -1;
 	movingEnable = 1;
-	onLoad = "uiNamespace setVariable ['D_VecDialog', param [0]];[param [0]] call bis_fnc_guiEffectTiles;call d_fnc_initvecdialog;d_vec_dialog_open = true";
+	onLoad = "uiNamespace setVariable ['D_VecDialog', _this select 0];[_this select 0] call bis_fnc_guiEffectTiles;call d_fnc_initvecdialog;d_vec_dialog_open = true";
 	onUnLoad = "uiNamespace setVariable ['D_VecDialog', nil];d_vec_dialog_open = false";
 	effectTilesAlpha = 0.15;
 	class controlsBackground {
@@ -89,13 +89,13 @@ class D_VecDialog {
 			action = "closeDialog 0;call d_fnc_teleportx";
 			y = 0.59;
 		};
-		class SATViewButton: DropAmmoButton {
+		/*class SATViewButton: DropAmmoButton {
 			idc = 44459;
 			text = "$STR_DOM_MISSIONSTRING_1327"; 
 			action = "closeDialog 0;createDialog 'D_FakeUAVDialog'";
 			y = 0.65;
 		};
-/*		class UAVButton: DropAmmoButton {
+		class UAVButton: DropAmmoButton {
 			idc = 44460;
 			text = "$STR_DOM_MISSIONSTRING_1327a"; 
 			action = "closeDialog 0;call d_fnc_makeuav";

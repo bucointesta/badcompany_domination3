@@ -11,13 +11,13 @@ params ["_object"];
 __TRACE_1("","_object")
 if (_object isEqualType []) then {
 	_obb = objNull;
-	{
-		if ((_x isKindOf "Helicopter" || {_x isKindOf "LandVehicle" || {_x isKindOf "Plane"}}) && {!(_x isKindOf "HeliH") && {!(_x isKindOf "Land_HelipadSquare_F")}}) exitWith {
+	_object findIf {
+		private _ret = (_x isKindOf "Helicopter" || {_x isKindOf "LandVehicle" || {_x isKindOf "Plane"}}) && {!(_x isKindOf "HeliH") && {!(_x isKindOf "Land_HelipadSquare_F")}};
+		if (_ret) then {
 			_obb = _x;
-			false
 		};
-		false
-	} count _object;
+		_ret
+	};
 	_object = _obb;
 };
 
@@ -28,13 +28,23 @@ __TRACE_2("","_object","_type")
 
 private _isUav = unitIsUAV _object;
 
+#ifdef __TT__
+private _uavside = [opfor, blufor] select (_object distance2D d_chopper_trigger < 200);
+#endif
+
 private _lrl = _object getVariable ["d_last_reload", -1];
 if (_lrl != -1 && {(time - _lrl) < 60}) exitWith {
 	if (hasInterface) then {
 		if (!_isUav) then {
 			_object vehicleChat format [localize "STR_DOM_MISSIONSTRING_699", round (60 - (time - _lrl))];
 		} else {
+#ifdef __TT__
+			if (d_player_side == _uavside) then {
+#endif
 			systemChat format [localize "STR_DOM_MISSIONSTRING_699", round (60 - (time - _lrl))];
+#ifdef __TT__
+			};
+#endif
 		};
 	};
 };
@@ -51,7 +61,13 @@ if (hasInterface) then {
 	if (!_isUav) then {
 		_object vehicleChat format [localize "STR_DOM_MISSIONSTRING_701", _type_name];
 	} else {
+#ifdef __TT__
+		if (d_player_side == _uavside) then {
+#endif
 		systemChat format [localize "STR_DOM_MISSIONSTRING_701", _type_name];
+#ifdef __TT__
+		};
+#endif
 	};
 };
 
@@ -60,8 +76,41 @@ _magazinesxx = _object magazinesTurret [0];
 __TRACE_1("","_magazinesxx")
 #endif
 
+private _magsallturrets = magazinesAllTurrets _object;
+__TRACE_1("","_magsallturrets")
+
 private _cfgv = configFile>>"CfgVehicles">>_type;
 
+//private _removedX = [];
+{
+	private _path = _x # 1;
+	__TRACE_1("","_path")
+	if (_object turretLocal _path) then {
+		_x params ["_mag"];
+		__TRACE_1("","_mag")
+		//if !(_mag in _removedX) then {
+			//_object removeMagazinesTurret [_mag, _path];
+			//_removedX pushBack _mag;
+		//};
+		//__TRACE_1("","_removedX")
+		private _mag_disp_name = [_mag, "CfgMagazines"] call d_fnc_GetDisplayName;
+		if (_mag_disp_name == "") then {_mag_disp_name = _mag};
+		if (hasInterface && {!_isUav}) then {
+			_object vehicleChat format [localize "STR_DOM_MISSIONSTRING_702", _mag_disp_name];
+		} else {
+			 if (hasInterface && {_isUav && {getConnectedUAV Player == _object}}) then {
+				systemChat format [localize "STR_DOM_MISSIONSTRING_702", _mag_disp_name];
+			 };
+		};
+		sleep d_reload_time_factor;
+		__NOALIEX
+		//_object addMagazineTurret [_mag, _path];
+		sleep d_reload_time_factor;
+	};
+	__NOALIEX
+} forEach _magsallturrets;
+
+/*
 _cfgturrets = _cfgv>>"Turrets";
 
 __TRACE_1("","_cfgturrets")
@@ -74,7 +123,7 @@ _fillTurrets = {
 	_turrets = [];
 	_turretIndex = 0;
 	for "_i" from 0 to (count _entry - 1) do {
-		private _subEntry = _entry select _i;
+		private _subEntry = _entry # _i;
 		__TRACE_1("","_subEntry")
 		if (isClass _subEntry) then {
 			private _hasGunner = [_subEntry, "hasGunner"] call bis_fnc_returnConfigEntry;
@@ -100,7 +149,13 @@ _fillTurrets = {
 				{
 					private _mag_disp_name = [_x, "CfgMagazines"] call d_fnc_GetDisplayName;
 					if (_mag_disp_name == "") then {_mag_disp_name = _x};
-					if (hasInterface && {!_isUav}) then {_object vehicleChat format [localize "STR_DOM_MISSIONSTRING_702", _mag_disp_name]};
+					if (hasInterface && {!_isUav}) then {
+						_object vehicleChat format [localize "STR_DOM_MISSIONSTRING_702", _mag_disp_name];
+					} else {
+						 if (hasInterface && {_isUav && {getConnectedUAV Player == _object}}) then {
+							systemChat format [localize "STR_DOM_MISSIONSTRING_702", _mag_disp_name];
+						 };
+					};
 					sleep d_reload_time_factor;
 					__NOALIEX2
 					__TRACE_1("","_x")
@@ -132,7 +187,7 @@ _fillTurrets = {
 if !(_cfgturrets isEqualTo []) then {
 	[_cfgturrets, [], _object] call _fillTurrets;
 };
-
+*/
 __NOALIEX
 
 private _magazines = getArray(_cfgv>>"magazines");
@@ -144,17 +199,21 @@ if !(_magazines isEqualTo []) then {
 		_object removeMagazines _x;
 		_removed pushBack _x;
 		__TRACE_1("remMag","_x")
-		false
-	} count (_magazines select {!(_x in _removed)});
+	} forEach (_magazines select {!(_x in _removed)});
 	__TRACE_1("","_removed")
 	{
-		if (hasInterface && {!_isUav}) then {_object vehicleChat format [localize "STR_DOM_MISSIONSTRING_702", _x]};
+		if (hasInterface && {!_isUav}) then {
+			_object vehicleChat format [localize "STR_DOM_MISSIONSTRING_702", _x];
+		} else {
+			 if (hasInterface && {_isUav && {getConnectedUAV Player == _object}}) then {
+				systemChat format [localize "STR_DOM_MISSIONSTRING_702", _x];
+			 };
+		};
 		sleep d_reload_time_factor;
 		__NOALIEX
 		_object addMagazine _x;
 		__TRACE_1("addMag","_x")
-		false
-	} count _magazines;
+	} forEach _magazines;
 };
 _object setVehicleAmmo 1;
 
@@ -162,11 +221,23 @@ __NOALIEX
 
 sleep d_reload_time_factor;
 __NOALIEX
-if (hasInterface && {!_isUav}) then {_object vehicleChat (localize "STR_DOM_MISSIONSTRING_704")};
+if (hasInterface && {!_isUav}) then {
+	_object vehicleChat (localize "STR_DOM_MISSIONSTRING_704");
+} else {
+	if (hasInterface && {_isUav && {getConnectedUAV Player == _object}}) then {
+		systemChat (localize "STR_DOM_MISSIONSTRING_704");
+	};
+};
 _object setDamage 0;
 sleep d_reload_time_factor;
 __NOALIEX
-if (hasInterface && {!_isUav}) then {_object vehicleChat (localize "STR_DOM_MISSIONSTRING_705")};
+if (hasInterface && {!_isUav}) then {
+	_object vehicleChat (localize "STR_DOM_MISSIONSTRING_705");
+} else {
+	if (hasInterface && {_isUav && {getConnectedUAV Player == _object}}) then {
+		systemChat (localize "STR_DOM_MISSIONSTRING_705");
+	};
+};
 while {fuel _object < 0.99} do {
 	_object setFuel 1;
 	sleep 0.01;
@@ -177,7 +248,13 @@ if (hasInterface) then {
 	if (!_isUav) then {
 		_object vehicleChat format [localize "STR_DOM_MISSIONSTRING_706", _type_name];
 	} else {
+#ifdef __TT__
+		if (d_player_side == _uavside) then {
+#endif
 		systemChat format [localize "STR_DOM_MISSIONSTRING_706", _type_name];
+#ifdef __TT__
+		};
+#endif
 	};
 };
 

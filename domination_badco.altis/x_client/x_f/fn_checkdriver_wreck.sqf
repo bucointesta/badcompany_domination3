@@ -13,6 +13,20 @@ if (_enterer != player) exitWith {};
 
 private _exit_it = false;
 
+#ifdef __TT__
+private _d_side = _vec getVariable "d_side";
+if (!isNil "_d_side") then {
+	if (d_player_side == blufor && {_d_side == opfor}) then {
+		_exit_it = true;
+		[localize "STR_DOM_MISSIONSTRING_171", "SIDE"] call d_fnc_HintChatMsg;
+	} else {
+		if (d_player_side == opfor && {_d_side == blufor}) then {
+			_exit_it = true;
+			[localize "STR_DOM_MISSIONSTRING_172", "SIDE"] call d_fnc_HintChatMsg;
+		};
+	};
+};
+#endif
 
 if (!_exit_it && {_position == "driver"}) then {
 	if (d_with_ranked && {rankId player < (d_wreck_lift_rank call d_fnc_GetRankIndex)}) exitWith {

@@ -45,6 +45,8 @@ for "_i" from 0 to ((lbSize _listctrl) - 1) do {
 					};
 					_listctrl lbSetColor [_i, _lbcolor];
 				};
+				__TRACE_1("","_mravailable")
+				__TRACE_2("","lbCurSel _listctrl","_i")
 				if (lbCurSel _listctrl == _i) then {
 					if (_mravailable) then {
 						private _text = if (_wone == 1 || {d_tele_dialog == 0}) then {
@@ -62,12 +64,12 @@ for "_i" from 0 to ((lbSize _listctrl) - 1) do {
 					};
 				};
 			} else {
-				if (d_respawnatsql == 0 && {_lbdata == "D_SQL_D" && {!(player getVariable ["xr_isleader", false]) && {count units (group player) > 1}}}) then {
+				if (d_respawnatsql == 0 && {_lbdata == "D_SQL_D" && {!(player getVariable ["xr_isleader", false]) && {count units (group player) > 1 && {player != leader (group player)}}}}) then {
 					private _leader = leader (group player);
 					private _leadavail = false;
 					private _emptycargo = [0, (vehicle _leader) emptyPositions "cargo"] select (!isNull objectParent _leader);
-					private _lbcolor = if (xr_respawn_available && {alive _leader} && {!(_leader getVariable ["xr_pluncon", false])} && {!(_leader getVariable ["ace_isunconscious", false])} && {_emptycargo > 0 || {(getPos _leader) select 2 < 10}} && {!(_leader call d_fnc_isswimming)} && {!underwater _leader}) then {
-					//private _lbcolor = if (xr_respawn_available && {alive _leader && {!(_leader getVariable ["xr_pluncon", false]) && {isNull objectParent _leader && {(getPos _leader) select 2 < 10}}}}) then {
+					private _lbcolor = if (xr_respawn_available && {alive _leader} && {!(_leader getVariable ["xr_pluncon", false])} && {!(_leader getVariable ["ace_isunconscious", false])} && {_emptycargo > 0 || {(getPos _leader) # 2 < 10}} && {!(_leader call d_fnc_isswimming)} && {!underwater _leader}) then {
+					//private _lbcolor = if (xr_respawn_available && {alive _leader && {!(_leader getVariable ["xr_pluncon", false]) && {isNull objectParent _leader && {(getPos _leader) # 2 < 10}}}}) then {
 						_leadavail = true;
 						[1,1,1,1.0]
 					} else {
@@ -93,20 +95,25 @@ for "_i" from 0 to ((lbSize _listctrl) - 1) do {
 				};
 			};
 		} else {
-			if (xr_respawn_available && {!ctrlEnabled __CTRL(100102)}) then {
+			if (lbCurSel _listctrl == _i && {xr_respawn_available && {!ctrlEnabled __CTRL(100102)}}) then {
+				__TRACE("xr_respawn_available 1111")
 				__CTRL(100102) ctrlEnable true;
 			};
 		};
 	} else {
-		private _text = if (_wone == 1 || {d_tele_dialog == 0}) then {
-			format [localize "STR_DOM_MISSIONSTRING_607", _listctrl lbText _i]
-		} else {
-			format [localize "STR_DOM_MISSIONSTRING_605", _listctrl lbText _i]
+		__TRACE_1("_listctrl lbText _i","_listctrl lbText _i")
+		if (lbCurSel _listctrl == _i && {xr_respawn_available && {!ctrlEnabled __CTRL(100102)}}) then {
+			__CTRL(100102) ctrlEnable true;
 		};
-		__CTRL(100102) ctrlEnable true;
 		__TRACE_1("Additional enable true","_lbdata")
-		__CTRL(100110) ctrlSetText _text;
 	};
+};
+
+if (!isNil "xr_pl_no_lifes" && {xr_pl_no_lifes && {ctrlEnabled __CTRL(100102)}}) then {
+	__CTRL(100102) ctrlEnable false;
+};
+if (!xr_respawn_available && {ctrlEnabled __CTRL(100102)}) then {
+	__CTRL(100102) ctrlEnable false;
 };
 
 /*if (_wone == 1 && {xr_respawn_available} && {!ctrlEnabled __CTRL(100102)}) then {

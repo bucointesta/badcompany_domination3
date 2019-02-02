@@ -7,6 +7,9 @@ if (isServer) then {
 		private _grpen = [blufor] call d_fnc_creategroup;
 		d_hq_logic_blufor1 = _grpen createUnit ["Logic",[0,0,0],[],0,"NONE"];
 		[d_hq_logic_blufor1] joinSilent _grpen;
+		if (d_with_ai) then {
+			_grpen setVariable ["d_do_not_delete", true];
+		};
 		_grpen deleteGroupWhenEmpty true;
 		d_hq_logic_blufor1 enableSimulationGlobal false;
 		publicVariable "d_hq_logic_blufor1";
@@ -27,6 +30,9 @@ if (isServer) then {
 		private _grpru = [opfor] call d_fnc_creategroup;
 		d_hq_logic_opfor1 = _grpru createUnit ["Logic",[0,0,0],[],0,"NONE"];
 		[d_hq_logic_opfor1] joinSilent _grpru;
+		if (d_with_ai) then {
+			_grpru setVariable ["d_do_not_delete", true];
+		};
 		_grpru deleteGroupWhenEmpty true;
 		d_hq_logic_opfor1 enableSimulationGlobal false;
 		d_hq_logic_opfor1 addEventHandler ["handleDamage",{0}];
@@ -48,6 +54,9 @@ if (isServer) then {
 		private _grpru = [independent] call d_fnc_creategroup;
 		d_hq_logic_guer1 = _grpru createUnit ["Logic",[0,0,0],[],0,"NONE"];
 		[d_hq_logic_guer1] joinSilent _grpru;
+		if (d_with_ai) then {
+			_grpru setVariable ["d_do_not_delete", true];
+		};
 		_grpru deleteGroupWhenEmpty true;
 		d_hq_logic_guer1 enableSimulationGlobal false;
 		d_hq_logic_guer1 addEventHandler ["handleDamage",{0}];
@@ -72,20 +81,36 @@ private _kbscript = "x_bikb\domkba3.bikb";
 if (d_tt_ver || {d_own_side == "EAST"}) then {
 	d_hq_logic_opfor1 kbAddTopic["HQ_E",_kbscript];
 	d_hq_logic_opfor1 kbAddTopic["HQ_ART_E",_kbscript];
+#ifndef __RHS__
 	d_hq_logic_opfor1 setIdentity "DHQ_OP1";
+#else
+	d_hq_logic_opfor1 setIdentity "RDHQ_OP1";
+#endif
 	d_hq_logic_opfor1 setRank "COLONEL";
 	if (isServer) then {
 		d_hq_logic_opfor1 setGroupIdGlobal ["HQ"];
 	};
+#ifndef __RHS__
 	d_hq_logic_opfor1 setVariable ["d_kddata", [["HQ_E", "HQ_ART_E"], "DHQ_OP1", "HQ"]];
+#else
+	d_hq_logic_opfor1 setVariable ["d_kddata", [["HQ_E", "HQ_ART_E"], "RDHQ_OP1", "HQ"]];
+#endif
 
 	d_hq_logic_opfor2 kbAddTopic["HQ_E",_kbscript];
+#ifndef __RHS__
 	d_hq_logic_opfor2 setIdentity "DHQ_OP2";
+#else
+	d_hq_logic_opfor2 setIdentity "RDHQ_OP2";
+#endif
 	d_hq_logic_opfor2 setRank "COLONEL";
 	if (isServer) then {
 		d_hq_logic_opfor2 setGroupIdGlobal ["Papa Bear"];
 	};
+#ifndef __RHS__
 	d_hq_logic_opfor2 setVariable ["d_kddata", [["HQ_E"], "DHQ_OP2", "Papa Bear"]];
+#else
+	d_hq_logic_opfor2 setVariable ["d_kddata", [["HQ_E"], "RDHQ_OP2", "Papa Bear"]];
+#endif
 };
 
 if (d_tt_ver || {d_own_side == "WEST"}) then {
@@ -126,6 +151,7 @@ if (d_own_side == "GUER" || {d_ifa3lite}) then {
 	d_hq_logic_guer2 setVariable ["d_kddata", [["HQ_I"], "DHQ_IN2", "Papa Bear"]];
 };
 
+#ifndef __TT__
 d_kb_logic1 = switch (d_own_side) do {
 	case "WEST": {d_hq_logic_blufor1};
 	case "EAST": {d_hq_logic_opfor1};
@@ -146,6 +172,7 @@ d_kb_topic_side_arti = switch (d_own_side) do {
 	case "EAST": {"HQ_ART_E"};
 	case "GUER": {"HQ_ART_I"};
 };
+#endif
 
 if (hasInterface) then {
 	sleep 1;
@@ -161,7 +188,16 @@ if (hasInterface) then {
 	};
 	_strp = str player;
 	player kbAddTopic["PL" + _strp, _kbscript];
+#ifndef __TT__
 	d_kb_logic1 kbAddTopic["PL" + _strp, _kbscript];
+#else
+	private _ll = switch (_pside) do {
+		case blufor: {d_hq_logic_blufor1};
+		case opfor: {d_hq_logic_opfor1};
+		case independent: {d_hq_logic_guer1};
+	};
+	_ll kbAddTopic["PL" + _strp, _kbscript];
+#endif
 	if (d_no_ai) then {
 		if (_strp in d_can_use_artillery || {_strp in d_can_mark_artillery}) then {
 			switch (_pside) do {

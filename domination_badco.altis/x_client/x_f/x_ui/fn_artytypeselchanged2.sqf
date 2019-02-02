@@ -8,14 +8,14 @@ if (isDedicated) exitWith {};
 disableSerialization;
 params ["_selection"];
 
-private _selIdx = _selection select 1;
+private _selIdx = _selection # 1;
 if (_selIdx == -1) exitWith {};
 
-private _mag = (_selection select 0) lbData _selIdx;
+private _mag = (_selection # 0) lbData _selIdx;
 
 private _wpos = markerPos "d_temp_mark_arty_marker";
 
-private _warty = d_ao_arty_vecs select 0;
+d_ao_arty_vecs params ["_warty"];
 
 private _inrange = _wpos inRangeOfArtillery [[_warty], _mag];
 

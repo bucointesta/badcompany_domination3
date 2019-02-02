@@ -4,12 +4,9 @@
 #include "..\..\x_setup.sqf"
 
 __TRACE_1("","_this")
-private _pmpos = getPosATL _this;
-_pmpos set [2, 0];
-__TRACE_1("","_pmpos")
-private _camo = createVehicle [d_vec_camo_net, _pmpos, [], 0, "NONE"];
+private _camo = createVehicle [d_vec_camo_net, getPos _this, [], 0, "NONE"];
 _camo setDir getDir _this;
 _camo setVectorUp (vectorUp _this);
-_camo setPos _pmpos;		
+_camo setPosASL (getPosASL _this);		
 _this setVariable ["d_MHQ_Camo", _camo, true];
-_camo addEventhandler ["killed", {deleteVehicle (param [0])}];
+_camo addEventhandler ["killed", {deleteVehicle (_this select 0)}];

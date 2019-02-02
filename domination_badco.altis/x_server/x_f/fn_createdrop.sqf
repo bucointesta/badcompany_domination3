@@ -5,12 +5,12 @@
 #define __announce \
 d_para_available = true; publicVariable "d_para_available";\
 remoteExecCall ["d_fnc_updatesupportrsc", [0, -2] select isDedicated]; \
-{_chopper deleteVehicleCrew _x;false} count _crew;\
+{_chopper deleteVehicleCrew _x} forEach _crew;\
 deleteVehicle _chopper;\
 deleteMarker #d_drop_marker
 
 #define __del \
-{_chopper deleteVehicleCrew _x;false} count _crew;\
+{_chopper deleteVehicleCrew _x} forEach _crew;\
 deleteVehicle _chopper;\
 deleteMarker #d_drop_marker
 
@@ -27,14 +27,14 @@ if (!isNil "_player" && {!isNull _player}) then {
 };
 
 private _mname = "d_drop_zone_" + str _player;
-[_mname, _drop_pos, "ICON", "ColorBlue", [0.8,0.8], format [localize "STR_DOM_MISSIONSTRING_1648", name _player], 0, "mil_dot"] call d_fnc_CreateMarkerLocal;
+[_mname, _drop_pos, "ICON", "ColorBlue", [0.8,0.8], format [localize "STR_DOM_MISSIONSTRING_1648", _player call d_fnc_getplayername], 0, "mil_dot"] call d_fnc_CreateMarkerLocal;
 
 _mname spawn {
 	sleep 900;
 	deleteMarker _this;
 };
 
-_drop_pos = [_drop_pos select 0, _drop_pos select 1, 120];
+_drop_pos = [_drop_pos # 0, _drop_pos # 1, 120];
 
 d_para_available = false; publicVariable "d_para_available";
 remoteExecCall ["d_fnc_updatesupportrsc", [0, -2] select isDedicated];
@@ -52,18 +52,20 @@ private _delete_chop = {
 };
 
 private _grp = [d_drop_side] call d_fnc_creategroup;
-
-private _spos = [_dstart_pos select 0, _dstart_pos select 1, 300];
+if (d_with_ai) then {
+	_grp setVariable ["d_do_not_delete", true];
+};
+private _spos = [_dstart_pos # 0, _dstart_pos # 1, 300];
 private _veca = [_spos, _spos getDir _drop_pos, d_drop_aircraft, _grp, false] call d_fnc_spawnVehicle;
 _grp deleteGroupWhenEmpty true;
-private _chopper = _veca select 0;
+_veca params ["_chopper"];
 addToRemainsCollector [_chopper];
 _chopper lock true;
 removeAllWeapons _chopper;
 ["d_drop_marker", _chopper, "ICON", "ColorBlue", [0.5,0.5], localize "STR_DOM_MISSIONSTRING_940", 0, "hd_dot"] call d_fnc_CreateMarkerGlobal;
 sleep 0.1;
-private _crew = _veca select 1;
-{_x setCaptive true;false} count _crew;
+private _crew = _veca # 1;
+{_x setCaptive true} forEach _crew;
 private _unit = driver _chopper;
 
 private _wp = _grp addWaypoint [_drop_pos, 0];
@@ -81,15 +83,17 @@ _wp2 setWaypointSpeed "NORMAL";
 _wp2 setWaypointTimeout [0, 0, 0];
 _wp2 setWaypointForceBehaviour true;
 
+private _vecdist = _chopper distance2D _drop_pos;
+
 //_chopper flyInHeight 100;
-#define __dist_to_drop 250
+#define __dist_to_drop 300
 private _may_exit = false;
 sleep 12 + random 12;
 if (!isNil "_player" && {!isNull _player}) then {
 	1 remoteExecCall ["d_fnc_dropansw", _player];
 };
 private _starttime = time + 300;
-private _endtime = time + 600;
+private _endtime = time + (((_vecdist / 1000) * 60) + 120);
 while {_chopper distance2D _drop_pos > 1000} do {
 	sleep 3.512;
 	"d_drop_marker" setMarkerPos (getPosWorld _chopper);
@@ -124,8 +128,6 @@ if (_may_exit) exitWith {
 	};
 };
 
-//_unit doMove _end_pos;
-
 [_chopper, _drop_type, _player, _drop_pos, _mname] spawn {
 	scriptName "spawn_x_createdrop_spawndrop";
 	params ["_chopper", "_drop_type", "_player", "_drop_pos", "_mname"];
@@ -135,7 +137,7 @@ if (_may_exit) exitWith {
 	private _is_ammo = false;
 	private _para = objNull;
 	private _chopposx = getPosATL _chopper;
-	_chopposx set [2, (_chopposx select 2) - 10];
+	_chopposx set [2, (_chopposx # 2) - 10];
 	if (_drop_type isKindOf "ReammoBox_F") then {
 		_is_ammo = true;
 		_para = createVehicle [d_cargo_chute, _chopposx, [], 0, "FLY"];

@@ -9,17 +9,17 @@ private _pos = _this;
 if (_pos isEqualTo []) exitWith {
 	_pos;
 };
-if (_pos select 0 < 0) then {
+if (_pos # 0 < 0) then {
 	_pos set [0, 400];
 } else {
-	if (_pos select 0 > (d_island_x_max - 2)) then {
+	if (_pos # 0 > (d_island_x_max - 2)) then {
 		_pos set [0, d_island_x_max - 400];
 	};
 };
-if (_pos select 1 < 0) then {
+if (_pos # 1 < 0) then {
 	_pos set [1, 400];
 } else {
-	if (_pos select 1 > (d_island_y_max - 2)) then {
+	if (_pos # 1 > (d_island_y_max - 2)) then {
 		_pos set [1, d_island_y_max - 400];
 	};
 };

@@ -24,16 +24,7 @@ if !((player getVariable "d_farp_pos") isEqualTo []) exitWith {
 	d_commandingMenuIniting = false;
 };
 
-private _nos = player nearEntities ["Truck_F", 20];
-private _notruck = true;
-if !(_nos isEqualTo []) then {
-	{
-		if ((_x getVariable ["d_vec_type", ""]) == "Engineer") exitWith {_notruck = false;false};
-		false
-	} count _nos;
-};
-
-if (_notruck) exitWith {
+if (((player nearEntities ["Truck_F", 20]) select {(_x getVariable ["d_vec_type", ""]) == "Engineer"}) isEqualTo []) exitWith {
 	systemChat (localize "STR_DOM_MISSIONSTRING_243");
 	d_commandingMenuIniting = false;
 };
@@ -46,30 +37,29 @@ if (surfaceIsWater _d_farp_pos) exitWith {
 	d_commandingMenuIniting = false;
 };
 
-if (d_with_ranked && {score player < (d_ranked_a select 20)}) exitWith {
-	[playerSide, "HQ"] sideChat format [localize "STR_DOM_MISSIONSTRING_245", score player, d_ranked_a select 20];
+if ((d_with_ranked || {d_database_found}) && {score player < (d_ranked_a # 20)}) exitWith {
+	[playerSide, "HQ"] sideChat format [localize "STR_DOM_MISSIONSTRING_245", score player, d_ranked_a # 20];
 	d_commandingMenuIniting = false;
 };
 
 private _helper1 = d_HeliHEmpty createVehicleLocal [0,0,0];
-_helper1 setPos [_d_farp_pos select 0, (_d_farp_pos select 1) + 4, 0];
+_helper1 setPos [_d_farp_pos # 0, (_d_farp_pos # 1) + 4, 0];
 private _helper2 = d_HeliHEmpty createVehicleLocal [0,0,0];
-_helper2 setPos [_d_farp_pos select 0, (_d_farp_pos select 1) - 4, 0];
+_helper2 setPos [_d_farp_pos # 0, (_d_farp_pos # 1) - 4, 0];
 private _helper3 = d_HeliHEmpty createVehicleLocal [0,0,0];
-_helper3 setPos [(_d_farp_pos select 0) + 4, _d_farp_pos select 1, 0];
+_helper3 setPos [(_d_farp_pos # 0) + 4, _d_farp_pos # 1, 0];
 private _helper4 = d_HeliHEmpty createVehicleLocal [0,0,0];
-_helper4 setPos [(_d_farp_pos select 0) - 4, _d_farp_pos select 1, 0];
+_helper4 setPos [(_d_farp_pos # 0) - 4, _d_farp_pos # 1, 0];
 
 private _exit_it = false;
-if ((abs (((getPosASL _helper1) select 2) - ((getPosASL _helper2) select 2)) > 2) || {(abs (((getPosASL _helper3) select 2) - ((getPosASL _helper4) select 2)) > 2)}) then {
+if ((abs (((getPosASL _helper1) # 2) - ((getPosASL _helper2) # 2)) > 2) || {(abs (((getPosASL _helper3) # 2) - ((getPosASL _helper4) # 2)) > 2)}) then {
 	systemChat (localize "STR_DOM_MISSIONSTRING_246");
 	_exit_it = true;
 };
 
 {
 	deleteVehicle _x;
-	false
-} count [_helper1, _helper2, _helper3, _helper4];
+} forEach [_helper1, _helper2, _helper3, _helper4];
 
 if (_exit_it) exitWith {
 	d_commandingMenuIniting = false;
@@ -77,7 +67,7 @@ if (_exit_it) exitWith {
 
 player setVariable ["d_isinaction", true];
 
-if (d_with_ranked) then {[player, (d_ranked_a select 20) * -1] remoteExecCall ["addScore", 2]};
+if (d_with_ranked || {d_database_found}) then {[player, (d_ranked_a # 20) * -1] remoteExecCall ["addScore", 2]};
 
 player playMove "AinvPknlMstpSlayWrflDnon_medic";
 sleep 1;
@@ -88,7 +78,7 @@ if (!alive player || {player getVariable ["xr_pluncon", false] || {player getVar
 	player setVariable ["d_isinaction", false];
 };
 
-private _farptype = d_farp_classes select 0;
+d_farp_classes params ["_farptype"];
 
 private _mapSize = getNumber(configFile>>"CfgVehicles">>_farptype>>"mapSize");
 
@@ -98,7 +88,7 @@ _farp setPos _d_farp_pos;
 [_farp, 0] call d_fnc_SetHeight;
 
 private _farptrig = [
-[_d_farp_pos select 0, _d_farp_pos select 1, 1.9],
+[_d_farp_pos # 0, _d_farp_pos # 1, 1.9],
 [_mapSize, _mapSize, getDirVisual _farp, true, 2],
 ["ANY", "PRESENT", true],
 ["thislist call d_fnc_tallservice", "0 = [thislist] spawn d_fnc_reload", ""]
@@ -108,7 +98,8 @@ private _farpcont = [_farptrig];
 
 _mapSize = _mapSize + 10;
 private _farp_o_pos = [_d_farp_pos, _mapSize] call d_fnc_getranpointcircleouter;
-private _farp_seco = createVehicle [d_farp_classes select 1, _farp_o_pos, [], 0, "NONE"];
+_farp_o_pos set [2, 0];
+private _farp_seco = createVehicle [d_farp_classes # 1, _farp_o_pos, [], 0, "NONE"];
 _farp_seco setDir (random 360);
 _farp_seco setPos _farp_o_pos;
 
@@ -117,7 +108,8 @@ _farpcont pushBack _farp_seco;
 if (count d_farp_classes > 2) then {
 	for "_i" from 2 to (count d_farp_classes - 1) do {
 		_farp_o_pos = [_d_farp_pos, _mapSize] call d_fnc_getranpointcircleouter;
-		_farp_o = createVehicle [d_farp_classes select _i, _farp_o_pos, [], 0, "NONE"];
+		_farp_o_pos set [2, 0];
+		_farp_o = createVehicle [d_farp_classes # _i, _farp_o_pos, [], 0, "NONE"];
 		_farp_o setDir (random 360);
 		_farp_o setPos _farp_o_pos;
 		
@@ -126,8 +118,6 @@ if (count d_farp_classes > 2) then {
 };
 
 _farp setVariable ["d_objcont", _farpcont, true];
-
-nznz = _farp;
 
 _d_farp_pos = getPosATL _farp;
 player setVariable ["d_farp_pos", _d_farp_pos];
@@ -160,7 +150,7 @@ _farp_seco addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MIS
 
 		private _farpcont = _farp getVariable ["d_objcont", []];
 		if !(_farpcont isEqualTo []) then {
-			{deleteVehicle _x;false} count _farpcont;
+			{deleteVehicle _x} forEach _farpcont;
 		};
 		deleteVehicle _farp;
 		

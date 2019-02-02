@@ -3,29 +3,30 @@
 #define THIS_FILE "tasks.sqf"
 #include "x_setup.sqf"
 
-//wait to be sure that a maximum number of crates is calculated
 if (isNil "d_MaxNumAmmoboxes") then {
 	waitUntil {!isNil "d_MaxNumAmmoboxes"};
 };
 
-//BR=go next line, BRBR=skip one line, BRBRBR=skip 2 lines
 #define __BR "<br/>"
 #define __BRBR "<br/><br/>"
 #define __BRBRBR "<br/><br/><br/>"
 
-//prepare briefing
 private _bar = [
 	localize "STR_DOM_MISSIONSTRING_23", __BR,
 	"<font face='RobotoCondensed' size=52 color='#ffffff'>Domination! 3</font>", __BRBR,
 	localize "STR_DOM_MISSIONSTRING_24", __BR,
 	localize "STR_DOM_MISSIONSTRING_25", __BRBRBR,
 	localize "STR_DOM_MISSIONSTRING_26", __BRBR,
-	//localize "STR_DOM_MISSIONSTRING_27", __BRBR,
+	localize "STR_DOM_MISSIONSTRING_27", __BRBR,
 	localize "STR_DOM_MISSIONSTRING_28", __BRBR,
 	localize "STR_DOM_MISSIONSTRING_29", __BR,
 	localize "STR_DOM_MISSIONSTRING_30", __BR,
+#ifndef __TT__
 	format [localize "STR_DOM_MISSIONSTRING_31", d_MaxNumAmmoboxes], __BR,
-//	localize "STR_DOM_MISSIONSTRING_32", __BR,
+#else
+	format [localize "STR_DOM_MISSIONSTRING_39", d_MaxNumAmmoboxes], __BR,
+#endif
+	localize "STR_DOM_MISSIONSTRING_32", __BR,
 	localize "STR_DOM_MISSIONSTRING_33", __BRBR,
 	localize "STR_DOM_MISSIONSTRING_34", __BR,
 	localize "STR_DOM_MISSIONSTRING_35", __BR,
@@ -37,25 +38,19 @@ private _bar = [
 	localize "STR_DOM_MISSIONSTRING_43", __BRBR,
 	localize "STR_DOM_MISSIONSTRING_44", __BR,
 	localize "STR_DOM_MISSIONSTRING_46", __BRBR,
-	localize "STR_DOM_MISSIONSTRING_47", __BR,
 	localize "STR_DOM_MISSIONSTRING_48", __BRBR,
-	localize "STR_DOM_MISSIONSTRING_49", __BRBR,
 	localize "STR_DOM_MISSIONSTRING_51", __BR,
 	localize "STR_DOM_MISSIONSTRING_52", __BR,
 	localize "STR_DOM_MISSIONSTRING_54", __BRBR,
-/*	localize "STR_DOM_MISSIONSTRING_55", __BR,
-	localize "STR_DOM_MISSIONSTRING_56", __BRBR,
-	localize "STR_DOM_MISSIONSTRING_57", __BRBR,*/
-	localize "STR_DOM_MISSIONSTRING_56a", __BRBR,
+	localize "STR_DOM_MISSIONSTRING_55", __BR,
 	localize "STR_DOM_MISSIONSTRING_58", __BRBR,
 	localize "STR_DOM_MISSIONSTRING_61", __BRBR,
+	"Thanks to all people who donate, you guys are great :-)", __BRBR,
 	"Domination also available on Discord: https://discordapp.com/invite/vYVNKV2"
 ];
 
-//insert briefing in diary
 player createDiaryRecord ["Diary", ["Briefing", _bar joinString ""]];
 
-//insert license in diary
 player createDiarySubject ["dLicense","License"];
 player createDiaryRecord ["dLicense", ["License", "
 Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)<br/><br/>

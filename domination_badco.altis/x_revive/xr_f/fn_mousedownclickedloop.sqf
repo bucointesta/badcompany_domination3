@@ -7,10 +7,10 @@ if (isDedicated) exitWith {};
 
 __TRACE("on")
 xr_mousecheckon = true;
-while {xr_MouseButtons select 1 || {xr_MouseButtons select 0 || {!isNil "xr_mouse_end"}}} do {
-	if (!(xr_MouseButtons select 0) && {xr_MouseButtons select 1}) then {
-		xr_fangle = xr_fangle - ((xr_mouseDeltaPos select 0) * 360);
-		xr_fangleY = xr_fangleY + ((xr_mouseDeltaPos select 1) * 180);
+while {xr_MouseButtons # 1 || {xr_MouseButtons # 0 || {!isNil "xr_mouse_end"}}} do {
+	if (!(xr_MouseButtons # 0) && {xr_MouseButtons # 1}) then {
+		xr_fangle = xr_fangle - ((xr_mouseDeltaPos # 0) * 360);
+		xr_fangleY = xr_fangleY + ((xr_mouseDeltaPos # 1) * 180);
 		if (xr_fangleY > 89) then {
 			xr_fangleY = 89;
 		} else {
@@ -19,8 +19,8 @@ while {xr_MouseButtons select 1 || {xr_MouseButtons select 0 || {!isNil "xr_mous
 			};
 		};
 	} else {
-		if ((xr_MouseButtons select 0) && {!(xr_MouseButtons select 1)}) then {
-			xr_sdistance = xr_sdistance - ((xr_mouseDeltaPos select 1) * 10);
+		if ((xr_MouseButtons # 0) && {!(xr_MouseButtons # 1)}) then {
+			xr_sdistance = xr_sdistance - ((xr_mouseDeltaPos # 1) * 10);
 			if (xr_sdistance > xr_maxDistance) then {
 				xr_sdistance = xr_maxDistance;
 			} else {
@@ -30,8 +30,8 @@ while {xr_MouseButtons select 1 || {xr_MouseButtons select 0 || {!isNil "xr_mous
 			};
 			if (xr_sdistance < -0.6) then {xr_sdistance = -0.6};
 		} else {
-			if (xr_MouseButtons select 0 && {xr_MouseButtons select 1}) then {
-				xr_szoom = xr_szoom - ((xr_mouseDeltaPos select 1) * 3);
+			if (xr_MouseButtons # 0 && {xr_MouseButtons # 1}) then {
+				xr_szoom = xr_szoom - ((xr_mouseDeltaPos # 1) * 3);
 				if (xr_szoom > 2) then {
 					xr_szoom = 2;
 				} else {

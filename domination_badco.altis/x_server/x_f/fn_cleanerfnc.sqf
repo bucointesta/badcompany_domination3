@@ -5,7 +5,6 @@
 
 while {true} do {
 	sleep (300 + random 150);
-	// TODO How to improve this? Means how to improve cleanup? AllmissionObjects is not the fastest engine command...
 	private _allmisobjs = allMissionObjects "groundWeaponHolder";
 	sleep 4;
 	private _helperx = allMissionObjects "WeaponHolder";
@@ -13,8 +12,7 @@ while {true} do {
 		_allmisobjs append _helperx;
 	};
 	sleep 4;
-	//_helperx = allMissionObjects "WeaponHolderSimulated";
-	_helperx = entities "WeaponHolderSimulated";
+	_helperx = entities [["WeaponHolderSimulated", "Plane_Canopy_Base_F", "Ejection_Seat_Base_F"], []];
 	if !(_helperx isEqualTo []) then {
 		_allmisobjs append _helperx;
 	};
@@ -44,7 +42,7 @@ while {true} do {
 		_allmisobjs append _helperx;
 	};
 	sleep 4;
-/*	_helperx = allMissionObjects "CraterLong";
+	_helperx = allMissionObjects "CraterLong";
 	if !(_helperx isEqualTo []) then {
 		_allmisobjs append _helperx;
 	};
@@ -53,14 +51,22 @@ while {true} do {
 	if !(_helperx isEqualTo []) then {
 		_allmisobjs append _helperx;
 	};
-*/
 	if !(_allmisobjs isEqualTo []) then {
 		{
-			if (_x inArea "d_base_marker") then {
-				deleteVehicle _x;
+			private _ct = _x getVariable ["d_checktime", -1];
+			if (_ct == -1) then {
+				_x setVariable ["d_checktime", time];
 			} else {
-				if ({isPlayer _x} count (_x nearEntities ["CAManBase", 50]) == 0) then {
+#ifndef __TT__
+				if (_x distance2D d_FLAG_BASE < 20) then {
+#else
+				if (_x distance2D d_WFLAG_BASE < 20 || {_x distance2D d_EFLAG_BASE < 20}) then {
+#endif
 					deleteVehicle _x;
+				} else {
+					if ((_x nearEntities ["CAManBase", 50]) findIf {_x call d_fnc_isplayer} == -1) then {
+						deleteVehicle _x;
+					};
 				};
 			};
 			sleep 0.212;
@@ -72,16 +78,15 @@ while {true} do {
 		{
 			private _hastime = _x getVariable "d_end_time";
 			if (!isNil "_hastime" && {time > _hastime}) then {
-				if ({alive _x} count (crew _x) == 0) then {
+				if ((crew _x) findIf {alive _x} == -1) then {
 					deleteVehicle _x;
 				} else {
-					if ({isPlayer _x} count (crew _x) > 0) then {
+					if ((crew _x) findIf {_x call d_fnc_isplayer} > -1) then {
 						_x setVariable ["d_end_time", time + 600];
 					};
 				};
 			};
-			false
-		} count (d_player_created select {!isNull _x});
+		} forEach (d_player_created select {!isNull _x});
 		d_player_created = d_player_created - [objNull];
 	};
 };

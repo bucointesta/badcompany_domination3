@@ -18,14 +18,26 @@ if (isNil "_s") then {
 			28
 		} else {
 			26 // Ship
-		}
+		};
 	};
 	_v setVariable ["d_icon_size", _s];
 };
 
 if (!_m) then {
 	private _a = [0.7, 0.9] select (!isNull _u && {(group _u) isEqualTo (group player)});
+
+#ifdef __OWN_SIDE_BLUFOR__
 	private _c = [0, 0.3, 0.6, _a];
+#endif
+#ifdef __OWN_SIDE_OPFOR__
+	private _c = [0.5, 0, 0, _a];
+#endif
+#ifdef __OWN_SIDE_INDEPENDENT__
+	private _c = [0, 0.5, 0, _a];
+#endif
+#ifdef __TT__
+	private _c = [0, 0.5, 0, _a];
+#endif
 	[_i, _s, _c]
 } else {
 	[_i, _s, _v getVariable "d_ma_color"]

@@ -10,7 +10,7 @@ private _ran_pos = selectRandom _posi_array;
 
 _posi_array = nil;
 
-if (d_with_ranked) then {d_sm_p_pos = nil};
+if (d_with_ranked || {d_database_found}) then {d_sm_p_pos = nil};
 
 private _flag = createVehicle [d_flag_pole, _ran_pos, [], 0, "NONE"];
 _flag setPos _ran_pos;
@@ -20,9 +20,11 @@ _flag setFlagTexture (call d_fnc_getenemyflagtex);
 _flag setFlagside d_side_enemy;
 
 sleep 2.123;
-["aa", 1, "tracked_apc", 1, "tank", 1, _ran_pos,1,350,true] spawn d_fnc_CreateArmor;
+[selectRandom ["aa", "tank"], 1, selectRandom ["tracked_apc", "wheeled_apc"], 2, selectRandom ["jeep_mg", "jeep_gl"], 2, _ran_pos, 1, 350, true] spawn d_fnc_CreateArmor;
+sleep 1;
+["stat_mg", 1, "stat_gl", 1, "", 0, _ran_pos, 1, 100, false] spawn d_fnc_CreateArmor;
 sleep 2.123;
-["specops", 2, "allmen", 1, _ran_pos,250,true] spawn d_fnc_CreateInf;
+["specops", (floor (random 4)) min 2, "allmen", (floor (random 3)) min 1, _ran_pos, 250, true] spawn d_fnc_CreateInf;
 
 _ran_pos = nil;
 
@@ -32,7 +34,6 @@ d_sm_flag_failed = false;
 private _ownerthere = false;
 
 while {true} do {
-	call d_fnc_mpcheck;
 	private _owner = flagOwner _flag;
 	
 	if (!isNull _owner && {isNil {_owner getVariable "d_flagowner"}}) then {
@@ -40,8 +41,9 @@ while {true} do {
 		_owner setVariable ["d_flagowner", _owner addMPEventHandler ["MPKilled", {if (!isNil "d_sm_flag_failed") then {d_sm_flag_failed = true}}]];
 	};
 
-	if (!isNull _owner && {(_owner distance2D d_FLAG_BASE < 40)}) exitWith {
-		if (d_with_ranked) then {
+#ifndef __TT__
+	if (!isNull _owner && {_owner distance2D d_FLAG_BASE < 40 || {!isNil "d_flag_airfield" && {_owner distance2D d_flag_airfield < 40}}}) exitWith {
+		if (d_with_ranked || {d_database_found}) then {
 			[missionNamespace, ["d_sm_p_pos", getPosATL d_FLAG_BASE]] remoteExecCall ["setVariable", [0, -2] select isDedicated];
 		};
 		_flag setFlagOwner objNull;
@@ -54,6 +56,36 @@ while {true} do {
 			[missionNamespace, ["d_sm_resolved", true]] remoteExecCall ["setVariable", 2];
 		};
 	};
+#else
+	if (!isNull _owner && {(_owner distance2D d_EFLAG_BASE < 40)}) exitWith {
+		if (d_with_ranked || {d_database_found}) then {
+			[missionNamespace, ["d_sm_p_pos", getPosATL d_EFLAG_BASE]] remoteExecCall ["setVariable", [0, -2] select isDedicated];
+		};
+		_flag setFlagOwner objNull;
+		if (!d_sm_resolved) then {
+			d_sm_winner = 1;
+		};
+		d_sm_resolved = true;
+		if (d_IS_HC_CLIENT) then {
+			[missionNamespace, ["d_sm_winner", d_sm_winner]] remoteExecCall ["setVariable", 2];
+			[missionNamespace, ["d_sm_resolved", true]] remoteExecCall ["setVariable", 2];
+		};
+	};
+	if (!isNull _owner && {(_owner distance2D d_WFLAG_BASE < 40)}) exitWith {
+		if (d_with_ranked || {d_database_found}) then {
+			[missionNamespace, ["d_sm_p_pos", getPosATL d_WFLAG_BASE]] remoteExecCall ["setVariable", [0, -2] select isDedicated];
+		};
+		_flag setFlagOwner objNull;
+		if (!d_sm_resolved) then {
+			d_sm_winner = 2;
+		};
+		d_sm_resolved = true;
+		if (d_IS_HC_CLIENT) then {
+			[missionNamespace, ["d_sm_winner", d_sm_winner]] remoteExecCall ["setVariable", 2];
+			[missionNamespace, ["d_sm_resolved", true]] remoteExecCall ["setVariable", 2];
+		};
+	};
+#endif
 	
 	if (d_sm_flag_failed  || {_ownerthere && {isNil "_owner" || {isNull _owner}}}) exitWith {
 		_flag setFlagOwner objNull;

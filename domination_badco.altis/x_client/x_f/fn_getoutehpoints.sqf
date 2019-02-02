@@ -4,11 +4,11 @@
 
 if (isDedicated) exitWith {};
 
-private _unit = param [2];
-if (!isPlayer _unit) exitWith {};
+private _unit = _this select 2;
+if !(_unit call d_fnc_isplayer) exitWith {};
 if (alive player && {_unit != player && {alive _unit}}) then {
 	private _var = _unit getVariable "d_TRANS_START";
 	if (!isNil "_var" && {_var distance2D _unit > d_transport_distance}) then {
-		[player, d_ranked_a select 18] remoteExecCall ["addScore", 2];
+		[player, d_ranked_a # 18] remoteExecCall ["addScore", 2];
 	};
 };

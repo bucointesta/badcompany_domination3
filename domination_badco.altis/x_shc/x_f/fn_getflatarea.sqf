@@ -26,8 +26,8 @@ while {count _isFlat < 3 && {_maxgradient < 0.7}} do {
 	};
 };
 
-if (count _isFlat == 0) then {
-	_isFlat = [(_position select 0) + _maxradius - random (2 * _maxradius), (_position select 1) + _maxradius - random (2 * _maxradius), 0];
+if (_isFlat isEqualTo []) then {
+	_isFlat = [(_position # 0) + _maxradius - random (2 * _maxradius), (_position # 1) + _maxradius - random (2 * _maxradius), 0];
 };
 
 _isFlat

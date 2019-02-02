@@ -12,7 +12,6 @@ if (!isNil "_ma") then {
 _vec removeAllMPEventHandlers "MPKilled";
 
 if (!surfaceIsWater (getPosASL _vec)) then {
-	//_vec call d_fnc_Wreckmarker;
 	_vec execFSM "fsms\fn_Wreckmarker.fsm";
 } else {
 	_vec spawn {

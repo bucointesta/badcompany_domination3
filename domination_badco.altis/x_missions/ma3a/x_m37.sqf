@@ -7,12 +7,12 @@ d_x_sm_pos = "d_sm_37" call d_fnc_smmapos; // index: 37,   Radar near Eginio
 d_x_sm_type = "normal"; // "convoy"
 
 if (hasInterface) then {
-	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_1503";
-	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_1504";
+	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_1815";
+	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_727";
 };
 
 if (call d_fnc_checkSHC) then {
-	private _poss = d_x_sm_pos select 0;
+	d_x_sm_pos params ["_poss"];
 	private _vec = createVehicle [d_sm_small_radar, _poss, [], 0, "NONE"];
 	_vec call d_fnc_addKilledEHSM;
 	_vec setDir 270;

@@ -24,9 +24,6 @@ if (!(_grp isEqualType grpNull) || {!(_pos isEqualType [])}) exitWith {false};
 _grp setBehaviour "SAFE";
 
 private _units = (units _grp) - [leader _grp];
-private _staticWeapons = [];
-
-((_pos nearEntities ["StaticWeapon", 100]) select {_x emptyPositions "gunner" > 0}) append _staticWeapons;
 
 {
 	if (random 1 > 0.2 && {!(_units isEqualTo [])}) then {
@@ -35,8 +32,7 @@ private _staticWeapons = [];
 		[_unit] orderGetIn true;
 		_units resize ((count _units) - 1);
 	};
-	false
-} count _staticWeapons;
+} forEach ((_pos nearEntities ["StaticWeapon", 100]) select {_x emptyPositions "gunner" > 0});
 
 private _wp = _grp addWaypoint [_pos, 10];
 _wp setWaypointType "SENTRY";
@@ -50,7 +46,6 @@ _units spawn {
 			sleep 0.5;
 			_x action ["SitDown", _x];
 		};
-		false
-	} count _this;
+	} forEach _this;
 };
 true

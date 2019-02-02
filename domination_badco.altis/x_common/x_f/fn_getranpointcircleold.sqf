@@ -7,7 +7,7 @@
 params ["_center", "_radius"];
 private _ret_val = [];
 for "_co" from 0 to 99 do {
-	private _npos = _center getPos [random _radius, random 360];
+	private _npos = _center getPos [_radius * sqrt random 1, random 360];
 	if !(surfaceIswater _npos) exitWith {_npos set [2, 0]; _ret_val = _npos};
 };
 _ret_val

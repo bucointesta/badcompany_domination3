@@ -9,10 +9,10 @@ params ["_wf"];
 disableSerialization;
 private _disp = uiNamespace getVariable "d_ProgressBar";
 private _control = _disp displayCtrl 3800;
-//private _maxWidth = ctrlPosition (_disp displayCtrl 3600) select 2;
+//private _maxWidth = ctrlPosition (_disp displayCtrl 3600) # 2;
 //private _newval = [_maxWidth, ((_maxWidth * (_wf getVariable "d_CURCAPTIME") / (_wf getVariable "d_CAPTIME")) min _maxWidth) max 0.02] select ((_wf getVariable "d_SIDE") != d_own_side);
 __TRACE_2("","_maxWidth","_newval")
-private _newval = linearConversion [0, _wf getVariable "d_CAPTIME", _wf getVariable "d_CURCAPTIME", 0, ctrlPosition (_disp displayCtrl 3600) select 2];
+private _newval = linearConversion [0, _wf getVariable "d_CAPTIME", _wf getVariable "d_CURCAPTIME", 0, ctrlPosition (_disp displayCtrl 3600) # 2];
 private _pos = ctrlPosition _control;
 _pos set [2, _newval];
 //progressSetPosition -> Is not as smooth as a ctrl commit

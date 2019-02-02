@@ -7,7 +7,7 @@ if (isDedicated) exitWith {};
 
 params ["_vec"];
 
-if (d_no_ai && {!(player getVariable ["d_is_engineer", false])}) exitWith {
+if (d_no_ai && {!(player getUnitTrait "engineer")}) exitWith {
 	hintSilent (localize "STR_DOM_MISSIONSTRING_68");
 };
 

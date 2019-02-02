@@ -7,7 +7,7 @@ switch (_this) do {
 	case "gov_dead": {localize "STR_DOM_MISSIONSTRING_949"};
 	case "radar_down": {localize "STR_DOM_MISSIONSTRING_951"};
 	case "ammo_down": {localize "STR_DOM_MISSIONSTRING_952"};
-	case "apc_down": {localize "STR_DOM_MISSIONSTRING_953"};
+	case "med_down": {localize "STR_DOM_MISSIONSTRING_953"};
 	case "hq_down": {localize "STR_DOM_MISSIONSTRING_954"};
 	case "light_down": {localize "STR_DOM_MISSIONSTRING_955"};
 	case "heavy_down": {localize "STR_DOM_MISSIONSTRING_956"};

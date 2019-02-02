@@ -8,8 +8,6 @@ d_IS_HC_CLIENT = !isDedicated && {!hasInterface};
 __TRACE_1("","d_IS_HC_CLIENT")
 
 if (!isMultiplayer) then {d_uids_for_reserved_slots = ["_SP_PLAYER_"];};
-
-//enable/disable calculations for AI sight view
 if (isDedicated) then {disableRemoteSensors true};
 
 if (isMultiplayer && {hasInterface}) then {
@@ -22,13 +20,11 @@ if (isMultiplayer && {hasInterface}) then {
 enableSaving [false,false];
 enableTeamSwitch false;
 
-//call of d_init.sqf on first available frame
-d_of_ex_id = addMissionEventhandler ["EachFrame", {
+addMissionEventhandler ["EachFrame", {
 	if (isNil "d_init_processed") then {
 		call compile preprocessFileLineNumbers "d_init.sqf";
 	};
-	removeMissionEventHandler ["EachFrame", d_of_ex_id];
-	d_of_ex_id = nil;
+	removeMissionEventHandler ["EachFrame", _thisEventHandler];
 }];
 
 diag_log [diag_frameno, diag_ticktime, time, "Dom init.sqf processed"];

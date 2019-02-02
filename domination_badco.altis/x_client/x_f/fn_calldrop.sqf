@@ -6,7 +6,7 @@ if (isDedicated) exitWith {
 	d_commandingMenuIniting = false;
 };
 
-if (!alive player || {isNull objectParent player && {(getPosATLVisual player) select 2 > 10}}) exitWith {
+if (!alive player || {isNull objectParent player && {(getPosATLVisual player) # 2 > 10}}) exitWith {
 	d_commandingMenuIniting = false;
 };
 if !(d_para_available) exitWith {
@@ -14,8 +14,8 @@ if !(d_para_available) exitWith {
 	d_commandingMenuIniting = false;
 };
 
-if (d_with_ranked && {score player < (d_ranked_a select 16)}) exitWith {
-	[playerSide, "HQ"] sideChat format [localize "STR_DOM_MISSIONSTRING_164", score player, d_ranked_a select 16];
+if ((d_with_ranked || {d_database_found}) && {score player < (d_ranked_a # 16)}) exitWith {
+	[playerSide, "HQ"] sideChat format [localize "STR_DOM_MISSIONSTRING_164", score player, d_ranked_a # 16];
 	d_commandingMenuIniting = false;
 };
 
@@ -37,7 +37,7 @@ d_x_drop_type = "";
 createDialog "d_AirDropDialog";
 d_commandingMenuIniting = false;
 
-waitUntil {d_x_drop_type != "" || {!d_airdrop_dialog_open || {!alive player || {player getVariable ["xr_pluncon", false] || {player getVariable ["ace_isunconscious", false]}}}}};
+waitUntil {!isNil "d_airdrop_dialog_open" && {d_x_drop_type != "" || {!d_airdrop_dialog_open || {!alive player || {player getVariable ["xr_pluncon", false] || {player getVariable ["ace_isunconscious", false]}}}}}};
 
 deleteMarkerLocal "d_drop_marker_1";
 
@@ -55,7 +55,7 @@ if (d_x_drop_type != "") then {
 		[playerSide, "HQ"] sideChat format [localize "STR_DOM_MISSIONSTRING_166", d_drop_max_dist];
 	};
 	player sideChat format [localize "STR_DOM_MISSIONSTRING_167", [d_x_drop_type, "CfgVehicles"] call d_fnc_GetDisplayName];
-	if (d_with_ranked) then {[player, (d_ranked_a select 16) * -1] remoteExecCall ["addScore", 2]};
+	if (d_with_ranked || {d_database_found}) then {[player, (d_ranked_a # 16) * -1] remoteExecCall ["addScore", 2]};
 	[d_x_drop_type, _mpdz, player] remoteExec ["d_fnc_createdrop", 2];
 } else {
 	[playerSide, "HQ"] sideChat (localize "STR_DOM_MISSIONSTRING_168");

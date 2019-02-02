@@ -7,12 +7,12 @@ d_x_sm_pos = "d_sm_23" call d_fnc_smmapos; // Officer, camp near Oreokastro
 d_x_sm_type = "normal"; // "convoy"
 
 if (hasInterface) then {
-	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_843";
+	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_1813";
 	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_729";
 };
 
 if (call d_fnc_checkSHC) then {
-	private _poss = d_x_sm_pos select 0;
+	d_x_sm_pos params ["_poss"];
 	private _fortress = createVehicle [d_sm_fortress, _poss, [], 0, "NONE"];
 	_fortress setPos _poss;
 	d_x_sm_vec_rem_ar pushBack _fortress;

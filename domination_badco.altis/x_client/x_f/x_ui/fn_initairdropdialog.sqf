@@ -11,21 +11,21 @@ disableSerialization;
 
 private _disp = uiNamespace getVariable "d_AirDropDialog";
 
-private _array = d_x_drop_array select 0;
+d_x_drop_array params ["_array"];
 if (_array isEqualTo []) then {
 	CTRL(11002) ctrlShow false;
 } else {
-	CTRL(11002) ctrlSetText (_array select 0);
+	CTRL(11002) ctrlSetText (_array # 0);
 };
-_array = d_x_drop_array select 1;
+_array = d_x_drop_array # 1;
 if (_array isEqualTo []) then {
 	CTRL(11003) ctrlShow false;
 } else {
-	CTRL(11003) ctrlSetText (_array select 0);
+	CTRL(11003) ctrlSetText (_array # 0);
 };
-_array = d_x_drop_array select 2;
+_array = d_x_drop_array # 2;
 if (_array isEqualTo []) then {
 	CTRL(11004) ctrlShow false;
 } else {
-	CTRL(11004) ctrlSetText (_array select 0);
+	CTRL(11004) ctrlSetText (_array # 0);
 };

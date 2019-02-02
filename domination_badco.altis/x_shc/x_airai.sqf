@@ -34,7 +34,6 @@ while {true} do {
 		400;
 	});
 #endif
-	call d_fnc_mpcheck;
 	while {d_mt_radio_down} do {sleep 6.123};
 	private _pos = call d_fnc_GetRanPointOuterAir;
 	if !(d_cur_tgt_pos isEqualTo []) then {
@@ -71,21 +70,23 @@ while {true} do {
 	
 	waitUntil {sleep 0.323; d_current_target_index >= 0};
 	private _cdir = _pos getDir d_island_center;
+#ifndef __TT__
 	switch (_type) do {
-		case "AP": {if (d_searchintel select 1 == 1) then {[0] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
-		case "HAC": {if (d_searchintel select 2 == 1) then {[1] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
-		case "LAC": {if (d_searchintel select 3 == 1) then {[2] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
+		case "AP": {if (d_searchintel # 1 == 1) then {[0] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
+		case "HAC": {if (d_searchintel # 2 == 1) then {[1] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
+		case "LAC": {if (d_searchintel # 3 == 1) then {[2] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
 	};
+#endif
 	for "_xxx" from 1 to _numair do {
-		private _vec_array = [[_pos select 0, _pos select 1, 400], _cdir, _heli_type, _grp] call d_fnc_spawnVehicle;
+		private _vec_array = [[_pos # 0, _pos # 1, 400], _cdir, _heli_type, _grp] call d_fnc_spawnVehicle;
 		__TRACE_1("","_vec_array")
 		
-		_vec = _vec_array select 0;
-		_vec setPos [_pos select 0, _pos select 1, 400];
+		 _vec_array params ["_vec"];
+		_vec setPos [_pos # 0, _pos # 1, 400];
 		_vehicles pushBack _vec;
 		__TRACE_1("","_vehicles")
 		
-		_funits append (_vec_array select 1);
+		_funits append (_vec_array # 1);
 		__TRACE_1("","_funits")
 
 		addToRemainsCollector [_vec];
@@ -137,20 +138,18 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 
 
 #ifdef __DEBUG__
-	_xdist = (_vehicles select 0) distance2D _cur_tgt_pos;
+	_xdist = (_vehicles # 0) distance2D _cur_tgt_pos;
 	__TRACE_1("","_xdist")
 #endif
 		_curvec = objNull;
-		{
-			if (alive _x && {canMove _x}) exitWith {
-				_curvec = _x;
-				if (_old_pos isEqualTo []) then {
-					_old_pos = getPosASL _curvec;
-				};
-				false
+		private _mmvevs = _vehicles select {alive _x && {canMove _x}};
+		if !(_mmvevs isEqualTo []) then {
+			_curvec = _mmvevs # 0;
+			if (_old_pos isEqualTo []) then {
+				_old_pos = getPosASL _curvec;
 			};
-			false
-		} count _vehicles;
+		};
+		_mmvevs = nil;
 		__TRACE_1("","_curvec")
 		__TRACE_1("","_old_pos")
 		_xcounter = _xcounter + 1;
@@ -158,10 +157,9 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 			if (_curvec distance2D _old_pos < 30 && {_xcounter > 100}) exitWith {
 				{
 					private _v = _x;
-					{_v deleteVehicleCrew _x;false} count (crew _v);
+					{_v deleteVehicleCrew _x} forEach (crew _v);
 					_v setDamage 1;
-					false;
-				} count _vehicles;
+				} forEach _vehicles;
 				_xcounter = 0;
 			};
 			_xcounter = 0;
@@ -180,8 +178,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 				_old_pos = getPosASL _curvec;
 				{
 					_x flyInHeight 80;
-					false
-				} count (_vehicles select {alive _x});
+				} forEach (_vehicles select {alive _x});
 				sleep 35.821 + random 15;
 			} else {
 				__patternpos;
@@ -193,19 +190,13 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 				_old_pos = getPosASL _curvec;
 				{
 					_x flyInHeight 100;
-					false
-				} count (_vehicles select {alive _x});
+				} forEach (_vehicles select {alive _x});
 				sleep 80 + random 80;
 			};
 		};
 		__TRACE_1("","_xcounter")
 		
 		sleep 3 + random 2;
-
-		__TRACE("call mpcheck")
-		call d_fnc_mpcheck;
-		
-		sleep 1;
 
 		if !(_vehicles isEqualTo []) then {
 			__TRACE("_vehicles array not empty")
@@ -231,7 +222,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 		};
 		if (_vehicles isEqualTo []) exitWith {
 			__TRACE("_vehicles array IS empty")
-			{deleteVehicle _x;false} count _funits;
+			{deleteVehicle _x} forEach _funits;
 			_funits = [];
 			_vehicles = [];
 		};

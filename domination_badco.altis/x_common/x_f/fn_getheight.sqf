@@ -6,4 +6,4 @@
 // get height of object
 // parameters: object (no brackets)
 // _height = tank1 call d_fnc_GetHeight;
-(getPosATL _this) select 2
+(getPos _this) # 2

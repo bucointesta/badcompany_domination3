@@ -16,7 +16,7 @@ d_fnc_map_group_count_marker = {
 		_units = 0;
 		_remgrps = [];
 		{
-			_alu = _x call d_fnc_GetAliveUnitsGrp;
+			_alu = {alive _x} count (units _x);
 			if (_alu > 0) then {
 				_units = _units + _alu;
 			} else {
@@ -36,7 +36,7 @@ d_infunitswithoutleader = 0;
 d_fnc_groupmarker = {
 	scriptName "d_fnc_groupmarker";
 	params ["_grp"];
-	waitUntil {sleep 0.221;(_grp call d_fnc_GetAliveUnitsGrp) > 0};
+	waitUntil {sleep 0.221;(units _grp) findIf {alive _x} > -1};
 	_helper = str _grp;
 	private _gname = if (_helper != "") then {_helper} else {d_gcounter = d_gcounter + 1; str d_gcounter};
 	private _mname = _gname + "dgrp";
@@ -63,7 +63,7 @@ d_fnc_groupmarker = {
 	[_mname, [0,0,0],"ICON",(switch (side _grp) do {case opfor: {"ColorEAST"};case blufor: {"ColorWEST"};case independent: {"ColorGUER"};default {"ColorCIV"};}),[0.8,0.8],_gname,0,_mtype] call d_fnc_CreateMarkerLocal;
 	_gname = _gname + " (%1)";
 	while {true} do {
-		if (isNull _grp || {(_grp call d_fnc_GetAliveUnitsGrp) == 0}) exitWith {
+		if (isNull _grp || {(units _grp) findIf {alive _x} == -1}) exitWith {
 			deleteMarkerLocal _mname;
 			deleteMarkerLocal _mnamel;
 			deleteMarkerLocal _mnamewp;
@@ -72,11 +72,11 @@ d_fnc_groupmarker = {
 		if (!isNull _leader) then {
 			private _p1 = visiblePositionASL _leader;
 			_mname setMarkerPosLocal _p1;
-			_mname setMarkerTextLocal format [_gname, _grp call d_fnc_GetAliveUnitsGrp];
+			_mname setMarkerTextLocal format [_gname, {alive _x} count (units _grp)];
 			private _wps = wayPoints _grp;
 			private _idx = currentWaypoint _grp;
 			if (_idx > 0 && {_idx < count _wps}) then {
-				private _curwppos = waypointPosition (_wps select _idx);
+				private _curwppos = waypointPosition (_wps # _idx);
 				if (markerType _mnamewp == "") then {
 					[_mnamewp,_curwppos,"ICON","ColorGrey",[0.7, 0.7],"",0,"waypoint"] call d_fnc_CreateMarkerLocal;
 				} else {

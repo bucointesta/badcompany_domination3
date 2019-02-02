@@ -7,10 +7,10 @@ if (isDedicated) exitWith {};
 params ["_unit", "_caller"];
 
 private _chatfunc = {
-	if (vehicle (param [1]) == param [0]) then {
-		(param [0]) vehicleChat (param [2]);
+	if (vehicle (_this select 0) == _this select 0) then {
+		(_this select 0) vehicleChat (_this select 2);
 	} else {
-		(param [1]) sideChat (param [2]);
+		(_this select 1) sideChat (_this select 2);
 	};
 };
 
@@ -29,7 +29,7 @@ if (_unit getVariable ["d_ammobox_next", -1] > time) exitWith {[_unit, _caller, 
 private _nobjs = nearestObjects [_unit, [d_the_box], 20];
 if (_nobjs isEqualTo []) exitWith {[_unit, _caller, localize "STR_DOM_MISSIONSTRING_271"] call _chatfunc};
 [_unit, _caller, localize "STR_DOM_MISSIONSTRING_272"] call _chatfunc;
-[getPosATL (_nobjs select 0), _unit] remoteExecCall ["d_fnc_RemABox", 2];
+[getPosATL (_nobjs # 0), _unit] remoteExecCall ["d_fnc_RemABox", 2];
 _unit setVariable ["d_ammobox", true, true];
 _unit setVariable ["d_ammobox_next", time + d_drop_ammobox_time, true];
 [_unit, _caller, localize "STR_DOM_MISSIONSTRING_273"] call _chatfunc;

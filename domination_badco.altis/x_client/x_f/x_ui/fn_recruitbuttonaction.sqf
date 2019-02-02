@@ -30,8 +30,8 @@ if (d_with_ranked) then {
 		_exitj = true;
 	};
 
-	if (score player < ((d_points_needed select 0) + (d_ranked_a select 3))) exitWith {
-		[playerSide, "HQ"] sideChat format [localize "STR_DOM_MISSIONSTRING_697", score player, d_ranked_a select 3];
+	if (score player < ((d_points_needed # 0) + (d_ranked_a # 3))) exitWith {
+		[playerSide, "HQ"] sideChat format [localize "STR_DOM_MISSIONSTRING_697", score player, d_ranked_a # 3];
 		_exitj = true;
 	};
 
@@ -48,7 +48,7 @@ if (d_with_ranked) then {
 		_exitj = true;
 	};
 	// each AI soldier costs score points
-	[player, (d_ranked_a select 3) * -1] remoteExecCall ["addScore", 2];
+	[player, (d_ranked_a # 3) * -1] remoteExecCall ["addScore", 2];
 };
 
 if (_exitj) exitWith {
@@ -66,16 +66,17 @@ if (_idx == -1) exitWith {
 private _grp = group player;
 private _spawnpos = [];
 if (player distance2D d_AI_HUT < 20) then {
-	_spawnpos = getPosATL d_AISPAWN;
+	if (!isNil "d_AISPAWN" && {!isNull d_AISPAWN}) then {
+		_spawnpos = getPosATL d_AISPAWN;
+	} else {
+		_spawnpos = player modelToWorldVisual [0, -15, 0];
+	};
 } else {
 	if (!isNil "d_additional_recruit_buildings") then {
-		{
-			if (!isNil "_x" && {!isNull _x} && {player distance2D _x < 20}) exitWith {
-				_spawnpos = player modelToWorldVisual [0,-15,0];
-				false
-			};
-			false
-		} count d_additional_recruit_buildings;
+		private _har = d_additional_recruit_buildings select {!isNil "_x" && {!isNull _x && {player distance2D _x < 20}}};
+		if !(_har isEqualTo []) then {
+			_spawnpos = player modelToWorldVisual [0,-15,0];
+		};
 	};
 };
 if (_spawnpos isEqualTo []) exitWith {
@@ -83,19 +84,20 @@ if (_spawnpos isEqualTo []) exitWith {
 	d_current_ai_num = d_current_ai_num - 1;
 };
 
-private _torecruit = d_UnitsToRecruit select _idx;
+private _torecruit = d_UnitsToRecruit # _idx;
 private _unit = _grp createUnit [_torecruit, _spawnpos, [], 0, "NONE"];
 [_unit] join _grp;
+if (surfaceIsWater _spawnpos) then {
+	_unit setPosASL [_spawnpos # 0, _spawnpos # 1, (getPosASL d_FLAG_BASE) # 2];
+};
 _unit setSkill 1;
 _unit setRank "PRIVATE";
-if (d_with_ranked && {!d_with_ace}) then {
+if (!d_with_ace && {d_with_ranked || {d_database_found}}) then {
 	_unit addEventHandler ["handleHeal", {_this call d_fnc_handleheal}];
 };
 if (d_WithRevive == 0 && {_unit getUnitTrait "Medic"}) then {
-	//[_unit] call d_fnc_AIRevive;
 	[_unit] execFSM "fsms\fn_AIRevive.fsm";
 };
-[_grp, player] remoteExecCall ["d_fnc_plgroup", 2];
 
 d_current_ai_units pushBack _unit;
 
@@ -104,14 +106,14 @@ _unit call d_fnc_removenvgoggles_fak;
 if (!d_with_ace) then {
 	_unit addEventhandler ["handleDamage", {
 		if (d_player_in_base && {player inArea d_base_array}) then {
-			private _shooter = param [3];
-			if (!isNil "_shooter" && {!isNull _shooter && {isPlayer _shooter}}) then {
+			private _shooter = _this select 6;
+			if (!isNil "_shooter" && {!isNull _shooter && {_shooter call d_fnc_isplayer}}) then {
 				0
 			} else {
-				param [2]
+				_this select 2
 			};
 		} else {
-			param [2];
+			_this select 2;
 		};
 	}];
 };
@@ -145,10 +147,43 @@ _control lbSetColor [_index, [1, 1, 0, 0.8]];
 (_dispx displayCtrl 1030) ctrlSetText format [localize "STR_DOM_MISSIONSTRING_693", d_current_ai_num, d_max_ai];
 
 if (!d_with_ranked) then {
-	_unit addAction [localize "STR_DOM_MISSIONSTRING_1585", {["Open",[true,nil,param [0]]] call bis_fnc_arsenal}, [], -1, false, true, "", "true", 3];
+	private _code = if (!d_with_ace) then {
+		{["Open", [true, nil, _this select 0]] call bis_fnc_arsenal}
+	} else {
+		{[_this select 0, _this select 0, true] call ace_arsenal_fnc_openBox}
+	};
+	_unit addAction [localize "STR_DOM_MISSIONSTRING_1585", _code, [], -1, false, true, "", "true", 3];
 };
 
+#ifndef __TT__
 [_unit] remoteExecCall ["d_fnc_addceo", 2];
+#endif
 addToRemainsCollector [_unit];
+
+if (d_ai_alone_in_vehicle == 1) then {
+	_unit addEventhandler ["getInMan", {
+		params ["_unit", "_pos", "_vec"];
+		if (_pos == "driver" && {!(_vec isKindOf "ParachuteBase") && {!(_vec isKindOf "StaticWeapon") && {(crew _vec) findIf {_x call d_fnc_isplayer} == -1}}}) then {
+			_unit action ["getOut", _vec];
+			hintSilent (localize "STR_DOM_MISSIONSTRING_1852");
+		};
+	}];
+	/*_unit addEventhandler ["SeatSwitchedMan", {
+		//unit1: Object - Unit switching seat.
+		//unit2: Object - Unit with which unit1 is switching seat.
+		//vehicle: Object - Vehicle where switching seats is taking place.
+		params ["_unit1", "_unit2", "_vec"];
+		if ((assignedVehicleRole _unit1) # 0 == "driver") then {
+			if ((crew _vec) findIf {_x call d_fnc_isplayer} == -1}) then {
+				private _old_assigned = [];
+				if (!isNull _unit2) then {
+					_old_assigned = assignedVehicleRole _unit1;
+					moveOut _unit2;
+				};
+			};
+		};
+		
+	}];*/
+};
 
 player setVariable ["d_recdbusy", false];

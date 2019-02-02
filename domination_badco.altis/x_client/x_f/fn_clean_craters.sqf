@@ -2,19 +2,19 @@
 #define THIS_FILE "fn_clean_craters.sqf"
 #include "..\..\x_setup.sqf"
 
-{
-	deleteVehicle _x;
-	sleep 0.212;
-} forEach (allMissionObjects "CraterLong" + allMissionObjects "CraterLong_small");
+sleep 60;
 
-if (!isNil "d_airboxes" && {!(d_airboxes isEqualTo [])}) then {
+while {true} do {
+	sleep (240 + random 240);
 	{
-		if (time > _x getVariable ["d_airboxtime", -1]) then {
+		deleteVehicle _x;
+		sleep 0.212;
+	} forEach (allMissionObjects "CraterLong" + allMissionObjects "CraterLong_small");
+	sleep 0.1;
+	if (!isNil "d_airboxes" && {!(d_airboxes isEqualTo [])}) then {
+		{
 			deleteVehicle _x;
-		};
-		false
-	} count d_airboxes;
-	d_airboxes = d_airboxes - [objNull];
+		} forEach (d_airboxes select {time > _x getVariable ["d_airboxtime", -1]});
+		d_airboxes = d_airboxes - [objNull];
+	};
 };
-
-["itemAdd", ["dom_clean_craters", {["itemRemove", ["dom_clean_craters"]] call bis_fnc_loop; 0 spawn d_fnc_clean_craters}, 240 + random 240]] call bis_fnc_loop;

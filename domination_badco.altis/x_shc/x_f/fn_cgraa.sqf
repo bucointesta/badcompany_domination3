@@ -3,12 +3,12 @@
 #define THIS_FILE "fn_cgraa.sqf"
 #include "..\..\x_setup.sqf"
 
-for "_io" from 1 to 20 do {
-	private _mmm = format ["d_base_anti_air%1", _io];
-	if (markerPos _mmm isEqualTo [0,0,0]) exitWith {};
-	
-	private _grp = [param [0]] call d_fnc_creategroup;
-	private _av = (([1, markerPos _mmm, param [1], _grp, markerDir _mmm] call d_fnc_makevgroup) select 0) select 0;
+{
+	private _grp = [_this select 0] call d_fnc_creategroup;
+	if (d_with_ai) then {
+		[_grp, ["d_do_not_delete", true]] remoteExecCall ["setVariable", 2];
+	};
+	(([1, markerPos _x, _this select 1, _grp, markerDir _x, false, true] call d_fnc_makevgroup) # 0) params ["_av"];
 	_grp deleteGroupWhenEmpty true;
 	_av lock true;
 	if (!isNull (driver _av)) then {
@@ -16,4 +16,4 @@ for "_io" from 1 to 20 do {
 		_av deleteVehicleCrew (driver _av);
 		_av lock 2;
 	};
-};
+} forEach (allMapMarkers select {_x select [0, 15] == "d_base_anti_air"});

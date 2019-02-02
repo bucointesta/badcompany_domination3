@@ -3,6 +3,9 @@
 #define THIS_FILE "fn_pputweapon.sqf"
 #include "..\..\x_setup.sqf"
 
+//Hunter: needs revision
+/*
+
 //if (isDedicated) exitWith {};
 if (player getVariable ["d_isinprison", false]) exitWith {};
 
@@ -17,4 +20,6 @@ diag_log format ["container %1", _container];
 {
 	if (_container == (backpackContainer _x)) exitWith {[_x, player, _item] remoteExecCall ["d_fnc_ptakeweapon", _x]; if (!([_x, _item] call d_fnc_checkitem)) then {call d_fnc_retrieve_layoutgear}};
 } forEach (allPlayers - entities "HeadlessClient_F");
+
+*/
 

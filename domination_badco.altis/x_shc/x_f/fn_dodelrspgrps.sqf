@@ -9,16 +9,16 @@ if !(d_respawn_ai_groups isEqualTo []) then {
 		{
 			_x params ["_rgrp"];
 			__TRACE_1("","_rgrp")
-			if (!isNil "_rgrp" && {_rgrp isEqualType grpNull} && {!isNull _rgrp}) then {
+			if (!isNil "_rgrp" && {_rgrp isEqualType grpNull && {!isNull _rgrp}}) then {
 				{
-					private _v = vehicle _x;
-					__TRACE_1("","_v")
-					if (_v != _x && {alive _v}) then {_v setDamage 1};
+					if !(isNull objectParent _x)  then {
+						private _v = vehicle _x;
+						__TRACE_1("","_v")
+						if (alive _v) then {_v setDamage 1};
+					};
 					if (alive _x) then {_x setDamage 1};
-					false
-				} count ((units _rgrp) select {!isNil "_x" && {!isNull _x}});
+				} forEach ((units _rgrp) select {!isNil "_x" && {!isNull _x}});
 			};
-			false
-		} count (d_respawn_ai_groups select {_x isEqualType []});
+		} forEach (d_respawn_ai_groups select {_x isEqualType []});
 	};
 };

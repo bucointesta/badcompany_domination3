@@ -7,13 +7,13 @@ d_x_sm_pos = "d_sm_18" call d_fnc_smmapos; // index: 18,   Government member vis
 d_x_sm_type = "normal"; // "convoy"
 
 if (hasInterface) then {
-	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_837";
-	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_746";
+	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_1817";
+	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_729";
 };
 
 if (call d_fnc_checkSHC) then {
-	private _poss = d_x_sm_pos select 0;
-	["aa", 1, "tracked_apc", 1, "tank", 1, d_x_sm_pos select 1, 1, 400, true] spawn d_fnc_CreateArmor;
+	d_x_sm_pos params ["_poss"];
+	["aa", 1, "tracked_apc", 1, "tank", 1, d_x_sm_pos # 1, 1, 400, true] spawn d_fnc_CreateArmor;
 	sleep 2.123;
 	["specops", 2, "allmen", 1, _poss, 300, true] spawn d_fnc_CreateInf;
 	sleep 2.111;

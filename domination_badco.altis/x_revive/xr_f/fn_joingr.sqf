@@ -5,6 +5,7 @@
 
 __TRACE("joingr")
 if (player getVariable "xr_isleader") then {
-	[xr_pl_group, player] remoteExecCall ["selectLeader", groupOwner xr_pl_group];
+	private _grpl = group player;
+	[_grpl, player] remoteExecCall ["xr_fnc_selleader", _grpl];
 };
 player setVariable ["xr_isleader", false];

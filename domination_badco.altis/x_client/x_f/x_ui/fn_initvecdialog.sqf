@@ -54,12 +54,10 @@ if (_caller != driver _vec) then {
 		if !(_caller in _vec) then {
 			lbClear 44449;
 			{
-				//if ((_x == "B_LSV_01_unarmed_F") && {!(((str d_curcaller_dialog) == "admin") || {(str d_curcaller_dialog) in d_leaders})}) exitWith {false}:
 				private _index = __control(44449) lbAdd ([_x, "CfgVehicles"] call d_fnc_GetDisplayName);
 				__control(44449) lbSetPicture [_index, getText(configFile>>"cfgVehicles">>_x>>"picture")];
 				__control(44449) lbSetColor [_index, [1, 1, 0, 0.5]];
-				false
-			} count d_create_bike;
+			} forEach d_create_bike;
 
 			__control(44449) lbSetCurSel 0;
 		} else {
@@ -82,31 +80,31 @@ if (_move_controls) then {
 	__control(44451) ctrlShow false;
 	__control(44450) ctrlShow false;
 	__control(44459) ctrlShow false;
-//	__control(44460) ctrlShow false;
+	__control(44460) ctrlShow false;
 	__control(44462) ctrlShow false;
 	private _control = _display displayCtrl 44454;
 	private _pos = ctrlPosition _control;
-	_pos = [(_pos select 0) + 0.14, _pos select 1,_pos select 2,_pos select 3];
+	_pos = [(_pos # 0) + 0.14, _pos # 1,_pos # 2,_pos # 3];
 	_control ctrlSetPosition _pos;
 	_control ctrlCommit 0;
 	_control = _display displayCtrl 44446;
 	_pos = ctrlPosition _control;
-	_pos = [(_pos select 0) + 0.17, _pos select 1,_pos select 2,_pos select 3];
+	_pos = [(_pos # 0) + 0.17, _pos # 1,_pos # 2,_pos # 3];
 	_control ctrlSetPosition _pos;
 	_control ctrlCommit 0;
 	_control = _display displayCtrl 44447;
 	_pos = ctrlPosition _control;
-	_pos = [(_pos select 0) + 0.17, _pos select 1,_pos select 2,_pos select 3];
+	_pos = [(_pos # 0) + 0.17, _pos # 1,_pos # 2,_pos # 3];
 	_control ctrlSetPosition _pos;
 	_control ctrlCommit 0;
 	_control = _display displayCtrl 44448;
 	_pos = ctrlPosition _control;
-	_pos = [(_pos select 0) + 0.17, _pos select 1,_pos select 2,_pos select 3];
+	_pos = [(_pos # 0) + 0.17, _pos # 1,_pos # 2,_pos # 3];
 	_control ctrlSetPosition _pos;
 	_control ctrlCommit 0;
 	_control = _display displayCtrl 44452;
 	_pos = ctrlPosition _control;
-	_pos = [(_pos select 0) + 0.17, _pos select 1,_pos select 2,_pos select 3];
+	_pos = [(_pos # 0) + 0.17, _pos # 1,_pos # 2,_pos # 3];
 	_control ctrlSetPosition _pos;
 	_control ctrlCommit 0;
 } else {
@@ -124,13 +122,17 @@ if (_move_controls) then {
 		__control(44459) ctrlEnable false;
 		__control(44451) ctrlEnable false;
 		__control(44449) ctrlEnable false;
-//		__control(44460) ctrlEnable false;
+		__control(44460) ctrlEnable false;
 	};
 };
 
+#ifdef __IFA3LITE__
+__control(44459) ctrlShow false;
+__control(44460) ctrlShow false;
+#endif
 
 0 spawn {
-	waitUntil {!d_vec_dialog_open || {!alive player || {player getVariable ["xr_pluncon", false] || {player getVariable ["ace_isunconscious", false]}}}};
+	waitUntil {!isNil "d_vec_dialog_open" && {!d_vec_dialog_open || {!alive player || {player getVariable ["xr_pluncon", false] || {player getVariable ["ace_isunconscious", false]}}}}};
 
 	if (d_vec_dialog_open) then {closeDialog 0};
 };

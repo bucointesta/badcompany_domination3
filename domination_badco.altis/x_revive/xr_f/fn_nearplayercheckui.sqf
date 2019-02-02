@@ -9,9 +9,8 @@ private _disp = uiNamespace getVariable "xr_SpectDlg";
 if !(xr_near_players isEqualTo []) then {
 	private _s_p = [];
 	{
-		_s_p pushBack format ["%1<br/>", name _x];
-		false;
-	} count xr_near_players;
+		_s_p pushBack format ["%1<br/>", _x call d_fnc_getplayername];
+	} forEach xr_near_players;
 	__dspctrl(9999) ctrlSetStructuredText parseText format ["<t color='#00FFFF' size='1'><t align='right'>%1", _s_p joinString ""];
 	__dspctrl(9999) ctrlCommit 0;
 } else {

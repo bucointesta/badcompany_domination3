@@ -7,13 +7,13 @@ d_x_sm_pos = "d_sm_12" call d_fnc_smmapos; // index: 12,   Officer at holidays n
 d_x_sm_type = "normal"; // "convoy"
 
 if (hasInterface) then {
-	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_828";
-	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_735";
+	d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_1813";
+	d_current_mission_resolved_text = localize "STR_DOM_MISSIONSTRING_729";
 };
 
 if (call d_fnc_checkSHC) then {
-	private _poss = d_x_sm_pos select 0;
-	["aa", 1, "tracked_apc", 1, "tank", 0, d_x_sm_pos select 1, 1, 0] spawn d_fnc_CreateArmor;
+	d_x_sm_pos params ["_poss"];
+	["aa", 1, "tracked_apc", 1, "tank", 0, d_x_sm_pos # 1, 1, 0] spawn d_fnc_CreateArmor;
 	sleep 2.123;
 	private _newgroup = [d_side_enemy] call d_fnc_creategroup;
 	private _fortress = createVehicle [d_sm_fortress, _poss, [], 0, "NONE"];

@@ -5,9 +5,6 @@
 
 if (isDedicated) exitWith {};
 
-/* if the argument passed is true then hold the player in blackout for xr_prepstime
-	put the player on spectating mode
-*/
 params ["_dosleep"];
 __TRACE_1("park_player","_dosleep")
 player setVariable ["xr_isdead", true];

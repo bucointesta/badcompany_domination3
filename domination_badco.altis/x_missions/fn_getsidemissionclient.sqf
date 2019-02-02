@@ -1,25 +1,34 @@
 // by Xeno
+//#define __DEBUG__
 #define THIS_FILE "fn_getsidemissionclient.sqf"
 #include "..\x_setup.sqf"
-if (isDedicated || {d_IS_HC_CLIENT}) exitWith{};
+
+if (!hasInterface) exitWith{};
 
 params ["_do_hint"];
 
+__TRACE_1("","d_cur_sm_idx")
+
 if (d_cur_sm_idx == -1) exitWith {};
 
-if !(isServer && {!isDedicated}) then {
-	call compile preprocessFileLineNumbers format ["x_missions\ma3a\%2%1.sqf", d_cur_sm_idx, d_sm_fname];
+//if (isServer && {!isDedicated}) then {
+if (!isServer) then {
+	if (d_cur_sm_idx < 50000) then {
+		call compile preprocessFileLineNumbers format ["x_missions\%3\%2%1.sqf", d_cur_sm_idx, d_sm_fname, d_sm_folder];
+	} else {
+		[d_cur_sm_idx] call d_fnc_getbymarkersm;
+	};
 };
 
-if (d_with_ranked) then {
+if (d_with_ranked || {d_database_found}) then {
 	d_was_at_sm = false;
 	d_sm_running = true;
 
 	if (d_cur_sm_idx != -1 && {d_x_sm_type != "convoy"}) then {
-		(d_x_sm_pos select 0) spawn {
+		(d_x_sm_pos # 0) spawn {
 			private _posione = _this;
 			while {d_sm_running} do {
-				if (player distance2D _posione < (d_ranked_a select 12)) exitWith {
+				if (player distance2D _posione < (d_ranked_a # 12)) exitWith {
 					d_was_at_sm = true;
 					d_sm_running = false;
 				};
@@ -39,4 +48,4 @@ if (_do_hint) then {
 	];
 };
 
-[true, "d_sm_task", [d_cur_sm_txt, "Side Mission", format ["d_XMISSIONM%1", d_cur_sm_idx + 1]], d_x_sm_pos select 0, false, 2, true, "Attack", false] call BIS_fnc_taskCreate;
+[true, "d_sm_task", [d_cur_sm_txt, "Side Mission", format ["d_XMISSIONM%1", d_cur_sm_idx + 1]], d_x_sm_pos # 0, false, 1, true, "Attack", false] call BIS_fnc_taskCreate;

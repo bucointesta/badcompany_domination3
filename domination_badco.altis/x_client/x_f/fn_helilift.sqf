@@ -18,19 +18,17 @@ _chopper setVariable ["d_Attached_Vec", objNull];
 
 sleep 10.123;
 
-private _possible_types = _chopper getVariable ["d_lift_types", []];
-
 while {alive _chopper && {alive player && {player in _chopper}}} do {
 	if (driver _chopper == player) then {
-		private _pos = getPosATLVisual _chopper;
+		private _pos = getPosVisual _chopper;
 		
-		if (!(_chopper getVariable ["d_vec_attached", false]) && {_pos select 2 > 2.5 && {_pos select 2 < 11}}) then {
+		if (!(_chopper getVariable ["d_vec_attached", false]) && {_pos # 2 > 2.5 && {_pos # 2 < 11}}) then {
 			_liftobj = objNull;
 			private _nobjects = nearestObjects [_chopper, ["LandVehicle", "Air"], 50];
 			if !(_nobjects isEqualTo []) then {
-				private _dummy = _nobjects select 0;
+				_nobjects params ["_dummy"];
 				if (_dummy == _chopper) then {
-					if (count _nobjects > 1) then {_liftobj = _nobjects select 1};
+					if (count _nobjects > 1) then {_liftobj = _nobjects # 1};
 				} else {
 					_liftobj = _dummy;
 				};
@@ -39,20 +37,17 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 				if (_liftobj isKindOf "CAManBase") then {
 					_liftobj = objNull;
 				} else {
-					private _isvalid = _liftobj getVariable "d_canbelifted";
-					if (isNil "_isvalid") then {
-						_isvalid = toUpper (typeof _liftobj) in _possible_types;
-						_liftobj setVariable ["d_canbelifted", _isvalid];
-					};
-					if (!_isvalid || {speed _liftobj > 10 || {(getPosATLVisual _liftobj) select 2 > 5}}) then {_liftobj = objNull};
+					private _isvalid = _liftobj getVariable ["d_liftit", false] && {!(_liftobj getVariable ["d_no_lift", false])};
+#ifndef __TT__
+					if (!_isvalid || {speed _liftobj > 10 || {(getPosVisual _liftobj) # 2 > 5}}) then {_liftobj = objNull};
+#else
+					if (!_isvalid || {speed _liftobj > 10 || {(getPosVisual _liftobj) # 2 > 5 || {_liftobj getVariable ["d_side", d_player_side] != d_player_side}}}) then {_liftobj = objNull};
+#endif
 				};
 			};
 			sleep 0.1;
 			if (!isNull _liftobj && {_liftobj != _chopper getVariable ["d_Attached_Vec", false]}) then {
 				if !(_liftobj getVariable ["d_MHQ_Deployed", false]) then {
-					//_liftobj_pos = getPosATLVisual _liftobj;
-					//private _nx = _liftobj_pos select 0;private _ny = _liftobj_pos select 1;private _px = _pos select 0;private _py = _pos select 1;
-					//if ((_px <= _nx + 10 && {_px >= _nx - 10}) && {(_py <= _ny + 10 && {_py >= _ny - 10})}) then {
 					if (_chopper inArea [_liftobj, 10, 10, 0, false]) then {
 						if (!_menu_lift_shown) then {
 							_id = _chopper addAction [format ["<t color='#AAD9EF'>%1</t>", localize "STR_DOM_MISSIONSTRING_250"], {_this call d_fnc_heli_action}, -1, 100000];
@@ -96,7 +91,15 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 						_liftobj setVariable ["d_in_air", true, true];
 						_lon = _liftobj getVariable "d_vec_name";
 						_chopper setVariable ["d_mhq_lift_obj", [_liftobj, _lon], true];
+#ifndef __TT__
 						d_kb_logic1 kbTell [d_kb_logic2, d_kb_topic_side,"Dmr_in_air",["1","",_lon,[]],d_kbtel_chan];
+#else
+						if (d_player_side == blufor) then {
+							player kbTell [d_hq_logic_blufor1,"HQ_W","Dmr_in_air",["1","",_lon,[]],"SIDE"];
+						} else {
+							player kbTell [d_hq_logic_opfor1,"HQ_E","Dmr_in_air",["1","",_lon,[]],"SIDE"];
+						};
+#endif
 					};
 					
 					[_liftobj, false] remoteExecCall ["engineOn", _liftobj];
@@ -130,16 +133,23 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 					
 					private _ropes = [];
 					private _slcmp = getArray(configFile>>"CfgVehicles">>(typeOf _liftobj)>>"slingLoadCargoMemoryPoints");
-					if (_slcmp isEqualTo []) then {
+					
+					// Fix for vehicles with slingload points at null position (lots of mod vehicles...)
+					private _slcmp_null = true;
+					if !(_slcmp isEqualTo []) then {
+						{
+							if !(_liftobj selectionPosition _x isEqualTo [0,0,0]) exitWith {_slcmp_null = false};
+						} forEach _slcmp;
+					};
+					
+					if (_slcmp_null) then {
 						{
 							_ropes pushBack (ropeCreate [_chopper, _slipos, _liftobj, _x, 20]);
-							false
-						} count ([_liftobj] call d_fnc_getcorners);
+						} forEach ([_liftobj] call d_fnc_getcorners);
 					} else {
 						{
 							_ropes pushBack (ropeCreate [_chopper, _slipos, _liftobj, _liftobj selectionPosition _x, 20]);
-							false
-						} count _slcmp;
+						} forEach _slcmp;
 					};
 					
 					__TRACE_1("","_ropes")
@@ -154,14 +164,13 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 
 					// ropeBreak event?
 					// player in chopper? What if switch to copilot happens... Needs check and handling, because only the pilot has the actions, etc
-					while {alive _chopper && {alive _liftobj && {alive player && {{alive _x} count _ropes > 0 && {!(_chopper getVariable ["d_vec_released", false]) && {player in _chopper}}}}}} do {
+					while {alive _chopper && {alive _liftobj && {alive player && {_ropes findIf {alive _x} > -1 && {!(_chopper getVariable ["d_vec_released", false]) && {player in _chopper}}}}}} do {
 						sleep 0.312;
 					};
 					
 					{
 						ropeDestroy _x;
-						false
-					} count (_ropes select {!isNull _x});
+					} forEach (_ropes select {!isNull _x});
 					if (_oldmass > -1) then {
 						[_liftobj, _oldmass] remoteExecCall ["setMass"];
 						_chopper setVariable ["d_lobm", nil, true];
@@ -169,9 +178,9 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 					[_liftobj, [0,0,0]] remoteExecCall ["setVelocity", _liftobj];
 
 					[_liftobj, false] remoteExecCall ["engineOn", _liftobj];
-					if ((getPosATLVisual _liftobj) select 2 > 5) then {
+					if ((getPosVisual _liftobj) # 2 > 5) then {
 						_liftobj spawn {
-							while {(getPosATLVisual _this) select 2 > 5} do {
+							while {(getPosVisual _this) # 2 > 5} do {
 								_this setDamage ((damage _this) + 0.01);
 								sleep 0.1;
 								if (!alive _this) exitWith {};
@@ -186,22 +195,29 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 					if (_liftobj getVariable ["d_vec_type", ""] == "MHQ") then {
 						_liftobj setVariable ["d_in_air", false, true];
 						_chopper setVariable ["d_mhq_lift_obj", nil, true];
+#ifndef __TT__
 						d_kb_logic1 kbTell [d_kb_logic2, d_kb_topic_side,"Dmr_available",["1","",_liftobj getVariable "d_vec_name",[]],d_kbtel_chan];
+#else
+						if (d_player_side == blufor) then {
+							player kbTell [d_hq_logic_blufor1,"HQ_W","Dmr_available",["1","",_liftobj getVariable "d_vec_name",[]],"SIDE"];
+						} else {
+							player kbTell [d_hq_logic_opfor1,"HQ_E","Dmr_available",["1","",_liftobj getVariable "d_vec_name",[]],"SIDE"];
+						};
+#endif
 					};
 					
 					_chopper setVariable ["d_Attached_Vec", objNull];
 					
-					if (!alive _chopper) then {
+					if (alive _chopper) then {
+						if (alive player) then {_chopper vehicleChat (localize "STR_DOM_MISSIONSTRING_253")};
 						_chopper removeAction _release_id;
-					} else {
-						if (alive _chopper && {alive player}) then {_chopper vehicleChat (localize "STR_DOM_MISSIONSTRING_253")};
 					};
 					
-					if (!(_liftobj isKindOf "StaticWeapon") && {(getPosATLVisual _liftobj) select 2 < 200}) then {
-						waitUntil {sleep 0.222;(getPosATLVisual _liftobj) select 2 < 10};
+					if (!(_liftobj isKindOf "StaticWeapon") && {(getPosVisual _liftobj) # 2 < 200}) then {
+						waitUntil {sleep 0.222;(getPosVisual _liftobj) # 2 < 10};
 					} else {
-						private _npos = getPosATLVisual _liftobj;
-						_liftobj setPos [_npos select 0, _npos select 1, 0];
+						private _npos = getPosVisual _liftobj;
+						_liftobj setPos [_npos # 0, _npos # 1, 0];
 					};
 					[_liftobj, [0,0,0]] remoteExecCall ["setVelocity", _liftobj];
 					

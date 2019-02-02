@@ -5,37 +5,132 @@
 
 private _enterer = param [0];
 private _position = param [1];
-private _vec = param [2];
-private _vecnum = _vec getvariable "d_vec";
+private _vec = _this select 2;
 private _turret = param[3];
+private _vecnum = _vec getvariable ["d_vec",0];
 
 if ((_vec isKindOf "ParachuteBase") || {_vec isKindOf "BIS_Steerable_Parachute"}) exitWith {};
-
 private _do_exit = false;
-if ((d_pilots_only == 0) && {(_position == "driver") || {(_turret select 0 == 0) && {_position == "gunner"}}}) then {
-	if (!([str _enterer, _vec] call d_fnc_checkpilot)) then {
-		player action ["getOut", _vec];
-		_do_exit = true;
-	} else {
-		if ((_vecnum == 3001) || {(_vecnum == 3004) || {(_vecnum == 3010) || {(_vecnum == 3011)}}}) then {
-			if (d_chophud_on) then {
-				player setVariable ["d_hud_id", _vec addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_176"], {_this call d_fnc_sethud},0,-1,false]];
-			} else {
-				player setVariable ["d_hud_id", _vec addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_177"], {_this call d_fnc_sethud},1,-1,false]];
-			};			
-			[_vec] spawn d_fnc_helilift;
+
+if (!(d_clientScriptsAr # 1) && {!isNil "d_player_autokick_time"}) then {
+	if (time >= d_player_autokick_time) exitWith {
+		d_clientScriptsAr set [1, true];
+		d_player_autokick_time = nil;
+	};
+	if (_vec isKindOf "Air") then {
+		private _type = toUpper (typeOf _vec);
+#ifndef __TT__
+		if ((_type in d_mt_bonus_vehicle_array || {_type in d_sm_bonus_vehicle_array}) && {player == driver _vec || {player == gunner _vec || {player == commander _vec}}}) then {
+#else
+		private _numside = [1, 2] select (d_player_side == blufor);
+		if ((_type in (d_mt_bonus_vehicle_array # _numside) || {_type in (d_sm_bonus_vehicle_array # _numside)}) && {player == driver _vec || {player == gunner _vec || {player == commander _vec}}}) then {
+#endif
+			player action ["getOut", _vec];
+			[format [localize "STR_DOM_MISSIONSTRING_1416", [_type, "CfgVehicles"] call d_fnc_GetDisplayName, round ((d_player_autokick_time - time) / 60) max 1], "HQ"] call d_fnc_HintChatMsg;
+			_do_exit = true;
 		};
-		_enterer addEventHandler ["getOutMan", {call d_fnc_checkpilotout}];
 	};
 };
 if (_do_exit) exitWith {};
 
+//Hunter: Doesn't just check for pilots, but drivers of reserved vehicles too
+if (!([_enterer,_vec,_vecnum] call d_fnc_isPilotCheck) && {(_position == "driver") || {(_turret select 0 == 0) && {_position == "gunner"}}}) exitWith {
+		player action ["getOut", _vec];
+	};
+
 if (_vec isKindOf "Air") then {
+	if (!unitIsUAV _vec && {isClass (configFile>>"CfgVehicles">>(typeOf _vec)>>"Components">>"TransportPylonsComponent")}) then {
+		_vec call d_fnc_addpylon_action;
+	};
 	if (_vec isKindOf "Helicopter") then {
 		0 spawn d_fnc_chop_hudsp;
 		// currently the only way to disable slingload assistant and rope action for sling loadling.
 		// sadly yet another Arma bug is not fixed, therefore inputAction is also needed... http://feedback.arma3.com/view.php?id=20845
-		d_heli_kh_ro = (findDisplay 46) displayAddEventHandler ["KeyDown", {(param [1] in actionKeys "HeliRopeAction" || {param [1] in actionKeys "HeliSlingLoadManager" || {inputAction "HeliRopeAction" > 0 || {inputAction "HeliSlingLoadManager" > 0}}})}];
+		d_heli_kh_ro = (findDisplay 46) displayAddEventHandler ["KeyDown", {((_this select 1) in actionKeys "HeliRopeAction" || {(_this select 1) in actionKeys "HeliSlingLoadManager" || {inputAction "HeliRopeAction" > 0 || {inputAction "HeliSlingLoadManager" > 0}}})}];
+	};
+	/*
+	if (d_pilots_only == 0 && {!([_enterer,_vec,_vecnum] call d_fnc_isPilotCheck) && {(_position == "driver") || {(_turret select 0 == 0) && {_position == "gunner"}}}}) then {
+		player action ["getOut", _vec];
+		hintSilent localize "STR_DOM_MISSIONSTRING_1417";
+		_do_exit = true;
+	};
+	*/
+	if (!d_with_ace) then {
+		_vec setVariable ["d_rappel_self_action", [
+				/* 0 object */						_vec,
+				/* 1 action title */				localize "STR_DOM_MISSIONSTRING_1863",
+				/* 2 idle icon */					"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
+				/* 3 progress icon */				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
+				/* 4 condition to show */			"[player, vehicle player] call AR_fnc_Rappel_From_Heli_Action_Check",
+				/* 5 condition for action */		"true",
+				/* 6 code executed on start */		{},
+				/* 7 code executed per tick */		{},
+				/* 8 code executed on completion */	{
+					[player, vehicle player] call AR_fnc_Rappel_From_Heli_Action;
+				},
+				/* 9 code executed on interruption */	{},
+				/* 10 arguments */					[],
+				/* 11 action duration */			1,
+				/* 12 priority */					-1,
+				/* 13 remove on completion */		false,
+				/* 14 show unconscious */			false
+			] call bis_fnc_holdActionAdd
+		];
+
+		if (d_with_ai) then {
+			d_ai_rappeling = false;
+			_vec setVariable ["d_rappel_ai_action", [
+					/* 0 object */						_vec,
+					/* 1 action title */				localize "STR_DOM_MISSIONSTRING_1864",
+					/* 2 idle icon */					"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
+					/* 3 progress icon */				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
+					/* 4 condition to show */			"!d_ai_rappeling && {[player] call AR_fnc_Rappel_AI_Units_From_Heli_Action_Check}",
+					/* 5 condition for action */		"true",
+					/* 6 code executed on start */		{},
+					/* 7 code executed per tick */		{},
+					/* 8 code executed on completion */	{
+						d_ai_rappeling = true;
+						{
+							if !(_x call d_fnc_isplayer) then {
+								sleep 1;
+								[_x, vehicle _x] call AR_fnc_Rappel_From_Heli_Action;
+							};
+						} forEach (units player);
+						0 spawn {
+							sleep 10;
+							d_ai_rappeling = false;
+						};
+					},
+					/* 9 code executed on interruption */	{},
+					/* 10 arguments */					[],
+					/* 11 action duration */			1,
+					/* 12 priority */					-1,
+					/* 13 remove on completion */		false,
+					/* 14 show unconscious */			false
+				] call bis_fnc_holdActionAdd
+			];
+		};
+
+		_vec setVariable ["d_rappel_detach_action", [
+				/* 0 object */						_vec,
+				/* 1 action title */				localize "STR_DOM_MISSIONSTRING_1865",
+				/* 2 idle icon */					"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
+				/* 3 progress icon */				"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_connect_ca.paa",
+				/* 4 condition to show */			"[player] call AR_fnc_Rappel_Detach_Action_Check",
+				/* 5 condition for action */		"true",
+				/* 6 code executed on start */		{},
+				/* 7 code executed per tick */		{},
+				/* 8 code executed on completion */	{
+					[player] call AR_fnc_Rappel_Detach_Action;
+				},
+				/* 9 code executed on interruption */	{},
+				/* 10 arguments */					[],
+				/* 11 action duration */			1,
+				/* 12 priority */					-1,
+				/* 13 remove on completion */		false,
+				/* 14 show unconscious */			false
+			] call bis_fnc_holdActionAdd
+		];
 	};
 } else {
 	if ((_vec isKindOf "LandVehicle" && {!(_vec isKindOf "StaticWeapon")}) || {_vec isKindOf "StaticWeapon" && {!(_vec isKindOf "StaticATWeapon")}}) then {
@@ -46,12 +141,15 @@ if (_vec isKindOf "Air") then {
 		[_vec] spawn d_fnc_mhqCheckNearTarget;
 	};
 };
+if (_do_exit) exitWith {};
 
-if (d_with_ranked) then {
+if (d_with_ranked || {d_database_found}) then {
 	if (_vec isKindOf "Car" || {_vec isKindOf "Air"}) then {
 		[_vec] spawn d_fnc_playervectrans;
 	};
-	[_vec] call d_fnc_playerveccheck;
+	if (d_with_ranked) then {
+		[_vec] call d_fnc_playerveccheck;
+	};
 };
 if (d_without_vec_ti == 0) then {
 	_vec disableTIEquipment true;
@@ -61,6 +159,7 @@ if (d_without_vec_nvg == 0) then {
 };
 
 if (toUpper (typeOf _vec) in d_check_ammo_load_vecs) then {
-	//[d_AMMOLOAD] call d_fnc_AmmoLoad;
-	[d_AMMOLOAD] execFSM "fsms\fn_AmmoLoad.fsm"; // hopefully fixes a problem with Ammoload stop working because sometimes FSMs which are added in CfgFunctions do not start at all when called!
+	{
+		[_x] execFSM "fsms\fn_AmmoLoad.fsm";
+	} forEach d_all_ammoloads;
 };

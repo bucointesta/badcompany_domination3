@@ -42,15 +42,21 @@ __TRACE_1("","_sim")
 
 if (_sim in ["AIRPLANE", "HELICOPTER", "AIRPLANEX", "HELICOPTERX", "HELICOPTERRTD"]) then {
 	if (count _posv1 == 2) then {_posv1 pushBack 0};
-	_posv1 set [2, (_posv1 select 2) max 300];
+	_posv1 set [2, (_posv1 # 2) max 300];
 
 	_veh = createVehicle [_typev1, _posv1, [], 0, "FLY"];
 
-	if (_sim == "AIRPLANEX" || {_sim == "AIRPLANE"}) then {
-		_veh setVelocity [100 * (sin _azi), 100 * (cos _azi), 0];
-	};
 	_veh setDir _azi;
 	_veh setPos _posv1;
+	
+	if (_sim == "AIRPLANEX" || {_sim == "AIRPLANE"}) then {
+		private _v = velocity _veh;
+		_veh setVelocity [
+			(_v # 1) * sin _azi - (_v # 0) * cos _azi,
+			(_v # 0) * sin _azi + (_v # 1) * cos _azi,
+			_v # 2
+		];
+	};
 } else {
 	_veh = createVehicle [_typev1, _posv1, [], 0, "NONE"];
 	/*private _svec = sizeOf _typev1;
@@ -74,14 +80,23 @@ if (_newGrp) then {_grp selectLeader (commander _veh)};
 
 
 if (_addkills) then {
+#ifdef __TT__
+	if !(_veh isKindOf "Air") then {
+		_veh addEventHandler ["Killed", {[[20, 3, 2, 1], _this # 1, _this # 0] remoteExecCall ["d_fnc_AddKills", 2]}];
+	} else {
+		_veh addEventHandler ["Killed", {[[30, 3, 2, 1], _this # 1, _this # 0] remoteExecCall ["d_fnc_AddKills", 2]}];
+	};
+#endif
 	if (d_with_ai && {d_with_ranked}) then {
 		_veh addEventHandler ["Killed", {
-			[[8, 5] select ((param [0]) isKindOf "Air"), param [1]] remoteExecCall ["d_fnc_addkillsai", 2];
-			(param [0]) removeAllEventHandlers "Killed";
+			[[8, 5] select ((_this select 0) isKindOf "Air"), _this select 1] remoteExecCall ["d_fnc_addkillsai", 2];
+			(_this select 0) removeAllEventHandlers "Killed";
 		}];
 	};
 };
 
+#ifndef __TT__
 [_veh] remoteExecCall ["d_fnc_addceo", 2];
+#endif
 
 [_veh, _crew, _grp]

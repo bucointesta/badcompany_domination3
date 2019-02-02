@@ -19,6 +19,10 @@ if (!d_pisadminp) then {
 	};
 };
 
+if (d_with_bis_dynamicgroups == 1) then {
+	__ctrl2(11009) ctrlShow false;
+};
+
 private _tgt_ar = [];
 
 private _cur_tgt_name = if (d_current_target_index != -1) then {
@@ -29,10 +33,38 @@ private _cur_tgt_name = if (d_current_target_index != -1) then {
 
 if (isNil "_cur_tgt_name") then {_cur_tgt_name = ""};
 
+#ifdef __TT__
+__ctrl(11011);
+d_points_array params ["_points_blufor", "_points_opfor", "_kill_points_blufor", "_kill_points_opfor"];
+private _color = if (_points_blufor > _points_opfor) then {
+	[0,0.6,1,1]
+} else {
+	if (_points_opfor > _points_blufor) then {
+		[1,0.39,0.28,1]
+	} else {
+		[0,1,0,1]
+	};
+};
+_ctrl ctrlSetTextColor _color;
+_ctrl ctrlSetText format ["%1: %2", _points_blufor, _points_opfor];
+
+__ctrl(11012);
+_color = if (_kill_points_blufor > _kill_points_opfor) then {
+	[0,0.6,1,1]
+} else {
+	if (_kill_points_opfor > _kill_points_blufor) then {
+		[1,0.39,0.28,1]
+	} else {
+		[0,1,0,1]
+	};
+};
+_ctrl ctrlSetTextColor _color;
+_ctrl ctrlSetText format ["%1 : %2", _kill_points_blufor, _kill_points_opfor];
+#endif
 
 private _s = call {
 	if (d_all_sm_res) exitWith {localize "STR_DOM_MISSIONSTRING_522"};
-	if (d_cur_sm_idx == -1) exitWith {localize "STR_DOM_MISSIONSTRING_540"};
+	if (d_cur_sm_idx == -1) exitWith {localize "STR_DOM_MISSIONSTRING_712"};
 	format ["%1     #%2", d_cur_sm_txt, d_cur_sm_idx]
 };
 
@@ -45,6 +77,7 @@ if (d_WithRevive == 1) then {
 	__ctrl2(30001) ctrlSetText str (player getVariable "xr_lives");
 };
 
+#ifndef __TT__
 private _intels = "";
 {
 	if (_x == 1) then {
@@ -55,6 +88,7 @@ private _intels = "";
 			case 3: {localize "STR_DOM_MISSIONSTRING_545"};
 			case 4: {localize "STR_DOM_MISSIONSTRING_546"};
 			case 5: {localize "STR_DOM_MISSIONSTRING_547"};
+			case 6: {localize "STR_DOM_MISSIONSTRING_541"};
 		};
 		_intels = _intels + _tmp + "\n";
 	};
@@ -63,6 +97,10 @@ if (_intels == "") then {
 	_intels = localize "STR_DOM_MISSIONSTRING_548";
 };
 __ctrl2(11018) ctrlSetText _intels;
+#else
+__ctrl2(11019) ctrlShow false;
+__ctrl2(11018) ctrlShow false;
+#endif
 
 __ctrl2(11003) ctrlSetText _cur_tgt_name;
 
@@ -72,18 +110,18 @@ __ctrl2(11233) ctrlSetText str(score player);
 
 private "_ctrl";
 __ctrl(11278);
+#ifndef __TT__
 _ctrl ctrlSetText format ["%1/%2", d_campscaptured, d_numcamps];
+#else
+if (d_player_side == blufor) then {
+	_ctrl ctrlSetText format ["%1/%2", d_campscaptured_w, d_numcamps];
+} else {
+	_ctrl ctrlSetText format ["%1/%2", d_campscaptured_e, d_numcamps];
+};
+#endif
 
-//if (player in d_leaders) then {
 __ctrl(11009);
 _ctrl ctrlSetText (localize "STR_DOM_MISSIONSTRING_552");
-/*}; else {
-	if (group player != grpNull) then {
-		LEAVE GROUP
-	} else {
-		ASK FOR GROUP
-	};
-}*/
 
 _s = "";
 if (d_current_target_index != -1) then {
@@ -95,10 +133,18 @@ if (d_current_target_index != -1) then {
 			format [localize "STR_DOM_MISSIONSTRING_556", _cur_tgt_name]
 		};
 		case 3: {
+#ifndef __TT__
 			format [localize "STR_DOM_MISSIONSTRING_557", _cur_tgt_name]
+#else
+			format [localize "STR_DOM_MISSIONSTRING_558", _cur_tgt_name]
+#endif
 		};
 		case 4: {
+#ifndef __TT__
 			format [localize "STR_DOM_MISSIONSTRING_559", _cur_tgt_name]
+#else
+			format [localize "STR_DOM_MISSIONSTRING_560", _cur_tgt_name]
+#endif
 		};
 		case 5: {
 			format [localize "STR_DOM_MISSIONSTRING_561", _cur_tgt_name]
@@ -128,9 +174,53 @@ if (d_current_target_index != -1) then {
 
 __ctrl2(11007) ctrlSetText _s;
 
-_rank_p = rank player;
-__ctrl2(12010) ctrlSetText (_rank_p call d_fnc_GetRankPic);
-
-__ctrl2(11014) ctrlSetText (_rank_p call d_fnc_GetRankString);
+__ctrl2(12010) ctrlSetText (player call d_fnc_GetRankPic);
+__ctrl2(11014) ctrlSetText (player call d_fnc_GetRankString);
 
 __ctrl2(12016) ctrlSetText serverName;
+
+
+
+if (d_disable_viewdistance) then {
+	__ctrl2(1000) ctrlEnable false;
+	__ctrl2(1999) ctrlSetText (localize "STR_DOM_MISSIONSTRING_357");
+	__ctrl2(1997) ctrlSetText "";
+} else {
+	__ctrl2(1000) sliderSetRange [200, d_MaxViewDistance];
+	__ctrl2(1000) sliderSetPosition viewDistance;
+	__ctrl2(1999) ctrlSetText format [localize "STR_DOM_MISSIONSTRING_358", round viewDistance];
+};
+
+private _ctrl = __ctrl2(1001);
+
+private _glindex = -1;
+{
+	private _index = _ctrl lbAdd _x;
+	if (d_graslayer_index == _index) then {_glindex = _index};
+} forEach [localize "STR_DOM_MISSIONSTRING_359", localize "STR_DOM_MISSIONSTRING_360", localize "STR_DOM_MISSIONSTRING_361"];
+
+_ctrl lbSetCurSel _glindex;
+if (d_Terraindetail == 1) then {
+	_ctrl ctrlEnable false;
+	__ctrl2(1998) ctrlSetText (localize "STR_DOM_MISSIONSTRING_362");
+	__ctrl2(1996) ctrlSetText "";
+};
+
+_ctrl = __ctrl2(1002);
+{_ctrl lbAdd _x} forEach [localize "STR_DOM_MISSIONSTRING_363", localize "STR_DOM_MISSIONSTRING_364", localize "STR_DOM_MISSIONSTRING_365", localize "STR_DOM_MISSIONSTRING_367"];
+_ctrl lbSetCurSel d_show_player_marker;
+
+d_pnsel_first = true;
+_ctrl = __ctrl2(1602);
+{_ctrl lbAdd _x} forEach [localize "STR_DOM_MISSIONSTRING_363a", localize "STR_DOM_MISSIONSTRING_364", localize "STR_DOM_MISSIONSTRING_367"];
+_ctrl lbSetCurSel d_show_player_namesx;
+
+__ctrl2(2001) ctrlSetText str(d_points_needed # 0);
+__ctrl2(2002) ctrlSetText str(d_points_needed # 1);
+__ctrl2(2003) ctrlSetText str(d_points_needed # 2);
+__ctrl2(2004) ctrlSetText str(d_points_needed # 3);
+__ctrl2(2005) ctrlSetText str(d_points_needed # 4);
+__ctrl2(2006) ctrlSetText str(d_points_needed # 5);
+__ctrl2(2007) ctrlSetText str(d_points_needed # 6);
+
+//ctrlSetFocus __ctrl2(1212);

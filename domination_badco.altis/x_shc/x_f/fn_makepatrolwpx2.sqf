@@ -4,6 +4,7 @@
 #include "..\..\x_setup.sqf"
 
 // supports also patrols in square areas, including angle
+__TRACE_1("","_this")
 params ["_grp", "_start_pos", "_wp_array", ["_timeout", []], ["_wpstatements", ""], ["_mindist", 2]];
 if (_start_pos isEqualType objNull) then {_start_pos = getPosATL _start_pos};
 if (!(_start_pos isEqualType []) || {_start_pos isEqualTo []}) exitWith {};
@@ -15,15 +16,15 @@ private _cur_pos = _start_pos;
 private _no_pos_found = false;
 for "_i" from 0 to (2 + (floor (random 3))) do {
 	private _wp_pos = switch (count _wp_array) do {
-		case 2: {[_wp_array select 0, _wp_array select 1, _mindist] call d_fnc_GetRanPointCircle};
-		case 4: {[_wp_array select 0, _wp_array select 1, _wp_array select 2, _wp_array select 3] call d_fnc_GetRanPointSquare};
+		case 2: {[_wp_array # 0, _wp_array # 1, _mindist] call d_fnc_GetRanPointCircle};
+		case 4: {_wp_array call d_fnc_GetRanPointSquare};
 	};
 	if (_wp_pos isEqualTo []) exitWith {_no_pos_found = true};
 	private _counter = 0;
-	while {_wp_pos distance2D _cur_pos < ((_wp_array select 1)/6) && {_counter < 100}} do {
+	while {_wp_pos distance2D _cur_pos < ((_wp_array # 1)/6) && {_counter < 100}} do {
 		_wp_pos = switch (count _wp_array) do {
-			case 2: {[_wp_array select 0, _wp_array select 1, _mindist] call d_fnc_GetRanPointCircle};
-			case 4: {[_wp_array select 0, _wp_array select 1, _wp_array select 2, _wp_array select 3] call d_fnc_GetRanPointSquare};
+			case 2: {[_wp_array # 0, _wp_array # 1, _mindist] call d_fnc_GetRanPointCircle};
+			case 4: {_wp_array call d_fnc_GetRanPointSquare};
 		};
 		if (_wp_pos isEqualTo []) exitWith {};
 		_counter = _counter + 1;
