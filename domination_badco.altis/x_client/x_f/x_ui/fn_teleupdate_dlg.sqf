@@ -39,6 +39,8 @@ for "_i" from 0 to ((lbSize _listctrl) - 1) do {
 						if (surfaceIsWater (getPosWorld _mrs)) exitWith {__COLRED};
 						if (!alive _mrs) exitWith {__COLRED};
 						if !(_mrs getVariable ["d_MHQ_Deployed", false]) exitWith {__COLRED};
+						//Hunter: disable respawn at MHQ with player count
+						if ((count (allPlayers - entities "HeadlessClient_F")) >= 25) exitWith {__COLRED};
 						if (_mrs getVariable ["d_enemy_near", false]) exitWith {__COLRED};
 						_mravailable = true;
 						[1,1,1,1.0];

@@ -39,13 +39,13 @@
 <Russian>Ремонт техники и БПА</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_5">
-<English>Ammo Point</English>
-<Spanish>Punto de Municiones</Spanish>
-<Portuguese>Ponto de Munições</Portuguese>
-<Korean>탄약상자 적재소</Korean>
-<Japanese>Ammo Point</Japanese>
-<Original>Ammo Point</Original>
-<Russian>Загрузка ящика-арсенала</Russian>
+<English>Ammobox Loading Point</English>
+<Spanish>Ammobox Loading Point</Spanish>
+<Portuguese>Ammobox Loading Point</Portuguese>
+<Korean>Ammobox Loading Point</Korean>
+<Japanese>Ammobox Loading Point</Japanese>
+<Original>Ammobox Loading Point</Original>
+<Russian>Ammobox Loading Point</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_6">
 <English>Teleporter / Parajump</English>

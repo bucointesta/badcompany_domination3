@@ -92,7 +92,10 @@ while {true} do {
 		addToRemainsCollector [_vec];
 		
 		if (d_LockAir == 0) then {_vec lock true};
-		_vec flyInHeight 100;
+		//_vec flyInHeight 100;
+		//Hunter: Add some spice to the game... hehe
+		_vec flyInHeight 250;
+		_vec setSkill 1;
 
 		_vec remoteExec ["d_fnc_airmarkermove", 2];
 		__TRACE_1("","_vec")
@@ -100,7 +103,7 @@ while {true} do {
 	};
 	_grp deleteGroupWhenEmpty true;
 	
-	(leader _grp) setSkill _grpskill;
+	//(leader _grp) setSkill _grpskill;
 	
 	sleep 1.011;
 	
@@ -108,18 +111,18 @@ while {true} do {
 	
 	waitUntil {sleep 0.323; d_current_target_index >= 0};
 	private _cur_tgt_pos =+ d_cur_tgt_pos;
-	_cur_tgt_pos set [2, 0];
-	private _wp = _grp addWayPoint [d_cur_tgt_pos, 0];
+	_cur_tgt_pos set [2, 250];
+	private _wp = _grp addWayPoint [d_cur_tgt_pos, 250];
 	_wp setWaypointType "SAD";
 	private _pat_pos =+ d_cur_tgt_pos;
 	[_grp, 1] setWaypointStatements ["never", ""];
-	_wp setWaypointCompletionRadius 50;
+	_wp setWaypointCompletionRadius 250;
 	private _old_pos = [0,0,0];
 	private _xcounter = 0;
 	while {true} do {
 		waitUntil {sleep 0.323; d_current_target_index >= 0};
 		_cur_tgt_pos =+ d_cur_tgt_pos;
-		_cur_tgt_pos set [2, 0];
+		_cur_tgt_pos set [2, 250];
 		
 		sleep 3 + random 2;
 		
@@ -127,7 +130,7 @@ while {true} do {
 			case "HAC";
 			case "LAC": {d_cur_target_radius * 3};
 			case "AP": {d_cur_target_radius * 5};
-			default {d_cur_target_radius};
+			default {500};
 		};
 		
 		__TRACE_1("","_radius")
@@ -166,30 +169,39 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 			if (_type == "HAC" || {_type == "LAC"}) then {
 				private _tmp_pos = _pat_pos;
 				__patternpos;
-				while {_pat_pos distance2D _tmp_pos < 100} do {
+				while {_pat_pos distance2D _tmp_pos < 250} do {
 					__patternpos;
 					sleep 0.01;
 				};
 				_pat_pos = _pat_pos call d_fnc_WorldBoundsCheck;
 				__TRACE_1("HACLAC","_pat_pos")
-				[_grp, 1] setWaypointPosition [_pat_pos, 0];
+				[_grp, 1] setWaypointPosition [_pat_pos, 250];
 				_grp setSpeedMode "NORMAL";
 				_grp setBehaviour __wp_behave;
 				_old_pos = getPosASL _curvec;
 				{
-					_x flyInHeight 80;
+					_x flyInHeight 250;
+					//Hunter: unstuck them...
+					dostop _x;
+					sleep 1;
+					_x domove ([_x, 250, ([_x, _pat_pos] call BIS_fnc_dirTo)] call BIS_fnc_relPos);	
 				} forEach (_vehicles select {alive _x});
 				sleep 35.821 + random 15;
 			} else {
 				__patternpos;
 				_pat_pos = _pat_pos call d_fnc_WorldBoundsCheck;
 				__TRACE_1("plane","_pat_pos")
-				[_grp, 1] setWaypointPosition [_pat_pos, 0];
-				_grp setSpeedMode "LIMITED";
+				[_grp, 1] setWaypointPosition [_pat_pos, 500];
+				//_grp setSpeedMode "LIMITED";
+				_grp setSpeedMode "NORMAL";
 				_grp setBehaviour __wp_behave;
 				_old_pos = getPosASL _curvec;
 				{
-					_x flyInHeight 100;
+					_x flyInHeight 500;
+					//Hunter: unstuck them...
+					dostop _x;
+					sleep 1;
+					_x domove ([_x, 250, ([_x, _pat_pos] call BIS_fnc_dirTo)] call BIS_fnc_relPos);	
 				} forEach (_vehicles select {alive _x});
 				sleep 80 + random 80;
 			};
@@ -216,6 +228,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 					_vehicles set [_forEachIndex, -1];
 				} else {
 					_x setFuel 1;
+					_x setVehicleAmmoDef 1;
 				};
 			} forEach _vehicles;
 			_vehicles = _vehicles - [-1];

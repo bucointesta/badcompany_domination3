@@ -19,6 +19,8 @@ if ((d_with_ranked || {d_database_found}) && {score player < (d_ranked_a # 22)})
 	[playerSide, "HQ"] sideChat format [localize "STR_DOM_MISSIONSTRING_1713", score player, d_ranked_a # 22];
 };
 
+if ((count (allPlayers - entities "HeadlessClient_F")) >= 10) exitWith {hint "AI support not available with more than 10 players."};
+
 #ifndef __IFA3LITE__
 private _lt = laserTarget player;
 

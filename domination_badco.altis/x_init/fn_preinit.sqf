@@ -345,7 +345,7 @@ d_objectID2 = objNull;
 d_farp_classes = ["Land_HelipadSquare_F", "Land_Cargo20_military_green_F","Land_RepairDepot_01_green_F"];
 
 /*roles*/
-d_badcompany = ["d_badco_1", "d_badco_2", "d_badco_3", "d_badco_4", "d_badco_5", "d_badco_6", "d_badco_7", "d_badco_8", "d_badco_9", "d_badco_10", "admin"];
+d_badcompany = ["d_badco_1", "d_badco_2", "d_badco_3", "d_badco_4", "d_badco_5", "d_badco_6", "d_badco_7", "d_badco_8", "d_badco_9", "d_badco_10", "d_admin"];
 d_attack_pilots = ["d_apilot_1", "d_apilot_2", "d_badco_2", "d_admin"];
 d_transport_pilots = ["d_tpilot_1", "d_tpilot_2", "d_tpilot_3", "d_tpilot_4", "d_badco_2", "d_admin"];
 d_riflemen = ["d_rifleman_1","d_rifleman_2", "d_rifleman_3", "d_rifleman_4", "d_rifleman_5", "d_rifleman_6", "d_badco_10", "d_admin"];

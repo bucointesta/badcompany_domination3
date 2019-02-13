@@ -77,12 +77,12 @@ private _str2 = "";
 #ifndef __TT__
 //private _str = "One Team - " + d_version_string;
 private _str = "Bad Company Gaming Community";
-private _start_pos = 4;
+private _start_pos = 0;
 if (d_with_ai) then {if (_str2 != "") then {_str2 = _str2 + " AI"} else {_str2 = _str2 + "AI"}};
 #else
 private _str = "Two Teams";
 private _sarray = [];
-private _start_pos = 0;
+private _start_pos = 8;
 #endif
 #ifdef __IFA3LITE__
 _start_pos = 3;
@@ -206,6 +206,18 @@ uiNamespace setVariable ["d_DomThree", nil];
 if (name player == "Error: No unit" || {!isPlayer player}) then {
 	hintC "Please rejoin again!!!! Your game has not connected correctly!!!!!";
 };
+
+//JIP set texture for bad co uniforms
+{
+
+	if ((str _x) in d_badcompany) then {
+	
+		_x setObjectTexture [0, "\A3\Characters_F\Common\Data\basicbody_black_co.paa"];
+		_x setObjectTexture [1, "\A3\Characters_F\Common\Data\basicbody_black_co.paa"];
+		
+	};
+
+} foreach allPlayers;
 
 if (str player == "d_admin") exitWith {diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"]};
 

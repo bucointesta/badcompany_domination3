@@ -341,7 +341,8 @@ if (d_player_side == blufor) then {
 	}];
 };
 #endif
-player addEventHandler ["respawn", {_this call d_fnc_prespawned}];
+//player addEventHandler ["respawn", {_this call d_fnc_prespawned}];
+player addEventHandler ["respawn", {_this spawn d_fnc_prespawned}];
 
 player setVariable ["d_currentvisionmode", 0];
 
@@ -842,6 +843,8 @@ if (d_string_player in d_can_use_artillery || {d_string_player in d_can_mark_art
 if !("ItemGPS" in (assignedItems player)) then {
 	player linkItem "ItemGPS";
 };
+player linkItem "ItemMap";
+
 #else
 if !("ItemRadio" in assigneditems player) then {player linkItem "ItemRadio"};
 #endif

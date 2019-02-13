@@ -498,7 +498,7 @@ if (_d_vec < 4000) exitWith {
 #endif
 	};
 	if (!alive _vec) exitWith {};
-	__addchopm;
+	if (_d_vec < 3100) then {__addchopm;};	//exclude planes
 	__chopset;
 #ifdef __TT__
 	__sidew;

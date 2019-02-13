@@ -24,13 +24,13 @@ if (hasInterface) then {
 player enableAttack false;
 
 execVM "tasks.sqf";
-/*
+
 if (str player in d_medics) then {player setUnitTrait ["Medic", true]};
 if (str player in d_is_engineer) then {player setUnitTrait ["engineer", true]; player setUnitTrait ["explosiveSpecialist", true]};
 if (str player in d_saboteurs) then {player setUnitTrait ["explosiveSpecialist", true]; player setUnitTrait ["audibleCoef ", 0.2]; player setUnitTrait ["camouflageCoef", 0.5]};
 if (str player in d_spotters) then {player setUnitTrait ["audibleCoef ", 0.4]; player setUnitTrait ["camouflageCoef", 0.3]};
 if (str player in d_snipers) then {player setUnitTrait ["audibleCoef ", 0.6]; player setUnitTrait ["camouflageCoef", 0.5]};
-if (str player in d_badcompany) then {player remoteExecCall ["d_fnc_badco_uniform",-2];player setUnitTrait ["UAVHacker", true]; player setUnitTrait ["audibleCoef ", 0.8]; player setUnitTrait ["camouflageCoef", 0.5]};
+if (str player in d_badcompany) then {player setUnitTrait ["UAVHacker", true]; player setUnitTrait ["audibleCoef ", 0.8]; player setUnitTrait ["camouflageCoef", 0.5]};
 player setUnitTrait ["loadCoef", 1];
-*/
+
 diag_log [diag_frameno, diag_ticktime, time, "MPF initPlayerLocal.sqf processed"];

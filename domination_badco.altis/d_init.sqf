@@ -393,8 +393,11 @@ if (isServer) then {
 		[d_chopper_1,3001,true,1200],[d_chopper_2,3002,true,900],[d_chopper_3,3003,true,900],
 		[d_chopper_4,3004,true,1200],[d_chopper_5,3005,true,1200],[d_chopper_6,3006,true,900],
 		[d_chopper_7,3007,true,900],[d_chopper_8,3008,true,1200],[d_chopper_9,3009,true,1200],
-		[d_chopper_10,3010,true,900],[d_chopper_11,3011,true,1200],[d_attack_1,3101,true,1800],
-		[d_attack_2,3102,true,1800],[d_plane_1,3103,true,1800]
+		[d_chopper_10,3010,true,900],[d_chopper_11,3011,true,1200],[d_plane_1,3012,true,1800],
+		
+		//keep plane numbers >= 3100 so they don't get chopper menu unless you want a cargo plane
+		[d_attack_1,3101,true,1800],		
+		[d_attack_2,3102,true,1800]		
 		] call compile preprocessFileLineNumbers "x_server\x_inithelirespawn2.sqf";
 	};
 	// editor varname, unique number
@@ -572,7 +575,7 @@ if (!hasInterface) then {
 	};
 	
 	call compile preprocessFileLineNumbers "i_restrictions.sqf";
-	call compile preprocessFileLineNumbers "i_arsenal.sqf";
+	call compile preprocessFileLineNumbers "i_arsenal.sqf";	
 };
 
 d_init_processed = true;

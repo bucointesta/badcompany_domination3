@@ -59,10 +59,12 @@ if (_rtype == 0) then { // player died
 			call d_fnc_retrieve_respawngear;
 		};
 	};
+	/*
 	if (player getVariable ["d_has_gps", false]) then {
 		player linkItem "ItemGPS";
 		player setVariable ["d_has_gps", false];
 	};
+	*/
 	// "RadialBlurr" effect adjustment still needed in A3? - Well, they don't do any harm so they stay
 	"RadialBlur" ppEffectAdjust [0.0, 0.0, 0.0, 0.0];
 	"RadialBlur" ppEffectCommit 0;

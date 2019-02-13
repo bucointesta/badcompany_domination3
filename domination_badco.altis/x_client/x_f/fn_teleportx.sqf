@@ -10,7 +10,7 @@ if (!isNull (flag player)) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING
 
 if (underwater player || {player call d_fnc_isswimming}) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_585")};
 
-if ((count playableUnits) >= 25) exitWith {hint "Teleport disabled when player count is above 25!"};
+if ((count (allPlayers - entities "HeadlessClient_F")) >= 25) exitWith {hint "Teleport disabled when player count is above 25!"};
 
 if (dialog) then {closeDialog 0};
 

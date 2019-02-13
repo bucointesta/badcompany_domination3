@@ -13,6 +13,9 @@ if (d_WithMHQTeleport == 0 && {!isNil "d_fnc_dlgopenx" && {d_WithRevive == 1}}) 
 	d_player_in_base = true;
 	call d_fnc_dlgopenx;
 };
+
+//Hunter: pilots respawning with default loadout?! Try scheduled environment with small delay...
+sleep 0.3;
 [1, _this] call d_fnc_playerspawn;
 
 player remoteExecCall ["d_fnc_add_hs", 2];

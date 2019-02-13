@@ -34,6 +34,8 @@ if (d_ari_blocked) exitWith {
 	d_commandingMenuIniting = false;
 };
 
+if ((count (allPlayers - entities "HeadlessClient_F")) >= 10) exitWith {hint "AI support not available with more than 10 players."};
+
 d_ari_blocked = true; publicVariable "d_ari_blocked";
 player setVariable ["d_blocks_arty", true, true];
 #else

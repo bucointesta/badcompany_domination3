@@ -292,7 +292,7 @@ d_choppers = [
 	["D_HR11",2,"d_chopper11",3011,"n_air","ColorBlack","Nazgul",""],
 	["D_PL1",3,"d_plane1",3101,"n_plane","ColorBlue","Hog", ""],
 	["D_PL2",3,"d_plane2",3102,"n_plane","ColorBlue","Lightning", ""],
-	["D_CJ1",3,"d_plane3",3103,"n_plane","ColorBlue","Runner", ""]
+	["D_CJ1",3,"d_plane3",3012,"n_plane","ColorBlue","Runner", ""]
 	];
 #else
 d_choppers_blufor = [

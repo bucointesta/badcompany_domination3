@@ -27,10 +27,11 @@ if (!isNil "_d_side") then {
 #endif
 
 if (!_exit_it && {_listin # 1 == "driver"}) then {
-	//Hunter: Not sure why this is here since getInMan EH should take care of it already... Does not handle copilot seat!
-	if (d_pilots_only == 0 && {!([_enterer,_vec,_vec getvariable ["d_vec",0]] call d_fnc_isPilotCheck)}) exitWith {
+	//Hunter: Not needed since already handled by getInMan EH
+	/*
+	if (d_pilots_only == 0 && {!([str _enterer,_vec,_vec getvariable ["d_vec",0]] call d_fnc_isPilotCheck)}) exitWith {
 		_exit_it = true;
-	};
+	};*/
 	if (_this select 1 == 0) then {
 		if (d_chophud_on) then {
 			player setVariable ["d_hud_id", _vec addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_176"], {_this call d_fnc_sethud},0,-1,false]];

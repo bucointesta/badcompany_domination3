@@ -67,7 +67,7 @@ while {true} do {
 		if (_ifdamage && {(!alive _vec) || {underwater _vec}}) then {
 			private _respawnTimer = _vec_a select 7;
 			if (_respawnTimer == -1) then {
-				_vec_a set [7, time + _vec_a select 8];
+				_vec_a set [7, time + (_vec_a select 8)];
 				d_helirespawn2_ar set [_forEachIndex, _vec_a];
 			} else {
 				if (time > _respawnTimer) then {

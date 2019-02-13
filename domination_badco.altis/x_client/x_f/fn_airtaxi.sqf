@@ -4,11 +4,13 @@
 
 if (isNil "d_heli_taxi_available") then {d_heli_taxi_available = true};
 
-if ((count playableUnits) > 9) exitWith {"Air taxi not available with more than 10 players."};
+if ((count (allPlayers - entities "HeadlessClient_F")) >= 10) exitWith {hint "AI support not available with more than 10 players."};
 
 if (!d_heli_taxi_available) exitWith {[playerSide, "HQ"] sideChat (localize "STR_DOM_MISSIONSTRING_139")};
 
+/*
 if (d_FLAG_BASE distance2D player < 500) exitWith {[playerSide, "HQ"] sideChat (localize "STR_DOM_MISSIONSTRING_140")};
+*/
 
 private _exitj = false;
 if (d_with_ranked || {d_database_found}) then {

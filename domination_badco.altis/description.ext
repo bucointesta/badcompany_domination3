@@ -318,7 +318,7 @@ class Params {
 		values[] = {-1,2,4,6,8,10,12,14,16,18,21};
 		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","21"};
 #endif
-		default = -1;
+		default = 34;
 	};
 
 	class d_TimeOfDay {
@@ -561,7 +561,7 @@ class Params {
 	class d_GrasAtStart {
 		title = "$STR_DOM_MISSIONSTRING_1174";
 		values[] = {0,1};
-		default = 0;
+		default = 1;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
@@ -955,7 +955,7 @@ class Params {
 	class d_maxnum_tks_forkick {
 		title = "$STR_DOM_MISSIONSTRING_1197";
 		values[] = {1,3,5,10,20,30,40,1000000};
-		default = 5;
+		default = 3;
 		texts[] = {"1","3","5","10","20","30","40","$STR_DOM_MISSIONSTRING_1198"};
 	};
 	
