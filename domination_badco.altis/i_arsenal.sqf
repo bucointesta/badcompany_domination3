@@ -78,7 +78,7 @@
 		
 		case (_unit in d_is_engineer) : {
 		
-			restrictions_allowedWeapons = _defaultWeps + ["launch_NLAW_F"];
+			restrictions_allowedWeapons = _defaultWeps + ["rhs_weap_m72a7","rhs_weap_M136"];
 			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
 			restrictions_allowedItems = _defaultItems + d_engineer_only + d_heavy_armors + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags + ["SatchelCharge_Remote_Mag"] + d_explosives - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});
@@ -87,7 +87,7 @@
 		
 		case (_unit in d_saboteurs) : {
 			
-			restrictions_allowedWeapons = _defaultWeps + d_saboteur_only + ["launch_NLAW_F"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
+			restrictions_allowedWeapons = _defaultWeps + d_saboteur_only + ["rhs_weap_m72a7","rhs_weap_M136"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
 			restrictions_allowedItems = _defaultItems + d_saboteur_only + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags + ["SatchelCharge_Remote_Mag"] + d_explosives - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});
@@ -116,7 +116,7 @@
 		
 		case ((_unit in d_grenadiers) || {_unit in d_leaders}) : {
 		
-			restrictions_allowedWeapons = _defaultWeps + d_grenadelaunchers + ["launch_NLAW_F"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
+			restrictions_allowedWeapons = _defaultWeps + d_grenadelaunchers + ["rhs_weap_m72a7","rhs_weap_M136"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 	
 			
 			if (_unit in d_leaders) then {
@@ -137,16 +137,16 @@
 		
 		case (_unit in d_autoriflemen) : {
 		
-			restrictions_allowedWeapons = _defaultWeps + d_machineguns + ["launch_NLAW_F"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
+			restrictions_allowedWeapons = _defaultWeps + d_machineguns + ["rhs_weap_m72a7","rhs_weap_M136"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_medium_armors + ["Rangefinder","optic_tws_mg"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
 		
 		};
 		
 		case (_unit in d_missilesp) : {
 		
-			restrictions_allowedWeapons = _defaultWeps + d_launchers + ["launch_NLAW_F"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
+			restrictions_allowedWeapons = _defaultWeps + d_launchers + ["rhs_weap_m72a7","rhs_weap_M136"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
 			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
@@ -156,7 +156,7 @@
 		//rifleman
 		default {
 		
-			restrictions_allowedWeapons = _defaultWeps + ["launch_NLAW_F"];
+			restrictions_allowedWeapons = _defaultWeps + ["rhs_weap_m72a7","rhs_weap_M136"];
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
 			restrictions_allowedItems = _defaultItems + d_medium_armors - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
@@ -165,11 +165,19 @@
 	
 	};
 	
+	{
+	
+		restrictions_allowedMagazines pushback _x;
+		
+	} foreach ["rhs_m136_mag","rhs_m72a7_mag"];
+	
 	//dafuq is wrong with the ADR?!!	
 	restrictions_allowedWeapons pushBackUnique "50Rnd_570x28_SMG_03";
 	
 	restrictions_allAllowedItems = restrictions_allowedWeapons + restrictions_allowedBackpacks +
 	restrictions_allowedItems +	restrictions_allowedMagazines;	
+	
+	if (isNil "bis_fnc_arsenal_boxes") then {bis_fnc_arsenal_boxes = [];};
 
 	{
 
@@ -184,23 +192,42 @@
 
 		if (_unit == "d_admin") then {
 		
-			[_box,["%ALL"]] call BIS_fnc_addVirtualWeaponCargo;
-			[_box,["%ALL"]] call BIS_fnc_addVirtualBackpackCargo;
-			[_box,["%ALL"]] call BIS_fnc_addVirtualItemCargo;
-			[_box,["%ALL"]] call BIS_fnc_addVirtualMagazineCargo;
+			[_box,["%ALL"],false,false] call BIS_fnc_addVirtualWeaponCargo;
+			[_box,["%ALL"],false,false] call BIS_fnc_addVirtualBackpackCargo;
+			[_box,["%ALL"],false,false] call BIS_fnc_addVirtualItemCargo;
+			[_box,["%ALL"],false,false] call BIS_fnc_addVirtualMagazineCargo;
 		
 		} else {			
 			
-			[_box,restrictions_allowedWeapons] call BIS_fnc_addVirtualWeaponCargo;
-			[_box,restrictions_allowedBackpacks] call BIS_fnc_addVirtualBackpackCargo;
-			[_box,restrictions_allowedItems] call BIS_fnc_addVirtualItemCargo;
-			[_box,restrictions_allowedMagazines] call BIS_fnc_addVirtualMagazineCargo;
+			[_box,restrictions_allowedWeapons,false,false] call BIS_fnc_addVirtualWeaponCargo;
+			[_box,restrictions_allowedBackpacks,false,false] call BIS_fnc_addVirtualBackpackCargo;
+			[_box,restrictions_allowedItems,false,false] call BIS_fnc_addVirtualItemCargo;
+			[_box,restrictions_allowedMagazines,false,false] call BIS_fnc_addVirtualMagazineCargo;
 		
 		};
 		
-		if (isNil "bis_fnc_arsenal_boxes") then {bis_fnc_arsenal_boxes = [];};
-		bis_fnc_arsenal_boxes pushBack _box;
-		d_arsenal_boxes pushBack _box;
+		bis_fnc_arsenal_boxes pushBackUnique _box;
+		d_arsenal_boxes pushBack _box;	
+
+		//Workaround arsenal action not appearing sometimes...
+		sleep 0.1;
+		_box addaction [
+			"<t color='#e01414'>Arsenal</t>",
+			{
+			_box = _this select 0;
+			_unit = _this select 1;
+			["Open",[nil,_box,_unit]] spawn bis_fnc_arsenal;
+			},
+			[],
+			99,
+			true,
+			false,
+			"",
+			"alive _target && {vehicle _this == _this}",
+			5
+		];
+		
+		
 
 	} foreach _cratePositionMarkers;
 
@@ -230,7 +257,9 @@
 		};
 
 	}];
-
+	
+	//to override RHS script error causing game freeze when opening arsenal with no weapon...
+	[missionNamespace, "arsenalOpened"] call BIS_fnc_removeAllScriptedEventHandlers; 
 
 	// disable unneeded functions that can override restrictions...
 	// save loadout for restriction handling in case of saved loadout use

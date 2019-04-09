@@ -3,3 +3,4 @@
 #define __D_VER_NAME__ "One Team - Blufor"
 #define __XSETUP_INCL__
 #define __ALTIS__
+#define __RHS__
