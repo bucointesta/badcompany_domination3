@@ -44,7 +44,13 @@ if (!_mchelper) then {
 	};
 	_one_unit setUnitAbility ((d_skill_array # 0) + (random (d_skill_array # 1)));
 	_one_unit setSkill ["aimingAccuracy", _subskill];
-	_one_unit setSkill ["spotTime", _subskill];
+	//_one_unit setSkill ["spotTime", _subskill];
+	_one_unit setSkill ["spotTime", 1];
+	_one_unit setSkill ["spotDistance", 1];
+	_one_unit setSkill ["courage", 1];
+	_one_unit setSkill ["commanding", 1];
+	_one_unit setSkill ["aimingSpeed", 0.65];
+	
 	_ret set [_forEachIndex, _one_unit];
 	_one_unit call d_fnc_removenvgoggles_fak;
 #ifdef __GROUPDEBUG__
