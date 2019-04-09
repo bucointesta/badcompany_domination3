@@ -20,6 +20,8 @@ if (d_without_nvg == 0 && {_item call d_fnc_isnvgoggles}) then {
 
 private _itemtype = ((_item call BIS_fnc_itemType) select 1);
 
+_item = [_item] call BIS_fnc_baseWeapon;
+
 if ([player, _item] call d_fnc_checkitem) then {
 	if (secondaryWeapon player == "launch_NLAW_F") then {
 		player removeWeapon "launch_NLAW_F";
