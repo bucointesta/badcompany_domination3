@@ -18,4 +18,5 @@ publicVariable "d_ammo_boxes";
 _mname remoteExecCall ["deleteMarkerLocal", [blufor, opfor] select (_this select 2 == blufor)];
 #endif
 
-_this remoteExecCall ["d_fnc_create_boxNet", [0, -2] select isDedicated];
+//changed to create actual global box
+_this remoteExecCall ["d_fnc_create_boxNet", 2];

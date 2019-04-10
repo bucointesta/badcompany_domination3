@@ -1248,7 +1248,11 @@ if (hasInterface) then {
 	// the only vehicles that can load an ammo box are the transport choppers and MHQs__
 	d_check_ammo_load_vecs =
 #ifdef __OWN_SIDE_BLUFOR__
+	#ifndef __RHS__
 	["C_Van_01_box_F", "B_Truck_01_box_F", "B_Truck_01_ammo_F", "B_Truck_01_covered_F", "B_MRAP_01_F", "B_APC_Tracked_01_CRV_F", "B_T_APC_Tracked_01_CRV_F", "B_Boat_Armed_01_minigun_F", "B_Heli_Transport_01_F", "B_Heli_Transport_01_camo_F", "B_Heli_Transport_03_F", "B_Heli_Transport_03_unarmed_F", "B_Heli_Transport_03_black_F", "B_LSV_01_unarmed_F", "O_Heli_Light_02_unarmed_F", "O_Heli_Light_02_dynamicLoadout_F"];
+	#else
+	["rhsusf_M977A4_BKIT_M2_usarmy_d","RHS_CH_47F_10"];
+	#endif
 #endif
 #ifdef __OWN_SIDE_OPFOR__
 	[["LIB_US6_Tent"], ["O_MRAP_02_F", "O_Heli_Light_02_unarmed_F", "B_APC_Tracked_01_CRV_F", "rhsgref_BRDM2UM_vdv", "RHS_Mi8AMT_vvs"]] select (!d_ifa3lite);

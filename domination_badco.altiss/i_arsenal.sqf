@@ -169,7 +169,7 @@
 	
 		restrictions_allowedMagazines pushback _x;
 		
-	} foreach ["rhs_m136_mag","rhs_m72a7_mag"];
+	} foreach ["rhs_m136_mag","rhs_m72a7_mag","rhs_m136_hp_mag","rhs_m136_hedp_mag","rhs_rpg26_mag","rhs_rshg2_mag"];
 	
 	//dafuq is wrong with the ADR?!!	
 	restrictions_allowedWeapons pushBackUnique "50Rnd_570x28_SMG_03";

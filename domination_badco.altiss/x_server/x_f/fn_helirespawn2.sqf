@@ -103,6 +103,16 @@ while {true} do {
 			};
 			private _skinpoly = _vec call d_fnc_getskinpoly;
 			sleep 0.1;
+			
+			_ammbox = _vec getvariable ["actualAmmobox",objNull];			
+			if (!isNull _ammbox) then {
+			
+				deleteVehicle _ammbox;
+				d_num_ammo_boxes = d_num_ammo_boxes - 1;
+				publicVariable "d_num_ammo_boxes";
+			
+			};	
+			
 			if (unitIsUAV _vec) then {
 				{_vec deleteVehicleCrew _x} forEach (crew _vec);
 			};

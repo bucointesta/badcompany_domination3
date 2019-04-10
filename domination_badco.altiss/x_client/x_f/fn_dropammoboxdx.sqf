@@ -29,9 +29,11 @@ if ((_unit call d_fnc_GetHeight) > 3) exitWith {_unit vehicleChat (localize "STR
 
 if (speed _unit > 3) exitWith {_unit vehicleChat (localize "STR_DOM_MISSIONSTRING_219")};
 
+/*
 if (d_num_ammo_boxes > d_MaxNumAmmoboxes) exitWith {
 	[_unit, _caller, format [localize "STR_DOM_MISSIONSTRING_220", d_MaxNumAmmoboxes]] call _chatfunc;
 };
+*/
 
 if !(_unit getVariable ["d_ammobox", false]) exitWith {[_unit, _caller, localize "STR_DOM_MISSIONSTRING_222"] call _chatfunc};
 

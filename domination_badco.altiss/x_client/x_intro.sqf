@@ -88,7 +88,7 @@ private _start_pos = 8;
 _start_pos = 3;
 #endif
 #ifdef __RHS__
-_start_pos = 3;
+_start_pos = 0;
 #endif
 if (d_with_ranked) then {if (_str2 != "") then {_str2 = _str2 + " RA"} else {_str2 = _str2 + "RA"}};
 if (d_WithRevive == 0) then {if (_str2 != "") then {_str2 = _str2 + " REVIVE"} else {_str2 = _str2 + "REVIVE"}};

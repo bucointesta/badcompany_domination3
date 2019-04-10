@@ -104,6 +104,16 @@ while {true} do {
 				private _dhqcamo = _vec getVariable ["d_MHQ_Camo", objNull];
 				if (!isNull _dhqcamo) then {deleteVehicle _dhqcamo};
 			};
+			
+			_ammbox = _vec getvariable ["actualAmmobox",objNull];			
+			if (!isNull _ammbox) then {
+			
+				deleteVehicle _ammbox;
+				d_num_ammo_boxes = d_num_ammo_boxes - 1;
+				publicVariable "d_num_ammo_boxes";
+			
+			};				
+			
 			private _isitlocked = _vec getVariable ["d_vec_islocked", false]; // || {_vec call d_fnc_isVecLocked};
 			private _skinpoly = _vec call d_fnc_getskinpoly;
 			__TRACE_1("","_skinpoly")
