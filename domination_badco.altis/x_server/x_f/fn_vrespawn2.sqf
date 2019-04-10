@@ -149,9 +149,11 @@ while {true} do {
 #endif
 			if (_number_v < 100) then {
 				_vec addMPEventhandler ["MPKilled", {(_this select 0) call d_fnc_MHQFunc}];
+				/*
 				if (count _vec_a == 6) then {
 					_vec setVariable ["d_vec_is_mhq", [_vec_a # 5, _number_v]];
 				};
+				*/
 				_vec addMPEventhandler ["MPKilled", {if (isServer) then {_this call d_fnc_fuelCheck; _this call d_fnc_mhqmsg}}];
 				_vec addEventHandler ["handleDamage", {_this call d_fnc_pshootatmhq}];
 			};

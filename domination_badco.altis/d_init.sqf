@@ -395,16 +395,15 @@ if (isServer) then {
 		[d_chopper_7,3007,true,900],[d_chopper_8,3008,true,1200],[d_chopper_9,3009,true,1200],
 		[d_chopper_10,3010,true,900],[d_chopper_11,3011,true,1200],[d_plane_1,3012,true,1800],
 		
-		//keep plane numbers >= 3100 so they don't get chopper menu unless you want a cargo plane
+		//keep plane numbers >= 3100 so they don't get chopper menu (unless you want a cargo plane?)
 		[d_attack_1,3101,true,1800],		
 		[d_attack_2,3102,true,1800]		
 		] call compile preprocessFileLineNumbers "x_server\x_inithelirespawn2.sqf";
 	};
 	// editor varname, unique number
-	//0-99 = MHQ, 100-199 = Medic vehicles, 200-299 = Fuel, Repair, Reammo trucks, 300-399 = Engineer Salvage trucks, 400-499 = Transport trucks
-	// new in 3.70  third parameter for MHQ means a message will be displayed for a MHQ if it gets destroyed
+	//0-99 = MHQ, 100-199 = Medic vehicles, 200-299 = Fuel, Repair, Reammo trucks, 300-399 = Engineer Salvage trucks, 400-499 = Transport trucks	
 	private _var = [
-		[d_vec_mhq_1,0,localize "STR_DOM_MISSIONSTRING_12"],[d_vec_mhq_2,1, localize "STR_DOM_MISSIONSTRING_13"],
+		[d_vec_mhq_1,0,-1],[d_vec_mhq_2,1,-1],
 		[d_vec_med_1,100,-1],[d_vec_med_2,101,-1],[d_vec_rep_1,200,-1],[d_vec_fuel_1,201,-1],[d_vec_ammo_1,202,-1],
 		[d_vec_rep_2,203,-1],[d_vec_fuel_2,204,-1], [d_vec_ammo_2,205,-1],[d_vec_eng_1,300,-1],[d_vec_eng_2,301,-1],
 		[d_vec_trans_1,400,-1],[d_vec_trans_2,401,-1],[d_vec_trans_3,402,-1],[d_vec_trans_4,403,-1],[d_vec_bike_1,701,-1],

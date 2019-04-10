@@ -56,7 +56,8 @@ if (_rtype == 0) then { // player died
 		if (d_WithRevive == 1) then {
 			call d_fnc_retrieve_layoutgear;
 		} else {
-			call d_fnc_retrieve_respawngear;
+			//call d_fnc_retrieve_respawngear;
+			call d_fnc_retrieve_layoutgear;
 		};
 	};
 	/*

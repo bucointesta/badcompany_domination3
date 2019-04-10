@@ -15,12 +15,15 @@ d_vrespawn2_ar = [];
 		} else {
 			getPosATL _vec;
 		};
+		/*
 		if (count _x == 2) then {
 			d_vrespawn2_ar pushBack [_vec, _number_v, _vposp, getDir _vec, typeOf _vec];
 		} else {
 			d_vrespawn2_ar pushBack [_vec, _number_v, _vposp, getDir _vec, typeOf _vec, _x # 2];
 			if (_number_v < 100) then {_vec setVariable ["d_vec_is_mhq", [_x select 2, _number_v]]};
 		};
+		*/
+		d_vrespawn2_ar pushBack [_vec, _number_v, _vposp, getDir _vec, typeOf _vec];
 		
 		_vec setVariable ["d_OUT_OF_SPACE", -1];
 		_vec setVariable ["d_vec", _number_v, true];
