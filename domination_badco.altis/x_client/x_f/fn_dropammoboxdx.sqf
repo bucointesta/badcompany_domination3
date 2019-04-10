@@ -53,9 +53,29 @@ _boxpos set [2, ((_unit distance (getPos _unit)) - _maxHeight) max 0];
 __TRACE_1("","_boxpos")
 
 #ifndef __TT__
-[_boxpos, _unit] remoteExecCall ["d_fnc_CreateDroppedBox", 2];
+//create the actual box if unloading for the first time
+_boxobj = _unit getVariable ["actualAmmobox",objNull];
+if (isnull _boxobj) then {
+
+	[_boxpos, _unit] remoteExecCall ["d_fnc_CreateDroppedBox", 2];
+
+} else {
+	
+	detach _boxobj;
+	_boxobj setpos _boxpos;
+	_mname = format ["d_bm_%1", _boxpos];
+	_markerName = createMarker [_mname, _boxpos];
+	_markerName setMarkerShape "ICON";
+	_markerName setMarkerType "hd_dot";
+	_markerName setMarkerColor "ColorBlue";
+	_markerName setMarkerText "Ammo box";
+	_boxobj setVariable ["boxMarker",_markerName,true];
+	_unit setVariable ["actualAmmobox",objNull,true];
+
+};
+
 #else
-[_boxpos, _unit, d_player_side] remoteExecCall ["d_fnc_CreateDroppedBox", 2];
+//[_boxpos, _unit, d_player_side] remoteExecCall ["d_fnc_CreateDroppedBox", 2];
 #endif
 
 [_unit, _caller, localize "STR_DOM_MISSIONSTRING_225"] call _chatfunc;

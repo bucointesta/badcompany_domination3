@@ -1370,7 +1370,13 @@ if (hasInterface) then {
 	d_the_box = switch (d_own_side) do {
 		case "GUER": {"Box_IND_Wps_F"};
 		case "EAST": {"Box_East_Wps_F"};
-		case "WEST": {"B_CargoNet_01_ammo_F"};
+		case "WEST": {
+#ifndef __RHS__		
+		"B_CargoNet_01_ammo_F"
+		#else
+		"rhsusf_weapon_crate"
+		#endif
+		};
 	};
 	d_the_base_box = switch (d_own_side) do {
 		case "GUER": {"I_supplyCrate_F"};//Box_IND_WpsSpecial_F

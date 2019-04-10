@@ -81,7 +81,8 @@ while {alive _chuto && {(getPos _chuto # 2) > 5}} do {
 private _pos_conex = getPos _cone;
 deleteVehicle _cone;
 if (_is_ammo) then {
-	_pos_conex remoteExecCall ["d_fnc_air_box", [0, -2] select isDedicated];
+	//_pos_conex remoteExecCall ["d_fnc_air_box", [0, -2] select isDedicated];
+	_pos_conex remoteExecCall ["d_fnc_air_box", 2];
 } else {
 	if (position _man # 2 <= -1) then {
 		private _pos_man = getPos _man;

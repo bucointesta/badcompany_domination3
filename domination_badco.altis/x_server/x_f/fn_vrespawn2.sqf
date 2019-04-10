@@ -109,8 +109,6 @@ while {true} do {
 			if (!isNull _ammbox) then {
 			
 				deleteVehicle _ammbox;
-				d_num_ammo_boxes = d_num_ammo_boxes - 1;
-				publicVariable "d_num_ammo_boxes";
 			
 			};				
 			

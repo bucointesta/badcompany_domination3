@@ -108,7 +108,6 @@ class cfgFunctions {
 			addc(dcmcc);
 			addc(clean_craters);
 			addc(RemABoxC);
-			addc(air_box);
 			addc(the_end);
 			addc(doarti);
 			addc(sm_res_client);
@@ -264,6 +263,7 @@ class cfgFunctions {
 			addc(prison_check);
 			addc(prison_in);
 			addc(prison_out);	
+			addc(air_box);
 		};
 		class Dom_ext_Scripts {
 			file = "scripts";
