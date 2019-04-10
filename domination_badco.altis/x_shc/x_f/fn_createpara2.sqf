@@ -76,9 +76,12 @@ if (alive _chopper && {canMove _chopper && {alive driver _chopper}}) then {
 				(_this select 0) removeAllEventHandlers "Killed";
 			}];
 		};
+		/*
 		_one_unit setUnitAbility ((d_skill_array # 0) + (random (d_skill_array # 1)));
 		_one_unit setSkill ["aimingAccuracy", _subskill];
 		_one_unit setSkill ["spotTime", _subskill];
+		*/
+		_one_unit call AI_setSkill;
 		sleep 0.551;
 	} forEach _real_units;
 	_paragrp allowFleeing 0;

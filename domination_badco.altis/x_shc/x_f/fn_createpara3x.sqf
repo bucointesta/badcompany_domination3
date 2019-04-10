@@ -115,9 +115,13 @@ private _make_jump = {
 						(_this select 0) removeAllEventHandlers "Killed";
 					}];
 				};
+				/*
 				_one_unit setUnitAbility ((d_skill_array # 0) + (random (d_skill_array # 1)));
 				_one_unit setSkill ["aimingAccuracy", _subskill];
 				_one_unit setSkill ["spotTime", _subskill];
+				*/				
+				_one_unit call AI_setSkill;
+				
 				d_delinfsm  pushBack _one_unit;
 				sleep _sleeptime;
 				if (!alive _vec) exitWith {};

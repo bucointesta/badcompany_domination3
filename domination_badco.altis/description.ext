@@ -863,9 +863,9 @@ class Params {
 
 	class d_EnemySkill {
 		title = "$STR_DOM_MISSIONSTRING_1124";
-		values[] = {1,2,3};
+		values[] = {2};
 		default = 2;
-		texts[] = {"$STR_DOM_MISSIONSTRING_399","$STR_DOM_MISSIONSTRING_11","$STR_DOM_MISSIONSTRING_400"};
+		texts[] = {"Custom"};
 	};
 
 	class d_WithIsleDefense {

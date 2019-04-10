@@ -2,6 +2,7 @@
 //#define __DEBUG__
 #define THIS_FILE "init.sqf"
 #include "x_setup.sqf"
+#include "AI.sqf"
 diag_log [diag_frameno, diag_ticktime, time, "Executing Dom init.sqf"];
 
 d_IS_HC_CLIENT = !isDedicated && {!hasInterface};

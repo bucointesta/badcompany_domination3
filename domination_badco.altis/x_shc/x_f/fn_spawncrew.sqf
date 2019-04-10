@@ -60,9 +60,12 @@ if (count _crew > 0) then {
 				(_this select 0) removeAllEventHandlers "Killed";
 			}];
 		};
+		/*
 		_x setUnitAbility ((d_skill_array # 0) + (random (d_skill_array # 1)));
 		_x setSkill ["aimingAccuracy", _subskill];
 		_x setSkill ["spotTime", _subskill];
+		*/
+		_x call AI_setSkill;
 	} forEach _crew;
 	if !(isNull (driver _vec)) then {(driver _vec) setRank "LIEUTENANT"};
 	if !(isNull (gunner _vec)) then {(gunner _vec) setRank "SERGEANT"};
