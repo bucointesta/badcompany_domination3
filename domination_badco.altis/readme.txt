@@ -240,7 +240,7 @@ ATTENTION: Domination.sql file (execute with Heidi) and domination-custom.ini fi
 - Fixed: In the RHS version russians do speak russian now and not farsi :)
 - Changed: Dom general settings like use params from sql database were moved to dom_settings table (run Domination.sql file first, with Heidi for example)
            Settings available in SQL DB settings table: d_use_sql_settings, d_db_auto_save, d_reserved_slot (attention d_reserved_slot has changed to array), d_uid_reserved_slots,
-		   d_uids_for_reserved_slots, d_cas_available_time, d_ranked_a, d_points_needed, d_points_needed_db, d_tt_points, d_set_pl_score_db
+		   membersarr, d_cas_available_time, d_ranked_a, d_points_needed, d_points_needed_db, d_tt_points, d_set_pl_score_db
 - Fixed: Sidemission units should no longer spawn in rocks
 - Changed: Using player vehicle var name as references is broken if the game thinks that a player is a "Error: No unit", use allPlayers instead of d_player_entities (maybe one day BI will fix)
 - Changed: Better check if a unit is a player as isPlayer scripting command returns false if a player is "Error: No unit"

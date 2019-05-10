@@ -66,13 +66,13 @@ d_pilot_only = ["U_B_HeliPilotCoveralls","U_B_PilotCoveralls","H_PilotHelmetFigh
 	_box setVariable ["backpacks", _backpacks];
 	_box setVariable ["items", _items];
 	if (_box in [d_ammobox_16, d_ammobox_17, d_ammobox_18, d_ammobox_19, d_ammobox_20, d_ammobox_21, d_ammobox_22, d_ammobox_23]) then {
-		{d_badco_items pushBackUnique (_x select 0); d_whitelistWeapons pushBackUnique (_x select 0); false} count _weapons;
+		{_wep = [_x select 0] call BIS_fnc_baseWeapon; d_badco_items pushBackUnique _wep; d_whitelistWeapons pushBackUnique _wep; false} count _weapons;
 		{d_badco_items pushBackUnique (_x select 0); d_whitelistMagazines pushBackUnique (_x select 0); false} count _magazines;
 		{d_badco_items pushBackUnique (_x select 0); d_whitelistBackpacks pushBackUnique (_x select 0); false} count _backpacks;
 		{d_badco_items pushBackUnique (_x select 0); d_whitelistItems pushBackUnique (_x select 0); false} count _items;
 	};
 	if (_box in [d_ammobox_14, d_ammobox_15, d_ammobox_25, d_ammobox_5,d_ammobox_8]) then {
-		{d_public_items pushBackUnique (_x select 0); d_pilotWeapons pushBackUnique (_x select 0); d_defaultWeapons pushBackUnique (_x select 0); false} count _weapons;
+		{_wep = [_x select 0] call BIS_fnc_baseWeapon; d_public_items pushBackUnique _wep; d_pilotWeapons pushBackUnique _wep; d_defaultWeapons pushBackUnique _wep; false} count _weapons;
 		{d_public_items pushBackUnique (_x select 0); d_defaultMagazines pushBackUnique (_x select 0); false} count _magazines;
 		{d_public_items pushBackUnique (_x select 0); d_defaultBackpacks pushBackUnique (_x select 0); false} count _backpacks;
 		{d_public_items pushBackUnique (_x select 0); d_defaultItems pushBackUnique (_x select 0); false} count _items;
@@ -83,7 +83,7 @@ d_pilot_only = ["U_B_HeliPilotCoveralls","U_B_PilotCoveralls","H_PilotHelmetFigh
 		
 			if (!((_x select 0) in d_grenadelaunchers)) then { 
 			
-				d_defaultWeapons pushBackUnique (_x select 0);
+				d_defaultWeapons pushBackUnique ([_x select 0] call BIS_fnc_baseWeapon);
 				
 			};
 		
@@ -97,13 +97,13 @@ d_pilot_only = ["U_B_HeliPilotCoveralls","U_B_PilotCoveralls","H_PilotHelmetFigh
 		
 	};
 	if ((_box == d_ammobox_2) || {_box == d_ammobox_17}) then {
-		{d_machineguns pushBackUnique (_x select 0); false} count _weapons;
+		{d_machineguns pushBackUnique ([_x select 0] call BIS_fnc_baseWeapon); false} count _weapons;
 	};
 	if ((_box == d_ammobox_3) || {_box == d_ammobox_18}) then {
-		{d_sniping_rifles pushBackUnique (_x select 0); false} count _weapons;
+		{d_sniping_rifles pushBackUnique ([_x select 0] call BIS_fnc_baseWeapon); false} count _weapons;
 	};
 	if ((_box == d_ammobox_4) || {_box == d_ammobox_21}) then {
-		{d_launchers pushBackUnique (_x select 0); false} count _weapons;
+		{d_launchers pushBackUnique ([_x select 0] call BIS_fnc_baseWeapon); false} count _weapons;
 	};
 	if ((_box == d_ammobox_6) || {_box == d_ammobox_22}) then {
 		{d_explosives pushBackUnique (_x select 0); false} count _magazines;
@@ -123,7 +123,7 @@ d_pilot_only = ["U_B_HeliPilotCoveralls","U_B_PilotCoveralls","H_PilotHelmetFigh
 	};
 	
 	if (_box == d_ammobox_0) then {
-		{d_grenadelaunchers pushBackUnique (_x select 0); false} count _weapons;
+		{d_grenadelaunchers pushBackUnique ([_x select 0] call BIS_fnc_baseWeapon); false} count _weapons;
 	};
 	
 } ForEach d_static_ammoboxes;

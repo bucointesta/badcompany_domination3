@@ -345,7 +345,7 @@ d_objectID2 = objNull;
 d_farp_classes = ["Land_HelipadSquare_F", "Land_Cargo20_military_green_F","Land_RepairDepot_01_green_F"];
 
 /*roles*/
-d_badcompany = ["d_badco_1", "d_badco_2", "d_badco_3", "d_badco_4", "d_badco_5", "d_badco_6", "d_badco_7", "d_badco_8", "d_badco_9", "d_badco_10", "d_admin"];
+d_badcompany = ["d_badco_1", "d_badco_2", "d_badco_3", "d_badco_4", "d_badco_5", "d_badco_6", "d_badco_7", "d_badco_9", "d_badco_10", "d_admin"];
 d_attack_pilots = ["d_apilot_1", "d_apilot_2", "d_badco_2", "d_admin"];
 d_transport_pilots = ["d_tpilot_1", "d_tpilot_2", "d_tpilot_3", "d_tpilot_4", "d_badco_2", "d_admin"];
 d_riflemen = ["d_rifleman_1","d_rifleman_2", "d_rifleman_3", "d_rifleman_4", "d_rifleman_5", "d_rifleman_6", "d_badco_10", "d_admin"];
@@ -353,7 +353,7 @@ d_grenadiers = ["d_grenadier_1","d_grenadier_2", "d_grenadier_3", "d_grenadier_4
 d_autoriflemen = ["d_autorifleman_1","d_autorifleman_2", "d_autorifleman_3", "d_autorifleman_4", "d_autorifleman_5", "d_autorifleman_6", "d_badco_6", "d_admin"];
 d_snipers = ["d_marksman_1","d_marksman_2", "d_marksman_3", "d_marksman_4", "d_marksman_5", "d_marksman_6", "d_badco_5", "d_admin"];
 d_spotters = ["d_spotter_1","d_spotter_2", "d_spotter_3", "d_spotter_4", "d_spotter_5", "d_spotter_6", "d_admin"];
-d_missilesp = ["d_missilesp_1","d_missilesp_2", "d_missilesp_3", "d_missilesp_4", "d_missilesp_5", "d_missilesp_6", "d_badco_7", "d_badco_8", "d_admin"];
+d_missilesp = ["d_missilesp_1","d_missilesp_2", "d_missilesp_3", "d_missilesp_4", "d_missilesp_5", "d_missilesp_6", "d_badco_7", "d_admin"];
 d_saboteurs = ["d_saboteur_1","d_saboteur_2", "d_saboteur_3", "d_saboteur_4", "d_saboteur_5", "d_saboteur_6", "d_admin"];
 d_medics = ["d_medic_1","d_medic_2", "d_medic_3", "d_medic_4", "d_medic_5", "d_medic_6", "d_badco_3", "d_admin"];
 d_leaders = ["d_leader_1","d_leader_2", "d_leader_3", "d_leader_4", "d_leader_5", "d_leader_6", "d_badco_1", "d_admin"];
@@ -491,7 +491,7 @@ if (isServer) then {
 		if (_dbresult # 0 == 1 && {!(_dbresult # 1 isEqualTo [])}) then {
 			{
 				call {
-					if (toLower (_x # 0) in ["d_reserved_slot", "d_uid_reserved_slots", "d_uids_for_reserved_slots"]) exitWith {
+					if (toLower (_x # 0) in ["d_reserved_slot", "d_uid_reserved_slots", "membersarr"]) exitWith {
 						if !((_x # 1) isEqualTo []) then {
 							missionNamespace setVariable [_x # 0, _x # 1, true];
 						};
@@ -841,7 +841,7 @@ if (!d_tt_tanoa) then {
 		"I_Heli_Transport_02_F";
 #endif
 #ifdef __OWN_SIDE_BLUFOR__
-		["CUP_B_C130J_Cargo_USMC", "B_Heli_Transport_03_unarmed_F"] select (!d_cup);
+		["RHS_CH_47F_light", "B_Heli_Transport_03_unarmed_F"] select (!d_cup);
 #endif
 #ifdef __OWN_SIDE_OPFOR__
 		["LIB_Pe2", "O_Heli_Light_02_unarmed_F"] select (!d_ifa3lite);
@@ -1184,13 +1184,13 @@ if (hasInterface) then {
 		d_reserved_slot = ["d_admin"];
 	};
 
-	// d_uid_reserved_slots and d_uids_for_reserved_slots gives you the possibility to limit a slot
-	// you have to add the var names of the units to d_uid_reserved_slots and in d_uids_for_reserved_slots the UIDs of valid players
+	// d_uid_reserved_slots and membersarr gives you the possibility to limit a slot
+	// you have to add the var names of the units to d_uid_reserved_slots and in membersarr the UIDs of valid players
 	// d_uid_reserved_slots = ["d_alpha_1", "d_bravo_3"];
-	// d_uids_for_reserved_slots = ["1234567", "7654321"];
+	// membersarr = ["1234567", "7654321"];
 	if (isNil "d_uid_reserved_slots") then {
-		d_uid_reserved_slots = ["d_badco_1","d_badco_2","d_badco_3","d_badco_4","d_badco_5","d_badco_6","d_badco_7","d_badco_8","d_badco_9","d_badco_10"];
-		//d_uids_for_reserved_slots = [];
+		d_uid_reserved_slots = ["d_badco_1","d_badco_2","d_badco_3","d_badco_4","d_badco_5","d_badco_6","d_badco_7","d_badco_9","d_badco_10"];
+		//membersarr = [];
 	};
 	
 	// this vehicle will be created if you use the "Create XXX" at a mobile respawn (old "Create Motorcycle") or at a jump flag
@@ -1367,6 +1367,8 @@ if (hasInterface) then {
 	// PLEASE DO NOT CHANGE THIS FOR THE TT VERSION, IT SHOULD BE AN EMPTY ARRAY!!!!
 	d_only_pilots_can_fly = [];
 	
+	//moved to d_init so it's also defined on server
+	/*
 	d_the_box = switch (d_own_side) do {
 		case "GUER": {"Box_IND_Wps_F"};
 		case "EAST": {"Box_East_Wps_F"};
@@ -1378,6 +1380,8 @@ if (hasInterface) then {
 		#endif
 		};
 	};
+	*/
+	
 	d_the_base_box = switch (d_own_side) do {
 		case "GUER": {"I_supplyCrate_F"};//Box_IND_WpsSpecial_F
 		case "EAST": {"O_supplyCrate_F"};//Box_East_WpsSpecial_F

@@ -139,6 +139,14 @@ if (xr_max_lives != -1) then {
 	};
 };
 
+//Hunter: Prevent respawn with "default" gear... couldn't figure out why it's normally bugged...
+[] spawn {
+
+	sleep 2;
+	call d_fnc_retrieve_respawngear;
+
+};
+
 0 spawn {
 	if (!d_ifa3lite && {d_without_nvg == 1 && {player call d_fnc_hasnvgoggles && {sunOrMoon < 0.99 || {player getVariable ["d_currentvisionmode", 0] == 1}}}}) then {
 		player action ["NVGoggles",player];

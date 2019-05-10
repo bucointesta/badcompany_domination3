@@ -40,3 +40,17 @@ _box addEventHandler ["Killed",{
 	publicVariable "d_num_ammo_boxes";
 
 }];
+
+//merge with launcher crate stuff -- very inefficient to do this every time but too lazy rip
+_dummybox = "rhsusf_launcher_crate" createVehicleLocal [0,0,10000];
+_itemType = (getMagazineCargo _dummybox) select 0;
+_itemType pushBack ((getWeaponCargo _dummybox) select 0);
+_itemCount = (getMagazineCargo _dummybox) select 1;
+_itemCount pushBack ((getWeaponCargo _dummybox) select 1);
+{
+
+ _box addItemCargoGlobal [_x,_itemCount select _foreachIndex];
+
+} foreach _itemType;
+_box addItemCargoGlobal ["FirstAidKit",10];
+deleteVehicle _dummybox;

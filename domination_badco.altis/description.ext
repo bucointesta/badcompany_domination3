@@ -142,7 +142,7 @@ class CfgRemoteExec {
 		class d_fnc_at_serv {allowedTargets = 2;};
 		class d_fnc_d_sm_mar {allowedTargets = 2;};
 		class d_fnc_s_sm_up {allowedTargets = 2;};
-		class d_fnc_air_box {allowedTargets = 1;};
+		class d_fnc_air_box {allowedTargets = 0;};
 		class d_fnc_the_end {allowedTargets = 1;};
 		class d_fnc_doarti {allowedTargets = 1;};
 		class d_fnc_updatesupportrsc {allowedTargets = 1;};

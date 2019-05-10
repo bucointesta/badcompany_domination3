@@ -244,7 +244,7 @@
 				_box = _x;
 				if (!isNull _box) then {
 					_distp = _pos_cam distance _box;				
-					if (_distp < 20) then {
+					if (_distp < 30) then {
 						_pos = getPosATL _box;
 						_scale = 0.033 - (_distp / 9000);
 						_pos set [2, 1.5 + (_distp * 0.05)];

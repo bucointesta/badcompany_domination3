@@ -173,14 +173,14 @@ if (!(d_reserved_slot isEqualTo []) && {str player in d_reserved_slot}) then {
 	_uidcheck_done = true;
 	execVM "x_client\x_reservedslot.sqf";
 };
-if (!_uidcheck_done && {!(d_uid_reserved_slots isEqualTo [])} && {!(d_uids_for_reserved_slots isEqualTo [])}) then {
+if (!_uidcheck_done && {!(d_uid_reserved_slots isEqualTo [])} && {!(membersarr isEqualTo [])}) then {
 	d_uid_reserved_slots = d_uid_reserved_slots apply {toUpper _x};
 	if ((toUpper str player) in d_uid_reserved_slots) then {
-		if !(getPlayerUID player in d_uids_for_reserved_slots) then {
+		if !(getPlayerUID player in membersarr) then {
 			execVM "x_client\x_reservedslot2.sqf";
 		};
 		d_uid_reserved_slots = nil;
-		d_uids_for_reserved_slots = nil;
+		membersarr = nil;
 	};
 };
 

@@ -74,6 +74,18 @@ d_target_names = [];
 } forEach ((allMissionObjects "LocationCityCapital_F") select {str _x select [0, 9] == "d_target_"});
 __TRACE_1("All targets found","d_target_names")
 
+d_the_box = switch (d_own_side) do {
+	case "GUER": {"Box_IND_Wps_F"};
+	case "EAST": {"Box_East_Wps_F"};
+	case "WEST": {
+	#ifndef __RHS__		
+		"B_CargoNet_01_ammo_F"
+	#else
+		"rhsusf_weapon_crate"
+	#endif
+	};
+};
+
 /*array of static ammoboxes at base*/
 d_static_ammoboxes = [[d_ammobox_0,"Grenade Launchers"],[d_ammobox_1,"Assault Rifles"], [d_ammobox_2,"Machine Guns"], [d_ammobox_3,"Sniper Rifles"], [d_ammobox_4,"Launchers"], [d_ammobox_5,"Grenades"], [d_ammobox_6,"Explosives"], [d_ammobox_7,"Special Purpose"], [d_ammobox_8,"Attachments"], [d_ammobox_9,"Uniforms"], [d_ammobox_10,"Backpacks"], [d_ammobox_11,"Light Armor"], [d_ammobox_12,"Medium Armor"], [d_ammobox_13,"Heavy Armor"], [d_ammobox_14,"Pistols and Submachineguns"], [d_ammobox_15,"Equipment"], [d_ammobox_16,"Assault Rifles"], [d_ammobox_17,"Machine Guns"], [d_ammobox_18,"Sniper Rifles"], [d_ammobox_19,"Special Purpose"], [d_ammobox_20,"Armor"], [d_ammobox_21,"Launchers"], [d_ammobox_22,"Explosives"], [d_ammobox_23,"Grenades"], [d_ammobox_24,"Static Weapons"], [d_ammobox_25,"Facewear"]];
 

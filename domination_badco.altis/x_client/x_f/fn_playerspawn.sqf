@@ -58,7 +58,7 @@ if (_rtype == 0) then { // player died
 		} else {
 			call d_fnc_retrieve_respawngear;
 		};
-	};
+	};	
 	/*
 	if (player getVariable ["d_has_gps", false]) then {
 		player linkItem "ItemGPS";

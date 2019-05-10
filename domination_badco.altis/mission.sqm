@@ -8,7 +8,7 @@ class EditorData
 	toggles=513;
 	class ItemIDProvider
 	{
-		nextID=6849;
+		nextID=6850;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={15230.363,35.440506,17281.008};
-		dir[]={-0.51646471,-0.51269794,0.68587947};
-		up[]={-0.30841109,0.85856318,0.40957811};
-		aside[]={0.79885739,2.1228334e-007,0.60153741};
+		pos[]={15207.685,34.132442,17304.227};
+		dir[]={0.14308096,-0.9835192,-0.11061171};
+		up[]={0.77811152,0.18081725,-0.60153449};
+		aside[]={-0.6116218,4.2369356e-007,-0.79115856};
 	};
 };
 binarizationWanted=0;
@@ -3719,7 +3719,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setFlagTexture ""pics\flag.jpg"";";
+				init="this allowDamage false; this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=598;
 			type="Flag_AltisColonial_F";
@@ -3735,7 +3735,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setFlagTexture ""pics\flag.jpg"";";
+				init="this allowDamage false; this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=601;
 			type="Flag_AltisColonial_F";
@@ -3751,7 +3751,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setFlagTexture ""pics\flag.jpg"";";
+				init="this allowDamage false; this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=604;
 			type="Flag_AltisColonial_F";
@@ -40203,7 +40203,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="this setFlagTexture ""pics\flag.jpg"";";
+				init="this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=3988;
 			type="Flag_RedCrystal_F";
@@ -40242,7 +40242,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="this setFlagTexture ""pics\flag.jpg"";";
+				init="this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=3989;
 			type="Flag_RedCrystal_F";
@@ -40281,7 +40281,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="this setFlagTexture ""pics\flag.jpg"";";
+				init="this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=3990;
 			type="Flag_RedCrystal_F";
@@ -40320,7 +40320,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="this setFlagTexture ""pics\flag.jpg"";";
+				init="this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=3991;
 			type="Flag_RedCrystal_F";
@@ -40359,7 +40359,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="this setFlagTexture ""pics\flag.jpg"";";
+				init="this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=3992;
 			type="Flag_RedCrystal_F";
@@ -40398,7 +40398,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				init="this setFlagTexture ""pics\flag.jpg"";";
+				init="this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=3993;
 			type="Flag_RedCrystal_F";
@@ -54295,7 +54295,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""rhs_weap_hk416d10"",""rhs_weap_hk416d10_m320"",""rhs_weap_hk416d10_LMT_d"",""rhs_weap_hk416d10_LMT_wd"",""rhs_weap_hk416d145"",""rhs_weap_hk416d145_d"",""rhs_weap_hk416d145_d_2"",""rhs_weap_hk416d145_m320"",""rhs_weap_hk416d145_wd"",""rhs_weap_hk416d145_wd_2"",""rhs_weap_m16a4"",""rhs_weap_m16a4_carryhandle"",""rhs_weap_m16a4_carryhandle_M203"",""rhs_weap_m4"",""rhs_weap_m4_carryhandle"",""rhs_weap_m4_m203"",""rhs_weap_m4a1_carryhandle"",""rhs_weap_m4a1_carryhandle_m203"",""rhs_weap_m4a1_blockII"",""rhs_weap_m4a1_blockII_d"",""rhs_weap_m4a1_blockII_M203_d"",""rhs_weap_m4a1_blockII_KAC_d"",""rhs_weap_m4a1_blockII_M203"",""rhs_weap_m4a1_blockII_KAC"",""rhs_weap_m4a1_blockII_wd"",""rhs_weap_m4a1_blockII_M203_wd"",""rhs_weap_m4a1_blockII_KAC_wd"",""rhs_weap_m4a1"",""rhs_weap_m4a1_d"",""rhs_weap_m4a1_m203s_d"",""rhs_weap_m4a1_d_mstock"",""rhs_weap_m4a1_m203"",""rhs_weap_m4a1_wd"",""rhs_weap_m4a1_m203s_wd"",""rhs_weap_m4a1_wd_mstock"",""rhs_weap_M590_8RD"",""rhs_weap_M590_5RD"",""rhs_weap_mk18"",""rhs_weap_mk18_d"",""rhs_weap_mk18_m320"",""rhs_weap_mk18_KAC"",""rhs_weap_mk18_wd"",""rhs_weap_mk18_KAC_wd"",""rhs_weap_ak74_gp25"",""rhs_weap_ak74_3"",""rhs_weap_ak74_2"",""rhs_weap_ak74"",""rhs_weap_ak74n_gp25"",""rhs_weap_ak74n_gp25_npz"",""rhs_weap_ak74n_npz"",""rhs_weap_ak74n_2"",""rhs_weap_ak74n_2_npz"",""rhs_weap_ak74n_2_gp25"",""rhs_weap_ak74n_2_gp25_npz"",""rhs_weap_akm_gp25"",""rhs_weap_akm_zenitco01_b33"",""rhs_weap_akm"",""rhs_weap_akmn_gp25"",""rhs_weap_akmn_gp25_npz"",""rhs_weap_akmn_npz"",""rhs_weap_akmn"",""rhs_weap_akms_gp25"",""rhs_weap_akms"",""rhs_weap_aks74_gp25"",""rhs_weap_aks74_2"",""rhs_weap_aks74"",""rhs_weap_aks74n_gp25"",""rhs_weap_aks74n_gp25_npz"",""rhs_weap_aks74n_npz"",""rhs_weap_aks74n_2"",""rhs_weap_aks74n_2_npz"",""rhs_weap_aks74n"",""rhs_weap_aks74u_sup"",""rhs_weap_pm63"",""rhs_weap_M320""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1]],[[""rhs_30Rnd_545x39_AK_green"",""rhs_30Rnd_545x39_7N6_AK"",""rhs_30Rnd_545x39_7N6M_AK"",""rhs_30Rnd_545x39_7N10_camo_AK"",""rhs_30Rnd_545x39_7N22_camo_AK"",""rhs_30Rnd_545x39_7N10_desert_AK"",""rhs_30Rnd_545x39_7N22_desert_AK"",""rhs_30Rnd_545x39_7N6_green_AK"",""rhs_30Rnd_545x39_7N6M_green_AK"",""rhs_30Rnd_545x39_AK_plum_green"",""rhs_30Rnd_545x39_7N10_plum_AK"",""rhs_30Rnd_545x39_7N22_plum_AK"",""rhs_30Rnd_545x39_7N6M_plum_AK"",""rhs_30Rnd_545x39_7N10_AK"",""rhs_30Rnd_545x39_7N22_AK"",""rhs_30Rnd_545x39_7U1_AK"",""rhs_30Rnd_762x39mm_bakelite"",""rhs_30Rnd_762x39mm_bakelite_89"",""rhs_30Rnd_762x39mm_bakelite_tracer"",""rhs_30Rnd_762x39mm_bakelite_U"",""rhs_30Rnd_762x39mm"",""rhs_30Rnd_762x39mm_89"",""rhs_30Rnd_762x39mm_tracer"",""rhs_30Rnd_762x39mm_U"",""rhs_mag_30Rnd_556x45_M855_Stanag"",""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhs_mag_30Rnd_556x45_M855_Stanag_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855A1_Stanag_Tracer_Red"",""rhs_mag_30Rnd_556x45_Mk262_Stanag"",""rhs_mag_30Rnd_556x45_Mk318_Stanag"",""rhsusf_5Rnd_00Buck"",""rhsusf_5Rnd_300winmag_xm2010"",""rhsusf_5Rnd_FRAG"",""rhsusf_5Rnd_Slug"",""rhsusf_5Rnd_762x51_AICS_m118_special_Mag"",""rhsusf_5Rnd_762x51_AICS_m62_Mag"",""rhsusf_5Rnd_762x51_AICS_m993_Mag"",""rhsusf_5Rnd_762x51_m118_special_Mag"",""rhsusf_5Rnd_762x51_m62_Mag"",""rhsusf_5Rnd_762x51_m993_Mag"",""rhs_5Rnd_338lapua_t5000"",""rhsusf_mag_6Rnd_M397_HET"",""rhsusf_mag_6Rnd_M433_HEDP"",""rhsusf_mag_6Rnd_M441_HE"",""rhsusf_mag_6Rnd_M576_Buckshot"",""rhsusf_mag_6Rnd_M585_white"",""rhsusf_mag_6Rnd_m661_green"",""rhsusf_mag_6Rnd_m662_red"",""rhsusf_mag_6Rnd_M713_red"",""rhsusf_mag_6Rnd_M714_white"",""rhsusf_mag_6Rnd_M715_green"",""rhsusf_mag_6Rnd_M716_yellow"",""rhsusf_8Rnd_00Buck"",""rhsusf_8Rnd_FRAG"",""rhsusf_8Rnd_Slug"",""rhs_GRD40_Green"",""rhs_GRD40_Red"",""rhs_GRD40_White"",""rhs_mag_M397_HET"",""rhs_mag_M433_HEDP"",""rhs_mag_M441_HE"",""rhs_mag_m576"",""rhs_mag_M585_white"",""rhs_mag_m661_green"",""rhs_mag_m662_red"",""rhs_mag_m713_Red"",""rhs_mag_m714_White"",""rhs_mag_m715_Green"",""rhs_VG40MD_Green"",""rhs_VG40MD_Red"",""rhs_VG40MD_White"",""rhs_VG40OP_green"",""rhs_VG40OP_red"",""rhs_VG40OP_white"",""rhs_VG40TB"",""rhs_VOG25"",""rhs_VOG25P"",""rhsusf_10Rnd_762x51_m118_special_Mag"",""rhsusf_10Rnd_762x51_m62_Mag"",""rhsusf_10Rnd_762x51_m993_Mag"",""rhs_10Rnd_762x39mm"",""rhs_10Rnd_762x39mm_89"",""rhs_10Rnd_762x39mm_tracer"",""rhs_10Rnd_762x39mm_U"",""rhs_10rnd_9x39mm_SP5"",""rhs_10rnd_9x39mm_SP6"",""rhs_10Rnd_762x54mmR_7N1"",""rhs_10Rnd_762x54mmR_7N14"",""rhs_20rnd_9x39mm_SP5"",""rhs_20rnd_9x39mm_SP6"",""rhs_30Rnd_762x39mm_polymer"",""rhs_30Rnd_762x39mm_polymer_89"",""rhs_30Rnd_762x39mm_polymer_tracer"",""rhs_30Rnd_762x39mm_polymer_U"",""rhsusf_100Rnd_762x51_m61_ap"",""rhsusf_100Rnd_762x51_m62_tracer"",""rhsusf_100Rnd_762x51"",""rhsusf_100Rnd_762x51_m80a1epr"",""rhsusf_100Rnd_556x45_M855_soft_pouch"",""rhsusf_100Rnd_556x45_M855_mixed_soft_pouch"",""rhsusf_100Rnd_556x45_soft_pouch"",""rhsusf_100Rnd_556x45_mixed_soft_pouch"",""rhs_100Rnd_762x54mmR"",""rhs_100Rnd_762x54mmR_7BZ3"",""rhs_100Rnd_762x54mmR_7N13"",""rhs_100Rnd_762x54mmR_7N26"",""rhs_100Rnd_762x54mmR_green"",""rhsusf_mag_10Rnd_STD_50BMG_M33"",""rhsusf_mag_10Rnd_STD_50BMG_mk211"",""rhsusf_200rnd_556x45_M855_box"",""rhsusf_200rnd_556x45_M855_mixed_box"",""rhsusf_200Rnd_556x45_box"",""rhsusf_200rnd_556x45_mixed_box"",""rhsusf_200Rnd_556x45_M855_soft_pouch"",""rhsusf_200Rnd_556x45_M855_mixed_soft_pouch"",""rhsusf_200Rnd_556x45_soft_pouch"",""rhsusf_200Rnd_556x45_mixed_soft_pouch"",""rhsusf_20Rnd_762x51_m118_special_Mag"",""rhsusf_20Rnd_762x51_m62_Mag"",""rhsusf_20Rnd_762x51_m993_Mag"",""rhsusf_20Rnd_762x51_SR25_m118_special_Mag"",""rhsusf_20Rnd_762x51_SR25_m62_Mag"",""rhsusf_20Rnd_762x51_SR25_m993_Mag"",""rhsusf_50Rnd_762x51_m61_ap"",""rhsusf_50Rnd_762x51_m62_tracer"",""rhsusf_50Rnd_762x51"",""rhsusf_50Rnd_762x51_m80a1epr""],[20,20,20,16,15,12,12,11,11,12,13,13,14,15,17,16,16,15,16,12,14,18,16,16,17,17,8,3,3,5,3,5,5,6,5,5,5,5,5,5,5,4,5,5,5,4,5,3,4,4,5,5,5,5,5,5,5,5,5,4,4,4,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,5,4,3,5,3,4,4,6,4,4,4,5,4,4,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1]],[[],[]],[[],[]]],false]";
+							value="[[[[""rhs_weap_hk416d10"",""rhs_weap_hk416d10_m320"",""rhs_weap_hk416d10_LMT_d"",""rhs_weap_hk416d10_LMT_wd"",""rhs_weap_hk416d145"",""rhs_weap_hk416d145_d"",""rhs_weap_hk416d145_d_2"",""rhs_weap_hk416d145_m320"",""rhs_weap_hk416d145_wd"",""rhs_weap_hk416d145_wd_2"",""rhs_weap_m16a4"",""rhs_weap_m16a4_carryhandle"",""rhs_weap_m16a4_carryhandle_M203"",""rhs_weap_m4"",""rhs_weap_m4_carryhandle"",""rhs_weap_m4_m203"",""rhs_weap_m4a1_carryhandle"",""rhs_weap_m4a1_carryhandle_m203"",""rhs_weap_m4a1_blockII"",""rhs_weap_m4a1_blockII_d"",""rhs_weap_m4a1_blockII_M203_d"",""rhs_weap_m4a1_blockII_KAC_d"",""rhs_weap_m4a1_blockII_M203"",""rhs_weap_m4a1_blockII_KAC"",""rhs_weap_m4a1_blockII_wd"",""rhs_weap_m4a1_blockII_M203_wd"",""rhs_weap_m4a1_blockII_KAC_wd"",""rhs_weap_m4a1"",""rhs_weap_m4a1_d"",""rhs_weap_m4a1_m203s_d"",""rhs_weap_m4a1_d_mstock"",""rhs_weap_m4a1_m203"",""rhs_weap_m4a1_wd"",""rhs_weap_m4a1_m203s_wd"",""rhs_weap_m4a1_wd_mstock"",""rhs_weap_M590_8RD"",""rhs_weap_M590_5RD"",""rhs_weap_mk18"",""rhs_weap_mk18_d"",""rhs_weap_mk18_m320"",""rhs_weap_mk18_KAC"",""rhs_weap_mk18_wd"",""rhs_weap_mk18_KAC_wd"",""rhs_weap_ak74_gp25"",""rhs_weap_ak74_3"",""rhs_weap_ak74_2"",""rhs_weap_ak74"",""rhs_weap_ak74n_gp25"",""rhs_weap_ak74n_gp25_npz"",""rhs_weap_ak74n_npz"",""rhs_weap_ak74n_2"",""rhs_weap_ak74n_2_npz"",""rhs_weap_ak74n_2_gp25"",""rhs_weap_ak74n_2_gp25_npz"",""rhs_weap_akm_gp25"",""rhs_weap_akm_zenitco01_b33"",""rhs_weap_akm"",""rhs_weap_akmn_gp25"",""rhs_weap_akmn_gp25_npz"",""rhs_weap_akmn_npz"",""rhs_weap_akmn"",""rhs_weap_akms_gp25"",""rhs_weap_akms"",""rhs_weap_aks74_gp25"",""rhs_weap_aks74_2"",""rhs_weap_aks74"",""rhs_weap_aks74n_gp25"",""rhs_weap_aks74n_gp25_npz"",""rhs_weap_aks74n_npz"",""rhs_weap_aks74n_2"",""rhs_weap_aks74n_2_npz"",""rhs_weap_aks74n"",""rhs_weap_aks74u_sup"",""rhs_weap_pm63"",""rhs_weap_M320"",""rhs_weap_ak103_npz"",""rhs_weap_ak103_gp25"",""rhs_weap_ak103_gp25_npz"",""rhs_weap_ak103_zenitco01"",""rhs_weap_ak103_zenitco01_npz"",""rhs_weap_ak103"",""rhs_weap_ak103_1_npz"",""rhs_weap_ak103_1"",""rhs_weap_ak103_2_npz"",""rhs_weap_ak103_2"",""rhs_weap_ak104_npz"",""rhs_weap_ak104_zenitco01"",""rhs_weap_ak104_zenitco01_npz"",""rhs_weap_ak104"",""rhs_weap_ak105_npz"",""rhs_weap_ak105_zenitco01"",""rhs_weap_ak105_zenitco01_npz"",""rhs_weap_ak105"",""rhs_weap_ak74m_npz"",""rhs_weap_ak74m_camo"",""rhs_weap_ak74m_camo_npz"",""rhs_weap_ak74m_desert"",""rhs_weap_ak74m_desert_npz"",""rhs_weap_ak74m_gp25"",""rhs_weap_ak74m_gp25_npz"",""rhs_weap_ak74m_fullplum_gp25"",""rhs_weap_ak74m_fullplum_gp25_npz"",""rhs_weap_ak74m_fullplum"",""rhs_weap_ak74m_fullplum_npz"",""rhs_weap_ak74m_zenitco01"",""rhs_weap_ak74m_zenitco01_npz"",""rhs_weap_ak74m_zenitco01_b33"",""rhs_weap_ak74m"",""rhs_weap_45th_ak74m"",""rhs_weap_ak74mr"",""rhs_weap_ak74mr_gp25"",""rhs_weap_ak74n"",""rhs_weap_aks74u"",""rhs_weap_aks74un"",""arifle_Mk20_plain_F"",""arifle_Mk20_F"",""arifle_Mk20_GL_plain_F"",""arifle_Mk20_GL_F"",""arifle_Mk20C_plain_F"",""arifle_Mk20C_F""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]],[[""rhs_30Rnd_545x39_AK_green"",""rhs_30Rnd_545x39_7N6_AK"",""rhs_30Rnd_545x39_7N6M_AK"",""rhs_30Rnd_545x39_7N10_camo_AK"",""rhs_30Rnd_545x39_7N22_camo_AK"",""rhs_30Rnd_545x39_7N10_desert_AK"",""rhs_30Rnd_545x39_7N22_desert_AK"",""rhs_30Rnd_545x39_7N6_green_AK"",""rhs_30Rnd_545x39_7N6M_green_AK"",""rhs_30Rnd_545x39_AK_plum_green"",""rhs_30Rnd_545x39_7N10_plum_AK"",""rhs_30Rnd_545x39_7N22_plum_AK"",""rhs_30Rnd_545x39_7N6M_plum_AK"",""rhs_30Rnd_545x39_7N10_AK"",""rhs_30Rnd_545x39_7N22_AK"",""rhs_30Rnd_545x39_7U1_AK"",""rhs_30Rnd_762x39mm_bakelite"",""rhs_30Rnd_762x39mm_bakelite_89"",""rhs_30Rnd_762x39mm_bakelite_tracer"",""rhs_30Rnd_762x39mm_bakelite_U"",""rhs_30Rnd_762x39mm"",""rhs_30Rnd_762x39mm_89"",""rhs_30Rnd_762x39mm_tracer"",""rhs_30Rnd_762x39mm_U"",""rhs_mag_30Rnd_556x45_M855_Stanag"",""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhs_mag_30Rnd_556x45_M855_Stanag_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855A1_Stanag_Tracer_Red"",""rhs_mag_30Rnd_556x45_Mk262_Stanag"",""rhs_mag_30Rnd_556x45_Mk318_Stanag"",""rhsusf_5Rnd_00Buck"",""rhsusf_5Rnd_300winmag_xm2010"",""rhsusf_5Rnd_FRAG"",""rhsusf_5Rnd_Slug"",""rhsusf_5Rnd_762x51_AICS_m118_special_Mag"",""rhsusf_5Rnd_762x51_AICS_m62_Mag"",""rhsusf_5Rnd_762x51_AICS_m993_Mag"",""rhsusf_5Rnd_762x51_m118_special_Mag"",""rhsusf_5Rnd_762x51_m62_Mag"",""rhsusf_5Rnd_762x51_m993_Mag"",""rhs_5Rnd_338lapua_t5000"",""rhsusf_mag_6Rnd_M397_HET"",""rhsusf_mag_6Rnd_M433_HEDP"",""rhsusf_mag_6Rnd_M441_HE"",""rhsusf_mag_6Rnd_M576_Buckshot"",""rhsusf_mag_6Rnd_M585_white"",""rhsusf_mag_6Rnd_m661_green"",""rhsusf_mag_6Rnd_m662_red"",""rhsusf_mag_6Rnd_M713_red"",""rhsusf_mag_6Rnd_M714_white"",""rhsusf_mag_6Rnd_M715_green"",""rhsusf_mag_6Rnd_M716_yellow"",""rhsusf_8Rnd_00Buck"",""rhsusf_8Rnd_FRAG"",""rhsusf_8Rnd_Slug"",""rhs_GRD40_Green"",""rhs_GRD40_Red"",""rhs_GRD40_White"",""rhs_mag_M397_HET"",""rhs_mag_M433_HEDP"",""rhs_mag_M441_HE"",""rhs_mag_m576"",""rhs_mag_M585_white"",""rhs_mag_m661_green"",""rhs_mag_m662_red"",""rhs_mag_m713_Red"",""rhs_mag_m714_White"",""rhs_mag_m715_Green"",""rhs_VG40MD_Green"",""rhs_VG40MD_Red"",""rhs_VG40MD_White"",""rhs_VG40OP_green"",""rhs_VG40OP_red"",""rhs_VG40OP_white"",""rhs_VG40TB"",""rhs_VOG25"",""rhs_VOG25P"",""rhsusf_10Rnd_762x51_m118_special_Mag"",""rhsusf_10Rnd_762x51_m62_Mag"",""rhsusf_10Rnd_762x51_m993_Mag"",""rhs_10Rnd_762x39mm"",""rhs_10Rnd_762x39mm_89"",""rhs_10Rnd_762x39mm_tracer"",""rhs_10Rnd_762x39mm_U"",""rhs_10rnd_9x39mm_SP5"",""rhs_10rnd_9x39mm_SP6"",""rhs_10Rnd_762x54mmR_7N1"",""rhs_10Rnd_762x54mmR_7N14"",""rhs_20rnd_9x39mm_SP5"",""rhs_20rnd_9x39mm_SP6"",""rhs_30Rnd_762x39mm_polymer"",""rhs_30Rnd_762x39mm_polymer_89"",""rhs_30Rnd_762x39mm_polymer_tracer"",""rhs_30Rnd_762x39mm_polymer_U"",""rhsusf_100Rnd_762x51_m61_ap"",""rhsusf_100Rnd_762x51_m62_tracer"",""rhsusf_100Rnd_762x51"",""rhsusf_100Rnd_762x51_m80a1epr"",""rhsusf_100Rnd_556x45_M855_soft_pouch"",""rhsusf_100Rnd_556x45_M855_mixed_soft_pouch"",""rhsusf_100Rnd_556x45_soft_pouch"",""rhsusf_100Rnd_556x45_mixed_soft_pouch"",""rhs_100Rnd_762x54mmR"",""rhs_100Rnd_762x54mmR_7BZ3"",""rhs_100Rnd_762x54mmR_7N13"",""rhs_100Rnd_762x54mmR_7N26"",""rhs_100Rnd_762x54mmR_green"",""rhsusf_mag_10Rnd_STD_50BMG_M33"",""rhsusf_mag_10Rnd_STD_50BMG_mk211"",""rhsusf_200rnd_556x45_M855_box"",""rhsusf_200rnd_556x45_M855_mixed_box"",""rhsusf_200Rnd_556x45_box"",""rhsusf_200rnd_556x45_mixed_box"",""rhsusf_200Rnd_556x45_M855_soft_pouch"",""rhsusf_200Rnd_556x45_M855_mixed_soft_pouch"",""rhsusf_200Rnd_556x45_soft_pouch"",""rhsusf_200Rnd_556x45_mixed_soft_pouch"",""rhsusf_20Rnd_762x51_m118_special_Mag"",""rhsusf_20Rnd_762x51_m62_Mag"",""rhsusf_20Rnd_762x51_m993_Mag"",""rhsusf_20Rnd_762x51_SR25_m118_special_Mag"",""rhsusf_20Rnd_762x51_SR25_m62_Mag"",""rhsusf_20Rnd_762x51_SR25_m993_Mag"",""rhsusf_50Rnd_762x51_m61_ap"",""rhsusf_50Rnd_762x51_m62_tracer"",""rhsusf_50Rnd_762x51"",""rhsusf_50Rnd_762x51_m80a1epr""],[20,20,20,16,15,12,12,11,11,12,13,13,14,15,17,16,16,15,16,12,14,18,16,16,17,17,8,3,3,5,3,5,5,6,5,5,5,5,5,5,5,4,5,5,5,4,5,3,4,4,5,5,5,5,5,5,5,5,5,4,4,4,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,5,4,3,5,3,4,4,6,4,4,4,5,4,4,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -54958,7 +54958,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""rhs_weap_hk416d10_LMT"",""rhs_weap_m27iar"",""rhs_weap_m4_m203S"",""rhs_weap_m4_m320"",""rhs_weap_m4_mstock"",""rhs_weap_m4_carryhandle_mstock"",""rhs_weap_m4a1_carryhandle_m203S"",""rhs_weap_m4a1_carryhandle_mstock"",""rhs_weap_m4a1_blockII_bk"",""rhs_weap_m4a1_blockII_M203_bk"",""rhs_weap_m4a1_blockII_KAC_bk"",""rhs_weap_m4a1_m203s"",""rhs_weap_m4a1_m320"",""rhs_weap_m4a1_mstock"",""rhs_weap_mk18_bk"",""rhs_weap_mk18_KAC_bk"",""rhs_weap_m32"",""SMG_03_black"",""SMG_03_TR_black"",""SMG_03C_black"",""SMG_03C_TR_black"",""rhsusf_weap_MP7A2""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1,1,1,1,1,2]],[[""rhs_30Rnd_545x39_7N10_2mag_AK"",""rhs_30Rnd_545x39_7N10_2mag_camo_AK"",""rhs_30Rnd_545x39_7N10_2mag_desert_AK"",""rhs_30Rnd_545x39_7N10_2mag_plum_AK"",""rhs_mag_30Rnd_556x45_M855_PMAG"",""rhs_mag_30Rnd_556x45_M855_PMAG_Tan"",""rhs_mag_30Rnd_556x45_M855A1_PMAG"",""rhs_mag_30Rnd_556x45_M855A1_PMAG_Tan"",""rhs_mag_30Rnd_556x45_M855_PMAG_Tan_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855_PMAG_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855A1_PMAG_Tan_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855A1_PMAG_Tracer_Red"",""rhs_mag_30Rnd_556x45_Mk262_PMAG"",""rhs_mag_30Rnd_556x45_Mk262_PMAG_Tan"",""rhs_mag_30Rnd_556x45_Mk318_PMAG"",""rhs_mag_30Rnd_556x45_Mk318_PMAG_Tan"",""rhs_mag_m716_yellow""],[4,4,5,6,6,5,5,6,6,5,5,6,6,6,2,3,5]],[[],[]],[[],[]]],false]";
+							value="[[[[""rhs_weap_hk416d10_LMT"",""rhs_weap_m27iar"",""rhs_weap_m4_m203S"",""rhs_weap_m4_m320"",""rhs_weap_m4_mstock"",""rhs_weap_m4_carryhandle_mstock"",""rhs_weap_m4a1_carryhandle_m203S"",""rhs_weap_m4a1_carryhandle_mstock"",""rhs_weap_m4a1_blockII_bk"",""rhs_weap_m4a1_blockII_M203_bk"",""rhs_weap_m4a1_blockII_KAC_bk"",""rhs_weap_m4a1_m203s"",""rhs_weap_m4a1_m320"",""rhs_weap_m4a1_mstock"",""rhs_weap_mk18_bk"",""rhs_weap_mk18_KAC_bk"",""rhs_weap_m32"",""SMG_03_black"",""SMG_03_TR_black"",""SMG_03C_black"",""SMG_03C_TR_black"",""rhsusf_weap_MP7A2"",""arifle_AK12_F"",""arifle_AK12_GL_F""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1,1,1,1,1,2,1,1]],[[""rhs_30Rnd_545x39_7N10_2mag_AK"",""rhs_30Rnd_545x39_7N10_2mag_camo_AK"",""rhs_30Rnd_545x39_7N10_2mag_desert_AK"",""rhs_30Rnd_545x39_7N10_2mag_plum_AK"",""rhs_mag_30Rnd_556x45_M855_PMAG"",""rhs_mag_30Rnd_556x45_M855_PMAG_Tan"",""rhs_mag_30Rnd_556x45_M855A1_PMAG"",""rhs_mag_30Rnd_556x45_M855A1_PMAG_Tan"",""rhs_mag_30Rnd_556x45_M855_PMAG_Tan_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855_PMAG_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855A1_PMAG_Tan_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855A1_PMAG_Tracer_Red"",""rhs_mag_30Rnd_556x45_Mk262_PMAG"",""rhs_mag_30Rnd_556x45_Mk262_PMAG_Tan"",""rhs_mag_30Rnd_556x45_Mk318_PMAG"",""rhs_mag_30Rnd_556x45_Mk318_PMAG_Tan"",""rhs_mag_m716_yellow""],[4,4,5,6,6,5,5,6,6,5,5,6,6,6,2,3,5]],[[""rhsusf_acc_tacsac_blk""],[1]],[[],[]]],false]";
 						};
 					};
 				};
@@ -55241,7 +55241,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[],[]],[[],[]],[[""V_PlateCarrierGL_blk"",""V_PlateCarrier1_blk"",""V_PlateCarrier2_blk"",""V_PlateCarrierSpec_blk"",""V_Chestrig_blk"",""V_Pocketed_black_F"",""V_TacVestIR_blk"",""V_BandollierB_blk"",""V_TacVest_blk"",""G_Balaclava_blk"",""G_Balaclava_combat"",""G_Balaclava_lowprofile"",""G_Bandanna_blk"",""H_Bandanna_gry"",""H_PASGT_basic_black_F"",""H_Watchcap_blk"",""H_Beret_blk"",""G_Balaclava_TI_blk_F"",""G_Balaclava_TI_G_blk_F"",""G_Aviator"",""H_Cap_blk"",""U_I_G_resistanceLeader_F"",""H_Cap_headphones"",""G_WirelessEarpiece_F"",""G_Bandanna_aviator"",""G_Bandanna_beast"",""G_Bandanna_shades"",""G_Bandanna_sport"",""H_EarProtectors_black_F"",""H_HeadSet_black_F"",""H_Bandanna_khk_hs"",""H_Cap_marshal"",""H_Booniehat_khk_hs"",""rhsusf_shemagh_grn"",""rhsusf_shemagh2_grn"",""rhsusf_shemagh_gogg_grn"",""rhsusf_shemagh2_gogg_grn"",""rhs_uniform_g3_blk""],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1]],[[""B_AssaultPack_blk"",""B_TacticalPack_blk"",""B_ViperHarness_blk_F"",""B_LegStrapBag_black_F""],[1,1,1,1]]],false]";
+							value="[[[[],[]],[[],[]],[[""V_PlateCarrierGL_blk"",""V_PlateCarrier1_blk"",""V_PlateCarrier2_blk"",""V_PlateCarrierSpec_blk"",""V_Chestrig_blk"",""V_Pocketed_black_F"",""V_TacVestIR_blk"",""V_BandollierB_blk"",""V_TacVest_blk"",""G_Balaclava_blk"",""G_Balaclava_combat"",""G_Balaclava_lowprofile"",""G_Bandanna_blk"",""H_Bandanna_gry"",""H_PASGT_basic_black_F"",""H_Watchcap_blk"",""H_Beret_blk"",""G_Balaclava_TI_blk_F"",""G_Balaclava_TI_G_blk_F"",""G_Aviator"",""H_Cap_blk"",""U_I_G_resistanceLeader_F"",""H_Cap_headphones"",""G_WirelessEarpiece_F"",""G_Bandanna_aviator"",""G_Bandanna_beast"",""G_Bandanna_shades"",""G_Bandanna_sport"",""H_EarProtectors_black_F"",""H_HeadSet_black_F"",""H_Bandanna_khk_hs"",""H_Cap_marshal"",""H_Booniehat_khk_hs"",""rhsusf_shemagh_grn"",""rhsusf_shemagh2_grn"",""rhsusf_shemagh_gogg_grn"",""rhsusf_shemagh2_gogg_grn"",""rhs_uniform_g3_blk"",""rhsusf_opscore_bk"",""rhsusf_opscore_bk_pelt"",""H_HelmetB_black"",""rhsusf_protech_helmet"",""rhsusf_protech_helmet_ess"",""rhsusf_protech_helmet_rhino"",""rhsusf_protech_helmet_rhino_ess""],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]],[[""B_AssaultPack_blk"",""B_TacticalPack_blk"",""B_ViperHarness_blk_F"",""B_LegStrapBag_black_F""],[1,1,1,1]]],false]";
 						};
 					};
 				};
@@ -56022,7 +56022,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[],[]],[[],[]],[[""V_Chestrig_rgr"",""V_Chestrig_khk"",""V_Chestrig_oli"",""H_Bandanna_cbr"",""H_Bandanna_khk"",""H_Bandanna_sgg"",""H_Bandanna_sand"",""H_Bandanna_camo"",""H_Watchcap_cbr"",""H_Watchcap_camo"",""H_Watchcap_khk"",""H_Booniehat_khk"",""H_Booniehat_mcamo"",""H_Booniehat_oli"",""H_Booniehat_tan"",""H_Booniehat_tna_F"",""H_Cap_grn"",""H_Cap_oli"",""H_Cap_oli_hs"",""H_Cap_khaki_specops_UK"",""H_Cap_usblack"",""H_Cap_tan_specops_US"",""V_HarnessOGL_brn"",""V_HarnessOGL_ghex_F"",""V_HarnessOGL_gry"",""V_HarnessO_brn"",""V_HarnessO_ghex_F"",""V_HarnessO_gry"",""H_HelmetB_light"",""H_HelmetB_light_black"",""H_HelmetB_light_desert"",""H_HelmetB_light_grass"",""H_HelmetB_light_sand"",""H_HelmetB_light_snakeskin"",""H_HelmetB_Light_tna_F"",""V_Pocketed_black_F"",""V_Pocketed_coyote_F"",""V_Pocketed_olive_F"",""V_BandollierB_cbr"",""V_BandollierB_ghex_F"",""V_BandollierB_rgr"",""V_BandollierB_khk"",""V_BandollierB_oli"",""V_TacChestrig_cbr_F"",""V_TacChestrig_grn_F"",""V_TacChestrig_oli_F"",""V_TacVest_brn"",""V_TacVest_camo"",""V_TacVest_khk"",""V_TacVest_oli"",""G_Bandanna_khk"",""H_Bandanna_mcamo"",""G_Bandanna_tan"",""H_Beret_02"",""H_Cap_tan"",""H_MilCap_gry"",""H_MilCap_mcamo"",""H_MilCap_tna_F"",""G_Bandanna_oli"",""rhsusf_lwh_helmet_M1942"",""rhsusf_lwh_helmet_marpatd"",""rhsusf_lwh_helmet_marpatd_ess"",""rhsusf_lwh_helmet_marpatd_headset"",""rhsusf_lwh_helmet_marpatwd"",""rhsusf_lwh_helmet_marpatwd_blk_ess"",""rhsusf_lwh_helmet_marpatwd_headset_blk2"",""rhsusf_lwh_helmet_marpatwd_headset_blk"",""rhsusf_lwh_helmet_marpatwd_headset"",""rhsusf_lwh_helmet_marpatwd_ess"",""rhs_beanie_green"",""rhs_beanie"",""rhs_Booniehat_digi"",""rhs_Booniehat_flora"",""H_Booniehat_khk_hs"",""rhs_booniehat2_marpatd"",""rhs_booniehat2_marpatwd"",""rhs_Booniehat_ocp"",""rhs_Booniehat_ucp"",""rhsusf_Bowman"",""rhsusf_bowman_cap"",""rhs_fieldcap"",""rhs_fieldcap_digi"",""rhs_fieldcap_digi2"",""rhs_fieldcap_ml"",""rhs_fieldcap_khk"",""rhs_fieldcap_vsr"",""H_HeadBandage_clean_F"",""H_HeadBandage_stained_F"",""H_HeadBandage_bloody_F"",""H_MilCap_blue"",""rhsusf_patrolcap_ocp"",""rhsusf_patrolcap_ucp"",""rhs_8point_marpatd"",""rhs_8point_marpatwd"",""V_Chestrig_blk"",""V_BandollierB_blk"",""V_TacVest_blk"",""H_Bandanna_gry"",""H_Bandanna_blu"",""H_Bandanna_khk_hs"",""H_Watchcap_blk"",""H_Cap_blk""],[1,1,1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1,1,1,1,1,1,5,5,5,5,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,5,5,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]],[[],[]]],false]";
+							value="[[[[],[]],[[],[]],[[""V_Chestrig_rgr"",""V_Chestrig_khk"",""V_Chestrig_oli"",""H_Bandanna_cbr"",""H_Bandanna_khk"",""H_Bandanna_sgg"",""H_Bandanna_sand"",""H_Bandanna_camo"",""H_Watchcap_cbr"",""H_Watchcap_camo"",""H_Watchcap_khk"",""H_Booniehat_khk"",""H_Booniehat_mcamo"",""H_Booniehat_oli"",""H_Booniehat_tan"",""H_Booniehat_tna_F"",""H_Cap_grn"",""H_Cap_oli"",""H_Cap_oli_hs"",""H_Cap_khaki_specops_UK"",""H_Cap_usblack"",""H_Cap_tan_specops_US"",""V_HarnessOGL_brn"",""V_HarnessOGL_ghex_F"",""V_HarnessOGL_gry"",""V_HarnessO_brn"",""V_HarnessO_ghex_F"",""V_HarnessO_gry"",""H_HelmetB_light"",""H_HelmetB_light_black"",""H_HelmetB_light_desert"",""H_HelmetB_light_grass"",""H_HelmetB_light_sand"",""H_HelmetB_light_snakeskin"",""H_HelmetB_Light_tna_F"",""V_Pocketed_black_F"",""V_Pocketed_coyote_F"",""V_Pocketed_olive_F"",""V_BandollierB_cbr"",""V_BandollierB_ghex_F"",""V_BandollierB_rgr"",""V_BandollierB_khk"",""V_BandollierB_oli"",""V_TacChestrig_cbr_F"",""V_TacChestrig_grn_F"",""V_TacChestrig_oli_F"",""V_TacVest_brn"",""V_TacVest_camo"",""V_TacVest_khk"",""V_TacVest_oli"",""G_Bandanna_khk"",""H_Bandanna_mcamo"",""G_Bandanna_tan"",""H_Beret_02"",""H_Cap_tan"",""H_MilCap_gry"",""H_MilCap_mcamo"",""H_MilCap_tna_F"",""G_Bandanna_oli"",""rhsusf_lwh_helmet_M1942"",""rhsusf_lwh_helmet_marpatd"",""rhsusf_lwh_helmet_marpatd_ess"",""rhsusf_lwh_helmet_marpatd_headset"",""rhsusf_lwh_helmet_marpatwd"",""rhsusf_lwh_helmet_marpatwd_blk_ess"",""rhsusf_lwh_helmet_marpatwd_headset_blk2"",""rhsusf_lwh_helmet_marpatwd_headset_blk"",""rhsusf_lwh_helmet_marpatwd_headset"",""rhsusf_lwh_helmet_marpatwd_ess"",""rhs_beanie_green"",""rhs_beanie"",""rhs_Booniehat_digi"",""rhs_Booniehat_flora"",""H_Booniehat_khk_hs"",""rhs_booniehat2_marpatd"",""rhs_booniehat2_marpatwd"",""rhs_Booniehat_ocp"",""rhs_Booniehat_ucp"",""rhsusf_Bowman"",""rhsusf_bowman_cap"",""H_HeadBandage_clean_F"",""H_HeadBandage_stained_F"",""H_HeadBandage_bloody_F"",""H_MilCap_blue"",""rhsusf_patrolcap_ocp"",""rhsusf_patrolcap_ucp"",""rhs_8point_marpatd"",""rhs_8point_marpatwd"",""V_Chestrig_blk"",""V_BandollierB_blk"",""V_TacVest_blk"",""H_Bandanna_gry"",""H_Bandanna_blu"",""H_Bandanna_khk_hs"",""H_Watchcap_blk"",""H_Cap_blk""],[1,1,1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,1,1,1,1,1,1,5,5,5,5,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,5,5,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]],[[],[]]],false]";
 						};
 					};
 				};
@@ -56878,7 +56878,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[],[]],[[],[]],[[""optic_Holosight"",""optic_Holosight_khk_F"",""optic_Holosight_smg"",""optic_Holosight_smg_khk_F"",""acc_flashlight_pistol"",""acc_flashlight"",""acc_flashlight_smg_01"",""rhs_acc_1p29"",""rhs_acc_1p63"",""rhs_acc_rakursPM"",""rhs_acc_1p78"",""rhs_acc_1p87"",""rhs_acc_1pn93_1"",""rhs_acc_1pn93_2"",""rhs_acc_2dpZenit"",""rhs_acc_2dpZenit_ris"",""rhs_acc_6p9_suppressor"",""rhsusf_acc_grip2"",""rhsusf_acc_grip2_tan"",""rhsusf_acc_grip2_wd"",""rhsusf_acc_T1_high"",""rhsusf_acc_T1_low"",""rhsusf_acc_T1_low_fwd"",""rhs_acc_uuk"",""rhsusf_acc_anpas13gv1"",""rhsusf_acc_anpeq15side"",""rhsusf_acc_anpeq15_top"",""rhsusf_acc_anpeq15_wmx"",""rhsusf_acc_anpeq15_wmx_light"",""rhsusf_acc_anpeq15side_bk"",""rhsusf_acc_anpeq15_bk_top"",""rhsusf_acc_anpeq15"",""rhsusf_acc_anpeq15_light"",""rhsusf_acc_anpeq15_bk"",""rhsusf_acc_anpeq15_bk_light"",""rhsusf_acc_anpeq15A"",""rhsusf_acc_anpeq16a"",""rhsusf_acc_anpeq16a_light"",""rhsusf_acc_anpeq16a_top"",""rhsusf_acc_anpeq16a_light_top"",""rhsusf_acc_ACOG2_USMC"",""rhsusf_acc_ACOG3_USMC"",""rhsusf_acc_ACOG_USMC"",""rhsusf_acc_anpvs27"",""rhsusf_acc_ARDEC_M240"",""rhs_acc_at4_handler"",""rhs_bipod"",""rhs_acc_dtk1l"",""rhs_acc_ak5"",""rhs_acc_dtk"",""rhs_acc_dtkakm"",""rhs_acc_dtk1983"",""rhs_acc_dtk1"",""rhs_acc_dtk1p"",""rhs_acc_dtk2"",""rhs_acc_dtk3"",""rhs_acc_dtk4short"",""rhs_acc_dtk4screws"",""rhs_acc_dtk4long"",""rhs_acc_ekp1"",""rhs_acc_ekp8_02"",""rhs_acc_ekp8_18"",""rhsusf_acc_EOTECH"",""rhsusf_acc_g33_T1"",""rhsusf_acc_g33_xps3"",""rhsusf_acc_g33_xps3_tan"",""rhsusf_acc_grip1"",""rhs_acc_harris_swivel"",""rhsusf_acc_harris_bipod"",""rhsusf_acc_harris_swivel"",""rhsusf_acc_ELCAN"",""rhsusf_acc_ELCAN_ard"",""rhsusf_acc_ACOG"",""rhsusf_acc_ACOG2"",""rhsusf_acc_ACOG3"",""rhsusf_acc_ACOG_anpvs27"",""rhsusf_acc_m24_muzzlehider_black"",""rhsusf_acc_m24_muzzlehider_d"",""rhsusf_acc_m24_muzzlehider_wd"",""rhsusf_acc_m24_silencer_black"",""rhsusf_acc_m24_silencer_d"",""rhsusf_acc_m24_silencer_wd"",""rhsusf_acc_M2A1"",""rhs_optic_maaws"",""rhsusf_acc_eotech_552"",""rhsusf_acc_eotech_552_d"",""rhsusf_acc_eotech_552_wd"",""rhsusf_acc_compm4"",""rhsusf_acc_M952V"",""optic_Holosight_blk_F"",""optic_Holosight_smg_blk_F"",""optic_MRD"",""rhsusf_acc_mrds"",""rhsusf_acc_mrds_fwd"",""rhsusf_acc_mrds_c"",""rhsusf_acc_mrds_fwd_c"",""rhs_acc_nita"",""rhsusf_acc_nt4_black"",""rhsusf_acc_nt4_tan"",""rhs_acc_pbs1"",""rhs_acc_pbs4"",""rhs_acc_perst1ik"",""rhs_acc_perst1ik_ris"",""rhs_acc_perst3"",""rhs_acc_perst3_top"",""rhs_acc_perst3_2dp_h"",""rhs_acc_perst3_2dp_light_h"",""rhs_acc_pgs64"",""rhs_acc_pgs64_74u"",""rhs_acc_pgs64_74un"",""rhs_acc_pgo7v"",""rhs_acc_pgo7v2"",""rhs_acc_pgo7v3"",""rhs_acc_pkas"",""rhs_acc_grip_rk2"",""rhs_acc_grip_rk6"",""rhsusf_acc_RM05"",""rhsusf_acc_RM05_fwd"",""rhsusf_acc_rotex5_grey"",""rhsusf_acc_rotex5_tan"",""rhsusf_acc_rotex_mp7_aor1"",""rhsusf_acc_rotex_mp7"",""rhsusf_acc_rotex_mp7_desert"",""rhsusf_acc_rotex_mp7_winter"",""rhsusf_acc_rvg_blk"",""rhsusf_acc_rvg_de"",""rhsusf_acc_RX01_NoFilter"",""rhsusf_acc_RX01"",""rhsusf_acc_RX01_NoFilter_tan"",""rhsusf_acc_RX01_tan"",""rhsusf_acc_grip4"",""rhsusf_acc_SF3P556"",""rhsusf_acc_SFMB556"",""rhsusf_acc_omega9k"",""rhs_weap_optic_smaw"",""rhsusf_acc_SR25S"",""rhsusf_acc_SR25S_d"",""rhsusf_acc_SR25S_wd"",""rhsusf_acc_su230"",""rhsusf_acc_su230_c"",""rhsusf_acc_su230_mrds"",""rhsusf_acc_su230_mrds_c"",""rhsusf_acc_su230a"",""rhsusf_acc_su230a_c"",""rhsusf_acc_su230a_mrds"",""rhsusf_acc_su230a_mrds_c"",""rhsusf_acc_ACOG_MDO"",""rhsusf_acc_ACOG_d"",""rhsusf_acc_ACOG_wd"",""rhsusf_acc_ACOG_RMR"",""rhsusf_acc_tdstubby_blk"",""rhsusf_acc_tdstubby_tan"",""rhsusf_acc_grip3"",""rhsusf_acc_grip3_tan"",""rhs_acc_tgpa"",""rhs_acc_tgpv"",""rhs_acc_tgpv2"",""rhsusf_acc_M2010S"",""rhsusf_acc_M2010S_d"",""rhsusf_acc_M2010S_sa"",""rhsusf_acc_wmx"",""rhsusf_acc_wmx_bk"",""rhsusf_acc_eotech_xps3""],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1]],[[],[]]],false]";
+							value="[[[[],[]],[[],[]],[[""optic_Holosight"",""optic_Holosight_khk_F"",""optic_Holosight_smg"",""optic_Holosight_smg_khk_F"",""acc_flashlight_pistol"",""acc_flashlight"",""acc_flashlight_smg_01"",""rhs_acc_1p29"",""rhs_acc_1p63"",""rhs_acc_rakursPM"",""rhs_acc_1p78"",""rhs_acc_1p87"",""rhs_acc_1pn93_1"",""rhs_acc_1pn93_2"",""rhs_acc_2dpZenit"",""rhs_acc_2dpZenit_ris"",""rhs_acc_6p9_suppressor"",""rhsusf_acc_grip2"",""rhsusf_acc_grip2_tan"",""rhsusf_acc_grip2_wd"",""rhsusf_acc_T1_high"",""rhsusf_acc_T1_low"",""rhsusf_acc_T1_low_fwd"",""rhs_acc_uuk"",""rhsusf_acc_anpas13gv1"",""rhsusf_acc_anpeq15side"",""rhsusf_acc_anpeq15_top"",""rhsusf_acc_anpeq15_wmx"",""rhsusf_acc_anpeq15_wmx_light"",""rhsusf_acc_anpeq15side_bk"",""rhsusf_acc_anpeq15_bk_top"",""rhsusf_acc_anpeq15"",""rhsusf_acc_anpeq15_light"",""rhsusf_acc_anpeq15_bk"",""rhsusf_acc_anpeq15_bk_light"",""rhsusf_acc_anpeq15A"",""rhsusf_acc_anpeq16a"",""rhsusf_acc_anpeq16a_light"",""rhsusf_acc_anpeq16a_top"",""rhsusf_acc_anpeq16a_light_top"",""rhsusf_acc_ACOG2_USMC"",""rhsusf_acc_ACOG3_USMC"",""rhsusf_acc_ACOG_USMC"",""rhsusf_acc_anpvs27"",""rhsusf_acc_ARDEC_M240"",""rhs_acc_at4_handler"",""rhs_bipod"",""rhs_acc_dtk1l"",""rhs_acc_ak5"",""rhs_acc_dtk"",""rhs_acc_dtkakm"",""rhs_acc_dtk1983"",""rhs_acc_dtk1"",""rhs_acc_dtk1p"",""rhs_acc_dtk2"",""rhs_acc_dtk3"",""rhs_acc_dtk4short"",""rhs_acc_dtk4screws"",""rhs_acc_dtk4long"",""rhs_acc_ekp1"",""rhs_acc_ekp8_02"",""rhs_acc_ekp8_18"",""rhsusf_acc_EOTECH"",""rhsusf_acc_g33_T1"",""rhsusf_acc_g33_xps3"",""rhsusf_acc_g33_xps3_tan"",""rhsusf_acc_grip1"",""rhs_acc_harris_swivel"",""rhsusf_acc_harris_bipod"",""rhsusf_acc_harris_swivel"",""rhsusf_acc_ELCAN"",""rhsusf_acc_ELCAN_ard"",""rhsusf_acc_ACOG"",""rhsusf_acc_ACOG2"",""rhsusf_acc_ACOG3"",""rhsusf_acc_ACOG_anpvs27"",""rhsusf_acc_m24_muzzlehider_black"",""rhsusf_acc_m24_muzzlehider_d"",""rhsusf_acc_m24_muzzlehider_wd"",""rhsusf_acc_m24_silencer_black"",""rhsusf_acc_m24_silencer_d"",""rhsusf_acc_m24_silencer_wd"",""rhsusf_acc_M2A1"",""rhs_optic_maaws"",""rhsusf_acc_eotech_552"",""rhsusf_acc_eotech_552_d"",""rhsusf_acc_eotech_552_wd"",""rhsusf_acc_compm4"",""rhsusf_acc_M952V"",""optic_Holosight_blk_F"",""optic_Holosight_smg_blk_F"",""optic_MRD"",""rhsusf_acc_mrds"",""rhsusf_acc_mrds_fwd"",""rhsusf_acc_mrds_c"",""rhsusf_acc_mrds_fwd_c"",""rhs_acc_nita"",""rhsusf_acc_nt4_black"",""rhsusf_acc_nt4_tan"",""rhs_acc_pbs1"",""rhs_acc_pbs4"",""rhs_acc_perst1ik"",""rhs_acc_perst1ik_ris"",""rhs_acc_perst3"",""rhs_acc_perst3_top"",""rhs_acc_perst3_2dp_h"",""rhs_acc_perst3_2dp_light_h"",""rhs_acc_pgs64"",""rhs_acc_pgs64_74u"",""rhs_acc_pgs64_74un"",""rhs_acc_pgo7v"",""rhs_acc_pgo7v2"",""rhs_acc_pgo7v3"",""rhs_acc_pkas"",""rhs_acc_grip_rk2"",""rhs_acc_grip_rk6"",""rhsusf_acc_RM05"",""rhsusf_acc_RM05_fwd"",""rhsusf_acc_rotex5_grey"",""rhsusf_acc_rotex5_tan"",""rhsusf_acc_rotex_mp7_aor1"",""rhsusf_acc_rotex_mp7"",""rhsusf_acc_rotex_mp7_desert"",""rhsusf_acc_rotex_mp7_winter"",""rhsusf_acc_rvg_blk"",""rhsusf_acc_rvg_de"",""rhsusf_acc_RX01_NoFilter"",""rhsusf_acc_RX01"",""rhsusf_acc_RX01_NoFilter_tan"",""rhsusf_acc_RX01_tan"",""rhsusf_acc_grip4"",""rhsusf_acc_SF3P556"",""rhsusf_acc_SFMB556"",""rhsusf_acc_omega9k"",""rhs_weap_optic_smaw"",""rhsusf_acc_SR25S"",""rhsusf_acc_SR25S_d"",""rhsusf_acc_SR25S_wd"",""rhsusf_acc_su230"",""rhsusf_acc_su230_c"",""rhsusf_acc_su230_mrds"",""rhsusf_acc_su230_mrds_c"",""rhsusf_acc_su230a"",""rhsusf_acc_su230a_c"",""rhsusf_acc_su230a_mrds"",""rhsusf_acc_su230a_mrds_c"",""rhsusf_acc_ACOG_MDO"",""rhsusf_acc_ACOG_d"",""rhsusf_acc_ACOG_wd"",""rhsusf_acc_ACOG_RMR"",""rhsusf_acc_tdstubby_blk"",""rhsusf_acc_tdstubby_tan"",""rhsusf_acc_grip3"",""rhsusf_acc_grip3_tan"",""rhs_acc_tgpa"",""rhs_acc_tgpv"",""rhs_acc_tgpv2"",""rhsusf_acc_M2010S"",""rhsusf_acc_M2010S_d"",""rhsusf_acc_M2010S_sa"",""rhsusf_acc_wmx"",""rhsusf_acc_wmx_bk"",""rhsusf_acc_eotech_xps3"",""muzzle_snds_338_black"",""muzzle_snds_338_green"",""muzzle_snds_338_sand"",""muzzle_snds_acp"",""muzzle_snds_570"",""muzzle_snds_M"",""muzzle_snds_m_khk_F"",""muzzle_snds_m_snd_F"",""muzzle_snds_H"",""muzzle_snds_H_khk_F"",""muzzle_snds_H_snd_F"",""muzzle_snds_B"",""muzzle_snds_B_khk_F"",""muzzle_snds_B_snd_F"",""muzzle_snds_L"",""muzzle_snds_93mmg"",""muzzle_snds_93mmg_tan"",""rhsusf_acc_tacsac_blue"",""rhsusf_acc_tacsac_tan"",""bipod_01_F_blk"",""bipod_01_F_khk"",""bipod_01_F_mtp"",""bipod_01_F_snd"",""rhsusf_acc_M2010S_wd""],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]],[[],[]]],false]";
 						};
 					};
 				};
@@ -57014,7 +57014,7 @@ class Mission
 			flags=1;
 			class Attributes
 			{
-				init="this setFlagTexture ""pics\flag8.jpg"";";
+				init="this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=6046;
 			type="Banner_01_F";
@@ -57055,7 +57055,7 @@ class Mission
 			flags=1;
 			class Attributes
 			{
-				init="this setFlagTexture ""pics\flag8.jpg"";";
+				init="this setFlagTexture ""pics\flag5.jpg"";";
 			};
 			id=6047;
 			type="Banner_01_F";
@@ -57077,7 +57077,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="pics\flag8.jpg";
+							value="pics\flag5.jpg";
 						};
 					};
 				};
@@ -68106,7 +68106,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[""rhs_weap_hk416d10_m320"",""rhs_weap_hk416d145_m320"",""rhs_weap_m16a4_carryhandle_M203"",""rhs_weap_m4_m203"",""rhs_weap_m4a1_carryhandle_m203"",""rhs_weap_m4a1_blockII_M203_d"",""rhs_weap_m4a1_blockII_M203"",""rhs_weap_m4a1_blockII_M203_wd"",""rhs_weap_m4a1_m203s_d"",""rhs_weap_m4a1_m203"",""rhs_weap_m4a1_m203s_wd"",""rhs_weap_mk18_m320"",""rhs_weap_ak74_gp25"",""rhs_weap_ak74n_gp25"",""rhs_weap_ak74n_gp25_npz"",""rhs_weap_ak74n_2_gp25"",""rhs_weap_ak74n_2_gp25_npz"",""rhs_weap_akm_gp25"",""rhs_weap_akmn_gp25"",""rhs_weap_akmn_gp25_npz"",""rhs_weap_akms_gp25"",""rhs_weap_aks74_gp25"",""rhs_weap_aks74n_gp25"",""rhs_weap_aks74n_gp25_npz"",""rhs_weap_m32"",""rhs_weap_m4_m203S"",""rhs_weap_m4_m320"",""rhs_weap_m4a1_carryhandle_m203S"",""rhs_weap_m4a1_blockII_M203_bk"",""rhs_weap_m4a1_m203s"",""rhs_weap_m4a1_m320"",""rhs_weap_M320""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,2,5,5,5,5,5,5,5,5,1,1,1,1,1,1,1,1]],[[""rhs_30Rnd_545x39_AK_green"",""rhs_30Rnd_545x39_7N6_AK"",""rhs_30Rnd_545x39_7N6M_AK"",""rhs_30Rnd_545x39_7N10_camo_AK"",""rhs_30Rnd_545x39_7N22_camo_AK"",""rhs_30Rnd_545x39_7N10_desert_AK"",""rhs_30Rnd_545x39_7N22_desert_AK"",""rhs_30Rnd_545x39_7N6_green_AK"",""rhs_30Rnd_545x39_7N6M_green_AK"",""rhs_30Rnd_545x39_AK_plum_green"",""rhs_30Rnd_545x39_7N10_plum_AK"",""rhs_30Rnd_545x39_7N22_plum_AK"",""rhs_30Rnd_545x39_7N6M_plum_AK"",""rhs_30Rnd_545x39_7N10_AK"",""rhs_30Rnd_545x39_7N22_AK"",""rhs_30Rnd_545x39_7U1_AK"",""rhs_30Rnd_762x39mm_bakelite"",""rhs_30Rnd_762x39mm_bakelite_89"",""rhs_30Rnd_762x39mm_bakelite_tracer"",""rhs_30Rnd_762x39mm_bakelite_U"",""rhs_30Rnd_762x39mm"",""rhs_30Rnd_762x39mm_89"",""rhs_30Rnd_762x39mm_tracer"",""rhs_30Rnd_762x39mm_U"",""rhs_mag_30Rnd_556x45_M855_Stanag"",""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhs_mag_30Rnd_556x45_M855_Stanag_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855A1_Stanag_Tracer_Red"",""rhs_mag_30Rnd_556x45_Mk262_Stanag"",""rhs_mag_30Rnd_556x45_Mk318_Stanag"",""rhsusf_5Rnd_00Buck"",""rhsusf_5Rnd_300winmag_xm2010"",""rhsusf_5Rnd_FRAG"",""rhsusf_5Rnd_Slug"",""rhsusf_5Rnd_762x51_AICS_m118_special_Mag"",""rhsusf_5Rnd_762x51_AICS_m62_Mag"",""rhsusf_5Rnd_762x51_AICS_m993_Mag"",""rhsusf_5Rnd_762x51_m118_special_Mag"",""rhsusf_5Rnd_762x51_m62_Mag"",""rhsusf_5Rnd_762x51_m993_Mag"",""rhs_5Rnd_338lapua_t5000"",""rhsusf_mag_6Rnd_M397_HET"",""rhsusf_mag_6Rnd_M433_HEDP"",""rhsusf_mag_6Rnd_M441_HE"",""rhsusf_mag_6Rnd_M576_Buckshot"",""rhsusf_mag_6Rnd_M585_white"",""rhsusf_mag_6Rnd_m661_green"",""rhsusf_mag_6Rnd_m662_red"",""rhsusf_mag_6Rnd_M713_red"",""rhsusf_mag_6Rnd_M714_white"",""rhsusf_mag_6Rnd_M715_green"",""rhsusf_mag_6Rnd_M716_yellow"",""rhsusf_8Rnd_00Buck"",""rhsusf_8Rnd_FRAG"",""rhsusf_8Rnd_Slug"",""rhs_GRD40_Green"",""rhs_GRD40_Red"",""rhs_GRD40_White"",""rhs_mag_M397_HET"",""rhs_mag_M433_HEDP"",""rhs_mag_M441_HE"",""rhs_mag_m576"",""rhs_mag_M585_white"",""rhs_mag_m661_green"",""rhs_mag_m662_red"",""rhs_mag_m713_Red"",""rhs_mag_m714_White"",""rhs_mag_m715_Green"",""rhs_VG40MD_Green"",""rhs_VG40MD_Red"",""rhs_VG40MD_White"",""rhs_VG40OP_green"",""rhs_VG40OP_red"",""rhs_VG40OP_white"",""rhs_VG40TB"",""rhs_VOG25"",""rhs_VOG25P"",""rhsusf_10Rnd_762x51_m118_special_Mag"",""rhsusf_10Rnd_762x51_m62_Mag"",""rhsusf_10Rnd_762x51_m993_Mag"",""rhs_10Rnd_762x39mm"",""rhs_10Rnd_762x39mm_89"",""rhs_10Rnd_762x39mm_tracer"",""rhs_10Rnd_762x39mm_U"",""rhs_10rnd_9x39mm_SP5"",""rhs_10rnd_9x39mm_SP6"",""rhs_10Rnd_762x54mmR_7N1"",""rhs_10Rnd_762x54mmR_7N14"",""rhs_20rnd_9x39mm_SP5"",""rhs_20rnd_9x39mm_SP6"",""rhs_30Rnd_762x39mm_polymer"",""rhs_30Rnd_762x39mm_polymer_89"",""rhs_30Rnd_762x39mm_polymer_tracer"",""rhs_30Rnd_762x39mm_polymer_U""],[20,20,20,16,15,12,12,11,11,12,13,13,14,15,17,16,16,15,16,12,14,18,16,16,17,17,8,3,3,5,3,5,5,6,5,5,5,5,5,5,5,4,5,5,5,4,5,3,4,4,5,5,5,5,5,5,5,5,5,4,4,4,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,5,4,3,5,3,4,4,6,4,4,4,5,4,4,4,4,4]],[[],[]],[[],[]]],false]";
+							value="[[[[""rhs_weap_hk416d10_m320"",""rhs_weap_hk416d145_m320"",""rhs_weap_m16a4_carryhandle_M203"",""rhs_weap_m4_m203"",""rhs_weap_m4a1_carryhandle_m203"",""rhs_weap_m4a1_blockII_M203_d"",""rhs_weap_m4a1_blockII_M203"",""rhs_weap_m4a1_blockII_M203_wd"",""rhs_weap_m4a1_m203s_d"",""rhs_weap_m4a1_m203"",""rhs_weap_m4a1_m203s_wd"",""rhs_weap_mk18_m320"",""rhs_weap_ak74_gp25"",""rhs_weap_ak74n_gp25"",""rhs_weap_ak74n_gp25_npz"",""rhs_weap_ak74n_2_gp25"",""rhs_weap_ak74n_2_gp25_npz"",""rhs_weap_akm_gp25"",""rhs_weap_akmn_gp25"",""rhs_weap_akmn_gp25_npz"",""rhs_weap_akms_gp25"",""rhs_weap_aks74_gp25"",""rhs_weap_aks74n_gp25"",""rhs_weap_aks74n_gp25_npz"",""rhs_weap_m32"",""rhs_weap_m4_m203S"",""rhs_weap_m4_m320"",""rhs_weap_m4a1_carryhandle_m203S"",""rhs_weap_m4a1_blockII_M203_bk"",""rhs_weap_m4a1_m203s"",""rhs_weap_m4a1_m320"",""rhs_weap_M320"",""rhs_weap_ak103_gp25"",""rhs_weap_ak103_gp25_npz"",""arifle_AK12_GL_F"",""arifle_Mk20_GL_plain_F"",""arifle_Mk20_GL_F"",""rhs_weap_ak74m_gp25"",""rhs_weap_ak74m_gp25_npz"",""rhs_weap_ak74m_fullplum_gp25"",""rhs_weap_ak74m_fullplum_gp25_npz"",""rhs_weap_ak74mr_gp25""],[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,2,5,5,5,5,5,5,5,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]],[[""rhs_30Rnd_545x39_AK_green"",""rhs_30Rnd_545x39_7N6_AK"",""rhs_30Rnd_545x39_7N6M_AK"",""rhs_30Rnd_545x39_7N10_camo_AK"",""rhs_30Rnd_545x39_7N22_camo_AK"",""rhs_30Rnd_545x39_7N10_desert_AK"",""rhs_30Rnd_545x39_7N22_desert_AK"",""rhs_30Rnd_545x39_7N6_green_AK"",""rhs_30Rnd_545x39_7N6M_green_AK"",""rhs_30Rnd_545x39_AK_plum_green"",""rhs_30Rnd_545x39_7N10_plum_AK"",""rhs_30Rnd_545x39_7N22_plum_AK"",""rhs_30Rnd_545x39_7N6M_plum_AK"",""rhs_30Rnd_545x39_7N10_AK"",""rhs_30Rnd_545x39_7N22_AK"",""rhs_30Rnd_545x39_7U1_AK"",""rhs_30Rnd_762x39mm_bakelite"",""rhs_30Rnd_762x39mm_bakelite_89"",""rhs_30Rnd_762x39mm_bakelite_tracer"",""rhs_30Rnd_762x39mm_bakelite_U"",""rhs_30Rnd_762x39mm"",""rhs_30Rnd_762x39mm_89"",""rhs_30Rnd_762x39mm_tracer"",""rhs_30Rnd_762x39mm_U"",""rhs_mag_30Rnd_556x45_M855_Stanag"",""rhs_mag_30Rnd_556x45_M855A1_Stanag"",""rhs_mag_30Rnd_556x45_M855_Stanag_Tracer_Red"",""rhs_mag_30Rnd_556x45_M855A1_Stanag_Tracer_Red"",""rhs_mag_30Rnd_556x45_Mk262_Stanag"",""rhs_mag_30Rnd_556x45_Mk318_Stanag"",""rhsusf_5Rnd_00Buck"",""rhsusf_5Rnd_300winmag_xm2010"",""rhsusf_5Rnd_FRAG"",""rhsusf_5Rnd_Slug"",""rhsusf_5Rnd_762x51_AICS_m118_special_Mag"",""rhsusf_5Rnd_762x51_AICS_m62_Mag"",""rhsusf_5Rnd_762x51_AICS_m993_Mag"",""rhsusf_5Rnd_762x51_m118_special_Mag"",""rhsusf_5Rnd_762x51_m62_Mag"",""rhsusf_5Rnd_762x51_m993_Mag"",""rhs_5Rnd_338lapua_t5000"",""rhsusf_mag_6Rnd_M397_HET"",""rhsusf_mag_6Rnd_M433_HEDP"",""rhsusf_mag_6Rnd_M441_HE"",""rhsusf_mag_6Rnd_M576_Buckshot"",""rhsusf_mag_6Rnd_M585_white"",""rhsusf_mag_6Rnd_m661_green"",""rhsusf_mag_6Rnd_m662_red"",""rhsusf_mag_6Rnd_M713_red"",""rhsusf_mag_6Rnd_M714_white"",""rhsusf_mag_6Rnd_M715_green"",""rhsusf_mag_6Rnd_M716_yellow"",""rhsusf_8Rnd_00Buck"",""rhsusf_8Rnd_FRAG"",""rhsusf_8Rnd_Slug"",""rhs_GRD40_Green"",""rhs_GRD40_Red"",""rhs_GRD40_White"",""rhs_mag_M397_HET"",""rhs_mag_M433_HEDP"",""rhs_mag_M441_HE"",""rhs_mag_m576"",""rhs_mag_M585_white"",""rhs_mag_m661_green"",""rhs_mag_m662_red"",""rhs_mag_m713_Red"",""rhs_mag_m714_White"",""rhs_mag_m715_Green"",""rhs_VG40MD_Green"",""rhs_VG40MD_Red"",""rhs_VG40MD_White"",""rhs_VG40OP_green"",""rhs_VG40OP_red"",""rhs_VG40OP_white"",""rhs_VG40TB"",""rhs_VOG25"",""rhs_VOG25P"",""rhsusf_10Rnd_762x51_m118_special_Mag"",""rhsusf_10Rnd_762x51_m62_Mag"",""rhsusf_10Rnd_762x51_m993_Mag"",""rhs_10Rnd_762x39mm"",""rhs_10Rnd_762x39mm_89"",""rhs_10Rnd_762x39mm_tracer"",""rhs_10Rnd_762x39mm_U"",""rhs_10rnd_9x39mm_SP5"",""rhs_10rnd_9x39mm_SP6"",""rhs_10Rnd_762x54mmR_7N1"",""rhs_10Rnd_762x54mmR_7N14"",""rhs_20rnd_9x39mm_SP5"",""rhs_20rnd_9x39mm_SP6"",""rhs_30Rnd_762x39mm_polymer"",""rhs_30Rnd_762x39mm_polymer_89"",""rhs_30Rnd_762x39mm_polymer_tracer"",""rhs_30Rnd_762x39mm_polymer_U""],[20,20,20,16,15,12,12,11,11,12,13,13,14,15,17,16,16,15,16,12,14,18,16,16,17,17,8,3,3,5,3,5,5,6,5,5,5,5,5,5,5,4,5,5,5,4,5,3,4,4,5,5,5,5,5,5,5,5,5,4,4,4,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,5,4,3,5,3,4,4,6,4,4,4,5,4,4,4,4,4]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -72936,7 +72936,7 @@ class Mission
 			side="West";
 			class Entities
 			{
-				items=10;
+				items=9;
 				class Item0
 				{
 					dataType="Object";
@@ -73273,68 +73273,6 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={14133.711,19.555035,16261.493};
-						angles[]={0.0080009829,2.0943952,6.2791886};
-					};
-					side="West";
-					flags=4;
-					class Attributes
-					{
-						init="this setObjectTexture [0, ""\A3\Characters_F\Common\Data\basicbody_black_co.paa""];" \n "this setGroupIdGlobal [""BadCompany""];";
-						name="d_badco_8";
-						description="BadCompany - AA Specialist";
-						isPlayable=1;
-					};
-					id=6832;
-					type="rhsusf_socom_marsoc_cso_light";
-					class CustomAttributes
-					{
-						class Attribute0
-						{
-							property="speaker";
-							expression="_this setspeaker _value;";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"STRING"
-										};
-									};
-									value="Male04ENG";
-								};
-							};
-						};
-						class Attribute1
-						{
-							property="pitch";
-							expression="_this setpitch _value;";
-							class Value
-							{
-								class data
-								{
-									class type
-									{
-										type[]=
-										{
-											"SCALAR"
-										};
-									};
-									value=0.97000003;
-								};
-							};
-						};
-						nAttributes=2;
-					};
-				};
-				class Item6
-				{
-					dataType="Object";
-					class PositionInfo
-					{
 						position[]={14140.771,19.523512,16262.93};
 						angles[]={0.0066682254,5.2359877,6.2805333};
 					};
@@ -73392,7 +73330,7 @@ class Mission
 						nAttributes=2;
 					};
 				};
-				class Item7
+				class Item6
 				{
 					dataType="Object";
 					class PositionInfo
@@ -73455,7 +73393,7 @@ class Mission
 						nAttributes=2;
 					};
 				};
-				class Item8
+				class Item7
 				{
 					dataType="Object";
 					class PositionInfo
@@ -73517,7 +73455,7 @@ class Mission
 						nAttributes=2;
 					};
 				};
-				class Item9
+				class Item8
 				{
 					dataType="Object";
 					class PositionInfo
