@@ -55,7 +55,8 @@ private _make_jump = {
 	
 	private _stop_me = false;
 	private _checktime = time + 300;
-	while {_attackpoint distance2D (getPosASL (leader _vgrp)) > 300} do {
+	//Hunter: Increased distance from DZ because #armaAI.... (was 300)
+	while {_attackpoint distance2D (getPosASL (leader _vgrp)) > 600} do {
 		if (!alive _vec || {!alive _driver_vec || {!canMove _vec}}) exitWith {d_should_be_there = d_should_be_there - 1};
 		sleep 0.01;
 		if (d_mt_radio_down && {_attackpoint distance2D (leader _vgrp) > 1300}) exitWith {
@@ -80,11 +81,14 @@ private _make_jump = {
 	sleep 0.534;
 	
 	if (alive _vec && {alive _driver_vec && {canMove _vec}}) then {
-		if (!d_mt_radio_down && {_vec distance2D d_cur_tgt_pos < ([500, 700] select (speed _vec > 300))}) then {
+		//Hunter: again with the distance checks... leave more tolerance
+		if (!d_mt_radio_down && {_vec distance2D d_cur_tgt_pos < ([600, 1000] select (speed _vec > 300))}) then {
 			private _paragrp = [d_side_enemy] call d_fnc_creategroup;
 			private _real_units = ["allmen", d_enemy_side_short] call d_fnc_getunitlistm;
-			if (count _real_units < 6) then {
-				while {count _real_units < 6} do {
+			//Hunter: get full capacity of chopper and decide unit count from there...
+			_chopperCap = _vec emptyPositions "Cargo";
+			if (count _real_units < _chopperCap) then {
+				while {count _real_units < _chopperCap} do {
 					_real_units pushBack (selectRandom _real_units);
 				};
 			};
@@ -203,7 +207,9 @@ for "_i" from 1 to _number_vehicles do {
 	
 	[_vgrp, _vec, _attackpoint, _flytopos, _heliendpoint, _delveccrew, _crew] spawn _make_jump;
 	
-	sleep 30 + random 30;
+	//Hunter: no need to wait so much
+	//sleep 30 + random 30;
+	sleep 20;
 };
 
 if (_stop_it) exitWith {};
