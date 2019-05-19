@@ -38,6 +38,8 @@ _itemCount pushBack ((getWeaponCargo _dummybox) select 1);
 
 } foreach _itemType;
 _box addItemCargoGlobal ["FirstAidKit",10];
+_box addItemCargoGlobal ["rhs_weap_m72a7",10];
+_box addItemCargoGlobal ["rhs_weap_M136",10];
 deleteVehicle _dummybox;
 
 /*
