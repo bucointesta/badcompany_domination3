@@ -1051,7 +1051,7 @@ if (!d_tt_tanoa) then {
 #ifdef __RHS__
 	// type of enemy chopper that will fly over the main target
 	d_airai_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["RHS_Mi24P_vdv","RHS_Mi24V_vdv","RHS_Ka52_vvsc","RHS_Mi24P_vvsc","RHS_Mi24Vt_vvsc","rhs_mi28n_vvsc"]};
+		case "E": {["RHS_Mi24V_vvs","rhs_mi28n_vvs","RHS_Mi8MTV3_heavy_vvs"]};
 		case "W": {["RHS_AH64D","RHS_AH64DGrey","RHS_AH64D_wd","RHS_AH1Z","RHS_AH1Z_wd"]};
 		case "G": {["I_Heli_light_03_F"]};
 	};
