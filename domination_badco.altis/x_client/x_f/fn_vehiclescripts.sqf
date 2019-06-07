@@ -34,7 +34,8 @@ if (!(d_clientScriptsAr # 1) && {!isNil "d_player_autokick_time"}) then {
 if (_do_exit) exitWith {};
 
 //Hunter: Doesn't just check for pilots, but drivers of reserved vehicles too
-if (!([str _enterer,_vec,_vecnum] call d_fnc_isPilotCheck) && {(_position == "driver") || {(_turret select 0 == 0) && {_position == "gunner"}}}) exitWith {
+if (!([str _enterer,_vec,_vecnum] call d_fnc_isPilotCheck) && {(_position == "driver") || {(_turret select 0 == 0) && {_position == "gunner"}}}) exitWith {		
+		_vec engineOn false;
 		player action ["getOut", _vec];
 	};
 

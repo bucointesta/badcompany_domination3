@@ -331,6 +331,17 @@ if (str player in d_saboteurs) exitWith {
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
 };
+if ((str player) == "d_medpilot") exitWith {
+	"Welcome to Bad Company Domination!" hintc parseText
+	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
+	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MEDEVAC PILOT. Your main role is to provide rapid air transport for medical operations.</t><br/><br/>
+	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
+	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms and parachutes.</t>";
+	sleep 0.1;
+	ppEffectDestroy _backgroundEffect;
+	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
+};
 if (str player in d_medics) exitWith {
 	"Welcome to Bad Company Domination!" hintc parseText
 	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
