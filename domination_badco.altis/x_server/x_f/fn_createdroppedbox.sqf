@@ -25,7 +25,7 @@ _mname remoteExecCall ["deleteMarkerLocal", [blufor, opfor] select (_this select
 
 //changed to create actual global box
 _box = d_the_box createVehicle [0,0,1000];
-_box setpos _box_pos;
+_box setposatl _box_pos;
 _box setDamage 0.9;
 _markerName = createMarker [_mname, _box_pos];
 _markerName setMarkerShape "ICON";

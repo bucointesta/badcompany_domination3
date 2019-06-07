@@ -62,8 +62,14 @@
 		
 			restrictions_allowedWeapons = d_pilotWeapons  - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = ["B_Parachute"];
-			restrictions_allowedItems = d_pilot_uniforms + ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","NVGoggles","NVGoggles_tna_F","NVGoggles_INDEP","NVGogglesB_grn_F","NVGogglesB_gry_F"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = d_pilot_uniforms + ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","NVGoggles","NVGoggles_tna_F","NVGoggles_INDEP","NVGogglesB_grn_F","NVGogglesB_gry_F","FirstAidKit"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
+			
+			if (_unit == "d_medpilot") then {
+			
+				restrictions_allowedItems = restrictions_allowedItems + d_medic_only - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			
+			};
 		
 		};	
 		

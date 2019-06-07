@@ -347,7 +347,7 @@ d_farp_classes = ["Land_HelipadSquare_F", "Land_Cargo20_military_green_F","Land_
 /*roles*/
 d_badcompany = ["d_badco_1", "d_badco_2", "d_badco_3", "d_badco_4", "d_badco_5", "d_badco_6", "d_badco_7", "d_badco_9", "d_badco_10", "d_admin"];
 d_attack_pilots = ["d_apilot_1", "d_apilot_2", "d_badco_2", "d_admin"];
-d_transport_pilots = ["d_tpilot_1", "d_tpilot_2", "d_tpilot_3", "d_tpilot_4", "d_badco_2", "d_admin"];
+d_transport_pilots = ["d_medpilot","d_tpilot_1", "d_tpilot_2", "d_tpilot_3", "d_tpilot_4", "d_badco_2", "d_admin"];
 d_riflemen = ["d_rifleman_1","d_rifleman_2", "d_rifleman_3", "d_rifleman_4", "d_rifleman_5", "d_rifleman_6", "d_badco_10", "d_admin"];
 d_grenadiers = ["d_grenadier_1","d_grenadier_2", "d_grenadier_3", "d_grenadier_4", "d_grenadier_5", "d_grenadier_6", "d_badco_9", "d_admin"];
 d_autoriflemen = ["d_autorifleman_1","d_autorifleman_2", "d_autorifleman_3", "d_autorifleman_4", "d_autorifleman_5", "d_autorifleman_6", "d_badco_6", "d_admin"];
@@ -355,7 +355,7 @@ d_snipers = ["d_marksman_1","d_marksman_2", "d_marksman_3", "d_marksman_4", "d_m
 d_spotters = ["d_spotter_1","d_spotter_2", "d_spotter_3", "d_spotter_4", "d_spotter_5", "d_spotter_6", "d_admin"];
 d_missilesp = ["d_missilesp_1","d_missilesp_2", "d_missilesp_3", "d_missilesp_4", "d_missilesp_5", "d_missilesp_6", "d_badco_7", "d_admin"];
 d_saboteurs = ["d_saboteur_1","d_saboteur_2", "d_saboteur_3", "d_saboteur_4", "d_saboteur_5", "d_saboteur_6", "d_admin"];
-d_medics = ["d_medic_1","d_medic_2", "d_medic_3", "d_medic_4", "d_medic_5", "d_medic_6", "d_badco_3", "d_admin"];
+d_medics = ["d_medpilot","d_medic_1","d_medic_2", "d_medic_3", "d_medic_4", "d_medic_5", "d_medic_6", "d_badco_3", "d_admin"];
 d_leaders = ["d_leader_1","d_leader_2", "d_leader_3", "d_leader_4", "d_leader_5", "d_leader_6", "d_badco_1", "d_admin"];
 
 // artillery operators
@@ -832,8 +832,19 @@ if (!d_tt_tanoa) then {
 #endif
 	d_arti_observer_G = [["I_Soldier_TL_F"]];
 	
-	d_number_attack_planes = 1;
-	d_number_attack_choppers = 1;
+	//Hunter: convert to player number scaled functions
+	d_number_attack_planes = {
+		private _p = call d_fnc_PlayersNumber;
+		if (_p < 12) exitWith {1};
+		if (_p < 20) exitWith {2};
+		3
+	};
+	d_number_attack_choppers = {
+		private _p = call d_fnc_PlayersNumber;
+		if (_p < 12) exitWith {1};
+		if (_p < 20) exitWith {2};
+		3
+	};
 	
 	// Type of aircraft, that will air drop stuff
 	d_drop_aircraft =
@@ -894,8 +905,17 @@ if (!d_tt_tanoa) then {
 	// max cars for main target clear
 	d_car_count_for_target_clear = 1;
 		
-	// time (in sec) between attack planes and choppers over main target will respawn once they were shot down (a random value between 0 and 240 will be added)
-	d_airai_respawntime = 1200;
+	// time (in sec) between attack planes and choppers over main target will respawn once they were shot down.
+	// Hunter: convert to function to scaled for player count
+	d_airai_respawntime = {
+		private _p = call d_fnc_PlayersNumber;
+		if (_p < 5) exitWith {1800};
+		if (_p < 12) exitWith {1200};
+		if (_p < 20) exitWith {900};
+		if (_p < 25) exitWith {600};
+		if (_p < 30) exitWith {300};
+		180
+	};
 
 	d_side_missions_random = [];
 	d_player_created = [];
@@ -1251,7 +1271,7 @@ if (hasInterface) then {
 	#ifndef __RHS__
 	["C_Van_01_box_F", "B_Truck_01_box_F", "B_Truck_01_ammo_F", "B_Truck_01_covered_F", "B_MRAP_01_F", "B_APC_Tracked_01_CRV_F", "B_T_APC_Tracked_01_CRV_F", "B_Boat_Armed_01_minigun_F", "B_Heli_Transport_01_F", "B_Heli_Transport_01_camo_F", "B_Heli_Transport_03_F", "B_Heli_Transport_03_unarmed_F", "B_Heli_Transport_03_black_F", "B_LSV_01_unarmed_F", "O_Heli_Light_02_unarmed_F", "O_Heli_Light_02_dynamicLoadout_F"];
 	#else
-	["rhsusf_M977A4_BKIT_M2_usarmy_d","RHS_CH_47F_10"];
+	["RHSUSF_M1078A1P2_B_D_CP_FMTV_USARMY","RHSUSF_M1078A1P2_B_M2_D_FMTV_USARMY","RHSUSF_M1083A1P2_B_M2_D_FMTV_USARMY","RHS_CH_47F_10"];
 	#endif
 #endif
 #ifdef __OWN_SIDE_OPFOR__

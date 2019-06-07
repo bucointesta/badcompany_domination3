@@ -25,15 +25,17 @@ while {true} do {
 	private _vec = objNull;
 	private _vehicles = [];
 	private _funits = [];
+/*
 	private _num_p = call d_fnc_PlayersNumber;
 #ifndef __DEBUG__
 	sleep (call {
-		if (_num_p < 5) exitWith {1800};
+		if (_num_p < 5) exitWith {2700};
 		if (_num_p < 10) exitWith {1200};
-		if (_num_p < 20) exitWith {800};
-		400;
+		if (_num_p < 20) exitWith {600};
+		300;
 	});
 #endif
+*/
 	while {d_mt_radio_down} do {sleep 6.123};
 	private _pos = call d_fnc_GetRanPointOuterAir;
 	if !(d_cur_tgt_pos isEqualTo []) then {
@@ -54,15 +56,15 @@ while {true} do {
 	switch (_type) do {
 		case "HAC": {
 			_heli_type = selectRandom d_airai_attack_chopper;
-			_numair = d_number_attack_choppers;
+			_numair = call d_number_attack_choppers;
 		};
 		case "AP": {
 			_heli_type = selectRandom d_airai_attack_plane;
-			_numair = d_number_attack_planes;
+			_numair = call d_number_attack_planes;
 		};
 		case "LAC": {
 			_heli_type = selectRandom d_light_attack_chopper;
-			_numair = d_number_attack_choppers;
+			_numair = call d_number_attack_choppers;
 		};
 	};
 	
@@ -186,7 +188,8 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 					sleep 1;
 					_x domove ([_x, 250, ([_x, _pat_pos] call BIS_fnc_dirTo)] call BIS_fnc_relPos);	
 				} forEach (_vehicles select {alive _x});
-				sleep 35.821 + random 15;
+				//sleep 35.821 + random 15;
+				sleep 25;
 			} else {
 				__patternpos;
 				_pat_pos = _pat_pos call d_fnc_WorldBoundsCheck;
@@ -203,7 +206,8 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 					sleep 1;
 					_x domove ([_x, 250, ([_x, _pat_pos] call BIS_fnc_dirTo)] call BIS_fnc_relPos);	
 				} forEach (_vehicles select {alive _x});
-				sleep 80 + random 80;
+				//sleep 80 + random 80;
+					sleep 25;
 			};
 		};
 		__TRACE_1("","_xcounter")
@@ -242,14 +246,17 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 		sleep 20;
 	};
 #ifndef __DEBUG__
+	/*
 	_num_p = call d_fnc_PlayersNumber;
 	private _re_random = call {
-		if (_num_p < 5) exitWith {1800};
+		if (_num_p < 5) exitWith {2700};
 		if (_num_p < 10) exitWith {1200};
-		if (_num_p < 20) exitWith {800};
-		400;
+		if (_num_p < 25) exitWith {600};
+		300;
 	};
 	sleep (d_airai_respawntime + _re_random + (random _re_random));
+	*/
+	sleep (call d_airai_respawntime);
 #else
 	sleep 10;
 #endif

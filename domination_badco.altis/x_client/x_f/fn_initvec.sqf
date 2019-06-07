@@ -225,6 +225,7 @@ if (_d_vec < 400) exitWith {
 #endif
 };
 
+//Hunter: reserve 400s for transport trucks that can carry ammo and has vehicle menu
 if (_d_vec < 500) exitWith {
 	private _car = [];
 #ifndef __TT__
@@ -249,6 +250,7 @@ if (_d_vec < 500) exitWith {
 	};
 	if (!alive _vec) exitWith {};
 	_vec setAmmoCargo 0;
+	_vec addAction [format ["<t color='#7F7F7F'>%1</t>", "Transport Menu"], {_this call d_fnc_vecdialog}, _d_vec, -1, false];
 #ifdef __TT__
 	__sidew;
 	__checkenterer;

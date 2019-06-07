@@ -22,7 +22,7 @@ debriefing = 1;
 showGPS = 1;
 showSquadRadar = 1;
 saving = 0;
-loadScreen = "pics\domls.paa";
+loadScreen = "pics\domls.jpg";
 overviewText = "$STR_DOM_MISSIONSTRING_1828";
 
 #ifdef __DEBUG__

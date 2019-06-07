@@ -44,12 +44,13 @@ if ((_unit getVariable ["d_ammobox_next", -1]) > time) exitWith {[_unit, _caller
 _unit setVariable ["d_ammobox", false, true];
 _unit setVariable ["d_ammobox_next", time + d_drop_ammobox_time, true];
 
-private _boxpos = _unit modelToWorldVisual [4,0,0];
+private _boxpos = _unit modelToWorldVisual [4,-3,0];
 __TRACE_1("","_boxpos")
 (boundingBoxReal _unit) params ["_p1", "_p2"];
 private _maxHeight = abs ((_p2 # 2) - (_p1 # 2)) / 2;
 __TRACE_1("","_maxHeight")
-_boxpos set [2, ((_unit distance (getPos _unit)) - _maxHeight) max 0];
+//_boxpos set [2, ((_unit distance (getPos _unit)) - _maxHeight) max 0];
+_boxpos set [2,1.5];
 __TRACE_1("","_boxpos")
 
 #ifndef __TT__
@@ -62,7 +63,7 @@ if (isnull _boxobj) then {
 } else {
 	
 	detach _boxobj;
-	_boxobj setpos _boxpos;
+	_boxobj setposatl _boxpos;
 	_mname = format ["d_bm_%1", _boxpos];
 	_markerName = createMarker [_mname, _boxpos];
 	_markerName setMarkerShape "ICON";
