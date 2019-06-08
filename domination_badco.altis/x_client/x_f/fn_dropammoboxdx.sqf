@@ -50,7 +50,7 @@ __TRACE_1("","_boxpos")
 private _maxHeight = abs ((_p2 # 2) - (_p1 # 2)) / 2;
 __TRACE_1("","_maxHeight")
 //_boxpos set [2, ((_unit distance (getPos _unit)) - _maxHeight) max 0];
-_boxpos set [2,1.5];
+_boxpos set [2,0];
 __TRACE_1("","_boxpos")
 
 #ifndef __TT__
@@ -63,7 +63,7 @@ if (isnull _boxobj) then {
 } else {
 	
 	detach _boxobj;
-	_boxobj setposatl _boxpos;
+	_boxobj setpos _boxpos;
 	_mname = format ["d_bm_%1", _boxpos];
 	_markerName = createMarker [_mname, _boxpos];
 	_markerName setMarkerShape "ICON";

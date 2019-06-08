@@ -99,7 +99,7 @@ private _farpcont = [_farptrig];
 _mapSize = _mapSize + 10;
 private _farp_o_pos = [_d_farp_pos, _mapSize] call d_fnc_getranpointcircleouter;
 _farp_o_pos set [2, 0];
-private _farp_seco = createVehicle [d_farp_classes # 1, _farp_o_pos, [], 0, "NONE"];
+private _farp_seco = createVehicle [d_farp_classes # 1, _farp_o_pos, [], 100, "NONE"];
 _farp_seco setDir (random 360);
 _farp_seco setPos _farp_o_pos;
 
@@ -109,7 +109,7 @@ if (count d_farp_classes > 2) then {
 	for "_i" from 2 to (count d_farp_classes - 1) do {
 		_farp_o_pos = [_d_farp_pos, _mapSize] call d_fnc_getranpointcircleouter;
 		_farp_o_pos set [2, 0];
-		_farp_o = createVehicle [d_farp_classes # _i, _farp_o_pos, [], 0, "NONE"];
+		_farp_o = createVehicle [d_farp_classes # _i, _farp_o_pos, [], 100, "NONE"];
 		_farp_o setDir (random 360);
 		_farp_o setPos _farp_o_pos;
 		
