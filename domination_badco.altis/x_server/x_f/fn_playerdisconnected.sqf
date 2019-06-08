@@ -2,7 +2,12 @@
 //#define __DEBUG__
 #define THIS_FILE "fn_playerdisconnected.sqf"
 #include "..\..\x_setup.sqf"
-if (!isServer || {!d_database_found}) exitWith{};
+if (!isServer || {!d_database_found}) exitWith{
+
+	//Hunter: make sure player unit doesn't turn into AI in some cases...
+	deletevehicle (_this select 0);
+
+};
 
 params ["", "_uid", "_name"];
 
@@ -24,6 +29,9 @@ __TRACE_1("1","_unit")
 
 if (isNil "_unit" || {!isNil {_unit getVariable "d_no_side_change"}}) exitWith {
 	__TRACE_2("No database update","_unit","_name")
+	
+	//Hunter: make sure player unit doesn't turn into AI in some cases...
+	deletevehicle (_this select 0);
 };
 
 private _pa = d_player_store getVariable _uid;
@@ -31,7 +39,12 @@ private _ps = if (!isNull _unit) then {getPlayerScores _unit} else {_pa # 12};
 private _scpl = if (!isNull _unit) then {score _unit} else {-1};
 __TRACE_1("","getPlayerScores _unit")
 __TRACE_1("","_ps")
-if (_ps isEqualTo []) exitWith {};
+if (_ps isEqualTo []) exitWith {
+
+	//Hunter: make sure player unit doesn't turn into AI in some cases...
+	deletevehicle (_this select 0);
+
+};
 //  [infantry kills, soft vehicle kills, armor kills, air kills, deaths, total score]
 private _usc = _uid + "_scores";
 private _t_ps = d_player_store getVariable [_usc, [0, 0, 0, 0, 0, 0]];
@@ -59,3 +72,6 @@ __TRACE_1("","_playtime")
 "extdb3" callExtension format ["1:dom:updatePlayer:%1:%2:%3:%4:%5:%6:%7:%8", _infkills, _softveckills, _armorkills, _airkills, _deaths, _totalscore, _playtime, _uid];
 
 __TRACE("extDB3 called")
+
+//Hunter: make sure player unit doesn't turn into AI in some cases...
+deletevehicle (_this select 0);
