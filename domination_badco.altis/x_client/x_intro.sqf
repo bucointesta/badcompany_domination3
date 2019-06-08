@@ -271,7 +271,7 @@ if (str player in d_autoriflemen) exitWith {
 	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an AUTOMATIC RIFLEMAN. Your main role is to support friendlies by suppressing enemy contacts at all ranges.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, machine guns and disposable launchers.</t><br/>
+	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and machine guns.</t><br/>
 	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
 	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
 	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use rangefinders.</t>";

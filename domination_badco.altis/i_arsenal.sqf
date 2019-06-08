@@ -143,7 +143,7 @@
 		
 		case (_unit in d_autoriflemen) : {
 		
-			restrictions_allowedWeapons = _defaultWeps + d_machineguns + ["rhs_weap_m72a7","rhs_weap_M136"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
+			restrictions_allowedWeapons = _defaultWeps + d_machineguns - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
 			restrictions_allowedItems = _defaultItems + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
