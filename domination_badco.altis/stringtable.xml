@@ -1803,13 +1803,13 @@
 <Russian>Выбрать место возрождения</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_304">
-<English>Show Status</English>
-<Spanish>Mostrar Estado</Spanish>
-<Portuguese>Estado de espetáculo</Portuguese>
-<Korean>상태창 보기</Korean>
-<Japanese>ステータスを表示</Japanese>
-<Original>Show Status</Original>
-<Russian>НАСТРОЙКИ</Russian>
+<English>Settings&amp;Status</English>
+<Spanish>Settings&amp;Status</Spanish>
+<Portuguese>Settings&amp;Status</Portuguese>
+<Korean>Settings&amp;Status</Korean>
+<Japanese>Settings&amp;Status</Japanese>
+<Original>Settings&amp;Status</Original>
+<Russian>Settings&amp;Status</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_305">
 <English>Build Mash</English>
