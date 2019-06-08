@@ -65,24 +65,24 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 	switch (d_WithLessArmor) do {
 		case 0: {
 			d_vec_numbers_guard = [
-				[[1,0], 1], // tanks
-				[[1,0], 1], // tracked apc
-				[[1,1], 1], // wheeled apc
-				[[1,1], 1], // jeep with mg
-				[[1,0], 1] // jeep with gl
+				[[3,0], 2], // tanks
+				[[3,0], 2], // tracked apc
+				[[2,0], 2], // wheeled apc
+				[[2,0], 1], // jeep with mg
+				[[2,0], 1] // jeep with gl
 			];
 			d_vec_numbers_guard_static = [
-				[[1,1], 1], // tanks
-				[[1,1], 1], // tracked apc
-				[[1,1], 1] // aa
+				[[0,0], 1], // tanks
+				[[0,0], 1], // tracked apc
+				[[3,1], 3] // aa
 			];
 			d_vec_numbers_patrol = [
 #ifndef __TT__
-				[[1,1], 1], // tanks
-				[[1,1], 1], // tracked apc
-				[[1,1], 1], // wheeled apc
-				[[1,1], 1], // jeep with mg
-				[[1,1], 1] // jeep with gl
+				[[1,0], 2], // tanks
+				[[1,0], 2], // tracked apc
+				[[2,1], 2], // wheeled apc
+				[[3,1], 1], // jeep with mg
+				[[3,1], 1] // jeep with gl
 #else
 				[[1,1], 1], // tanks
 				[[2,1], 1], // tracked apc
@@ -96,8 +96,8 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 			// first element the max number of ai "foot" groups that will get spawned, second element minimum number (no number for vehicles in group necessary)
 			d_footunits_guard = [
 #ifndef __TT__
-				[1,1], // basic groups
-				[1,1] // specop groups
+				[6,2], // basic groups
+				[0,0] // specop groups
 #else
 				[2,1], // basic groups
 				[2,1] // specop groups
@@ -105,28 +105,28 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 			];
 			d_footunits_patrol = [
 #ifndef __TT__
-				[5,3], // basic groups
-				[5,3] // specop groups
+				[6,2], // basic groups
+				[0,0] // specop groups
 #else
 				[6,3], // basic groups
 				[5,3] // specop groups
 #endif
 			];
 			d_footunits_guard_static = [
-				[1,1], // basic groups
-				[1,0] // specop groups
+				[0,0], // basic groups
+				[0,0] // specop groups
 			];
 			d_footunits_attack = [
-				[1,1], // basic groups
-				[1,1] // specop groups
+				[2,0], // basic groups
+				[3,1] // specop groups
 			];
 			d_vec_numbers_attack = [
-				[[1,1], 1], // tanks
-				[[1,1], 1], // tracked apc
-				[[1,1], 1], // wheeled apc
-				[[1,1], 1], // jeep with mg
-				[[1,1], 1], // jeep with gl
-				[[1,1], 1] // aa
+				[[2,1], 2], // tanks
+				[[2,1], 2], // tracked apc
+				[[1,0], 2], // wheeled apc
+				[[2,1], 1], // jeep with mg
+				[[2,1], 1], // jeep with gl
+				[[1,0], 2] // aa
 			];
 		};
 		case 1: {
@@ -321,12 +321,12 @@ d_p_vecs = [
 	["D_TR11",402,"d_truck11","n_motor_inf","ColorBrown","T1",""],["D_TR12",403,"d_truck12","n_motor_inf","ColorBrown","T2",""],
 	
 	["D_C01",801,"d_car1","n_motor_inf","ColorBlue","Boxer-1",""],["D_C02",802,"d_car2","n_motor_inf","ColorBlue","Boxer-2",""],
-	["D_C03",803,"d_car3","n_motor_inf","ColorBlue","Cartel-1",""],	["D_C04",804,"d_car4","n_motor_inf","ColorBlue","Cartel-2",""],
+	["D_C03",803,"d_car3","n_motor_inf","ColorBlue","Hammer-1",""],	["D_C04",804,"d_car4","n_motor_inf","ColorBlue","Hammer-2",""],
 	["D_C05",805,"d_car5","n_motor_inf","ColorBlue","Roamer-2",""],	["D_C06",806,"d_car6","n_motor_inf","ColorBlue","Cartel-1",""],
 	["D_C07",807,"d_car7","n_motor_inf","ColorBlue","Cartel-2",""],	["D_C08",808,"d_car8","n_motor_inf","ColorBlue","Boss",""],
-	["D_C09",809,"d_car9","n_motor_inf","ColorBlue","Roamer-3",""],	["D_C10",810,"d_car10","n_motor_inf","ColorBlue","Cartel-3",""],
+	["D_C09",809,"d_car9","n_motor_inf","ColorBlue","Roamer-3",""],	["D_C10",810,"d_car10","n_motor_inf","ColorBlue","Hammer-3",""],
 	["D_C11",811,"d_car11","n_motor_inf","ColorBlue","Boxer-3",""],["D_C12",812,"d_car12","n_motor_inf","ColorBlue","Boxer-4",""],
-	["D_C13",813,"d_car13","n_motor_inf","ColorBlue","Roamer-1",""],["D_C14",814,"d_car14","n_motor_inf","ColorBlue","Cartel-4",""],
+	["D_C13",813,"d_car13","n_motor_inf","ColorBlue","Roamer-1",""],["D_C14",814,"d_car14","n_motor_inf","ColorBlue","Hammer-4",""],
 	["D_C15",815,"d_car15","n_motor_inf","ColorBlue","Crossbow",""],
 		
 	["D_T01",900,"d_tank1","n_armor","ColorBlue","Grizzly",""],["D_T02",901,"d_tank2","n_mech_inf","ColorBlue","Lava-1",""],

@@ -54,9 +54,10 @@ private _type_list_patrol = [
 	["jeep_gl", [d_vec_numbers_patrol, 4] call _selectit, [d_vec_numbers_patrol,4] call _selectitvec]
 ];
 
+//Hunter: both of these contain AA as well. should consider separating AA...
 private _type_list_guard_static2 = [
-	["stat_mg", 1, ceil (random 4)],
-	["stat_gl", 1, ceil (random 3)]
+	["stat_mg", 1, 2 max (ceil (random 4))],
+	["stat_gl", 1, 1 max (ceil (random 3))]
 ];
 
 _selectit = nil;

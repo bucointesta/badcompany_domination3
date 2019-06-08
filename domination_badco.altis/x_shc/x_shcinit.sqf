@@ -35,13 +35,13 @@ if (d_MissionType != 2) then {
 		sleep 30;
 		__TRACE("spawn_x_shcinit_airai 30 secs over")
 		if (isMultiplayer && {isServer && {!isNil "HC_D_UNIT"}}) exitWith {};
-		sleep 1200;
+		sleep 120;
 		__TRACE("spawn_x_shcinit_airai 30 exec LAC")
-		["LAC"] execVM "x_shc\x_airai.sqf"; // LAC = Ligh Attack Chopper
-		sleep 1200;
-		["HAC"] execVM "x_shc\x_airai.sqf"; // HAC = Heavy Attack Chopper
-		sleep 1200;
-		["AP"] execVM "x_shc\x_airai.sqf"; // AP = Attack Plane
+		["CAS"] execVM "x_shc\x_airai.sqf"; 
+		sleep 30;
+		["CAP"] execVM "x_shc\x_airai.sqf";
+		sleep 30;
+		["AH"] execVM "x_shc\x_airai.sqf";
 	};
 };
 #endif

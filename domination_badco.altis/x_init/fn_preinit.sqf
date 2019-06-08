@@ -839,6 +839,12 @@ if (!d_tt_tanoa) then {
 		if (_p < 20) exitWith {2};
 		3
 	};
+	d_number_CAP_planes = {
+		private _p = call d_fnc_PlayersNumber;
+		if (_p < 12) exitWith {1};
+		if (_p < 20) exitWith {2};
+		3
+	};
 	d_number_attack_choppers = {
 		private _p = call d_fnc_PlayersNumber;
 		if (_p < 12) exitWith {1};
@@ -1044,12 +1050,17 @@ if (!d_tt_tanoa) then {
 	};
 #endif
 
+//Hunter: add CAP
+d_airai_CAP_plane = d_airai_attack_plane;
+
 #ifdef __RHS__
 	d_airai_attack_plane = switch (d_enemy_side_short) do {
-		case "E": {["rhs_mig29s_vmf","rhs_mig29sm_vmf","rhs_mig29s_vvsc","rhs_mig29sm_vvsc","RHS_Su25SM_vvsc","RHS_Su25SM_vvs","RHS_T50_vvs_generic_ext","RHS_T50_vvs_blueonblue"]};
+		case "E": {["RHS_Su25SM_vvsc","RHS_Su25SM_vvs"]};
 		case "W": {["RHS_A10","rhsusf_f22"]};
 		case "G": {["I_Plane_Fighter_03_CAS_F"]};
 	};
+	
+	d_airai_CAP_plane = ["rhs_mig29sm_vmf","rhs_mig29sm_vvsc","RHS_T50_vvs_051","RHS_T50_vvs_052"];
 #endif
 
 #ifndef __CUP__
@@ -1071,7 +1082,7 @@ if (!d_tt_tanoa) then {
 #ifdef __RHS__
 	// type of enemy chopper that will fly over the main target
 	d_airai_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["RHS_Mi24V_vvs","rhs_mi28n_vvs","RHS_Mi8MTV3_heavy_vvs"]};
+		case "E": {["RHS_Ka52_vvs","RHS_Mi24V_vvs","rhs_mi28n_vvs","RHS_Mi8MTV3_heavy_vvs","RHS_Ka52_vvsc","RHS_Mi24V_vvsc","rhs_mi28n_vvsc","RHS_Mi8MTV3_heavy_vvsc"]};
 		case "W": {["RHS_AH64D","RHS_AH64DGrey","RHS_AH64D_wd","RHS_AH1Z","RHS_AH1Z_wd"]};
 		case "G": {["I_Heli_light_03_F"]};
 	};

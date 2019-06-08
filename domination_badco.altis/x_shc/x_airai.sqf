@@ -9,7 +9,7 @@ __TRACE("airai")
 
 params ["_type"];
 
-#define __wp_behave "AWARE"
+#define __wp_behave "COMBAT"
 
 while {true} do {
 #ifndef __DEBUG__
@@ -54,17 +54,17 @@ while {true} do {
 	private _heli_type = "";
 	private _numair = 0;
 	switch (_type) do {
-		case "HAC": {
+		case "AH": {
 			_heli_type = selectRandom d_airai_attack_chopper;
 			_numair = call d_number_attack_choppers;
 		};
-		case "AP": {
+		case "CAP": {
+			_heli_type = selectRandom d_airai_CAP_plane;
+			_numair = call d_number_CAP_planes;
+		};
+		case "CAS": {
 			_heli_type = selectRandom d_airai_attack_plane;
 			_numair = call d_number_attack_planes;
-		};
-		case "LAC": {
-			_heli_type = selectRandom d_light_attack_chopper;
-			_numair = call d_number_attack_choppers;
 		};
 	};
 	
@@ -74,9 +74,9 @@ while {true} do {
 	private _cdir = _pos getDir d_island_center;
 #ifndef __TT__
 	switch (_type) do {
-		case "AP": {if (d_searchintel # 1 == 1) then {[0] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
-		case "HAC": {if (d_searchintel # 2 == 1) then {[1] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
-		case "LAC": {if (d_searchintel # 3 == 1) then {[2] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
+		case "CAP": {if (d_searchintel # 1 == 1) then {[0] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
+		case "AH": {if (d_searchintel # 2 == 1) then {[1] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
+		case "CAS": {if (d_searchintel # 3 == 1) then {[2] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
 	};
 #endif
 	for "_xxx" from 1 to _numair do {
@@ -95,8 +95,11 @@ while {true} do {
 		
 		if (d_LockAir == 0) then {_vec lock true};
 		//_vec flyInHeight 100;
-		//Hunter: Add some spice to the game... hehe
-		_vec flyInHeight 250;
+		switch (_type) do {
+		case "CAP": {_vec flyInHeight 1000;};
+		case "AH": {_vec flyInHeight 250;};
+		case "CAS": {_vec flyInHeight 500;};
+		};		
 		_vec setSkill 1;
 
 		_vec remoteExec ["d_fnc_airmarkermove", 2];
@@ -129,9 +132,9 @@ while {true} do {
 		sleep 3 + random 2;
 		
 		private _radius = switch (_type) do {
-			case "HAC";
-			case "LAC": {d_cur_target_radius * 3};
-			case "AP": {d_cur_target_radius * 5};
+			case "AH": {d_cur_target_radius * 1.5};
+			case "CAS": {d_cur_target_radius * 3};
+			case "CAP": {d_cur_target_radius * 5};
 			default {500};
 		};
 		
@@ -168,7 +171,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 				_xcounter = 0;
 			};
 			_xcounter = 0;
-			if (_type == "HAC" || {_type == "LAC"}) then {
+			if (_type == "AH") then {
 				private _tmp_pos = _pat_pos;
 				__patternpos;
 				while {_pat_pos distance2D _tmp_pos < 250} do {
@@ -180,6 +183,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 				[_grp, 1] setWaypointPosition [_pat_pos, 250];
 				_grp setSpeedMode "NORMAL";
 				_grp setBehaviour __wp_behave;
+				_grp setCombatMode "RED";
 				_old_pos = getPosASL _curvec;
 				{
 					_x flyInHeight 250;
@@ -198,9 +202,19 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 				//_grp setSpeedMode "LIMITED";
 				_grp setSpeedMode "NORMAL";
 				_grp setBehaviour __wp_behave;
+				_grp setCombatMode "RED";
 				_old_pos = getPosASL _curvec;
 				{
-					_x flyInHeight 500;
+					if (_type == "CAS") then {
+					
+						_x flyInHeight 500;
+					
+					} else {
+					
+						_x flyInHeight 1000;
+					
+					};
+					
 					//Hunter: unstuck them...
 					dostop _x;
 					sleep 1;
