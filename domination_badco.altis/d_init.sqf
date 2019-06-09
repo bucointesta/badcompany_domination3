@@ -23,6 +23,26 @@ if (hasInterface) then {
 } else {
 	setViewDistance d_InitialViewDistance;
 	setObjectViewDistance (d_InitialViewDistance + 100);
+	
+	Hz_min_desired_server_VD = 2000;
+	Hz_max_desired_server_VD = 5000;
+	Hz_min_desired_server_FPS = 8;
+	Hz_max_desired_server_FPS = 15;	
+	
+	//Server DVD
+	[] spawn {		     
+		
+		while {true} do {
+			
+			uisleep 5;
+
+			if(diag_fps < Hz_min_desired_server_FPS) then {if(viewdistance > (Hz_min_desired_server_VD + 200)) then {setviewdistance (viewdistance - 200);}else {setviewdistance Hz_min_desired_server_VD;};} else {
+				if(diag_fps > Hz_max_desired_server_FPS) then {if(viewdistance < (Hz_max_desired_server_VD - 200)) then {setviewdistance (viewdistance + 200);}else {setviewdistance Hz_max_desired_server_VD;};};};
+
+		};
+		
+	}; 
+	
 };
 
 d_target_names = [];
