@@ -40,7 +40,7 @@ while {true} do {
 	private _pos = call d_fnc_GetRanPointOuterAir;
 	if !(d_cur_tgt_pos isEqualTo []) then {
 		private _counter = 0;
-		while {_pos distance2D d_cur_tgt_pos < 2000 && {_counter < 100}} do {
+		while {((_pos distance2D d_cur_tgt_pos < 2000) || {(_pos distance2D d_cur_tgt_pos) > (_pos distance2D (markerpos "d_base_marker"))}) && {_counter < 100}} do {
 			_pos = call d_fnc_GetRanPointOuterAir;
 			_counter = _counter + 1;
 		};
@@ -114,6 +114,9 @@ while {true} do {
 	
 	_grp allowFleeing 0;
 	
+	_grp setCombatMode "GREEN";
+	_grp setBehaviour "SAFE";
+	
 	waitUntil {sleep 0.323; d_current_target_index >= 0};
 	private _cur_tgt_pos =+ d_cur_tgt_pos;
 	_cur_tgt_pos set [2, 250];
@@ -123,7 +126,10 @@ while {true} do {
 	[_grp, 1] setWaypointStatements ["never", ""];
 	_wp setWaypointCompletionRadius 250;
 	private _old_pos = [0,0,0];
-	private _xcounter = 0;
+	
+	sleep 30;
+	if (_type == "AH") then {sleep 30;};
+	
 	while {true} do {
 		waitUntil {sleep 0.323; d_current_target_index >= 0};
 		_cur_tgt_pos =+ d_cur_tgt_pos;
@@ -134,7 +140,7 @@ while {true} do {
 		private _radius = switch (_type) do {
 			case "AH": {d_cur_target_radius * 1.5};
 			case "CAS": {d_cur_target_radius * 3};
-			case "CAP": {d_cur_target_radius * 5};
+			case "CAP": {d_cur_target_radius * 4};
 			default {500};
 		};
 		
@@ -160,18 +166,36 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 		_mmvevs = nil;
 		__TRACE_1("","_curvec")
 		__TRACE_1("","_old_pos")
-		_xcounter = _xcounter + 1;
-		if (!isNull _curvec && {_curvec distance2D _cur_tgt_pos > _radius || {_curvec distance2D _old_pos < 30 && {_xcounter > 100}}}) then {
-			if (_curvec distance2D _old_pos < 30 && {_xcounter > 100}) exitWith {
-				{
-					private _v = _x;
-					{_v deleteVehicleCrew _x} forEach (crew _v);
-					_v setDamage 1;
-				} forEach _vehicles;
-				_xcounter = 0;
-			};
-			_xcounter = 0;
+		
+		_outsideRadius = _curvec distance2D _cur_tgt_pos > _radius;
+		
+		if (_outsideRadius) then {
+		
+			_grp setCombatMode "YELLOW";
+			_grp setBehaviour "AWARE";
+		
+		} else {
+		
+			_grp setCombatMode "RED";
+			_grp setBehaviour "COMBAT";
+		
+		};
+		
+		if (!isNull _curvec && {_outsideRadius || {_curvec distance2D _old_pos < 30}}) then {
+									
 			if (_type == "AH") then {
+			
+				_vecTarget = assignedTarget _curvec;
+			
+				if ((!isNull _vecTarget) && {(speed _curvec) > 10} && {(_vecTarget distance2D d_cur_tgt_pos) < _radius}) exitWith {
+				
+					_old_pos = getPosASL _curvec;
+					sleep 5;
+				
+				};
+				
+				_curvec doWatch objNull;
+			
 				private _tmp_pos = _pat_pos;
 				__patternpos;
 				while {_pat_pos distance2D _tmp_pos < 250} do {
@@ -182,27 +206,35 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 				__TRACE_1("HACLAC","_pat_pos")
 				[_grp, 1] setWaypointPosition [_pat_pos, 250];
 				_grp setSpeedMode "NORMAL";
-				_grp setBehaviour __wp_behave;
-				_grp setCombatMode "RED";
 				_old_pos = getPosASL _curvec;
 				{
 					_x flyInHeight 250;
 					//Hunter: unstuck them...
 					dostop _x;
 					sleep 1;
-					_x domove ([_x, 250, ([_x, _pat_pos] call BIS_fnc_dirTo)] call BIS_fnc_relPos);	
+					_x domove ([_x, 500 + random 100, ([_x, _pat_pos] call BIS_fnc_dirTo)] call BIS_fnc_relPos);	
 				} forEach (_vehicles select {alive _x});
 				//sleep 35.821 + random 15;
-				sleep 25;
+				sleep 15;
 			} else {
+				
+				_vecTarget = assignedTarget _curvec;
+			
+				if ((!isNull _vecTarget) && {(_vecTarget iskindof "Air") || {(_vecTarget distance2D d_cur_tgt_pos) < _radius}}) exitWith {
+				
+					_old_pos = getPosASL _curvec;
+					sleep 5;
+				
+				};
+				
+				_curvec doWatch objNull;
+				
 				__patternpos;
 				_pat_pos = _pat_pos call d_fnc_WorldBoundsCheck;
 				__TRACE_1("plane","_pat_pos")
 				[_grp, 1] setWaypointPosition [_pat_pos, 500];
 				//_grp setSpeedMode "LIMITED";
 				_grp setSpeedMode "NORMAL";
-				_grp setBehaviour __wp_behave;
-				_grp setCombatMode "RED";
 				_old_pos = getPosASL _curvec;
 				{
 					if (_type == "CAS") then {
@@ -214,20 +246,20 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 						_x flyInHeight 1000;
 					
 					};
-					
 					//Hunter: unstuck them...
 					dostop _x;
 					sleep 1;
-					_x domove ([_x, 250, ([_x, _pat_pos] call BIS_fnc_dirTo)] call BIS_fnc_relPos);	
+					_x domove ([_x, 1000 + random 100, ([_x, _pat_pos] call BIS_fnc_dirTo)] call BIS_fnc_relPos);	
 				} forEach (_vehicles select {alive _x});
 				//sleep 80 + random 80;
-					sleep 25;
+					sleep 15;								
 			};
-		};
-		__TRACE_1("","_xcounter")
+		} else {
 		
-		sleep 3 + random 2;
-
+			sleep 5;
+		
+		};
+		
 		if !(_vehicles isEqualTo []) then {
 			__TRACE("_vehicles array not empty")
 			{
@@ -257,7 +289,6 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 			_funits = [];
 			_vehicles = [];
 		};
-		sleep 20;
 	};
 #ifndef __DEBUG__
 	/*

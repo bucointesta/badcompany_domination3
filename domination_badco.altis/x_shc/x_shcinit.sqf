@@ -7,6 +7,10 @@ __TRACE("x_shcinit")
 
 if !(call d_fnc_checkSHC) exitWith {};
 
+//Hunter: added this because it's called twice by the server in d_init... 
+if (!isnil "shcinitDone") exitWith {};
+shcinitDone = true;
+
 d_delvecsmt = [];
 d_no_more_observers = false;
 d_create_new_paras = false;
