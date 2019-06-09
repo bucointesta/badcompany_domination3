@@ -65,8 +65,8 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 	switch (d_WithLessArmor) do {
 		case 0: {
 			d_vec_numbers_guard = [
-				[[3,0], 2], // tanks
-				[[3,0], 2], // tracked apc
+				[[2,1], 2], // tanks
+				[[2,1], 2], // tracked apc
 				[[2,0], 2], // wheeled apc
 				[[2,0], 1], // jeep with mg
 				[[2,0], 1] // jeep with gl
@@ -74,13 +74,13 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 			d_vec_numbers_guard_static = [
 				[[0,0], 1], // tanks
 				[[0,0], 1], // tracked apc
-				[[3,1], 3] // aa
+				[[2,1], 3] // aa
 			];
 			d_vec_numbers_patrol = [
 #ifndef __TT__
 				[[1,0], 2], // tanks
 				[[1,0], 2], // tracked apc
-				[[2,1], 2], // wheeled apc
+				[[2,0], 2], // wheeled apc
 				[[3,1], 1], // jeep with mg
 				[[3,1], 1] // jeep with gl
 #else
@@ -121,11 +121,11 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				[3,1] // specop groups
 			];
 			d_vec_numbers_attack = [
-				[[2,1], 2], // tanks
-				[[2,1], 2], // tracked apc
+				[[1,0], 2], // tanks
+				[[1,0], 2], // tracked apc
 				[[1,0], 2], // wheeled apc
-				[[2,1], 1], // jeep with mg
-				[[2,1], 1], // jeep with gl
+				[[2,0], 1], // jeep with mg
+				[[2,0], 1], // jeep with gl
 				[[1,0], 2] // aa
 			];
 		};
