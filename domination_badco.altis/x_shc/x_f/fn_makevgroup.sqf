@@ -28,6 +28,19 @@ for "_n" from 0 to _nnvnum do {
 	};
 	
 	_vec addEventHandler ["killed", {_this call d_fnc_handleDeadVec}];
+	
+	//Hunter: weeell what can you do... #justarmathings
+	private _sideVec = side _vec;
+	{
+	
+		if ((local _x) && {((side _x) getfriend _sideVec) >= 0.6}) then {
+		
+			_x disableCollisionWith _vec;
+		
+		};
+	
+	} foreach allunits;
+	
 	addToRemainsCollector [_vec];
 	
 	private _is_locked = false;
