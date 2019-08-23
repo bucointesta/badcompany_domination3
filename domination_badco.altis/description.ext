@@ -76,7 +76,7 @@ disableChannels[] = {{0,false,true},{1,false,true},{6,true,true}};
 enableItemsDropping = 0;
 
 //(0 - default, options based; 1 forced on; 2 forced off)
-forceRotorLibSimulation = 2;
+forceRotorLibSimulation = 0;
 
 /*0 = None - None of the units are managed by the manager
 1 = All - All units are managed by the manager
