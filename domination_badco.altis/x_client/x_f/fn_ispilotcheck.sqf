@@ -9,6 +9,11 @@ private _vecnum =  param [2];
 
 if (_enterer == "d_admin") exitWith {true};
 
+if ((_vecnum >= 900) && {_vecnum < 1000} && {!(_enterer in d_crewmen)}) exitWith {
+	hintSilent "You need to be a crewman to use this vehicle.";
+	false
+};
+
 //so medevac pilots can't fly other choppers
 _transPilots = d_transport_pilots - ["d_medpilot"];
 

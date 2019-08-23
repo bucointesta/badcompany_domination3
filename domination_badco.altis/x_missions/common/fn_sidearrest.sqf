@@ -73,7 +73,8 @@ while {!_offz_at_base && {!_is_dead && {d_sm_arrest_not_failed && {!d_sm_resolve
 				];
 			} else {
 				_nobjs findIf {
-					private _ret = ((str _x) select [0, 9] == "d_leader_") || {(str _x) == "d_admin"};
+					//private _ret = ((str _x) select [0, 9] == "d_leader_") || {(str _x) == "d_admin"};
+					_ret = true;
 					if (_ret) then {
 						_rescued = true;
 						_officer enableAI "PATH";

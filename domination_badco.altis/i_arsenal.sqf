@@ -58,16 +58,22 @@
 							
 		};	
 		
-		case ((_unit in d_attack_pilots) || {_unit in d_transport_pilots}) : {
+		case ((_unit in d_attack_pilots) || {_unit in d_transport_pilots} || {_unit in d_crewmen}) : {
 		
 			restrictions_allowedWeapons = d_pilotWeapons  - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
-			restrictions_allowedBackpacks = ["B_Parachute"];
+			restrictions_allowedBackpacks = [];
 			restrictions_allowedItems = d_pilot_uniforms + ["ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS","NVGoggles","NVGoggles_tna_F","NVGoggles_INDEP","NVGogglesB_grn_F","NVGogglesB_gry_F","FirstAidKit"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
 			
 			if (_unit == "d_medpilot") then {
 			
 				restrictions_allowedItems = restrictions_allowedItems + d_medic_only - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			
+			};
+			
+			if (_unit in d_crewmen) then {
+			
+				restrictions_allowedItems = _defaultItems + ["Rangefinder", "rhsusf_cvc_green_helmet","rhsusf_cvc_green_alt_helmet","rhsusf_cvc_green_ess","rhsusf_cvc_helmet","rhsusf_cvc_alt_helmet","rhsusf_cvc_ess"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			
 			};
 		
@@ -77,36 +83,37 @@
 		
 			restrictions_allowedWeapons = _defaultWeps;
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_medic_only + d_medium_armors - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_medic_only + d_heavy_armors + d_medium_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
 		
 		};	
 		
 		case (_unit in d_is_engineer) : {
 		
-			restrictions_allowedWeapons = _defaultWeps + ["rhs_weap_m72a7","rhs_weap_M136"];
+			restrictions_allowedWeapons = _defaultWeps;
 			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_engineer_only + d_heavy_armors + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
-			restrictions_allowedMagazines = _defaultMags + ["SatchelCharge_Remote_Mag"] + d_explosives - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});
+			restrictions_allowedItems = _defaultItems + d_engineer_only  + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedMagazines = _defaultMags + d_explosives - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});
 		
 		};
 		
+		
 		case (_unit in d_saboteurs) : {
 			
-			restrictions_allowedWeapons = _defaultWeps + d_saboteur_only + ["rhs_weap_m72a7","rhs_weap_M136"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
+			restrictions_allowedWeapons = _defaultWeps + d_saboteur_only - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
 			restrictions_allowedItems = _defaultItems + d_saboteur_only + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
-			restrictions_allowedMagazines = _defaultMags + ["SatchelCharge_Remote_Mag"] + d_explosives - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});
+			restrictions_allowedMagazines = _defaultMags + d_explosives - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});
 		
 		};
 		
 		case ((_unit in d_snipers) || {_unit in d_spotters}) : {
 		
+			//these are now marksmen
 			if (_unit in d_snipers) then {
 			
 					restrictions_allowedWeapons = _defaultWeps + d_sniping_rifles - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
-					restrictions_allowedItems = _defaultItems + d_sniper_optics + d_sniper_only + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
-	
+					restrictions_allowedItems = _defaultItems + d_medium_armors + d_heavy_armors + d_sniper_optics + d_sniper_only + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});					
 			
 			} else {
 			
@@ -114,30 +121,19 @@
 				restrictions_allowedItems = _defaultItems + d_sniper_optics + d_sniper_only + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			
 			};	
-			
+						
 			restrictions_allowedBackpacks = _defaultBackpacks;
 			restrictions_allowedMagazines = _defaultMags;
 		
 		};
 		
-		case ((_unit in d_grenadiers) || {_unit in d_leaders}) : {
+		case (_unit in d_grenadiers) : {
 		
 			restrictions_allowedWeapons = _defaultWeps + d_grenadelaunchers + ["rhs_weap_m72a7","rhs_weap_M136"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
-	
-			
-			if (_unit in d_leaders) then {
-			
-				restrictions_allowedBackpacks = _defaultBackpacks;
-				restrictions_allowedItems = _defaultItems + d_medium_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
-				restrictions_allowedMagazines = _defaultMags + ["SatchelCharge_Remote_Mag"];
-			
-			} else {
-			
 			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;		
-			
-			};		
+				
 		
 		};
 		
@@ -145,7 +141,7 @@
 		
 			restrictions_allowedWeapons = _defaultWeps + d_machineguns - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
 		
 		};
@@ -154,7 +150,7 @@
 		
 			restrictions_allowedWeapons = _defaultWeps + d_launchers + ["rhs_weap_m72a7","rhs_weap_M136"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
 		
 		};
@@ -164,18 +160,23 @@
 		
 			restrictions_allowedWeapons = _defaultWeps + ["rhs_weap_m72a7","rhs_weap_M136"];
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_medium_armors - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_medium_armors + d_heavy_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
 		
 		};
 	
 	};
 	
-	{
-	
-		restrictions_allowedMagazines pushback _x;
-		
+	//fix disposables
+	{	
+		restrictions_allowedMagazines pushback _x;		
 	} foreach ["rhs_m136_mag","rhs_m72a7_mag","rhs_m136_hp_mag","rhs_m136_hedp_mag","rhs_rpg26_mag","rhs_rshg2_mag"];
+	{	
+		restrictions_allowedWeapons pushback _x;		
+	} foreach ["rhs_weap_M136_used","rhs_weap_m72a7_used","rhs_weap_rpg26_used","rhs_weap_rshg2_used","rhs_weap_M136_hedp_used","rhs_weap_M136_hp_used"];
+	
+	//parachutes for everyone!!
+	restrictions_allowedBackpacks pushBack "B_Parachute";
 	
 	//dafuq is wrong with the ADR?!!	
 	restrictions_allowedWeapons pushBackUnique "50Rnd_570x28_SMG_03";

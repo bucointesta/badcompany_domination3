@@ -10,7 +10,7 @@ if !(["IsInitialized"] call BIS_fnc_EGSpectator) then {
 	xr_phd_invulnerable = true;
 	player setVariable ["AllowAi", false];
 	d_spect_viewdistance = viewDistance;
-	["Initialize", [player, d_own_sides_o, !isMultiplayer, true, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;
+	["Initialize", [player, d_own_sides_o, !isMultiplayer, false, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;
 	d_rscspect_on = true;
 	0 spawn {
 		sleep 2;

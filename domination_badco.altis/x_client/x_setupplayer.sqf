@@ -568,15 +568,15 @@ if (player getUnitTrait "Medic") then {
 d_x_loop_end = false;
 if (d_WithMHQTeleport == 0) then {
 #ifndef __TT__
-	d_FLAG_BASE addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx}];
+	d_FLAG_BASE addAction [format ["<t color='#ff0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx},[],99];
 #else
 	private _base_flag = [d_EFLAG_BASE, d_WFLAG_BASE] select (d_player_side == blufor);
-	_base_flag addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx}];
+	_base_flag addAction [format ["<t color='#ff0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx},[],99];
 #endif
 };
 
 #ifndef __TT__
-d_FLAG_BASE addaction [format ["<t color='#3F3F3F'>%1</t>", localize "STR_DOM_MISSIONSTRING_1745"], {_this call d_fnc_playerspectate}];
+d_FLAG_BASE addaction [format ["<t color='#e5e500'>%1</t>", localize "STR_DOM_MISSIONSTRING_1745"], {_this call d_fnc_playerspectate},[],-10];
 #endif
 
 if (d_ParaAtBase == 1) then {

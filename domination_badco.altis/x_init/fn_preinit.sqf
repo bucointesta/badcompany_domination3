@@ -356,7 +356,7 @@ d_spotters = ["d_spotter_1","d_spotter_2", "d_spotter_3", "d_spotter_4", "d_spot
 d_missilesp = ["d_missilesp_1","d_missilesp_2", "d_missilesp_3", "d_missilesp_4", "d_missilesp_5", "d_missilesp_6", "d_badco_7", "d_admin"];
 d_saboteurs = ["d_saboteur_1","d_saboteur_2", "d_saboteur_3", "d_saboteur_4", "d_saboteur_5", "d_saboteur_6", "d_admin"];
 d_medics = ["d_medpilot","d_medic_1","d_medic_2", "d_medic_3", "d_medic_4", "d_medic_5", "d_medic_6", "d_badco_3", "d_admin"];
-d_leaders = ["d_leader_1","d_leader_2", "d_leader_3", "d_leader_4", "d_leader_5", "d_leader_6", "d_badco_1", "d_admin"];
+d_crewmen = ["d_crewman_1","d_crewman_2", "d_crewman_3", "d_crewman_4", "d_crewman_5", "d_crewman_6", "d_admin"];
 
 // artillery operators
 #ifndef __TT__
@@ -1356,14 +1356,14 @@ if (hasInterface) then {
 
 	// is engineer
 #ifndef __TT__
-	d_is_engineer = ["d_engineer_1","d_engineer_2","d_engineer_3","d_engineer_4","d_engineer_5","d_engineer_6","d_badco_4","d_admin"];
+	d_is_engineer = ["d_engineer_1","d_engineer_2","d_badco_4","d_admin"];
 #else
 	d_is_engineer = ["d_blufor_17","d_blufor_18","d_blufor_19","d_opfor_17","d_opfor_18","d_opfor_19"];
 #endif
 
 	// can call in air drop
 #ifndef __TT__
-	d_can_call_drop_ar = ["d_leader_1","d_leader_2","d_leader_3","d_leader_4","d_leader_5","d_leader_6","d_badco_1","d_admin"];
+	d_can_call_drop_ar = ["d_badco_1","d_admin"];
 #else
 	d_can_call_drop_ar = [];
 #endif

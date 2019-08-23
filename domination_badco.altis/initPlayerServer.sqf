@@ -145,14 +145,6 @@ _pl spawn {
 
 if ((_p select 13) == 0) then {_pl setVariable ["d_isinprison", false]} else {_pl setVariable ["d_isinprison", true]};
 
-/*if (str _pl == "d_leader_1") then {if (["IsGroupRegistered", "Alpha"] call BIS_fnc_dynamicGroups) then {["SwitchLeader", "Alpha", _pl] call BIS_fnc_dynamicGroups} else {["RegisterGroup", [group d_leader_1, d_leader_1, ["111thID", "Alpha", true]]] call BIS_fnc_dynamicGroups}};
-if (str _pl == "d_leader_2") then {if (["IsGroupRegistered", "Bravo"] call BIS_fnc_dynamicGroups) then {["SwitchLeader", "Bravo", _pl] call BIS_fnc_dynamicGroups} else {["RegisterGroup", [group d_leader_1, d_leader_1, ["111thID", "Bravo", true]]] call BIS_fnc_dynamicGroups}};
-if (str _pl == "d_leader_3") then {if (["IsGroupRegistered", "Charlie"] call BIS_fnc_dynamicGroups) then {["SwitchLeader", "Charlie", _pl] call BIS_fnc_dynamicGroups} else {["RegisterGroup", [group d_leader_1, d_leader_1, ["111thID", "Charlie", true]]] call BIS_fnc_dynamicGroups}};
-if (str _pl == "d_leader_4") then {if (["IsGroupRegistered", "Delta"] call BIS_fnc_dynamicGroups) then {["SwitchLeader", "Delta", _pl] call BIS_fnc_dynamicGroups} else {["RegisterGroup", [group d_leader_1, d_leader_1, ["111thID", "Delta", true]]] call BIS_fnc_dynamicGroups}};
-if (str _pl == "d_leader_5") then {if (["IsGroupRegistered", "Echo"] call BIS_fnc_dynamicGroups) then {["SwitchLeader", "Echo", _pl] call BIS_fnc_dynamicGroups} else {["RegisterGroup", [group d_leader_1, d_leader_1, ["111thID", "Echo", true]]] call BIS_fnc_dynamicGroups}};
-if (str _pl == "d_leader_6") then {if ("Foxtrot" in (["GetAllGroups"] call BIS_fnc_dynamicGroups)) then {["SwitchLeader", "Foxtrot", _pl] call BIS_fnc_dynamicGroups} else {["RegisterGroup", [group d_leader_1, d_leader_1, ["111thID", "Foxtrot", true]]] call BIS_fnc_dynamicGroups}};
-if (str _pl == "d_badco_1") then {if ("Bad Company" in (["GetAllGroups"] call BIS_fnc_dynamicGroups)) then {["SwitchLeader", "Bad Company", _pl] call BIS_fnc_dynamicGroups} else {["RegisterGroup", [group d_leader_1, d_leader_1, ["Curator", "d_badco_1", true]]] call BIS_fnc_dynamicGroups}};*/
-
 _pl call d_fnc_prison_check;
 
 #ifdef __DEBUG__

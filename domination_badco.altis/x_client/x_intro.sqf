@@ -173,15 +173,26 @@ if (!(d_reserved_slot isEqualTo []) && {str player in d_reserved_slot}) then {
 	_uidcheck_done = true;
 	execVM "x_client\x_reservedslot.sqf";
 };
+
+_playerUID = getPlayerUID player;
+
 if (!_uidcheck_done && {!(d_uid_reserved_slots isEqualTo [])} && {!(membersarr isEqualTo [])}) then {
 	d_uid_reserved_slots = d_uid_reserved_slots apply {toUpper _x};
 	if ((toUpper str player) in d_uid_reserved_slots) then {
-		if !(getPlayerUID player in membersarr) then {
+		if !(_playerUID in membersarr) then {
 			execVM "x_client\x_reservedslot2.sqf";
 		};
 		d_uid_reserved_slots = nil;
 		membersarr = nil;
 	};
+};
+
+if ((!isnil "adminarr") && {_playerUID in adminarr}) then {
+
+	d_spectating = false;
+	player addAction ["<t color='#CCCC00'>Spectate Players</t﻿﻿>",{d_spectating = true; hintc "To stop spectating, you need to spectate yourself in FIRST PERSON and use your scroll wheel menu options."; sleep 1; waituntil {isnull (findDisplay 57)}; ["Initialize", [player, [side player], false, false, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;},[],-99,false,true,"","!d_spectating"];
+	player addAction ["<t color='#FF0000'>Stop Spectating</t﻿﻿>",{d_spectating = false; ["Terminate"] call BIS_fnc_EGSpectator;},[],99,false,true,"","d_spectating"];
+		
 };
 
 d_still_in_intro = false;
@@ -228,15 +239,13 @@ _backgroundEffect ppEffectEnable true;
 _backgroundEffect ppEffectAdjust [0.1, 0.5, 0, [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]];
 _backgroundEffect ppEffectCommit 0;
 
-if (str player in d_leaders) exitWith {	
+if (str player in d_crewmen) exitWith {	
 	"Welcome to Bad Company Domination!" hintc parseText
 	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a TEAM-LEADER. Your main role is to organize your team in order to accomplish mission objectives.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, grenade launchers and disposable launchers.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
-	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use rangefinders and laser designators.</t>";
+	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a CREWMAN. Your main role is to make use of armoured vehicles to support your team.</t><br/><br/>
+	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
+	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light armor and crewman helmets.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -247,8 +256,9 @@ if (str player in d_riflemen) exitWith {
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a RIFLEMAN. Your role is to be the main manpower in combat to help achieve your team's objectives.</t><br/><br/>
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and disposable launchers.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
-  <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t>";
+	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
+  <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
+	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -261,7 +271,7 @@ if (str player in d_grenadiers) exitWith {
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, grenade launchers and disposable launchers.</t><br/>
 	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
 	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use rangefinders.</t>";
+	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -274,7 +284,7 @@ if (str player in d_autoriflemen) exitWith {
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and machine guns.</t><br/>
 	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
 	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use rangefinders.</t>";
+	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -285,9 +295,9 @@ if (str player in d_snipers) exitWith {
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MARKSMAN. Your main role is to support your team by providing precision fire at medium and long range.</t><br/><br/>
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, sniper rifles and sniper optics.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can only wear light armor.</t><br/>
+	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
   <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can only carry small backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use rangefinders.</t>";
+	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -300,7 +310,7 @@ if (str player in d_spotters) exitWith {
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and sniper optics.</t><br/>
 	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can only wear light armor.</t><br/>
   <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can only carry small backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use rangefinders and laser designators.</t>";
+	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -313,7 +323,7 @@ if (str player in d_missilesp) exitWith {
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and all launchers.</t><br/>
 	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
 	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use rangefinders.</t>";
+	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -325,8 +335,7 @@ if (str player in d_saboteurs) exitWith {
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a SABOTEUR. Your main role is to infiltrate enemy lines and destroy targets with explosives.</t><br/><br/>
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, disposable launchers and some special-purpose weapons and uniforms.</t><br/>
 	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
-  <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use rangefinders.</t>";
+  <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -348,9 +357,9 @@ if (str player in d_medics) exitWith {
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a COMBAT MEDIC. Your main role is to support your team by healing and reviving wounded friendlies on the battlefield.</t><br/><br/>
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
+	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
   <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use medkits.</t>";
+	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use medkits and laser designators.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -360,10 +369,10 @@ if (str player in d_is_engineer) exitWith {
 	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an ENGINEER. Your main role is to repair friendly vehicles, destroy enemy targets with explosives and defuse enemy mines.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and disposable launchers.</t><br/>
+	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns and assault rifles.</t><br/>
 	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
 	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use rangefinders and toolkits.</t>";
+	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use toolkits.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
