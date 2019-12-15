@@ -8,6 +8,8 @@ if (!(isPlayer _this)) exitWith {diag_log "THIS IS NOT A PLAYER"};
 
 private _p = d_player_store getVariable (getPlayerUID _this);
 
+if (isNil "_p") exitWith {};
+
 if (alive _this) then {
 	if (_p select 13 > 0) then { /*should already be in prison*/
 		if (_this distance2D ((d_prison select (_p select 13)) select 0) > 100) then {  /*jailbreak*/
