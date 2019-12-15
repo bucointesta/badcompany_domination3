@@ -2,12 +2,6 @@
 //#define __DEBUG__
 #define THIS_FILE "fn_playerdisconnected.sqf"
 #include "..\..\x_setup.sqf"
-if (!isServer || {!d_database_found}) exitWith{
-
-	//Hunter: make sure player unit doesn't turn into AI in some cases...
-	deletevehicle (_this select 0);
-
-};
 
 params ["", "_uid", "_name"];
 
@@ -29,9 +23,6 @@ __TRACE_1("1","_unit")
 
 if (isNil "_unit" || {!isNil {_unit getVariable "d_no_side_change"}}) exitWith {
 	__TRACE_2("No database update","_unit","_name")
-	
-	//Hunter: make sure player unit doesn't turn into AI in some cases...
-	deletevehicle (_this select 0);
 };
 
 private _pa = d_player_store getVariable _uid;
@@ -42,7 +33,7 @@ __TRACE_1("","_ps")
 if (_ps isEqualTo []) exitWith {
 
 	//Hunter: make sure player unit doesn't turn into AI in some cases...
-	deletevehicle (_this select 0);
+	deletevehicle _unit;
 
 };
 //  [infantry kills, soft vehicle kills, armor kills, air kills, deaths, total score]
@@ -74,4 +65,4 @@ __TRACE_1("","_playtime")
 __TRACE("extDB3 called")
 
 //Hunter: make sure player unit doesn't turn into AI in some cases...
-deletevehicle (_this select 0);
+deletevehicle _unit;
