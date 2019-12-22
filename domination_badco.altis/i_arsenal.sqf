@@ -180,9 +180,11 @@
 	
 	//dafuq is wrong with the ADR?!!	
 	restrictions_allowedWeapons pushBackUnique "50Rnd_570x28_SMG_03";
+	//vanilla weps will load vanilla stanag so need to unrestrict that too... 
+	restrictions_allowedWeapons pushBackUnique "30Rnd_556x45_Stanag";
 	
 	restrictions_allAllowedItems = restrictions_allowedWeapons + restrictions_allowedBackpacks +
-	restrictions_allowedItems +	restrictions_allowedMagazines;	
+																	restrictions_allowedItems +	restrictions_allowedMagazines;	
 	
 	if (isNil "bis_fnc_arsenal_boxes") then {bis_fnc_arsenal_boxes = [];};
 
