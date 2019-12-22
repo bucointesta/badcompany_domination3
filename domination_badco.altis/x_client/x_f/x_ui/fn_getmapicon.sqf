@@ -4,11 +4,13 @@
 
 params ["_v", "_u", ["_m", false]];
 
+/*
 private _i = _v getVariable (["d_ma_type", "d_icon_type"] select (!_m));
 if (isNil "_i") then {
 	_i = getText (configFile >>"CfgVehicles">>typeOf _v>>"icon");
 	_v setVariable ["d_icon_type", _i];
 };
+
 private _s = _v getVariable "d_icon_size";
 if (isNil "_s") then {
 	_s = if (_v isKindOf "Man") then {
@@ -42,3 +44,20 @@ if (!_m) then {
 } else {
 	[_i, _s, _v getVariable "d_ma_color"]
 };
+*/
+
+//Hunter: override this so it's always the marker that's shown
+private _a = [0.7, 0.9] select (!isNull _u && {(group _u) isEqualTo (group player)});
+#ifdef __OWN_SIDE_BLUFOR__
+	private _c = [0, 0.3, 0.6, _a];
+#endif
+#ifdef __OWN_SIDE_OPFOR__
+	private _c = [0.5, 0, 0, _a];
+#endif
+#ifdef __OWN_SIDE_INDEPENDENT__
+	private _c = [0, 0.5, 0, _a];
+#endif
+#ifdef __TT__
+	private _c = [0, 0.5, 0, _a];
+#endif
+[_v getVariable ["d_ma_type",getText (configFile >>"CfgVehicles">>typeOf _v>>"icon")],28,_v getVariable ["d_ma_color",_c]]
