@@ -448,7 +448,8 @@ if (isServer) then {
 		[d_vec_bike_27,727,-1], [d_vec_car_1,801,-1], [d_vec_car_2,802,-1], [d_vec_car_3,803,-1],[d_vec_car_4,804,-1],
 		[d_vec_car_5,805,-1], [d_vec_car_6,806,-1], [d_vec_car_7,807,-1], [d_vec_car_8,808,-1],[d_vec_car_9,809,-1],
 		[d_vec_car_10,810,-1],[d_vec_car_11,811,-1],[d_vec_car_12,812,-1],[d_vec_car_13,813,-1],[d_vec_car_14,814,-1],
-		[d_vec_car_15,815,-1],[d_vec_tank_1,900,-1],[d_vec_tank_2,901,-1],[d_vec_tank_3,902,-1],[d_vec_tank_4,903,-1],
+		[d_vec_car_15,815,-1],[d_vec_car_16,816,-1],[d_vec_car_17,817,-1],[d_vec_car_18,818,-1],
+		[d_vec_tank_1,900,-1],[d_vec_tank_2,901,-1],[d_vec_tank_3,902,-1],[d_vec_tank_4,903,-1],
 		[d_vec_tank_5,904,-1],[d_vec_tank_6,905,-1],[d_vec_tank_7,906,-1],[d_vec_tank_8,907,-1]			
 		];
 		

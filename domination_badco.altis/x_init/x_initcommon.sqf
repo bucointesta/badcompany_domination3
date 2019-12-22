@@ -327,7 +327,8 @@ d_p_vecs = [
 	["D_C09",809,"d_car9","n_motor_inf","ColorBlue","Roamer-3",""],	["D_C10",810,"d_car10","n_motor_inf","ColorBlue","Hammer-3",""],
 	["D_C11",811,"d_car11","n_motor_inf","ColorBlue","Boxer-3",""],["D_C12",812,"d_car12","n_motor_inf","ColorBlue","Boxer-4",""],
 	["D_C13",813,"d_car13","n_motor_inf","ColorBlue","Roamer-1",""],["D_C14",814,"d_car14","n_motor_inf","ColorBlue","Hammer-4",""],
-	["D_C15",815,"d_car15","n_motor_inf","ColorBlue","Crossbow",""],
+	["D_C15",815,"d_car15","n_motor_inf","ColorBlue","Crossbow",""],["D_C16",816,"d_car16","n_motor_inf","ColorBlue","Sandbox-1",""],
+	["D_C17",817,"d_car17","n_motor_inf","ColorBlue","Sandbox-2",""],["D_C18",818,"d_car18","n_motor_inf","ColorBlue","Sandbox-3",""],
 		
 	["D_T01",900,"d_tank1","n_armor","ColorBlue","Grizzly",""],["D_T02",901,"d_tank2","n_mech_inf","ColorBlue","Lava-1",""],
 	["D_T03",902,"d_tank3","n_mech_inf","ColorBlue","Lava-2",""],["D_T04",903,"d_tank4","n_mech_inf","ColorBlue","Lava-3",""],
