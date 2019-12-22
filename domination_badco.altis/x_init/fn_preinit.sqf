@@ -348,7 +348,7 @@ d_farp_classes = ["Land_HelipadSquare_F", "Land_Cargo20_military_green_F","Land_
 d_badcompany = ["d_badco_1", "d_badco_2", "d_badco_3", "d_badco_4", "d_badco_5", "d_badco_6", "d_badco_7", "d_badco_9", "d_badco_10", "d_admin"];
 d_attack_pilots = ["d_apilot_1", "d_apilot_2", "d_badco_2", "d_admin"];
 d_transport_pilots = ["d_medpilot","d_tpilot_1", "d_tpilot_2", "d_tpilot_3", "d_tpilot_4", "d_badco_2", "d_admin"];
-d_riflemen = ["d_rifleman_1","d_rifleman_2", "d_rifleman_3", "d_rifleman_4", "d_rifleman_5", "d_rifleman_6", "d_badco_10", "d_admin"];
+d_riflemen = ["d_rifleman_1","d_rifleman_2", "d_rifleman_3", "d_rifleman_4", "d_rifleman_5", "d_rifleman_6", "d_badco_10","d_badco_1", "d_admin"];
 d_grenadiers = ["d_grenadier_1","d_grenadier_2", "d_grenadier_3", "d_grenadier_4", "d_grenadier_5", "d_grenadier_6", "d_badco_9", "d_admin"];
 d_autoriflemen = ["d_autorifleman_1","d_autorifleman_2", "d_autorifleman_3", "d_autorifleman_4", "d_autorifleman_5", "d_autorifleman_6", "d_badco_6", "d_admin"];
 d_snipers = ["d_marksman_1","d_marksman_2", "d_marksman_3", "d_marksman_4", "d_marksman_5", "d_marksman_6", "d_badco_5", "d_admin"];
@@ -367,13 +367,13 @@ d_can_use_artillery = ["d_artop_blufor", "d_artop_opfor"];
 
 // those units can mark artillery targets but can not call in artillery strikes (only d_can_use_artillery can call in artillery strikes and also mark arty targets)
 #ifndef __TT__
-d_can_mark_artillery = ["d_spotter_1", "d_spotter_2", "d_spotter_3", "d_spotter_4", "d_spotter_5", "d_spotter_6", "d_badco_1", "d_admin"];
+d_can_mark_artillery = ["d_spotter_1", "d_spotter_2", "d_spotter_3", "d_spotter_4", "d_spotter_5", "d_spotter_6", "d_admin"];
 #else
 d_can_mark_artillery = ["d_blufor_1", "d_blufor_2", "d_blufor_3", "d_opfor_1", "d_opfor_2", "d_opfor_3"];
 #endif
 
 #ifndef __TT__
-d_can_call_cas = ["d_badco_1", "d_admin"];
+d_can_call_cas = ["d_admin"];
 #else
 d_can_call_cas = ["d_blufor_1", "d_blufor_2", "d_blufor_3", "d_opfor_1", "d_opfor_2", "d_opfor_3"];
 #endif
@@ -1363,7 +1363,7 @@ if (hasInterface) then {
 
 	// can call in air drop
 #ifndef __TT__
-	d_can_call_drop_ar = ["d_badco_1","d_admin"];
+	d_can_call_drop_ar = ["d_admin"];
 #else
 	d_can_call_drop_ar = [];
 #endif
