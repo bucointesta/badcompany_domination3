@@ -651,9 +651,10 @@ d_map_ameh = addMissionEventHandler ["Map", {
 	d_map_ameh = nil;
 }];
 
-0 spawn d_fnc_waitforgps;
-0 spawn d_fnc_waitartycompmap;
-0 spawn d_fnc_waitforuavmap;
+//Hunter: disable these (for now?)
+//0 spawn d_fnc_waitforgps;
+//0 spawn d_fnc_waitartycompmap;
+//0 spawn d_fnc_waitforuavmap;
 
 if (isNil "d_the_carrier") then {
 	d_the_carrier = [0,0,0];

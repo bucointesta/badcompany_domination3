@@ -309,9 +309,8 @@
 
 
 	{
-
 		(_x select 0) hideObject true;
-
+		(_x select 0) enableSimulation false;
 	} foreach d_static_ammoboxes;
 
 };
