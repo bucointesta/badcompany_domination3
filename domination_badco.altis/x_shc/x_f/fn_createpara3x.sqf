@@ -49,17 +49,17 @@ private _make_jump = {
 	_wp setWaypointFormation "VEE";
 	_wp setWaypointForceBehaviour true;
 	
-	//_vec flyInHeight 100;
+	_vec flyInHeight 100;
 	
 	sleep 10.0231;
 	
 	private _stop_me = false;
 	private _checktime = time + 300;
 	//Hunter: Increased distance from DZ because #armaAI.... (was 300)
-	while {_attackpoint distance2D (getPosASL (leader _vgrp)) > 600} do {
+	while {_posLead = getPosASL (leader _vgrp); (_attackpoint distance2D _posLead > 1000) || {surfaceIsWater _posLead}} do {
 		if (!alive _vec || {!alive _driver_vec || {!canMove _vec}}) exitWith {d_should_be_there = d_should_be_there - 1};
 		sleep 0.01;
-		if (d_mt_radio_down && {_attackpoint distance2D (leader _vgrp) > 1300}) exitWith {
+		if (d_mt_radio_down && {_attackpoint distance2D (leader _vgrp) > 10000}) exitWith {
 			[_crew_vec, _vec, 1 + random 1] spawn _delveccrew;
 			_stop_me = true;
 		};
@@ -81,94 +81,96 @@ private _make_jump = {
 	sleep 0.534;
 	
 	if (alive _vec && {alive _driver_vec && {canMove _vec}}) then {
-		//Hunter: again with the distance checks... leave more tolerance
-		if (!d_mt_radio_down && {_vec distance2D d_cur_tgt_pos < ([600, 1000] select (speed _vec > 300))}) then {
-			private _paragrp = [d_side_enemy] call d_fnc_creategroup;
-			private _real_units = ["allmen", d_enemy_side_short] call d_fnc_getunitlistm;
-			//Hunter: get full capacity of chopper and decide unit count from there...
-			_chopperCap = _vec emptyPositions "Cargo";
-			if (count _real_units < _chopperCap) then {
-				while {count _real_units < _chopperCap} do {
-					_real_units pushBack (selectRandom _real_units);
-				};
+	
+		private _paragrp = [d_side_enemy] call d_fnc_creategroup;
+		private _real_units = ["allmen", d_enemy_side_short] call d_fnc_getunitlistm;
+		//Hunter: get full capacity of chopper and decide unit count from there...
+		_chopperCap = _vec emptyPositions "Cargo";
+		if (count _real_units < _chopperCap) then {
+			while {count _real_units < _chopperCap} do {
+				_real_units pushBack (selectRandom _real_units);
 			};
-			sleep 0.1;
-			private _subskill = if (diag_fps > 29) then {
-				(0.1 + (random 0.2))
-			} else {
-				(0.12 + (random 0.04))
-			};
-			private _sleeptime = [0.551, 0.15] select (speed _vec > 300);
-			{
-				private _pposcx = getPosATL _vec;
-				private _one_unit = _paragrp createUnit [_x, [_pposcx # 0, _pposcx # 1, 0], [], 0,"NONE"];
-				[_one_unit] joinSilent _paragrp;
-				__TRACE_1("","_one_unit")
-				private _para = createVehicle [d_non_steer_para, _pposcx, [], 20, "NONE"];
-				_one_unit moveInDriver _para;
-				_para setDir random 360;
-				_pposcx = getPosATL _vec;
-				_para setPos [_pposcx # 0, _pposcx # 1, (_pposcx # 2) - 10];
-				_one_unit call d_fnc_removenvgoggles_fak;
-#ifdef __TT__
-				_one_unit addEventHandler ["killed", {[[15, 3, 2, 1], _this # 1, _this # 0] remoteExecCall ["d_fnc_AddKills", 2]}];
-#endif
-				if (d_with_ai && {d_with_ranked}) then {
-					_one_unit addEventHandler ["Killed", {
-						[1, _this select 1] remoteExecCall ["d_fnc_addkillsai", 2];
-						(_this select 0) removeAllEventHandlers "Killed";
-					}];
-				};
-				/*
-				_one_unit setUnitAbility ((d_skill_array # 0) + (random (d_skill_array # 1)));
-				_one_unit setSkill ["aimingAccuracy", _subskill];
-				_one_unit setSkill ["spotTime", _subskill];
-				*/				
-				_one_unit call AI_setSkill;
-				
-				d_delinfsm  pushBack _one_unit;
-				sleep _sleeptime;
-				if (!alive _vec) exitWith {};
-			} forEach _real_units;
-			_paragrp deleteGroupWhenEmpty true;
-			__TRACE_1("","_real_units")
-#ifndef __TT__
-			(units _paragrp) remoteExecCall ["d_fnc_addceo", 2];
-#endif
-			_paragrp allowFleeing 0;
-			_paragrp setCombatMode "YELLOW";
-			_paragrp setBehaviour "AWARE";
-			
-			[_paragrp, d_cur_tgt_pos, d_cur_target_radius] spawn {
-				scriptName "spawn_x_createpara3_usegroup";
-				params ["_grp", "_pos"];
-				sleep 40;
-				if ((units _grp) findIf {alive _x} > -1) then {
-					[_grp, _pos, [_pos, _this select 2], [10, 20, 50], "", 0] spawn d_fnc_MakePatrolWPX;
-					_grp setVariable ["d_PATR", true];
-					if (d_with_dynsim == 0) then {
-						_grp enableDynamicSimulation true;
-					};
-				};
-			};
-			
-			d_c_attacking_grps pushBack _paragrp;
-			
-			sleep 0.112;
-			d_should_be_there = d_should_be_there - 1;
-			
-			while {_heliendpoint distance2D (leader _vgrp) > 1000} do {
-				if (!alive _vec || {!alive _driver_vec || {!canMove _vec}}) exitWith {};
-				sleep 5.123;
-			};
-			
-			if (!isNull _vec && {_heliendpoint distance2D _vec > 1000}) then {
-				[_crew_vec, _vec, 60 + random 60] spawn _delveccrew;
-			} else {
-				_vec call d_fnc_DelVecAndCrew;
-			};
-			if (!isNull _driver_vec) then {_driver_vec setDamage 1};
 		};
+		sleep 0.1;
+		private _subskill = if (diag_fps > 29) then {
+			(0.1 + (random 0.2))
+		} else {
+			(0.12 + (random 0.04))
+		};
+		private _sleeptime = [0.551, 0.15] select (speed _vec > 300);
+		{
+			private _pposcx = getPosATL _vec;
+			private _one_unit = _paragrp createUnit [_x, [_pposcx # 0, _pposcx # 1, 0], [], 0,"NONE"];
+			[_one_unit] joinSilent _paragrp;
+			__TRACE_1("","_one_unit")
+			private _para = createVehicle [d_non_steer_para, _pposcx, [], 20, "NONE"];
+			_one_unit moveInDriver _para;
+			_para setDir random 360;
+			_pposcx = getPosATL _vec;
+			_para setPos [_pposcx # 0, _pposcx # 1, (_pposcx # 2) - 10];
+			_one_unit call d_fnc_removenvgoggles_fak;
+#ifdef __TT__
+			_one_unit addEventHandler ["killed", {[[15, 3, 2, 1], _this # 1, _this # 0] remoteExecCall ["d_fnc_AddKills", 2]}];
+#endif
+			if (d_with_ai && {d_with_ranked}) then {
+				_one_unit addEventHandler ["Killed", {
+					[1, _this select 1] remoteExecCall ["d_fnc_addkillsai", 2];
+					(_this select 0) removeAllEventHandlers "Killed";
+				}];
+			};
+			/*
+			_one_unit setUnitAbility ((d_skill_array # 0) + (random (d_skill_array # 1)));
+			_one_unit setSkill ["aimingAccuracy", _subskill];
+			_one_unit setSkill ["spotTime", _subskill];
+			*/				
+			_one_unit call AI_setSkill;
+			
+			d_delinfsm  pushBack _one_unit;
+			sleep _sleeptime;
+			if (!alive _vec) exitWith {};
+		} forEach _real_units;
+		_paragrp deleteGroupWhenEmpty true;
+		__TRACE_1("","_real_units")
+#ifndef __TT__
+		(units _paragrp) remoteExecCall ["d_fnc_addceo", 2];
+#endif
+		_paragrp allowFleeing 0;
+		_paragrp setCombatMode "RED";
+		_paragrp setBehaviour "COMBAT";
+		
+		[_paragrp, d_cur_tgt_pos, d_cur_target_radius] spawn {
+			scriptName "spawn_x_createpara3_usegroup";
+			params ["_grp", "_pos"];
+			sleep 40;
+			if ((units _grp) findIf {alive _x} > -1) then {
+				[_grp, _pos, [_pos, _this select 2], [10, 20, 50], "", 0] spawn d_fnc_MakePatrolWPX;
+				_grp setVariable ["d_PATR", true];
+				if (d_with_dynsim == 0) then {
+					_grp enableDynamicSimulation true;
+				};
+			};
+		};
+		
+		d_c_attacking_grps pushBack _paragrp;
+		
+		sleep 0.112;
+		d_should_be_there = d_should_be_there - 1;
+		
+		_vec doMove _heliendpoint;
+		_vec flyInHeight 100;
+		
+		while {_heliendpoint distance2D (leader _vgrp) > 1000} do {
+			if (!alive _vec || {!alive _driver_vec || {!canMove _vec}}) exitWith {};
+			sleep 5.123;
+		};
+		
+		if (!isNull _vec && {_heliendpoint distance2D _vec > 1000}) then {
+			[_crew_vec, _vec, 60 + random 60] spawn _delveccrew;
+		} else {
+			_vec call d_fnc_DelVecAndCrew;
+		};
+		if (!isNull _driver_vec) then {_driver_vec setDamage 1};
+		
 	} else {
 		[_crew_vec, _vec, 60 + random 60] spawn _delveccrew;
 	};
@@ -197,7 +199,7 @@ for "_i" from 1 to _number_vehicles do {
 
 	sleep 5.012;
 	
-	//_vec flyInHeight 100;
+	_vec flyInHeight 100;
 
 	if (d_mt_radio_down) exitWith {
 		_stop_it = true;
