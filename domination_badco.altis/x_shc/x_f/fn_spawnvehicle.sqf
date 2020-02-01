@@ -40,16 +40,17 @@ private "_veh";
 private _sim = toUpper getText(configFile>>"CfgVehicles">>_typev1>>"simulation");
 __TRACE_1("","_sim")
 
-if (_sim in ["AIRPLANE", "HELICOPTER", "AIRPLANEX", "HELICOPTERX", "HELICOPTERRTD"]) then {
+//if (_sim in ["AIRPLANE", "HELICOPTER", "AIRPLANEX", "HELICOPTERX", "HELICOPTERRTD"]) then {
+if (_typev1 isKindOf "Air") then {
 	if (count _posv1 == 2) then {_posv1 pushBack 0};
-	_posv1 set [2, (_posv1 # 2) max 300];
-
+	
 	_veh = createVehicle [_typev1, _posv1, [], 0, "FLY"];
 
 	_veh setDir _azi;
 	_veh setPos _posv1;
 	
-	if (_sim == "AIRPLANEX" || {_sim == "AIRPLANE"}) then {
+	//if (_sim == "AIRPLANEX" || {_sim == "AIRPLANE"}) then {
+	if (_typev1 isKindOf "Plane") then {
 		private _v = velocity _veh;
 		_veh setVelocity [
 			(_v # 1) * sin _azi - (_v # 0) * cos _azi,
