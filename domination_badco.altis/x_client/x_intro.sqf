@@ -346,7 +346,7 @@ if ((str player) == "d_medpilot") exitWith {
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MEDEVAC PILOT. Your main role is to provide rapid air transport for medical operations.</t><br/><br/>
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms and parachutes.</t>";
+	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -377,13 +377,14 @@ if (str player in d_is_engineer) exitWith {
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
 };
+/*
 if (str player in d_attack_pilots) exitWith {
 	"Welcome to Bad Company Domination!" hintc parseText
 	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an ATTACK PILOT. Your main role is to provide close air support (ONLY WHEN REQUESTED BY YOUR TEAM - READ THE RULES).</t><br/><br/>
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms and parachutes.</t>";
+	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -394,7 +395,20 @@ if (str player in d_transport_pilots) exitWith {
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a TRANSPORT PILOT. Your main role is to provide air transport for troops and logistics, as well as delivery and retrieval of friendly vehicles.</t><br/><br/>
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms and parachutes.</t>";
+	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>";
+	sleep 0.1;
+	ppEffectDestroy _backgroundEffect;
+	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
+};
+*/
+
+if ((str player in d_transport_pilots) || {str player in d_attack_pilots}) exitWith {
+	"Welcome to Bad Company Domination!" hintc parseText
+	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
+	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a PILOT. Your primary role is to provide air transport for troops and logistics, as well as delivery and retrieval of friendly vehicles (remember that with more than 25 players online, MHQs will be disabled). Your secondary role is to provide close air support (ONLY WHEN REQUESTED BY YOUR TEAM - READ THE RULES).</t><br/><br/>
+	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
+	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
