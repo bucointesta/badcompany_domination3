@@ -7649,13 +7649,13 @@
 <Russian>Король Седии ликвидирован! Отличная работа!</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1644">
-<English>Base Flag</English>
-<Spanish>Bandera de base</Spanish>
-<Portuguese>Bandeira de base</Portuguese>
-<Korean>Base Flag</Korean>
-<Japanese>Base Flag</Japanese>
-<Original>Base Flag</Original>
-<Russian>Меню базы</Russian>
+<English>Teleporter</English>
+<Spanish>Teleporter</Spanish>
+<Portuguese>Teleporter</Portuguese>
+<Korean>Teleporter</Korean>
+<Japanese>Teleporter</Japanese>
+<Original>Teleporter</Original>
+<Russian>Teleporter</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1645">
 <English>Attention!!! You are using a NVG scope which is not allowed.\n\nRemoving it now, please choose another scope!</English>

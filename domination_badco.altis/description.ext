@@ -72,7 +72,7 @@ joinUnassigned = false; // auto assign
 
 // 0 = Global, 1 = Side, 2 = Command, 3 = Group, 4 = Vehicle, 5 = Direct, 6 = System
 // {channelid, disablechat, disablevoice}
-disableChannels[] = {{0,false,true},{1,false,true},{6,true,true}};
+disableChannels[] = {{0,false,true},{1,false,false},{2,false,true},{6,true,true}};
 enableItemsDropping = 0;
 
 //(0 - default, options based; 1 forced on; 2 forced off)

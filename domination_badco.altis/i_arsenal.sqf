@@ -97,7 +97,6 @@
 		
 		};
 		
-		
 		case (_unit in d_saboteurs) : {
 			
 			restrictions_allowedWeapons = _defaultWeps + d_saboteur_only - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
@@ -253,7 +252,7 @@
 				_box = _x;
 				if (!isNull _box) then {
 					_distp = _pos_cam distance _box;				
-					if (_distp < 30) then {
+					if (_distp < 50) then {
 						_pos = getPosATL _box;
 						_scale = 0.033 - (_distp / 9000);
 						_pos set [2, 1.5 + (_distp * 0.05)];
