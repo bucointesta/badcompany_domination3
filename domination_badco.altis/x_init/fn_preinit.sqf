@@ -346,6 +346,7 @@ d_farp_classes = ["Land_HelipadSquare_F", "Land_Cargo20_military_green_F","Land_
 
 /*roles*/
 d_badcompany = ["d_badco_1", "d_badco_2", "d_badco_3", "d_badco_4", "d_badco_5", "d_badco_6", "d_badco_7", "d_badco_9", "d_badco_10", "d_admin"];
+//note that transport pilots and attack pilots are now considered to have the same restrictions and are just called "Pilot". these variables are kept in case we want to go back to the old system...
 d_attack_pilots = ["d_apilot_1", "d_apilot_2", "d_badco_2", "d_admin"];
 d_transport_pilots = ["d_medpilot","d_tpilot_1", "d_tpilot_2", "d_tpilot_3", "d_tpilot_4", "d_badco_2", "d_admin"];
 d_riflemen = ["d_rifleman_1","d_rifleman_2", "d_rifleman_3", "d_rifleman_4", "d_rifleman_5", "d_rifleman_6", "d_badco_10","d_badco_1", "d_admin"];
@@ -835,20 +836,20 @@ if (!d_tt_tanoa) then {
 	//Hunter: convert to player number scaled functions
 	d_number_attack_planes = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 12) exitWith {1};
-		if (_p < 20) exitWith {2};
+		if (_p < 20) exitWith {1};
+		if (_p < 30) exitWith {2};
 		3
 	};
 	d_number_CAP_planes = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 12) exitWith {1};
-		if (_p < 20) exitWith {2};
+		if (_p < 20) exitWith {1};
+		if (_p < 30) exitWith {2};
 		3
 	};
 	d_number_attack_choppers = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 12) exitWith {1};
-		if (_p < 20) exitWith {2};
+		if (_p < 20) exitWith {1};
+		if (_p < 30) exitWith {2};
 		3
 	};
 	
@@ -915,8 +916,8 @@ if (!d_tt_tanoa) then {
 	// Hunter: convert to function to scaled for player count
 	d_airai_respawntime = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 5) exitWith {1800};
-		if (_p < 12) exitWith {1200};
+		if (_p < 10) exitWith {1800};
+		if (_p < 15) exitWith {1200};
 		if (_p < 20) exitWith {900};
 		if (_p < 25) exitWith {600};
 		if (_p < 30) exitWith {300};
@@ -1167,7 +1168,7 @@ d_airai_CAP_plane = d_airai_attack_plane;
 #endif
 #ifdef __RHS__
 	d_transport_chopper = switch (d_enemy_side_short) do {
-		case "E": {["RHS_Mi8MTV3_vvsc"]};
+		case "E": {["RHS_Mi8mt_Cargo_vv"]};
 		case "W": {["rhsusf_CH53E_USMC"]};
 		case "G": {["I_Heli_Transport_02_F"]};
 	};
@@ -1384,7 +1385,7 @@ if (hasInterface) then {
 	"I_Heli_light_03_unarmed_F";
 #endif
 #ifdef __RHS__
-	d_jump_helo = ["RHS_Mi8mt_vvs", "RHS_UH1Y_UNARMED_d"] select d_rhs_blufor;
+	d_jump_helo = ["RHS_Mi8mt_Cargo_vv", "RHS_UH1Y_UNARMED_d"] select d_rhs_blufor;
 #endif
 	
 	d_headbug_vehicle = "B_Quadbike_01_F";

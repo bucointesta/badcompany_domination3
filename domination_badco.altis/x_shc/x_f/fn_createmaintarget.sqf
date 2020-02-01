@@ -26,6 +26,8 @@ private _selectitvec = {
 	if (_a_vng2 # 0 > 0) then {private _num_ret = floor (random ((_a_vng2 # 0) + 1));if (_num_ret < _a_vng2 # 1) then {_a_vng2 # 1} else {_num_ret}} else {0}
 };
 
+call d_fnc_scaleEnemyNumbers;
+
 private _type_list_guard = [
 	["allmen", 0, [d_footunits_guard, 0] call _selectitmen],
 	["specops", 0, [d_footunits_guard, 1] call _selectitmen],
