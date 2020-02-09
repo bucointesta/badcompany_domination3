@@ -142,13 +142,31 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 						} forEach _slcmp;
 					};
 					
+					// Hunter: fixes(?) rope breaking due to lag from locality issues
+					_chopper enableRopeAttach true;
+					_liftobj enableRopeAttach true;			
+					_dummyObj = objNull;
+
+					if (!local _liftobj) then {					
+						if ((count crew _liftobj) == 0) then {
+							[_liftobj, true] remoteExecCall ["d_fnc_l_v", _liftobj]; 
+							sleep 1;
+							[_liftobj, owner player] remoteExecCall ["d_fnc_setOwner",2,false];		
+						} else {
+							_dummyObj = "HeliHEmpty" createVehicle (getpos _chopper);
+							_dummyObj attachTo [_chopper, [0,0,0]];
+							[_dummyObj, owner _liftobj] remoteExecCall ["d_fnc_setOwner",2,false];
+							sleep 1;
+						};					
+					};
+					
 					if (_slcmp_null) then {
 						{
-							_ropes pushBack (ropeCreate [_chopper, _slipos, _liftobj, _x, 20]);
+							_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _x, 20]);
 						} forEach ([_liftobj] call d_fnc_getcorners);
 					} else {
 						{
-							_ropes pushBack (ropeCreate [_chopper, _slipos, _liftobj, _liftobj selectionPosition _x, 20]);
+							_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _liftobj selectionPosition _x, 20]);
 						} forEach _slcmp;
 					};
 					
@@ -167,6 +185,14 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 					while {alive _chopper && {alive _liftobj && {alive player && {_ropes findIf {alive _x} > -1 && {!(_chopper getVariable ["d_vec_released", false]) && {player in _chopper}}}}}} do {
 						sleep 0.312;
 					};
+					
+					if (!isNull _dummyObj) then {
+						detach _dummyObj;
+						sleep 0.1;
+						deleteVehicle _dummyObj;
+					} else {
+						[_liftobj, false] remoteExecCall ["d_fnc_l_v", _liftobj]; 					
+					};					
 					
 					{
 						ropeDestroy _x;

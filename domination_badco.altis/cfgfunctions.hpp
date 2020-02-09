@@ -264,6 +264,10 @@ class cfgFunctions {
 			addc(prison_in);
 			addc(prison_out);	
 			addc(air_box);
+			addc(setOwner);
+			addc(planeSet);
+			addc(cargoPlaneDropMP);
+			addc(l_v);
 		};
 		class Dom_ext_Scripts {
 			file = "scripts";
@@ -375,7 +379,6 @@ class cfgFunctions {
 			addc(rusermarkers);
 			addc(rallusermarkers);
 			addc(airmarkermove);
-			addc(l_v);
 			addc(allunits_add);
 			addc(makemtgmarker);
 			addc(addppoints);

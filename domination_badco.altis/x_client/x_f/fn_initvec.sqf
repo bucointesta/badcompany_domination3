@@ -15,6 +15,8 @@ _vec setVariable ["d_icon_type", getText (configFile >>"CfgVehicles">>typeOf _ve
 _vec setVariable ["d_icon_size", 28]; \
 if (count _car > 8) then {_vec setVariable ["d_lift_types", _car select 8]}
 
+#define __planeSet [_vec] remoteExecCall ["d_fnc_planeSet",-2,true]
+
 #define __chopset private _index = _car select 1;\
 _vec setVariable ["d_choppertype", _index];\
 _vec setVariable ["d_vec_type", "chopper"];\
@@ -500,7 +502,7 @@ if (_d_vec < 4000) exitWith {
 #endif
 	};
 	if (!alive _vec) exitWith {};
-	if (_d_vec < 3100) then {__addchopm;};	//exclude planes
+	if (_d_vec < 3100) then {__addchopm;} else {__planeSet;};	
 	__chopset;
 #ifdef __TT__
 	__sidew;

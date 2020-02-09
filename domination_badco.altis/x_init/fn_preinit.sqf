@@ -905,6 +905,13 @@ if (!d_tt_tanoa) then {
 	d_cas_plane = ["RHS_Su25SM_vvsc", "RHS_A10"] select d_rhs_blufor;
 #endif
 
+	// Hunter: need to define vanilla default
+	d_cargoPlanes = [];
+#ifdef __RHS__
+	d_cargoPlanes = ["RHS_C130J"];
+#endif
+	publicVariable "d_cargoPlanes";
+
 	// max men for main target clear
 	d_man_count_for_target_clear = 6;
 	// max tanks for main target clear

@@ -113,6 +113,9 @@ class CfgRemoteExec {
 
 		// security risk...
 		class bis_fnc_debugconsoleexec {};	
+		class d_fnc_setOwner {allowedTargets=2;};
+		class d_fnc_planeSet {allowedTargets=1;};
+		class d_fnc_cargoPlaneDropMP {};
 		class d_fnc_delruin {};
 		class d_fnc_CreateDroppedBox {allowedTargets = 2;};
 		class d_fnc_create_boxNet {allowedTargets = 1;};
@@ -132,7 +135,7 @@ class CfgRemoteExec {
 		class d_fnc_DoKBMsg {allowedTargets = 2;};
 		class d_fnc_getsidemission {allowedTargets = 2;};
 		class d_fnc_createPlayerBike {allowedTargets = 2;};
-		class d_fnc_l_v {allowedTargets = 2;};
+		class d_fnc_l_v {};
 		class d_fnc_mhqdepls {allowedTargets = 2;};
 		class d_fnc_mhqdeplNet {allowedTargets = 1;};
 		class d_fnc_mhq_net {allowedTargets = 2;};
