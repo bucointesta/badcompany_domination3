@@ -3,7 +3,7 @@
 ["rhs_btr60_msv","rhs_btr70_msv","rhs_btr80_msv","rhs_btr80a_msv"],
 ["rhs_zsu234_aa"],
 //["rhsgref_BRDM2_msv","rhsgref_BRDM2_ATGM_msv","rhsgref_BRDM2_HQ_msv"], //shouldn't have any gref vehicles unless we use it later...
-["rhs_btr60_msv","rhs_btr80a_msv","rhs_gaz66_r142_msv"], //replaced line above with this
+["rhs_gaz66_zu23_vdv","rhs_tigr_sts_msv","rhs_tigr_sts_3camo_msv","RHS_Ural_Zu23_VDV_01"], //replaced line above with this -- RHS AFRF doesn't have any MG-only vehicles
 ["rhs_tigr_sts_msv","rhs_tigr_sts_3camo_msv"],
 ["RHS_AGS30_TriPod_MSV","RHS_ZU23_MSV"],
 [/*"rhs_Metis_9k115_2_msv",*/"rhs_Kornet_9M133_2_msv","rhs_Igla_AA_pod_msv",/*"rhs_KORD_MSV",*/"rhs_KORD_high_MSV",/*"RHS_NSV_TriPod_MSV","rhs_KORD_high_MSV","RHS_NSV_TriPod_MSV",*/"rhs_SPG9M_MSV"],
