@@ -53,17 +53,29 @@ __TRACE_1("","_maxHeight")
 _boxpos set [2,0];
 __TRACE_1("","_boxpos")
 
+if (_unit iskindof "Ship") then {
+	_boxpos = _unit modelToWorldVisual [0,0,3];
+};
+
 #ifndef __TT__
 //create the actual box if unloading for the first time
 _boxobj = _unit getVariable ["actualAmmobox",objNull];
 if (isnull _boxobj) then {
-
-	[_boxpos, _unit] remoteExecCall ["d_fnc_CreateDroppedBox", 2];
+	
+	if (_unit iskindof "Ship") then {
+		[_boxpos, _unit, true] remoteExecCall ["d_fnc_CreateDroppedBox", 2];
+	} else {
+		[_boxpos, _unit] remoteExecCall ["d_fnc_CreateDroppedBox", 2];
+	};
 
 } else {
 	
-	detach _boxobj;
-	_boxobj setpos _boxpos;
+	detach _boxobj;		
+	if (_unit iskindof "Ship") then {
+		_boxobj attachto [_unit,[0,0,3]];
+	} else {
+		_boxobj setpos _boxpos;
+	};
 	_mname = format ["d_bm_%1", _boxpos];
 	_markerName = createMarker [_mname, _boxpos];
 	_markerName setMarkerShape "ICON";

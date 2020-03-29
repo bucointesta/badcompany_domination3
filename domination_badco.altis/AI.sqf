@@ -1,8 +1,8 @@
 //global params
 
 AI_skill_general = 0.6;
-AI_skill_aimingAccuracy = 0.3;
-AI_skill_aimingShake = 0.3;
+AI_skill_aimingAccuracy = 0.15;
+AI_skill_aimingShake = 0.15;
 AI_skill_aimingSpeed = 0.65;
 AI_skill_reloadSpeed = 0.3;
 AI_skill_commanding = 1;

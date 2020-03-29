@@ -1241,7 +1241,7 @@ if (hasInterface) then {
 	["I_Quadbike_01_F"];
 #endif
 #ifdef __OWN_SIDE_BLUFOR__
-	[["B_Quadbike_01_F", "B_LSV_01_unarmed_F"], ["B_Quadbike_01_F", "B_T_LSV_01_unarmed_F"]] select d_tanoa;
+	[["B_Quadbike_01_F", "B_LSV_01_unarmed_F"], ["B_Quadbike_01_F", "B_T_LSV_01_unarmed_F","C_Scooter_Transport_01_F"]] select d_tanoa;
 #endif
 #ifdef __OWN_SIDE_OPFOR__
 	[["O_Quadbike_01_F", "O_LSV_02_unarmed_F"], ["O_Quadbike_01_F", "O_T_LSV_02_unarmed_F"]] select d_tanoa;
@@ -1253,7 +1253,7 @@ if (hasInterface) then {
 	d_create_bike = ["LIB_Willys_MB", "LIB_US_Willys_MB"];
 #endif
 #ifdef __RHS__
-	d_create_bike = [["rhs_tigr_3camo_msv", "RHS_UAZ_MSV_01"], ["rhsusf_mrzr4_d"]] select d_rhs_blufor;
+	d_create_bike = [["rhs_tigr_3camo_msv", "RHS_UAZ_MSV_01"], ["rhsusf_mrzr4_d","C_Scooter_Transport_01_F"]] select d_rhs_blufor;
 #endif
 
 	if (d_weather == 1) then {
@@ -1290,7 +1290,7 @@ if (hasInterface) then {
 	#ifndef __RHS__
 	["C_Van_01_box_F", "B_Truck_01_box_F", "B_Truck_01_ammo_F", "B_Truck_01_covered_F", "B_MRAP_01_F", "B_APC_Tracked_01_CRV_F", "B_T_APC_Tracked_01_CRV_F", "B_Boat_Armed_01_minigun_F", "B_Heli_Transport_01_F", "B_Heli_Transport_01_camo_F", "B_Heli_Transport_03_F", "B_Heli_Transport_03_unarmed_F", "B_Heli_Transport_03_black_F", "B_LSV_01_unarmed_F", "O_Heli_Light_02_unarmed_F", "O_Heli_Light_02_dynamicLoadout_F"];
 	#else
-	["RHSUSF_M1078A1P2_B_D_CP_FMTV_USARMY","RHSUSF_M1078A1P2_B_M2_D_FMTV_USARMY","RHSUSF_M1083A1P2_B_M2_D_FMTV_USARMY","RHS_CH_47F_10"];
+	["RHSUSF_M1078A1P2_B_D_CP_FMTV_USARMY","RHSUSF_M1078A1P2_B_M2_D_FMTV_USARMY","RHSUSF_M1083A1P2_B_M2_D_FMTV_USARMY","RHS_CH_47F_10","RHSUSF_MKVSOC"];
 	#endif
 #endif
 #ifdef __OWN_SIDE_OPFOR__

@@ -61,6 +61,13 @@ if (alive _chopper && {canMove _chopper && {alive driver _chopper}}) then {
 	{
 		private _pposcx = getPosATL _chopper;
 		_one_unit = _paragrp createUnit [_x, [_pposcx # 0, _pposcx # 1, 0], [], 0,"NONE"];
+		if (Hz_switchVests) then {
+			_vestItems = vestItems _one_unit;
+			_one_unit addvest "V_TacChestrig_oli_F";
+			_one_unit addheadgear "rhs_ssh68";
+			_vc = vestContainer _one_unit;
+			{_vc addItemCargo [_x,1];} foreach _vestItems;
+		};
 		[_one_unit] joinSilent _paragrp;
 		
 		private _para = createVehicle [d_non_steer_para, _pposcx, [], 20, "NONE"];

@@ -493,7 +493,8 @@ d_choppers_opfor = [
 // vehicle varname, unique number (same as in d_init.sqf), marker name, marker type, marker color, marker text, vehicle string name
 #ifndef __TT__
 d_p_vecs = [
-["D_MRR1",0,"d_mobilerespawn1","b_hq","ColorBrown","MHQ-1",localize "STR_DOM_MISSIONSTRING_12"],["D_MRR2",1,"d_mobilerespawn2","b_hq","ColorBrown","MHQ-2",localize "STR_DOM_MISSIONSTRING_13"],
+["D_MRR1",0,"d_mobilerespawn1","b_hq","ColorBrown","MHQ-1","MHQ 1"],["D_MRR2",1,"d_mobilerespawn2","b_hq","ColorBrown","MHQ-2","MHQ 2"],
+	["D_MRR3",2,"d_mobilerespawn3","b_hq","ColorBrown","MHQ-3","MHQ 3"],
 	["D_MEDVEC1",100,"d_medvec1","n_med","ColorRed","M1",""],["D_MEDVEC2",101,"d_medvec2","n_med","ColorRed","M2",""],
 	["D_TR1",200,"d_truck1","n_maint","ColorGreen","R1",""],["D_TR6",203,"d_truck4","n_maint","ColorGreen","R2",""],
 	["D_TR2",201,"d_truck2","n_support","ColorGreen","F1",""],["D_TR5",204,"d_truck5","n_support","ColorGreen","F2",""],
@@ -511,6 +512,11 @@ d_p_vecs = [
 	["D_C13",813,"d_car13","n_motor_inf","ColorBlue","Roamer-1",""],["D_C14",814,"d_car14","n_motor_inf","ColorBlue","Hammer-4",""],
 	["D_C15",815,"d_car15","n_motor_inf","ColorBlue","Crossbow",""],["D_C16",816,"d_car16","n_motor_inf","ColorBlue","Sandbox-1",""],
 	["D_C17",817,"d_car17","n_motor_inf","ColorBlue","Sandbox-2",""],["D_C18",818,"d_car18","n_motor_inf","ColorBlue","Sandbox-3",""],
+	
+	["D_B1",851,"d_boat1","b_naval","ColorBlue","Wakeboard",""],["D_B2",852,"d_boat2","b_naval","ColorBlue","Seal-1",""],
+	["D_B3",853,"d_boat3","b_naval","ColorBlue","Seal-2",""],["D_B4",854,"d_boat4","b_naval","ColorBlue","Catcher",""],
+	["D_B5",855,"d_boat5","b_naval","ColorBlue","Shark-1",""],["D_B6",856,"d_boat6","b_naval","ColorBlue","Shark-2",""],
+	["D_B7",857,"d_boat7","b_naval","ColorBlue","Shark-3",""],	
 		
 	["D_T01",900,"d_tank1","n_armor","ColorBlue","Grizzly",""],["D_T02",901,"d_tank2","n_mech_inf","ColorBlue","Lava-1",""],
 	["D_T03",902,"d_tank3","n_mech_inf","ColorBlue","Lava-2",""],["D_T04",903,"d_tank4","n_mech_inf","ColorBlue","Lava-3",""],

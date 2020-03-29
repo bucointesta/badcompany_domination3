@@ -75,11 +75,14 @@ private _pcheck_fnc = {
 };
 
 private _aiver_check_fnc = {
+	/*
 	if (!d_with_ai) then {
 		(str _this) in d_can_use_artillery
 	} else {
 		true
 	}
+	*/
+	true
 };
 
 #ifdef __TT__

@@ -13,6 +13,8 @@ if (!isServer) then {
 call compile preprocessFileLineNumbers "x_shc\x_f\x_shcfunctions.sqf";
 #endif
 
+Hz_switchVests = true;
+
 if (hasInterface) then {
 	private _vd = profileNamespace getVariable ["dom_viewdistance", d_InitialViewDistance];
 	if (_vd > d_MaxViewDistance) then {
@@ -436,7 +438,7 @@ if (isServer) then {
 	// editor varname, unique number
 	//0-99 = MHQ, 100-199 = Medic vehicles, 200-299 = Fuel, Repair, Reammo trucks, 300-399 = Engineer Salvage trucks, 400-499 = Transport trucks	
 	private _var = [
-		[d_vec_mhq_1,0,-1],[d_vec_mhq_2,1,-1],
+		[d_vec_mhq_1,0,-1],[d_vec_mhq_2,1,-1],[d_vec_mhq_3,2,-1],
 		[d_vec_med_1,100,-1],[d_vec_med_2,101,-1],[d_vec_rep_1,200,-1],[d_vec_fuel_1,201,-1],[d_vec_ammo_1,202,-1],
 		[d_vec_rep_2,203,-1],[d_vec_fuel_2,204,-1], [d_vec_ammo_2,205,-1],[d_vec_eng_1,300,-1],[d_vec_eng_2,301,-1],
 		[d_vec_trans_1,400,-1],[d_vec_trans_2,401,-1],[d_vec_trans_3,402,-1],[d_vec_trans_4,403,-1],[d_vec_bike_1,701,-1],
@@ -445,10 +447,17 @@ if (isServer) then {
 		[d_vec_bike_12,712,-1],[d_vec_bike_13,713,-1],[d_vec_bike_14,714,-1],[d_vec_bike_15,715,-1],[d_vec_bike_16,716,-1],
 		[d_vec_bike_17,717,-1],[d_vec_bike_18,718,-1],[d_vec_bike_19,719,-1],[d_vec_bike_20,720,-1],[d_vec_bike_21,721,-1],
 		[d_vec_bike_22,722,-1],[d_vec_bike_23,723,-1],[d_vec_bike_24,724,-1],[d_vec_bike_25,725,-1],[d_vec_bike_26,726,-1],
-		[d_vec_bike_27,727,-1], [d_vec_car_1,801,-1], [d_vec_car_2,802,-1], [d_vec_car_3,803,-1],[d_vec_car_4,804,-1],
+		[d_vec_bike_27,727,-1],
+		[d_vec_bike_50,750,-1],[d_vec_bike_51,751,-1],[d_vec_bike_52,752,-1],[d_vec_bike_53,753,-1],
+		[d_vec_bike_54,754,-1],[d_vec_bike_55,755,-1],	
+		
+		[d_vec_car_1,801,-1], [d_vec_car_2,802,-1], [d_vec_car_3,803,-1],[d_vec_car_4,804,-1],
 		[d_vec_car_5,805,-1], [d_vec_car_6,806,-1], [d_vec_car_7,807,-1], [d_vec_car_8,808,-1],[d_vec_car_9,809,-1],
 		[d_vec_car_10,810,-1],[d_vec_car_11,811,-1],[d_vec_car_12,812,-1],[d_vec_car_13,813,-1],[d_vec_car_14,814,-1],
 		[d_vec_car_15,815,-1],[d_vec_car_16,816,-1],[d_vec_car_17,817,-1],[d_vec_car_18,818,-1],
+		[d_boat_1,851,-1],[d_boat_2,852,-1],[d_boat_3,853,-1],[d_boat_4,854,-1],[d_boat_5,855,-1],[d_boat_6,856,-1],
+		[d_boat_7,857,-1],
+		
 		[d_vec_tank_1,900,-1],[d_vec_tank_2,901,-1],[d_vec_tank_3,902,-1],[d_vec_tank_4,903,-1],
 		[d_vec_tank_5,904,-1],[d_vec_tank_6,905,-1],[d_vec_tank_7,906,-1],[d_vec_tank_8,907,-1]			
 		];
@@ -457,9 +466,12 @@ if (isServer) then {
 		_var pushBack [d_vec_wreck_1, 500];
 	};
 	_var call compile preprocessFileLineNumbers "x_server\x_initvrespawn2.sqf";
+	//Hunter: disable this and handle boats as ground vics instead
+	/*
 	if (!isNil "d_boat_1") then {
 		execFSM "fsms\fn_Boatrespawn.fsm";
 	};
+	*/
 #else
 	[[d_chopper_1,3001,true],[d_chopper_2,3002,true],[d_chopper_3,3003,false,1500],[d_chopper_4,3004,false,1500],[d_chopper_5,3005,false,600],[d_chopper_6,3006,false,600],
 	[d_choppero_1,4001,true],[d_choppero_2,4002,true],[d_choppero_3,4003,false,1500],[d_choppero_4,4004,false,1500],[d_choppero_5,4005,false,600],[d_choppero_6,4006,false,600]] call compile preprocessFileLineNumbers "x_server\x_inithelirespawn2.sqf";

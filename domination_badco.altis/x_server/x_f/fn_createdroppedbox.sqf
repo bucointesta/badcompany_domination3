@@ -5,7 +5,7 @@
 
 __TRACE_1("","_this")
 
-params ["_box_pos","_unit"];
+params ["_box_pos","_unit",["_isBoat",false]];
 private _mname = format ["d_bm_%1", _box_pos];
 /*
 #ifndef __TT__
@@ -25,7 +25,11 @@ _mname remoteExecCall ["deleteMarkerLocal", [blufor, opfor] select (_this select
 
 //changed to create actual global box
 _box = d_the_box createVehicle [0,0,1000];
-_box setpos _box_pos;
+if (_isBoat) then {
+	_box attachto [_unit,[0,0,3]];
+} else {
+	_box setpos _box_pos;
+};
 _box setDamage 0.8;
 _markerName = createMarker [_mname, _box_pos];
 _markerName setMarkerShape "ICON";

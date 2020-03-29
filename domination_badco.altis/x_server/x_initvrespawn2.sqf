@@ -10,7 +10,7 @@ d_vrespawn2_ar = [];
 	__TRACE_1("","_x")
 	_x params ["_vec", "_number_v","_respawnTimer"];
 	if (!isNil "_vec" && {!isNull _vec}) then {
-		private _vposp = if (_vec isKindOf "Air") then {
+		private _vposp = if ((_vec isKindOf "Air") || {_vec isKindOf "Ship"}) then {
 			(getPosATL _vec) vectorAdd [0, 0, 0.1];
 		} else {
 			getPosATL _vec;

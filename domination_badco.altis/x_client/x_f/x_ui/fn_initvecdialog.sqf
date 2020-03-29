@@ -53,11 +53,25 @@ if (_caller != driver _vec) then {
 	if ((_vec getVariable ["d_vec_type", ""]) == "MHQ") then {
 		if !(_caller in _vec) then {
 			lbClear 44449;
+			_bikes = [];
+			if (surfaceIsWater (getpos player)) then {
+				{
+					if (_x iskindof "Ship") then {
+						_bikes pushBack _x;
+					};
+				} foreach d_create_bike;
+			} else {
+				{
+					if (!(_x iskindof "Ship")) then {
+						_bikes pushBack _x;
+					};
+				} foreach d_create_bike;
+			};			
 			{
 				private _index = __control(44449) lbAdd ([_x, "CfgVehicles"] call d_fnc_GetDisplayName);
 				__control(44449) lbSetPicture [_index, getText(configFile>>"cfgVehicles">>_x>>"picture")];
 				__control(44449) lbSetColor [_index, [1, 1, 0, 0.5]];
-			} forEach d_create_bike;
+			} forEach _bikes;
 
 			__control(44449) lbSetCurSel 0;
 		} else {

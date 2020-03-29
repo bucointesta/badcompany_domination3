@@ -24,7 +24,7 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 		
 		if (!(_chopper getVariable ["d_vec_attached", false]) && {_pos # 2 > 2.5 && {_pos # 2 < 11}}) then {
 			_liftobj = objNull;
-			private _nobjects = nearestObjects [_chopper, ["LandVehicle", "Air"], 50];
+			private _nobjects = nearestObjects [_chopper, ["LandVehicle", "Air","Ship"], 50];
 			if !(_nobjects isEqualTo []) then {
 				_nobjects params ["_dummy"];
 				if (_dummy == _chopper) then {
@@ -50,7 +50,7 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 				if !(_liftobj getVariable ["d_MHQ_Deployed", false]) then {
 					if (_chopper inArea [_liftobj, 10, 10, 0, false]) then {
 						if (!_menu_lift_shown) then {
-							_id = _chopper addAction [format ["<t color='#AAD9EF'>%1</t>", localize "STR_DOM_MISSIONSTRING_250"], {_this call d_fnc_heli_action}, -1, 100000];
+							_id = _chopper addAction [format ["<t color='#AAD9EF'>%1</t>", localize "STR_DOM_MISSIONSTRING_250"], {_this call d_fnc_heli_action}, -1, 9999999];
 							_menu_lift_shown = true;
 						};
 					} else {
@@ -77,7 +77,7 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 				_chopper setVariable ["d_vec_released", false];
 			} else {
 				if (_chopper getVariable ["d_vec_attached", false]) then {
-					_release_id = _chopper addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_251"], {_this call d_fnc_heli_release}, -1, 100000];
+					_release_id = _chopper addAction [format ["<t color='#FF0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_251"], {_this call d_fnc_heli_release}, -1, 9999999];
 					_chopper vehicleChat (localize "STR_DOM_MISSIONSTRING_252");
 					_chopper setVariable ["d_Attached_Vec", _liftobj];
 					

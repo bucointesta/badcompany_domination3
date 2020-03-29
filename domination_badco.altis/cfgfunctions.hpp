@@ -249,6 +249,7 @@ class cfgFunctions {
 			addc(tjetservice);
 			addc(tchopservice);
 			addc(tvecservice);
+			addc(tboatservice);			
 			addc(tallservice);
 			addc(delruin);
 			addc(isnvgoggles);

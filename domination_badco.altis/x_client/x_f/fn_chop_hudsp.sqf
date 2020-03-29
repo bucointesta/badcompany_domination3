@@ -77,7 +77,7 @@ while {d_player_in_vec} do {
 						_liftobj = _vec getVariable ["d_Attached_Vec", objNull];
 						_check_cond = !isNull _liftobj;
 					} else {
-						private _nobjects = nearestObjects [_vec, ["LandVehicle", "Air"], _search_height];
+						private _nobjects = nearestObjects [_vec, ["LandVehicle", "Air","Ship"], _search_height];
 						__TRACE_2("","_vec","_nobjects")
 						
 						if !(_nobjects isEqualTo []) then {

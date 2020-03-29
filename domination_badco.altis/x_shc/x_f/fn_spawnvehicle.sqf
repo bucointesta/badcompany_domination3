@@ -59,7 +59,8 @@ if (_typev1 isKindOf "Air") then {
 		];
 	};
 } else {
-	_veh = createVehicle [_typev1, _posv1, [], 0, "NONE"];
+	//Hunter: "0" radius causes vics to spawn inside objects and blow up...
+	_veh = createVehicle [_typev1, _posv1, [], 200, "NONE"];
 	/*private _svec = sizeOf _typev1;
 	private _isFlat = (ASLToAGL getPosASL _veh) isFlatEmpty [_svec / 2, -1, 0.7, _svec, 0, false, _veh]; // 0
 	if (count _isFlat > 1) then {
@@ -68,7 +69,7 @@ if (_typev1 isKindOf "Air") then {
 	};*/
 	if (random 100 > 50) then {_veh allowCrewInImmobile true};
 	_veh setDir _azi;
-	_veh setVehiclePosition [_veh, [], 0, "NONE"];
+	//_veh setVehiclePosition [_veh, [], 0, "NONE"];
 };
 
 private _crew = [_veh, _grp] call d_fnc_spawnCrew;

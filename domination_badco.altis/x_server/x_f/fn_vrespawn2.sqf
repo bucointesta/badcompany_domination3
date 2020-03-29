@@ -56,7 +56,7 @@ while {true} do {
 		
 		//add respawn for dead timer
 		if (_number_v < 1000) then {  
-			if ((!alive _vec) || {underwater _vec}) then {
+			if ((!alive _vec) || {(underwater _vec) && {!(_vec iskindof "SDV_01_base_F")}}) then {
 				private _respawnTimer = _vec_a select 5;
 				if (_respawnTimer == -1) then {
 					_vec_a set [5, time + 900]; // currently 15 minutes for all)
@@ -119,9 +119,13 @@ while {true} do {
 			if (unitIsUAV _vec) then {
 				{_vec deleteVehicleCrew _x} forEach (crew _vec);
 			};
+			_customs = _vec call bis_fnc_getVehicleCustomization;			
 			deleteVehicle _vec;
 			sleep 0.5;
 			_vec = createVehicle [_vec_a # 4, _vec_a # 2, [], 0, "NONE"];
+			_customsArray = [_vec];		
+			{_customsArray pushBack _x;} foreach _customs;		
+			_customsArray call BIS_fnc_initVehicle;
 			if ((_number_v == 806) || (_number_v == 807)) then {
 				_vec setObjectTextureGlobal [0, "textures\offroad4.paa"];
 			};

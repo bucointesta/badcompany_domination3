@@ -12,7 +12,7 @@ __TRACE_1("","_object")
 if (_object isEqualType []) then {
 	_obb = objNull;
 	_object findIf {
-		private _ret = (_x isKindOf "Helicopter" || {_x isKindOf "LandVehicle" || {_x isKindOf "Plane"}}) && {!(_x isKindOf "HeliH") && {!(_x isKindOf "Land_HelipadSquare_F")}};
+		private _ret = (_x isKindOf "Helicopter" || {_x isKindOf "LandVehicle" || {_x isKindOf "Plane"} || {_x isKindOf "Ship"}}) && {!(_x isKindOf "HeliH") && {!(_x isKindOf "Land_HelipadSquare_F")}};
 		if (_ret) then {
 			_obb = _x;
 		};
