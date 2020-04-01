@@ -35,8 +35,13 @@ if (_do_exit) exitWith {};
 
 //Hunter: Doesn't just check for pilots, but drivers of reserved vehicles too
 if (!([str _enterer,_vec,_vecnum] call d_fnc_isPilotCheck) && {(_position == "driver") || {(_turret select 0 == 0) && {_position == "gunner"}}}) exitWith {		
-		_vec engineOn false;
-		player action ["getOut", _vec];
+		if (local _vec) then {
+			_vec engineOn false;
+		} else {
+			[_vec, false] remoteExecCall ["engineOn",_vec,false];
+		};
+		//player action ["getOut", _vec];
+			moveout player;
 	};
 
 if (_vec isKindOf "Air") then {

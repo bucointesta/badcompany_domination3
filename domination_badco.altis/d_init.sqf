@@ -427,8 +427,10 @@ if (isServer) then {
 		[d_chopper_1,3001,true,1200],[d_chopper_2,3002,true,900],[d_chopper_3,3003,true,900],
 		[d_chopper_4,3004,true,1200],[d_chopper_5,3005,true,1200],[d_chopper_6,3006,true,900],
 		[d_chopper_7,3007,true,900],[d_chopper_8,3008,true,1200],[d_chopper_9,3009,true,1200],
-		[d_chopper_10,3010,true,900],[d_chopper_11,3011,true,1200],[d_plane_1,3012,true,1800],
-		[d_chopper_13,3013,true,1200],
+		[d_chopper_10,3010,true,900],[d_chopper_11,3011,true,1200],
+		[d_chopper_12,3012,true,1200],
+		
+		[d_plane_1,3051,true,1800],
 		
 		//keep plane numbers >= 3100 so they don't get chopper menu (unless you want a cargo plane?)
 		[d_attack_1,3101,true,1800],		

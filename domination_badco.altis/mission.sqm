@@ -8,7 +8,7 @@ class EditorData
 	toggles=521;
 	class ItemIDProvider
 	{
-		nextID=8763;
+		nextID=8764;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={26783.932,23.164837,24596.09};
-		dir[]={0.1345222,-0.97774172,-0.16112123};
-		up[]={0.62663698,0.20979369,-0.75054187};
-		aside[]={-0.76763582,-1.0459917e-007,-0.64091074};
+		pos[]={26480.385,-5.2528634,24694.871};
+		dir[]={-0.041737158,-0.99789751,0.050033469};
+		up[]={-0.63920915,0.065116473,0.76626986};
+		aside[]={0.76791668,-1.4066245e-006,0.64058679};
 	};
 };
 binarizationWanted=0;
@@ -621,7 +621,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=1341;
+		items=1342;
 		class Item0
 		{
 			dataType="Marker";
@@ -48903,8 +48903,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={26586.168,16.728352,24651.568};
-				angles[]={6.2778587,0.73671657,0.054611389};
+				position[]={26586.168,16.728363,24651.568};
+				angles[]={6.2778621,0.73672092,0.054611351};
 			};
 			side="Empty";
 			flags=4;
@@ -48912,11 +48912,11 @@ class Mission
 			{
 				skill=0.60000002;
 				lock="UNLOCKED";
-				name="d_vec_med_3";
+				name="d_vec_med_1";
 			};
 			id=8418;
 			type="rhsusf_M1085A1P2_B_D_Medical_fmtv_usarmy";
-			atlOffset=-0.017012596;
+			atlOffset=-0.017001152;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -48946,8 +48946,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={26617.6,18.688435,24624.51};
-				angles[]={0.037316564,0.67931461,0.057270125};
+				position[]={26617.6,18.688534,24624.51};
+				angles[]={0.037315138,0.67931706,0.05726425};
 			};
 			side="Empty";
 			flags=4;
@@ -48955,11 +48955,11 @@ class Mission
 			{
 				skill=0.60000002;
 				lock="UNLOCKED";
-				name="d_vec_med_4";
+				name="d_vec_med_2";
 			};
 			id=8419;
 			type="rhsusf_M1085A1P2_B_D_Medical_fmtv_usarmy";
-			atlOffset=-0.027099609;
+			atlOffset=-0.027000427;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -49118,8 +49118,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={26589.715,18.002792,24619.934};
-				angles[]={6.276526,0.73365068,0.11153467};
+				position[]={26589.715,18.002918,24619.934};
+				angles[]={6.2765183,0.73364913,0.11152653};
 			};
 			side="Empty";
 			flags=4;
@@ -49127,11 +49127,11 @@ class Mission
 			{
 				skill=0.60000002;
 				lock="UNLOCKED";
-				name="d_chopper_14";
+				name="d_chopper_12";
 			};
 			id=8423;
 			type="RHS_UH60M_MEV_d";
-			atlOffset=-0.013124466;
+			atlOffset=-0.012998581;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -55407,7 +55407,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={26555.297,2.2254522,24816.287};
-				angles[]={-0,4.9245048,0};
+				angles[]={0,4.9245048,0};
 			};
 			side="Empty";
 			class Attributes
@@ -55572,7 +55572,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={26559.146,2.2623026,24814.732};
-				angles[]={-0,3.7520535,0};
+				angles[]={0,3.7520535,0};
 			};
 			side="Empty";
 			flags=4;
@@ -55632,7 +55632,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={26557.824,2.2623031,24818.111};
-				angles[]={-0,0.76250136,0};
+				angles[]={0,0.76250136,0};
 			};
 			side="Empty";
 			flags=4;
@@ -55680,6 +55680,65 @@ class Mission
 			b=0.5;
 			id=8758;
 			atlOffset=35.283104;
+		};
+		class Item1341
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={26554.143,4.5311265,24749.811};
+				angles[]={0,5.4097004,0};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+				disableSimulation=1;
+			};
+			id=8763;
+			type="SignAd_Sponsor_ARMEX_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ObjectTextureCustom0";
+					expression="_this setObjectTextureGlobal [0,_value]";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="pics\boatmhq.paa";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
+			};
 		};
 	};
 };

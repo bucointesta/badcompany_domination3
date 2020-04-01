@@ -26,7 +26,7 @@ _mname remoteExecCall ["deleteMarkerLocal", [blufor, opfor] select (_this select
 //changed to create actual global box
 _box = d_the_box createVehicle [0,0,1000];
 if (_isBoat) then {
-	_box attachto [_unit,[0,0,3]];
+	_box attachto [_unit,[0,-2,2]];
 } else {
 	_box setpos _box_pos;
 };

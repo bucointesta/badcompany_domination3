@@ -21,14 +21,14 @@ if ((_vecnum >= 900) && {_vecnum < 1000} && {!(_enterer in d_crewmen)}) exitWith
 _pilots = d_transport_pilots + d_attack_pilots - ["d_medpilot"];
 
 if (_enterer == "d_medpilot") exitWith {
-	if (_vecnum == 3013) then {
+	if (_vecnum == 3012) then {
 		true
 	} else {
 		hintSilent "You are not authorized to fly this aircraft!";
 		false
 	}
 };
-if (_vecnum == 3013) exitWith {
+if (_vecnum == 3012) exitWith {
 	hintSilent "Only MedEvac pilots can fly this chopper!";		
 	false	
 };

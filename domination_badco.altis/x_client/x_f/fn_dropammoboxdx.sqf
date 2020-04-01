@@ -54,7 +54,7 @@ _boxpos set [2,0];
 __TRACE_1("","_boxpos")
 
 if (_unit iskindof "Ship") then {
-	_boxpos = _unit modelToWorldVisual [0,0,3];
+	_boxpos = _unit modelToWorldVisual [0,-2,2];
 };
 
 #ifndef __TT__
@@ -72,7 +72,7 @@ if (isnull _boxobj) then {
 	
 	detach _boxobj;		
 	if (_unit iskindof "Ship") then {
-		_boxobj attachto [_unit,[0,0,3]];
+		_boxobj attachto [_unit,[0,-2,2]];
 	} else {
 		_boxobj setpos _boxpos;
 	};

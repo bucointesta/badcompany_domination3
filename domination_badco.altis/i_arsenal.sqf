@@ -299,7 +299,7 @@
 		
 		} foreach (((weapons player) + (magazines player) + (items player) + [uniform player] + [backpack player] + [vest player] + (assigneditems player) + [goggles player] + [headgear player]) - [""]);
 		
-		if (item_check_arsenalChecked) then {hint "Your loadout contains items that are restricted depending on your current role.\n\nYou can only use items that you see in the Arsenal."};
+		if (item_check_arsenalChecked) then {hint format ["Your loadout contains items (%1) that are restricted depending on your current role.\n\nYou can only use items that you see in the Arsenal.",debug_forbidden_item];};
 		
 		item_check_isArsenal = false;
 		item_check_arsenalChecked = false;

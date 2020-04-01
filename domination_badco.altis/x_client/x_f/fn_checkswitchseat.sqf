@@ -21,7 +21,12 @@ if ((d_pilots_only == 0) && {(_position == "Driver") || {((_turret select 0) == 
 	if (!([str player,_vec,_vec getvariable ["d_vec",0]] call d_fnc_isPilotCheck)) then {
 	
 		_vec spawn {
-		
+				
+				if (local _this) then {
+					_this engineOn false;
+				} else {
+					[_this, false] remoteExecCall ["engineOn",_this,false];
+				};
 				moveout player;
 				sleep 0.1;
 				player moveInCargo _this;

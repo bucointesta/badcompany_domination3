@@ -472,10 +472,10 @@ d_choppers = [
 	["D_HR9",2,"d_chopper9",3009,"n_air","ColorBlue","Blackwater-1",""],
 	["D_HR10",2,"d_chopper10",3010,"n_air","ColorBlue","Blackwater-2",""],
 	["D_HR11",2,"d_chopper11",3011,"n_air","ColorBlack","Nazgul",""],
-	["D_MH1",3,"d_chopper13",3013,"n_air","ColorRed","M3",""],
+	["D_MH1",3,"d_chopper12",3012,"n_air","ColorRed","M3",""],
+	["D_CJ1",3,"d_plane3",3051,"n_plane","ColorBlue","Fortress", ""],
 	["D_PL1",3,"d_plane1",3101,"n_plane","ColorBlue","Hog", ""],
-	["D_PL2",3,"d_plane2",3102,"n_plane","ColorBlue","Lightning", ""],
-	["D_CJ1",3,"d_plane3",3012,"n_plane","ColorBlue","Fortress", ""]
+	["D_PL2",3,"d_plane2",3102,"n_plane","ColorBlue","Lightning", ""]	
 	];
 #else
 d_choppers_blufor = [
