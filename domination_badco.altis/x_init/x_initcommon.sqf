@@ -78,21 +78,21 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				d_vec_numbers_guard = [
 					[[0,0], 0], // tanks
 					[[0,0], 0], // tracked apc
-					[[1,0], 1], // wheeled apc
+					[[0,0], 0], // wheeled apc
 					[[2,0], 1], // jeep with mg
 					[[1,0], 1] // jeep with gl
 				];
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
 					[[0,0], 0], // tracked apc
-					[[1,0], 1] // aa
+					[[0,0], 0] // aa
 				];				
 				d_vec_numbers_patrol = [
 					[[0,0], 0], // tanks
 					[[0,0], 0], // tracked apc
 					[[0,0], 0], // wheeled apc
-					[[1,0], 1], // jeep with mg
-					[[0,0], 1] // jeep with gl
+					[[2,0], 1], // jeep with mg
+					[[0,0], 0] // jeep with gl
 				];				
 				d_footunits_guard = [
 					[4,2], // basic groups
