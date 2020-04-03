@@ -103,7 +103,9 @@ switch (_type) do {
 	case "guardstatic": {
 		if (_grptype == "allmen" || {_grptype == "specops"}) then {
 			_grp setVariable ["d_defend", true];
-			[_grp, _pos] spawn d_fnc_taskDefend;
+			// Hunter: Make these guys garrison buildings instead
+			//[_grp, _pos] spawn d_fnc_taskDefend;
+			[_grp,500,true,[100,2],true,2] execVM "logistics\garrison.sqf";
 		} else {
 			_grp setCombatMode "RED";
 			_grp setFormation selectRandom ["COLUMN","STAG COLUMN","WEDGE","ECH LEFT","ECH RIGHT","VEE","LINE","FILE","DIAMOND"];
