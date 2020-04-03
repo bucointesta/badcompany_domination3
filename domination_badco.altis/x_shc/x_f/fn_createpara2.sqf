@@ -66,7 +66,7 @@ if (alive _chopper && {canMove _chopper && {alive driver _chopper}}) then {
 			_one_unit addvest "V_TacChestrig_oli_F";
 			_one_unit addheadgear "rhs_ssh68";
 			_vc = vestContainer _one_unit;
-			{_vc addItemCargo [_x,1];} foreach _vestItems;
+			{_vc addItemCargoGlobal [_x,1];} foreach _vestItems;
 		};
 		[_one_unit] joinSilent _paragrp;
 		

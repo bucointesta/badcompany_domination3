@@ -106,7 +106,7 @@ private _make_jump = {
 				_one_unit addvest "V_TacChestrig_oli_F";
 				_one_unit addheadgear "rhs_ssh68";
 				_vc = vestContainer _one_unit;
-				{_vc addItemCargo [_x,1];} foreach _vestItems;
+				{_vc addItemCargoGlobal [_x,1];} foreach _vestItems;
 			};
 			[_one_unit] joinSilent _paragrp;
 			__TRACE_1("","_one_unit")

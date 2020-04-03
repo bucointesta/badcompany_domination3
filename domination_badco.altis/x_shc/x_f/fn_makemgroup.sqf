@@ -33,7 +33,7 @@ if (!_mchelper) then {
 		_one_unit addvest "V_TacChestrig_oli_F";
 		_one_unit addheadgear "rhs_ssh68";
 		_vc = vestContainer _one_unit;
-		{_vc addItemCargo [_x,1];} foreach _vestItems;
+		{_vc addItemCargoGlobal [_x,1];} foreach _vestItems;
 	};
 	//if (d_with_dynsim == 1) then {
 	if (_mchelper) then {
