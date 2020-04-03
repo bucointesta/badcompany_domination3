@@ -27839,8 +27839,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={26780.988,20.821266,24677.027};
-				angles[]={0.035981014,2.2901578,0.016002094};
+				position[]={26780.988,20.821234,24677.027};
+				angles[]={0.035988688,2.2901514,0.016004669};
 			};
 			side="Empty";
 			flags=4;
@@ -27848,11 +27848,11 @@ class Mission
 			{
 				lock="UNLOCKED";
 				name="d_attack_1";
-				pylons="PylonRack_3Rnd_LG_scalpel;PylonRack_1Rnd_AAA_missiles;PylonRack_3Rnd_Missile_AGM_02_F;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonRack_3Rnd_Missile_AGM_02_F;PylonRack_1Rnd_AAA_missiles;PylonRack_3Rnd_LG_scalpel;";
+				pylons="rhs_mag_ANALQ131;rhs_mag_M151_7_USAF_LAU131;rhs_mag_agm65e_3;rhs_mag_gbu12;rhs_mag_gbu12;;rhs_mag_gbu12;rhs_mag_gbu12;rhs_mag_mk82_3;rhs_mag_M151_7_USAF_LAU131;rhs_mag_aim9m_2;rhsusf_ANALE40_CMFlare_Chaff_Magazine_x16;";
 			};
 			id=7562;
 			type="RHS_A10";
-			atlOffset=0.0004901886;
+			atlOffset=0.00045776367;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -27882,18 +27882,19 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={26761.201,23.621244,24649.215};
-				angles[]={0,2.2936976,6.2820935};
+				position[]={26761.199,23.621294,24649.215};
+				angles[]={0,2.2936943,6.2820859};
 			};
 			side="Empty";
 			class Attributes
 			{
 				lock="UNLOCKED";
 				name="d_attack_2";
+				pylons="rhs_mag_Sidewinder_int;rhs_mag_aim120d_int;rhs_mag_aim120d_2_F22_l;rhs_mag_gbu32;rhs_mag_aim120d_int;rhs_mag_Sidewinder_int;rhsusf_ANALE52_CMFlare_Chaff_Magazine_x4;";
 			};
 			id=7563;
 			type="rhsusf_f22";
-			atlOffset=0.56993484;
+			atlOffset=0.56999969;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -33706,8 +33707,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={26809.852,22.422651,24814.74};
-				angles[]={6.2578578,2.3226023,0.0066682254};
+				position[]={26809.852,22.423306,24814.74};
+				angles[]={6.2578607,2.3225968,0.0066671576};
 			};
 			side="Empty";
 			flags=4;
@@ -33716,10 +33717,11 @@ class Mission
 				skill=0.60000002;
 				lock="UNLOCKED";
 				name="d_chopper_5";
+				pylons="rhs_mag_M229_19;rhs_mag_m134_pylon_3000;rhs_mag_m134_pylon_3000;rhs_mag_DAGR_8;";
 			};
 			id=7731;
 			type="RHS_MELB_AH6M";
-			atlOffset=-0.00065231323;
+			atlOffset=1.9073486e-006;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -33741,7 +33743,26 @@ class Mission
 						};
 					};
 				};
-				nAttributes=1;
+				class Attribute1
+				{
+					property="rhs_MELB_TailNumber";
+					expression="if(_value != 'NoChange')then{ [_this,'d_SN',_value] call RHS_MELB_fnc_tailNumber}";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="NoChange";
+						};
+					};
+				};
+				nAttributes=2;
 			};
 		};
 		class Item915
@@ -35463,8 +35484,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={26897.09,24.065725,24903.885};
-				angles[]={6.2432065,2.398505,0.015998369};
+				position[]={26897.09,24.066071,24903.885};
+				angles[]={6.2431998,2.3985012,0.016004669};
 			};
 			side="Empty";
 			flags=4;
@@ -35472,10 +35493,11 @@ class Mission
 			{
 				lock="UNLOCKED";
 				name="d_chopper_8";
+				pylons=";rhs_mag_M229_19;rhs_mag_AGM114L_4[0];rhs_mag_AGM114K_4[0];rhs_mag_M229_19;rhs_mag_ATAS_AH64_2;rhsusf_M130_CMFlare_Chaff_Magazine_x2;";
 			};
 			id=7826;
 			type="RHS_AH64D";
-			atlOffset=-0.0013446808;
+			atlOffset=-0.00099945068;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -53329,14 +53351,13 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={26726.896,35.047642,24535.098};
-						angles[]={0,0.67481637,0};
+						position[]={26726.896,35.047283,24535.098};
+						angles[]={0,0.67481411,0};
 					};
 					side="West";
-					flags=6;
+					flags=2;
 					class Attributes
 					{
-						init="this addAction [""Debug"", ""debug.sqf""];" \n "";
 						name="d_admin";
 						description="Admin";
 						isPlayable=1;
@@ -53415,6 +53436,7 @@ class Mission
 					};
 					id=8675;
 					type="B_officer_F";
+					atlOffset=3.0496635;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -53482,6 +53504,7 @@ class Mission
 			{
 			};
 			id=8674;
+			atlOffset=3.0496635;
 		};
 		class Item1296
 		{
