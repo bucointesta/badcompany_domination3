@@ -258,7 +258,7 @@ if (str player in d_riflemen) exitWith {
 	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and disposable launchers.</t><br/>
 	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
   <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
+	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators and you can deploy MAVs.</t>";
 	sleep 0.1;
 	ppEffectDestroy _backgroundEffect;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];

@@ -158,8 +158,8 @@
 		default {
 		
 			restrictions_allowedWeapons = _defaultWeps + ["rhs_weap_m72a7","rhs_weap_M136"];
-			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_medium_armors + d_heavy_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedBackpacks = ["B_UAV_06_backpack_F","B_UAV_01_backpack_F"] + _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
+			restrictions_allowedItems = _defaultItems + d_medium_armors + d_heavy_armors + ["B_UavTerminal","Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
 		
 		};
