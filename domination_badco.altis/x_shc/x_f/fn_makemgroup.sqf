@@ -28,6 +28,7 @@ if (!_mchelper) then {
 
 {
 	private _one_unit = _grp createUnit [_x, _pos, [], 10, "NONE"];
+	
 	if (Hz_switchVests) then {
 		_vestItems = vestItems _one_unit;
 		_one_unit addvest "V_TacChestrig_oli_F";
@@ -35,6 +36,16 @@ if (!_mchelper) then {
 		_vc = vestContainer _one_unit;
 		{_vc addItemCargoGlobal [_x,1];} foreach _vestItems;
 	};
+	_one_unit addEventHandler ["HandleDamage",{
+		_return = _this select 2;
+		_source = _this select 3;
+		_unit = _this select 0;		
+		if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
+			_return = 0;
+		};
+		_return 
+	}];
+	
 	//if (d_with_dynsim == 1) then {
 	if (_mchelper) then {
 		_one_unit spawn d_fnc_mchelper;

@@ -68,6 +68,15 @@ if (alive _chopper && {canMove _chopper && {alive driver _chopper}}) then {
 			_vc = vestContainer _one_unit;
 			{_vc addItemCargoGlobal [_x,1];} foreach _vestItems;
 		};
+		_one_unit addEventHandler ["HandleDamage",{
+			_return = _this select 2;
+			_source = _this select 3;
+			_unit = _this select 0;		
+			if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
+				_return = 0;
+			};
+			_return 
+		}];
 		[_one_unit] joinSilent _paragrp;
 		
 		private _para = createVehicle [d_non_steer_para, _pposcx, [], 20, "NONE"];
