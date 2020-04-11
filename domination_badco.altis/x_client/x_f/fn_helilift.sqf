@@ -179,10 +179,36 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 					};
 					
 					_chopper setVariable ["d_ropes", _ropes, true];
+					
+					_ropeCount = count _ropes;
 
 					// ropeBreak event?
 					// player in chopper? What if switch to copilot happens... Needs check and handling, because only the pilot has the actions, etc
-					while {alive _chopper && {alive _liftobj && {alive player && {_ropes findIf {alive _x} > -1 && {!(_chopper getVariable ["d_vec_released", false]) && {player in _chopper}}}}}} do {
+					while {alive _chopper && {alive _liftobj} && {alive player} && {player in _chopper}} do {
+					
+						if (_chopper getVariable ["d_vec_released", false]) exitWith {};		
+						// Hunter: ok take that arma!... >:()
+						if (({alive _x} count _ropes) < _ropeCount) then {
+							{
+								ropeDestroy _x;
+							} forEach (_ropes select {!isNull _x});
+							_liftobj attachto [_chopper,[0,0,-20]];
+							sleep 0.1;
+							private _ropes = [];
+							if (_slcmp_null) then {
+								{
+									_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _x, 20]);
+								} forEach ([_liftobj] call d_fnc_getcorners);
+							} else {
+								{
+									_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _liftobj selectionPosition _x, 20]);
+								} forEach _slcmp;
+							};
+							_chopper setVariable ["d_ropes", _ropes, true];
+							sleep 1;
+							detach _liftobj;
+							sleep 0.7;
+						};									
 						sleep 0.312;
 					};
 					
