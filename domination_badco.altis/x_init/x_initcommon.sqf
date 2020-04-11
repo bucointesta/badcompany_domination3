@@ -208,102 +208,102 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 			};
 			case (_pCount < 30) : {			
 				d_vec_numbers_guard = [
-					[[2,1], 2], // tanks
-					[[2,1], 2], // tracked apc
-					[[2,0], 2], // wheeled apc
-					[[2,0], 1], // jeep with mg
-					[[2,0], 1] // jeep with gl
+					[[1,1], 1], // tanks
+					[[1,1], 1], // tracked apc
+					[[1,1], 1], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
 				];
 				d_vec_numbers_guard_static = [
-					[[0,0], 1], // tanks
-					[[0,0], 1], // tracked apc
-					[[2,1], 3] // aa
+					[[0,0], 0], // tanks
+					[[0,0], 0], // tracked apc
+					[[1,1], 2] // aa
 				];				
 				d_vec_numbers_patrol = [
-					[[1,0], 2], // tanks
-					[[1,0], 2], // tracked apc
-					[[2,0], 2], // wheeled apc
-					[[3,1], 1], // jeep with mg
-					[[3,1], 1] // jeep with gl
+					[[1,1], 1], // tanks
+					[[1,1], 1], // tracked apc
+					[[1,1], 1], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[4,3], // basic groups
+					[2,2], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[4,3], // basic groups
+					[2,2], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
-					[3,2], // basic groups
-					[0,0] // specop groups
+					[0,0], // basic groups
+					[4,4] // specop groups
 				];			
 			};
 			case (_pCount < 40) : {			
 				d_vec_numbers_guard = [
-					[[2,1], 2], // tanks
-					[[2,1], 2], // tracked apc
-					[[2,0], 2], // wheeled apc
-					[[2,0], 1], // jeep with mg
-					[[2,0], 1] // jeep with gl
+					[[1,1], 1], // tanks
+					[[1,1], 2], // tracked apc
+					[[0,0], 0], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
 				];
 				d_vec_numbers_guard_static = [
-					[[0,0], 1], // tanks
-					[[0,0], 1], // tracked apc
-					[[2,1], 3] // aa
+					[[0,0], 0], // tanks
+					[[0,0], 0], // tracked apc
+					[[2,2], 2] // aa
 				];				
 				d_vec_numbers_patrol = [
-					[[1,0], 2], // tanks
-					[[1,0], 2], // tracked apc
-					[[2,0], 2], // wheeled apc
-					[[3,1], 1], // jeep with mg
-					[[3,1], 1] // jeep with gl
+					[[1,1], 1], // tanks
+					[[1,1], 2], // tracked apc
+					[[0,0], 0], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[4,3], // basic groups
+					[1,1], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[4,3], // basic groups
+					[1,1], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
-					[3,2], // basic groups
-					[0,0] // specop groups
+					[0,0], // basic groups
+					[4,4] // specop groups
 				];			
 			};
 			default {
 				d_vec_numbers_guard = [
-					[[2,1], 2], // tanks
-					[[2,1], 2], // tracked apc
-					[[2,0], 2], // wheeled apc
-					[[2,0], 1], // jeep with mg
-					[[2,0], 1] // jeep with gl
+					[[1,1], 2], // tanks
+					[[1,1], 2], // tracked apc
+					[[0,0], 0], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
 				];
 				d_vec_numbers_guard_static = [
-					[[0,0], 1], // tanks
-					[[0,0], 1], // tracked apc
-					[[2,1], 3] // aa
+					[[0,0], 0], // tanks
+					[[0,0], 0], // tracked apc
+					[[2,2], 3] // aa
 				];				
 				d_vec_numbers_patrol = [
-					[[1,0], 2], // tanks
-					[[1,0], 2], // tracked apc
-					[[2,0], 2], // wheeled apc
-					[[3,1], 1], // jeep with mg
-					[[3,1], 1] // jeep with gl
+					[[1,1], 2], // tanks
+					[[1,1], 2], // tracked apc
+					[[0,0], 0], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[4,3], // basic groups
+					[1,1], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[4,3], // basic groups
+					[0,0], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
-					[3,2], // basic groups
-					[0,0] // specop groups
-				];
+					[0,0], // basic groups
+					[3,3] // specop groups
+				];		
 			};		
 		};	
 	};

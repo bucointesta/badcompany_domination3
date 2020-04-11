@@ -51,7 +51,7 @@ for "_n" from 0 to _nnvnum do {
 			_is_locked = true;
 		};
 	} else {
-		if (_vec isKindOf "Wheeled_APC" || {_vec isKindOf "Wheeled_APC_F" || {_vec isKindOf "Car"}}) then {
+		if (_vec isKindOf "Wheeled_APC" || {_vec isKindOf "Wheeled_APC_F" || {_vec isKindOf "Car"} || {_vec isKindOf "StaticWeapon"}}) then {
 			if (d_LockCars == 0) then {
 				_vec lock true;
 				_is_locked = true;

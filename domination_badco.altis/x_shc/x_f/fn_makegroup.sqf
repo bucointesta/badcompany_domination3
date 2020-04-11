@@ -97,7 +97,7 @@ switch (_type) do {
 			_grp setFormation selectRandom ["COLUMN","STAG COLUMN","WEDGE","ECH LEFT","ECH RIGHT","VEE","LINE","FILE","DIAMOND"];
 			_grp setFormDir (floor random 360);
 			_grp setSpeedMode "NORMAL";
-			_grp setBehaviour "SAFE";
+			_grp setBehaviour "AWARE";
 		};
 	};
 	case "guardstatic": {
@@ -111,11 +111,14 @@ switch (_type) do {
 			_grp setFormation selectRandom ["COLUMN","STAG COLUMN","WEDGE","ECH LEFT","ECH RIGHT","VEE","LINE","FILE","DIAMOND"];
 			_grp setFormDir (floor random 360);
 			_grp setSpeedMode "NORMAL";
-			_grp setBehaviour "SAFE";
+			_grp setBehaviour "AWARE";
 		};
 	};
 	case "guardstatic2": {
-		(_vecs # 0) setDir (floor random 360);
+		// Hunter: make direction more sensible
+		//(_vecs # 0) setDir (floor random 360);
+		(_vecs # 0) setdir (d_cur_tgt_pos getdir (_vecs # 0));
+		(_vecs # 0) setPos (getpos (_vecs # 0)); // Hunter: might prevent static weapons from tipping over?
 		(_vecs # 0) setSkill 1;
 	};
 	case "attack": {
@@ -134,7 +137,7 @@ switch (_type) do {
 		_x setSkill 1;	
 	};
 } foreach units _grp;
-_grp setBehaviour "AWARE";
+_grp setBehaviour "COMBAT";
 
 if (d_with_dynsim == 0) then {
 	[_grp, _sleepti] spawn {

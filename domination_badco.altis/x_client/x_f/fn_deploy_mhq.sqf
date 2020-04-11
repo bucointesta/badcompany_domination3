@@ -27,8 +27,10 @@ if (_mhq inArea d_base_array || {!(_mhq iskindof "Ship") && {surfaceIsWater (get
 if (_mhq inArea (d_base_array # 0) || {_mhq inArea (d_base_array # 1) || {!(_mhq iskindof "Ship") && {surfaceIsWater (getPosATLVisual d_curvec_dialog)}}}) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_213")};
 #endif
 
-if ((_mhq getVariable ["d_MHQ_Depltime", -1]) > time) exitWith {
-	systemChat (format [localize "STR_DOM_MISSIONSTRING_214", round (time - (_mhq getVariable ["d_MHQ_Depltime", -1]))])
+
+private _time = [time, serverTime] select isMultiplayer;
+if ((_mhq getVariable ["d_MHQ_Depltime", -1]) > _time) exitWith {
+	systemChat (format [localize "STR_DOM_MISSIONSTRING_214", round ((_mhq getVariable ["d_MHQ_Depltime", -1]) - _time)])
 };
 
 __TRACE("Before reading deploy var")
@@ -46,7 +48,7 @@ if !(_mhq getVariable ["d_MHQ_Deployed", false]) then {
 	};
 	_mhq setVariable ["d_MHQ_Deployed", true, true];
 	[_mhq, true] remoteExecCall ["d_fnc_mhqdepls", 2];
-	_mhq setVariable ["d_MHQ_Depltime", time + 10, true];
+	_mhq setVariable ["d_MHQ_Depltime", _time + 10, true];
 	[_mhq, false] remoteExecCall ["engineOn", _mhq];
 	[_mhq, [0,0,0]] remoteExecCall ["setVelocity", _mhq];
 } else {
@@ -55,7 +57,7 @@ if !(_mhq getVariable ["d_MHQ_Deployed", false]) then {
 	if (!isNull _camo) then {deleteVehicle _camo};
 	_mhq setVariable ["d_MHQ_Deployed", false, true];
 	[_mhq, false] remoteExecCall ["d_fnc_mhqdepls", 2];
-	_mhq setVariable ["d_MHQ_Depltime", time + 10, true];
+	_mhq setVariable ["d_MHQ_Depltime", _time + 10, true];
 };
 
 __TRACE("End")

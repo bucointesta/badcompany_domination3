@@ -345,10 +345,10 @@ d_objectID2 = objNull;
 d_farp_classes = ["Land_HelipadSquare_F", "Land_Cargo20_military_green_F","Land_RepairDepot_01_green_F"];
 
 /*roles*/
-d_badcompany = ["d_badco_1", "d_badco_2", "d_badco_3", "d_badco_4", "d_badco_5", "d_badco_6", "d_badco_7", "d_badco_9", "d_badco_10", "d_admin"];
+d_badcompany = ["d_badco_1", "d_badco_2", "d_badco_3", "d_badco_4", "d_badco_5", "d_badco_6", "d_badco_7", "d_badco_8", "d_badco_9", "d_badco_10","d_badco_11","d_badco_12", "d_admin"];
 //note that transport pilots and attack pilots are now considered to have the same restrictions and are just called "Pilot". these variables are kept in case we want to go back to the old system...
-d_attack_pilots = ["d_apilot_1", "d_apilot_2", "d_badco_2", "d_admin"];
-d_transport_pilots = ["d_medpilot","d_tpilot_1", "d_tpilot_2", "d_tpilot_3", "d_tpilot_4", "d_badco_2", "d_admin"];
+d_attack_pilots = ["d_apilot_1", "d_apilot_2", "d_badco_2", "d_badco_8", "d_admin"];
+d_transport_pilots = ["d_medpilot","d_tpilot_1", "d_tpilot_2", "d_tpilot_3", "d_tpilot_4", "d_tpilot_5","d_tpilot_6","d_badco_2","d_badco_8", "d_admin"];
 d_riflemen = ["d_rifleman_1","d_rifleman_2", "d_rifleman_3", "d_rifleman_4", "d_rifleman_5", "d_rifleman_6", "d_badco_10","d_badco_1", "d_admin"];
 d_grenadiers = ["d_grenadier_1","d_grenadier_2", "d_grenadier_3", "d_grenadier_4", "d_grenadier_5", "d_grenadier_6", "d_badco_9", "d_admin"];
 d_autoriflemen = ["d_autorifleman_1","d_autorifleman_2", "d_autorifleman_3", "d_autorifleman_4", "d_autorifleman_5", "d_autorifleman_6", "d_badco_6", "d_admin"];
@@ -357,7 +357,7 @@ d_spotters = ["d_spotter_1","d_spotter_2", "d_spotter_3", "d_spotter_4", "d_spot
 d_missilesp = ["d_missilesp_1","d_missilesp_2", "d_missilesp_3", "d_missilesp_4", "d_missilesp_5", "d_missilesp_6", "d_badco_7", "d_admin"];
 d_saboteurs = ["d_saboteur_1","d_saboteur_2", "d_saboteur_3", "d_saboteur_4", "d_saboteur_5", "d_saboteur_6", "d_admin"];
 d_medics = ["d_medpilot","d_medic_1","d_medic_2", "d_medic_3", "d_medic_4", "d_medic_5", "d_medic_6", "d_badco_3", "d_admin"];
-d_crewmen = ["d_crewman_1","d_crewman_2", "d_crewman_3", "d_crewman_4", "d_crewman_5", "d_crewman_6", "d_admin"];
+d_crewmen = ["d_crewman_1","d_crewman_2", "d_crewman_3", "d_crewman_4", "d_crewman_5", "d_crewman_6", "d_crewman_7", "d_crewman_8", "d_badco_11","d_badco_12","d_admin"];
 
 // artillery operators
 #ifndef __TT__
@@ -1228,7 +1228,7 @@ if (hasInterface) then {
 	// d_uid_reserved_slots = ["d_alpha_1", "d_bravo_3"];
 	// membersarr = ["1234567", "7654321"];
 	if (isNil "d_uid_reserved_slots") then {
-		d_uid_reserved_slots = ["d_badco_1","d_badco_2","d_badco_3","d_badco_4","d_badco_5","d_badco_6","d_badco_7","d_badco_9","d_badco_10"];
+		d_uid_reserved_slots = ["d_badco_1","d_badco_2","d_badco_3","d_badco_4","d_badco_5","d_badco_6","d_badco_7","d_badco_8","d_badco_9","d_badco_10","d_badco_11","d_badco_12"];
 		//membersarr = [];
 	};
 	

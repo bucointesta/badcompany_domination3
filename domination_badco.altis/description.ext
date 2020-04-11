@@ -36,36 +36,7 @@ class Header {
 	gameType = CTI;
 #endif
 	minPlayers = 1;
-#ifdef __ALTIS__
-	maxPlayers = 46;
-#endif
-#ifdef __CUP_CHERNARUS__
-	maxPlayers = 41;
-#endif
-#ifdef __CUP_TAKISTAN__
-	maxPlayers = 41;
-#endif
-#ifdef __CUP_SARA__
-	maxPlayers = 41;
-#endif
-#ifdef __IFA3LITE__
-	maxPlayers = 41;
-#endif
-#ifdef __TANOA__
-	maxPlayers = 46;
-#endif
-#ifdef __TT__
-	maxPlayers = 56;
-#endif
-#ifdef __STRATIS__
-	maxPlayers = 46;
-#endif
-#ifdef __MALDEN__
-	maxPlayers = 41;
-#endif
-#ifdef __ROSCHE__
-	maxPlayers = 46;
-#endif
+	maxPlayers = 68;
 };
 
 joinUnassigned = false; // auto assign

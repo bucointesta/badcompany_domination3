@@ -9,7 +9,7 @@ d_public_items = [];
 d_sniping_rifles = [];
 d_machineguns = [];
 d_launchers = [];
-d_explosives = ["SatchelCharge_Remote_Mag"];
+d_explosives = ["SatchelCharge_Remote_Mag","IEDLandBig_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandSmall_Remote_Mag","IEDUrbanSmall_Remote_Mag"];
 
 d_defaultWeapons = [];
 d_defaultItems = [];
