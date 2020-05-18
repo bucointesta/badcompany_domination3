@@ -61,6 +61,16 @@ if (_typev1 isKindOf "Air") then {
 } else {
 	//Hunter: "0" radius causes vics to spawn inside objects and blow up...
 	_veh = createVehicle [_typev1, _posv1, [], 200, "NONE"];
+	// Hunter: anti-bad driving (does not cover flipping...)
+	_veh addEventHandler ["HandleDamage",{
+		_return = _this select 2;
+		_source = _this select 3;
+		_unit = _this select 0;		
+		if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
+			_return = 0;
+		};
+		_return 
+	}];
 	/*private _svec = sizeOf _typev1;
 	private _isFlat = (ASLToAGL getPosASL _veh) isFlatEmpty [_svec / 2, -1, 0.7, _svec, 0, false, _veh]; // 0
 	if (count _isFlat > 1) then {

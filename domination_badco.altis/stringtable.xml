@@ -3,12 +3,12 @@
 <Package name="Domination">
 <Container name="Mission">
 <Key ID="STR_DOM_MISSIONSTRING_0">
-<English>Wreck Repair Point</English>
-<Spanish>Punto de Reparación de Chatarra</Spanish>
-<Portuguese>Ponto de Reparo de Chatarra Vossa base.</Portuguese>
+<English>Wreck Repair</English>
+<Spanish>Reparación de Chatarra</Spanish>
+<Portuguese>Chatarra Vossa base.</Portuguese>
 <Korean>잔해 수리</Korean>
-<Japanese>Wreck Repair Point</Japanese>
-<Original>Wreck Repair Point</Original>
+<Japanese>Wreck Repair</Japanese>
+<Original>Wreck Repair</Original>
 <Russian>Ремонт Призовой техники</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_2">

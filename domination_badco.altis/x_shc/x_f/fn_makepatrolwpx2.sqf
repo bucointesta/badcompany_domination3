@@ -10,7 +10,7 @@ if (_start_pos isEqualType objNull) then {_start_pos = getPosATL _start_pos};
 if (!(_start_pos isEqualType []) || {_start_pos isEqualTo []}) exitWith {};
 if (_wp_array isEqualType objNull) then {_wp_array = getPosATL _wp_array};
 if !(_wp_array isEqualType []) exitWith {};
-_grp setBehaviour "AWARE";
+//_grp setBehaviour "AWARE";
 _grp setSpeedMode "FULL";
 private _cur_pos = _start_pos;
 private _no_pos_found = false;
@@ -42,10 +42,10 @@ for "_i" from 0 to (2 + (floor (random 3))) do {
 	if (_i > 0) then {
 		_wp setWaypointSpeed "LIMITED";
 		_wp setWaypointFormation "STAG COLUMN";
-		_wp setWaypointBehaviour "SAFE";
+		//_wp setWaypointBehaviour "SAFE";
 	} else {
 		_wp setWaypointSpeed "FULL";
-		_wp setWaypointBehaviour "AWARE";
+		//_wp setWaypointBehaviour "AWARE";
 		_wp setWaypointFormation "STAG COLUMN";
 	};
 	if (_wpstatements != "") then {

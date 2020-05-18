@@ -72,7 +72,7 @@ if (isnull _boxobj) then {
 	
 	detach _boxobj;		
 	if (_unit iskindof "Ship") then {
-		_boxobj attachto [_unit,[0,-2,2]];
+		_boxobj attachto [_unit,[0,-1,0.5]];
 	} else {
 		_boxobj setpos _boxpos;
 	};

@@ -37,6 +37,9 @@ __TRACE("Before reading deploy var")
 
 if !(_mhq getVariable ["d_MHQ_Deployed", false]) then {
 	__TRACE("MHQ not deployed")
+	if ((_mhq distance2D d_cur_tgt_pos) < 1000) exitWith {
+		hint "MHQ is too close to the main target area! You need to be at least 1000m away from the AO to deploy the MHQ.";
+	};
 	if ((crew _mhq) findIf {alive _x} > -1) then {
 		{moveOut _x} forEach (crew _mhq);
 		//systemChat (localize "STR_DOM_MISSIONSTRING_215");

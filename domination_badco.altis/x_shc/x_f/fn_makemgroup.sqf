@@ -29,13 +29,10 @@ if (!_mchelper) then {
 {
 	private _one_unit = _grp createUnit [_x, _pos, [], 10, "NONE"];
 	
-	if (Hz_switchVests) then {
-		_vestItems = vestItems _one_unit;
-		_one_unit addvest "V_TacChestrig_oli_F";
-		_one_unit addheadgear "rhs_ssh68";
-		_vc = vestContainer _one_unit;
-		{_vc addItemCargoGlobal [_x,1];} foreach _vestItems;
+	if (Hz_customUnitLoadouts) then {
+		_one_unit call AI_setupUnitCustomLoadout;
 	};
+	// Hunter: prevent taking damage from getting run over by other AI or falling off buildings...
 	_one_unit addEventHandler ["HandleDamage",{
 		_return = _this select 2;
 		_source = _this select 3;

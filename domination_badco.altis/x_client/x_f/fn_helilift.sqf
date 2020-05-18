@@ -145,20 +145,24 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 					// Hunter: fixes(?) rope breaking due to lag from locality issues
 					_chopper enableRopeAttach true;
 					_liftobj enableRopeAttach true;			
+					
+					//Doesn't work
+					/*
 					_dummyObj = objNull;
 
 					if (!local _liftobj) then {					
+						
 						if ((count crew _liftobj) == 0) then {
 							[_liftobj, true] remoteExecCall ["d_fnc_l_v", _liftobj]; 
 							sleep 1;
 							[_liftobj, owner player] remoteExecCall ["d_fnc_setOwner",2,false];		
-						} else {
+						} else {*/
 							_dummyObj = "HeliHEmpty" createVehicle (getpos _chopper);
 							_dummyObj attachTo [_chopper, [0,0,0]];
 							[_dummyObj, owner _liftobj] remoteExecCall ["d_fnc_setOwner",2,false];
 							sleep 1;
-						};					
-					};
+						//};					
+				//	};
 					
 					if (_slcmp_null) then {
 						{
@@ -184,45 +188,75 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 
 					// ropeBreak event?
 					// player in chopper? What if switch to copilot happens... Needs check and handling, because only the pilot has the actions, etc
-					while {alive _chopper && {alive _liftobj} && {alive player} && {player in _chopper}} do {
-					
+					_firstPickup = true;
+					while {alive _chopper && {alive _liftobj} && {alive player} && {player in _chopper}} do {					
 						if (_chopper getVariable ["d_vec_released", false]) exitWith {};		
 						// Hunter: ok take that arma!... >:()
-						if (({alive _x} count _ropes) < _ropeCount) then {
-							{
-								ropeDestroy _x;
-							} forEach (_ropes select {!isNull _x});
-							_liftobj attachto [_chopper,[0,0,-20]];
-							sleep 0.1;
-							private _ropes = [];
-							if (_slcmp_null) then {
+						if ((speed _chopper) > ([55,30] select _firstPickup)) then {
+							if (isNull attachedTo _liftobj) then {
+								_liftobj attachto [_chopper,[0,0,-20]];
+								_firstPickup = false;
+								sleep 1;
 								{
-									_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _x, 20]);
-								} forEach ([_liftobj] call d_fnc_getcorners);
-							} else {
-								{
-									_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _liftobj selectionPosition _x, 20]);
-								} forEach _slcmp;
+									ropeDestroy _x;
+								} forEach _ropes;
+								if (_slcmp_null) then {
+									{
+										_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _x, 20]);
+									} forEach ([_liftobj] call d_fnc_getcorners);
+								} else {
+									{
+										_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _liftobj selectionPosition _x, 20]);
+									} forEach _slcmp;
+								};
+								_chopper setVariable ["d_ropes", _ropes, true];
+								sleep 5;
 							};
-							_chopper setVariable ["d_ropes", _ropes, true];
-							sleep 1;
-							detach _liftobj;
-							sleep 0.7;
+						} else {
+							if (!isNull attachedTo _liftobj) then {		
+								[_liftobj, true] remoteExecCall ["hideObject",0, false];
+								sleep 5;
+								{
+									ropeDestroy _x;
+								} forEach _ropes;
+								detach _liftobj;
+								sleep 0.1;					
+								_choppos = getPosATL _chopper;
+								_choppos set [2, ((_choppos select 2) - 18) max 0];
+								_liftobj setPosATL _choppos;
+								sleep 0.1;
+								[_liftobj, velocity _chopper] remoteExecCall ["setVelocity",_liftobj,false];	
+								sleep 0.1;
+								if (_slcmp_null) then {
+									{
+										_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _x, 20]);
+									} forEach ([_liftobj] call d_fnc_getcorners);
+								} else {
+									{
+										_ropes pushBack (ropeCreate [[_dummyObj,_chopper] select (isNull _dummyObj), _slipos, _liftobj, _liftobj selectionPosition _x, 20]);
+									} forEach _slcmp;
+								};
+								_chopper setVariable ["d_ropes", _ropes, true];
+								sleep 5;
+								[_liftobj, false] remoteExecCall ["hideObject",0, false];
+							};							
 						};									
 						sleep 0.312;
 					};
-					
+					if (!isNull attachedTo _liftobj) then {
+						detach _liftobj;
+					};
+					{
+						ropeDestroy _x;
+					} forEach (_ropes select {!isNull _x});
 					if (!isNull _dummyObj) then {
 						detach _dummyObj;
 						sleep 0.1;
 						deleteVehicle _dummyObj;
 					} else {
 						[_liftobj, false] remoteExecCall ["d_fnc_l_v", _liftobj]; 					
-					};					
+					};	
 					
-					{
-						ropeDestroy _x;
-					} forEach (_ropes select {!isNull _x});
 					if (_oldmass > -1) then {
 						[_liftobj, _oldmass] remoteExecCall ["setMass"];
 						_chopper setVariable ["d_lobm", nil, true];

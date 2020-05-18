@@ -17,7 +17,7 @@ if (isNil "d_current_seize") then {d_current_seize = ""};
 
 if (d_current_seize != d_cur_tgt_name) then {
 	private _tname = format ["d_obj%1", d_current_target_index + 2];
-	[true, _tname, [format [localize "STR_DOM_MISSIONSTRING_202", d_cur_tgt_name], format [localize "STR_DOM_MISSIONSTRING_203", d_cur_tgt_name], format [localize "STR_DOM_MISSIONSTRING_203", d_cur_tgt_name]], d_cur_tgt_pos, false, 2, true, "Attack", false] call BIS_fnc_taskCreate;
+	[player, _tname, [format [localize "STR_DOM_MISSIONSTRING_202", d_cur_tgt_name], format [localize "STR_DOM_MISSIONSTRING_203", d_cur_tgt_name], format [localize "STR_DOM_MISSIONSTRING_203", d_cur_tgt_name]], d_cur_tgt_pos, "AUTOASSIGNED", 2, true, "Attack", false] call BIS_fnc_taskCreate;
 	d_current_task = _tname;
 	d_current_seize = d_cur_tgt_name;
 };

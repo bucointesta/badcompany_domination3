@@ -10,7 +10,7 @@ _carried = objNull;
 
 if (_action == "load") then {
 	if (_cargo == "") then {
-		_near = nearestObjects [_loadpos, ["Land","Ship"], 8];
+		_near = nearestObjects [_loadpos, ["Land","Ship"], 10];
 		_obj = _near select 0;
 		
 		if((count crew (vehicle _obj)) > 0) then {_carried = vehicle _obj;} else {_carried = _obj;};
@@ -57,8 +57,7 @@ if (_action == "load") then {
 				if (_carried iskindof "BAF_FV510_D") then {_heightcorrection = 0.3;_lengthcorrection = -1.1;};
 				if (_carried iskindof "SUV_PMC") then {_heightcorrection = -0.5;};
 				
-				
-				
+				_carried setVariable ["rhs_paradrop",true,true];
 				
 				for "_i" from -52 to 8 do {
 
@@ -80,7 +79,7 @@ if (_action == "load") then {
 				_carrier animate ["ramp_bottom", 0];
 				sleep 1;
 				
-				_id = _carrier addaction ["<t color='#0000FF'>Unload</t>", "logistics\cargoscript.sqf", ["drop"],0,true,true,"","driver  _target == _this"];
+				_id = _carrier addaction ["<t color='#0000FF'>Drop cargo</t>", "logistics\cargoscript.sqf", ["drop"],999999,true,true,"","driver  _target == _this"];
 				_carrier setVariable ["act1",_id];
 				
 				[_carrier, _carried]spawn {
@@ -135,7 +134,7 @@ if (_action == "load") then {
 		player sideChat "Cargo is already full";
 		hint "Cargo is already full";
 		_carrier removeaction _act1;
-		_id = _carrier addaction ["<t color='#0000FF'>Unload</t>", "logistics\cargoscript.sqf", ["drop"],0,true,true,"","driver  _target == _this"];
+		_id = _carrier addaction ["<t color='#0000FF'>Drop Cargo</t>", "logistics\cargoscript.sqf", ["drop"],999999,true,true,"","driver  _target == _this"];
 		_carrier setVariable ["act1",_id];
 		// if((count crew _cargo) != 0) then {{_x moveinCargo _carrier;} forEach crew _cargo;};
 	};
@@ -144,7 +143,7 @@ if (_action == "load") then {
 
 if (_action == "drop") then {
 
-	if (((getposatl _carrier) select 2) < 1000) exitWith {
+	if (((speed _carrier) > 5) && {((getposatl _carrier) select 2) < 1000}) exitWith {
 		hint "You must at least 1000m high to drop your cargo!";
 	};
 	
@@ -284,7 +283,7 @@ if (_action == "drop") then {
 	};
 	
 	_carrier setVariable ["cargo",""];
-	_id = _carrier addaction ["<t color='#0000FF'>Load cargo</t>", "logistics\cargoscript.sqf", ["load"],0,true,true,"","driver  _target == _this"];
+	_id = _carrier addaction ["<t color='#0000FF'>Load cargo</t>", "logistics\cargoscript.sqf", ["load"],999999,true,true,"","driver  _target == _this"];
 	_carrier setVariable ["act1",_id];
 
 };

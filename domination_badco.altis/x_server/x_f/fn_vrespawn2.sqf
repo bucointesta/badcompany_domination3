@@ -38,12 +38,13 @@ while {true} do {
 				if (_empty_respawn == -1) then {
 					if (_vec distance2D (_vec_a select 2) > 10) then { //distance from initial respawn
 						_vec_a set [5, time + 60]; // abandoned timeout
+						d_vrespawn2_ar set [_forEachIndex, _vec_a];
 					};
 				} else {
 					if (time > _empty_respawn) then {
 						private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
 						sleep 0.1;
-						if (!(_runits isEqualTo []) && {{_x distance2D _vec < 50} count _runits == 0}) then { //distance from other player
+						if ({_x distance2D _vec < 50} count _runits == 0) then { //distance from other player
 							_disabled = true;
 						};
 					};
@@ -51,6 +52,7 @@ while {true} do {
 			__TRACE_3("","_empty_respawn","time","alive _vec")	
 			} else {
 				_vec_a set [5, -1];
+				d_vrespawn2_ar set [_forEachIndex, _vec_a];
 			};
 		};
 		
@@ -63,13 +65,9 @@ while {true} do {
 					d_vrespawn2_ar set [_forEachIndex, _vec_a];
 				} else {
 					if (time > _respawnTimer) then {
-						private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
-						sleep 0.1;
-						if (!(_runits isEqualTo []) && {{_x distance2D _vec < 50} count _runits == 0}) then { //distance from other player
 							_disabled = true; //do respawn
 							_vec_a set [5, -1]; //reset timer
 							d_vrespawn2_ar set [_forEachIndex, _vec_a];
-						};
 					};
 				};
 			};
@@ -122,7 +120,8 @@ while {true} do {
 			_customs = _vec call bis_fnc_getVehicleCustomization;			
 			deleteVehicle _vec;
 			sleep 0.5;
-			_vec = createVehicle [_vec_a # 4, _vec_a # 2, [], 0, "NONE"];
+			//_vec = createVehicle [_vec_a # 4, _vec_a # 2, [], 0, "NONE"];
+			_vec = createVehicle [_vec_a # 4, [0,0,5000], [], 0, "NONE"];
 			_customsArray = [_vec];		
 			{_customsArray pushBack _x;} foreach _customs;		
 			_customsArray call BIS_fnc_initVehicle;
@@ -133,7 +132,8 @@ while {true} do {
 				_vec setObjectTextureGlobal [0, "textures\suv4.paa"];
 			};
 			_vec setDir (_vec_a # 3);
-			_vec setPos (_vec_a # 2);
+			sleep 0.1;
+			_vec setPosATL (_vec_a # 2);
 			_vec setVariable ["d_vec_islocked", _isitlocked];
 			if (_isitlocked) then {_vec lock true};
 			if (_vec isKindOf "Air") then {

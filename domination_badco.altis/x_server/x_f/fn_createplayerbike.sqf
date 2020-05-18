@@ -5,12 +5,12 @@
 
 params ["_unit", "_vtype", "_b_mode"];
 private _pos = getPosATL _unit;
-private _npos = _pos findEmptyPosition [0, 50, _vtype];
-if !(_npos isEqualTo []) then {_pos = _npos};
 private _vec = objNull;
 if (surfaceIsWater (getpos _unit)) then {
 	_vec = createVehicle [_vtype, _pos, [], 50, "NONE"];
 } else {
+	private _npos = _pos findEmptyPosition [0, 50, _vtype];
+	if !(_npos isEqualTo []) then {_pos = _npos};
 	_vec = createVehicle [_vtype, _pos, [], 0, "NONE"];
 };
 _vec setDir direction _unit;

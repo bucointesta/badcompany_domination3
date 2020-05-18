@@ -24,12 +24,12 @@ if (!d_show_pname_hud && {!visibleMap && {isNil "d_is_sat_on"}}) then {
 			_icon = getText(configFile>>"CfgVehicleIcons">>_icon);
 		};
 		private _ctrtxt = [
-			format ["<img color='#FFFFFF' size='1.0' image='%1'/><t color='#b5f279' size='1.2'> %2</t><img color='#FFFFFF' size='1.0' image='%3'/><br/>",
+			format ["<img color='#FFFFFF' size='1.0' image='%1'/><t color='#4477ff' size='1.2'> %2</t><img color='#FFFFFF' size='1.0' image='%3'/><br/>",
 				_ct call d_fnc_getrankpic,
 				_name,
 				_icon
 			],
-			format ["<img color='#FFFFFF' size='1.0' image='%1'/><t color='#b5f279' size='1.2'> %2</t><img color='#FFFFFF'size='1.0' image='%3'/><br/><t color='#b5f279' size='0.8'>Damage: </t><t color='#FFFFFF' size='0.8'>%4</t>",
+			format ["<img color='#FFFFFF' size='1.0' image='%1'/><t color='#4477ff' size='1.2'> %2</t><img color='#FFFFFF'size='1.0' image='%3'/><br/><t color='#b5f279' size='0.8'>Damage: </t><t color='#FFFFFF' size='0.8'>%4</t>",
 				_ct call d_fnc_getrankpic,
 				_name,
 				_icon,

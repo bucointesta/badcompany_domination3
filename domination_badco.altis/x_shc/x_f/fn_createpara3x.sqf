@@ -97,16 +97,12 @@ private _make_jump = {
 		} else {
 			(0.12 + (random 0.04))
 		};
-		private _sleeptime = [0.551, 0.15] select (speed _vec > 300);
+		private _sleeptime = [0.551, 0.15] select (speed _vec > 80);
 		{
 			private _pposcx = getPosATL _vec;
 			private _one_unit = _paragrp createUnit [_x, [_pposcx # 0, _pposcx # 1, 0], [], 0,"NONE"];
-			if (Hz_switchVests) then {
-				_vestItems = vestItems _one_unit;
-				_one_unit addvest "V_TacChestrig_oli_F";
-				_one_unit addheadgear "rhs_ssh68";
-				_vc = vestContainer _one_unit;
-				{_vc addItemCargoGlobal [_x,1];} foreach _vestItems;
+			if (Hz_customUnitLoadouts) then {
+				_one_unit call AI_setupUnitCustomLoadout;
 			};
 			_one_unit addEventHandler ["HandleDamage",{
 				_return = _this select 2;

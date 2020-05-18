@@ -11,7 +11,7 @@ if (!(_start_pos isEqualType []) || {_start_pos isEqualTo [] || {isNull _grp}}) 
 __TRACE_3("","_grp","_start_pos","_wp_array")
 if (_wp_array isEqualType objNull) then {_wp_array = getPosATL _wp_array};
 if !(_wp_array isEqualType []) exitWith {};
-_grp setBehaviour "SAFE";
+//_grp setBehaviour "SAFE";
 private _cur_pos = _start_pos;
 private _no_pos_found = false;
 for "_i" from 0 to (2 + (floor (random 3))) do {

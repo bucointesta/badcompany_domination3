@@ -253,13 +253,16 @@ player addEventhandler ["Take", {_this call d_fnc_ptakeweapon}];
 player addEventhandler ["Put", {_this call d_fnc_pputweapon}];
 player addEventhandler ["Reloaded", {call d_fnc_save_layoutgear}];
 
-removeAllWeapons player;
-removeallItems player;
-removeAllAssignedItems player;
-removeVest player;
-removeBackpack player;
-removeHeadgear player;
-removeGoggles player;
+if ((str player) != "d_admin") then {
+	removeAllWeapons player;
+	removeallItems player;
+	removeAllAssignedItems player;
+	removeVest player;
+	removeBackpack player;
+	removeHeadgear player;
+	removeGoggles player;
+};
+
 if (d_MissionType != 2) then {
 	if !(d_resolved_targets isEqualTo []) then {
 		private _codtn = count d_target_names;
@@ -273,7 +276,7 @@ if (d_MissionType != 2) then {
 			if (!isNil "_res" && {_res >= 0 && {_res < _codtn}}) then {
 				private _tgt_ar = d_target_names # _res;
 				private _cur_tgt_name = _tgt_ar # 1;
-				[true, format ["d_obj%1", _res + 2], [format [localize "STR_DOM_MISSIONSTRING_202", _cur_tgt_name], format [localize "STR_DOM_MISSIONSTRING_203", _cur_tgt_name], format [localize "STR_DOM_MISSIONSTRING_203", _cur_tgt_name]], _tgt_ar # 0, "Succeeded", 2, false, "Attack", false] call BIS_fnc_taskCreate;
+				[player, format ["d_obj%1", _res + 2], [format [localize "STR_DOM_MISSIONSTRING_202", _cur_tgt_name], format [localize "STR_DOM_MISSIONSTRING_203", _cur_tgt_name], format [localize "STR_DOM_MISSIONSTRING_203", _cur_tgt_name]], _tgt_ar # 0, "Succeeded", 2, false, "Attack", false] call BIS_fnc_taskCreate;
 			};
 		};
 	};
@@ -283,7 +286,7 @@ if (d_MissionType != 2) then {
 		d_current_seize = d_cur_tgt_name;
 		"d_dummy_marker" setMarkerPosLocal d_cur_tgt_pos;
 		private _tname = format ["d_obj%1", d_current_target_index + 2];
-		[true, _tname, [format [localize "STR_DOM_MISSIONSTRING_202", d_current_seize], format [localize "STR_DOM_MISSIONSTRING_203", d_current_seize], format [localize "STR_DOM_MISSIONSTRING_203", d_current_seize]], d_cur_tgt_pos, true, 2, false, "Attack", false] call BIS_fnc_taskCreate;
+		[player, _tname, [format [localize "STR_DOM_MISSIONSTRING_202", d_current_seize], format [localize "STR_DOM_MISSIONSTRING_203", d_current_seize], format [localize "STR_DOM_MISSIONSTRING_203", d_current_seize]], d_cur_tgt_pos, "AUTOASSIGNED", 2, false, "Attack", false] call BIS_fnc_taskCreate;
 		d_current_task = _tname;
 		if (!isNil "d_obj00_task") then {
 			d_obj00_task = nil;
@@ -1088,5 +1091,22 @@ if (isMultiplayer) then {
 } else {
 	{_x enableSimulation false} forEach (switchableUnits select {_x != player});
 };
+
+// Hunter: Custom score handling
+player remoteExecCall ["d_fnc_addScoreHandler",2,false];
+player addEventHandler ["Respawn",{
+	params ["_unit", "_corpse"];
+	_unit remoteExecCall ["d_fnc_addScoreHandler",2,false];
+}];
+
+player addEventHandler ["Respawn",{
+	params ["_unit", "_corpse"];
+	_unit spawn {
+		sleep 1;
+		if ((str _this) in d_badcompany) then {
+			_this remoteExecCall ["d_fnc_badco_uniform",-2,false];		
+		};
+	};	
+}];
 
 diag_log [diag_frameno, diag_ticktime, time, "Dom x_setupplayer.sqf processed"];

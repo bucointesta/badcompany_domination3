@@ -51,7 +51,7 @@ if (isNil "_p") then {
 	__TRACE_3("Player not found","_uid","_name","_p")
 } else {
 	__TRACE_1("player store before change","_p")
-	if (_name != _p # 6) then {
+	if ((_name != _p # 6) && {!(_uid in adminarr)}) then {
 		[format [localize "STR_DOM_MISSIONSTRING_506", _name, _p # 6], "GLOBAL"] remoteExecCall ["d_fnc_HintChatMsg", [0, -2] select isDedicated];
 		diag_log format [localize "STR_DOM_MISSIONSTRING_942", _name, _p # 6, _uid];
 	};

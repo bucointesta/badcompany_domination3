@@ -11,6 +11,9 @@ if (!isNil "_lg") then {
 };
 
 if (str player in d_badcompany) then {
-	player remoteExecCall ["d_fnc_badco_uniform",-2];
+	[] spawn {
+		sleep 3;
+		player remoteExecCall ["d_fnc_badco_uniform",-2,false];
+	};	
 };
 

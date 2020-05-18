@@ -13,7 +13,8 @@ if (!isServer) then {
 call compile preprocessFileLineNumbers "x_shc\x_f\x_shcfunctions.sqf";
 #endif
 
-Hz_switchVests = true;
+Hz_customUnitLoadouts = true;
+AI_setupUnitCustomLoadout = compile preprocessFileLineNumbers "AI_setupUnitCustomLoadout.sqf";
 
 if (hasInterface) then {
 	private _vd = profileNamespace getVariable ["dom_viewdistance", d_InitialViewDistance];
@@ -425,16 +426,15 @@ if (isServer) then {
 	if (!d_ifa3lite) then {
 		[
 		[d_chopper_1,3001,true,1200],[d_chopper_2,3002,true,900],[d_chopper_3,3003,true,900],
-		[d_chopper_4,3004,true,1200],[d_chopper_5,3005,true,1200],[d_chopper_6,3006,true,900],
-		[d_chopper_7,3007,true,900],[d_chopper_8,3008,true,1200],[d_chopper_9,3009,true,1200],
-		[d_chopper_10,3010,true,900],[d_chopper_11,3011,true,1200],
+		[d_chopper_4,3004,true,1200],[d_chopper_5,3005,true,1200],[d_chopper_13,3013,true,1200],
+		[d_chopper_6,3006,true,900],[d_chopper_7,3007,true,900],[d_chopper_8,3008,true,1200],
+		[d_chopper_9,3009,true,1200],[d_chopper_10,3010,true,900],[d_chopper_11,3011,true,1200],
 		[d_chopper_12,3012,true,1200],
 		
-		[d_plane_1,3103,true,1800],
-		
-		//keep plane numbers >= 3100 so they don't get chopper menu (unless you want a cargo plane?)
 		[d_attack_1,3101,true,1800],		
-		[d_attack_2,3102,true,1800]		
+		[d_attack_2,3102,true,1800],
+		[d_plane_1,3103,true,900]	
+		
 		] call compile preprocessFileLineNumbers "x_server\x_inithelirespawn2.sqf";
 	};
 	// editor varname, unique number

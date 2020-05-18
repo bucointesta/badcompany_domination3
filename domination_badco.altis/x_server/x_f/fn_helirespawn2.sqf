@@ -71,21 +71,16 @@ while {true} do {
 				d_helirespawn2_ar set [_forEachIndex, _vec_a];
 			} else {
 				if (time > _respawnTimer) then {
-					private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
-					sleep 0.1;
-					if (!(_runits isEqualTo []) && {{_x distance2D _vec < 50} count _runits == 0}) then { //distance from other player
 						_disabled = true; //do respawn
 						_vec_a set [7, -1]; //reset timer
 						d_helirespawn2_ar set [_forEachIndex, _vec_a];
-						
-					};
 				};
 			};
 		};
 		
 		sleep 0.01;
 		
-		if (_empty && {_disabled || {!alive _vec}}) then {
+		if (_disabled) then {
 			private _fuelleft = _vec getVariable ["d_fuel", 1];
 			if (_vec getVariable ["d_ammobox", false]) then {
 				d_num_ammo_boxes = d_num_ammo_boxes - 1;
@@ -160,6 +155,7 @@ while {true} do {
 			_vec addEventhandler ["local", {_this call d_fnc_heli_local_check}];
 			
 			_vec_a set [0, _vec];
+			d_helirespawn2_ar set [_forEachIndex, _vec_a];
 			_vec setVariable ["d_OUT_OF_SPACE", -1];
 			_vec setVariable ["d_vec", _vec_a # 1, true];
 #ifdef __TT__

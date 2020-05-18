@@ -125,15 +125,58 @@ while {true} do {
 	private _cur_tgt_pos =+ d_cur_tgt_pos;
 	private _lastTargetIndex = -1;
 	_cur_tgt_pos set [2, 250];
-	private _wp = _grp addWayPoint [d_cur_tgt_pos, 250];
+	private _wp = _grp addWayPoint [_cur_tgt_pos, 250];
 	_wp setWaypointType "MOVE";
-	private _pat_pos =+ d_cur_tgt_pos;
+	private _pat_pos =+ _cur_tgt_pos;
 	[_grp, 1] setWaypointStatements ["never", ""];
 	_wp setWaypointCompletionRadius 250;
 	private _old_pos = getPosASL vehicle leader _grp;
 	
 	sleep 30;
-	if (_type == "AH") then {sleep 30;};
+	if (_type == "AH") then {		
+		// arma 3's pathfinding problems...
+		{
+			_vehicle = _x;
+			isNil {							
+				_agent = calculatePath [typeof _vehicle,"CARELESS",getposatl _vehicle, _cur_tgt_pos];
+				_agent setVariable ["veh",_vehicle];
+				_agent addEventHandler ["PathCalculated", {
+					_agent = _this select 0;
+					_path = [];
+					{
+						_path pushBack [_x select 0, _x select 1, 250];
+					} foreach (_this select 1);
+					(_agent getVariable "veh") setDriveOnPath _path;	
+					
+					_vehAgent = vehicle _agent;
+					if (_vehAgent == _agent) then {							
+						deletevehicle _agent;							
+					} else {							
+						{_vehAgent deleteVehicleCrew _x} foreach crew _vehAgent;							
+					};											
+					deleteVehicle _vehAgent;
+				}];
+				
+				_agent spawn {										
+					sleep 55;			
+					if (diag_fps < 25) then {
+						sleep 90;
+					};
+					if (!isNull _this) then {
+						_vehAgent = vehicle _this;
+						if (_vehAgent == _this) then {							
+							deletevehicle _this;							
+						} else {							
+							{_vehAgent deleteVehicleCrew _x} foreach crew _vehAgent;							
+						};											
+						deleteVehicle _vehAgent;											
+					};																				
+				};
+				
+			};
+		} foreach _vehicles;
+		sleep 120;	
+	};
 	
 	_radius = 1500;
 	

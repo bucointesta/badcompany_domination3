@@ -31,7 +31,7 @@
 		_defaultWeps = d_defaultWeapons + d_whitelistWeapons - d_machineguns - d_sniping_rifles - d_launchers - d_grenadelaunchers - d_saboteur_only;
 		_defaultBackpacks = d_defaultBackpacks + d_whitelistBackpacks - d_medium_backpacks - d_large_backpacks;
 		_defaultItems = d_defaultItems + d_whitelistItems - d_medium_armors - d_heavy_armors - d_medic_only - d_engineer_only - d_sniper_only - d_saboteur_only;
-		_defaultMags = d_defaultMagazines + d_whitelistMagazines;
+		_defaultMags = d_defaultMagazines + d_whitelistMagazines - d_engineer_only;
 	
 	} else {
 	
@@ -53,7 +53,7 @@
 		
 			restrictions_allowedWeapons = _defaultWeps;
 			restrictions_allowedBackpacks = _defaultBackpacks;
-			restrictions_allowedItems = _defaultItems + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_medium_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;
 							
 		};	
@@ -92,7 +92,7 @@
 		
 			restrictions_allowedWeapons = _defaultWeps;
 			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_engineer_only  + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_engineer_only  + d_medium_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags + d_explosives - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});
 		
 		};
@@ -101,7 +101,7 @@
 			
 			restrictions_allowedWeapons = _defaultWeps + d_saboteur_only - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_saboteur_only + d_medium_armors + ["Rangefinder"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_saboteur_only + d_medium_armors + ["Rangefinder","Laserdesignator"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags + d_explosives - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});
 		
 		};
@@ -286,7 +286,7 @@
 
 		if ((str player) in d_badcompany) then {
 
-			player remoteExecCall ["d_fnc_badco_uniform",-2];
+			player remoteExecCall ["d_fnc_badco_uniform",-2,false];
 		
 		};
 		
