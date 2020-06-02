@@ -27,10 +27,12 @@ if (_action == "load") then {
 				//_carrier setVariable ["cargo",_obj];
 				_carrier removeAction _act1;
 				
-				
-				
-				_carrier animate ["ramp_top", 1];
-				_carrier animate ["ramp_bottom", 1];
+				if (_carrier isKindOf "VTOL_Base_F") then {
+					_carrier animate ["Door_1_source", 1];
+				} else {
+					_carrier animate ["ramp_top", 1];
+					_carrier animate ["ramp_bottom", 1];
+				};
 				
 				_carrier setVariable ["cargo",_carried];
 				carried = true;
@@ -44,6 +46,9 @@ if (_action == "load") then {
 				hint format ["Loading %1 into cargo now...",typeOf _obj];
 				_lower = true;
 				_heightcorrection = 0;
+				if (_carrier isKindOf "VTOL_Base_F") then {
+					_heightcorrection = -1.3;
+				};
 				_widthcorrection = 0;
 				_lengthcorrection = -2;
 				if (_carried iskindof "M1A1") then {if (typeof _carried == "M1A2_US_TUSK_MG_EP1")exitwith{_heightcorrection = 0.3; _lengthcorrection = -2.2;};_lengthcorrection = -2.5;_heightcorrection = -1.4; _widthcorrection = 0.35;};
@@ -75,8 +80,12 @@ if (_action == "load") then {
 				//_carried setVariable ["evh",_id];
 				//_carried setVariable ["carrier",_carrier];
 				sleep 2;
-				_carrier animate ["ramp_top", 0];
-				_carrier animate ["ramp_bottom", 0];
+				if (_carrier isKindOf "VTOL_Base_F") then {
+					_carrier animate ["Door_1_source", 0];
+				} else {
+					_carrier animate ["ramp_top", 0];
+					_carrier animate ["ramp_bottom", 0];
+				};
 				sleep 1;
 				
 				_id = _carrier addaction ["<t color='#0000FF'>Drop cargo</t>", "logistics\cargoscript.sqf", ["drop"],999999,true,true,"","driver  _target == _this"];
@@ -151,8 +160,12 @@ if (_action == "drop") then {
 	//_id = _cargo getVariable "evh";
 	//_cargo removeEventHandler ["GetOut", _id];
 	hint "Lowering ramp...";
-	_carrier animate ["ramp_top", 1];
-	_carrier animate ["ramp_bottom", 1];
+	if (_carrier isKindOf "VTOL_Base_F") then {
+		_carrier animate ["Door_1_source", 1];
+	} else {
+		_carrier animate ["ramp_top", 1];
+		_carrier animate ["ramp_bottom", 1];
+	};
 	sleep 3;
 	
 	
@@ -167,6 +180,9 @@ if (_action == "drop") then {
 								*/
 		_lower = false;
 		_heightcorrection = 0;
+		if (_carrier isKindOf "VTOL_Base_F") then {
+			_heightcorrection = -1.3;
+		};
 		_widthcorrection = 0;
 		_lengthcorrection = -2;
 		if (_carried iskindof "M1A1") then {if (typeof _carried == "M1A2_US_TUSK_MG_EP1")exitwith{_heightcorrection = 0.3; _lengthcorrection = -2.2;};_lengthcorrection = -2.5;_heightcorrection = -1.4; _widthcorrection = 0.35;};
@@ -200,8 +216,12 @@ if (_action == "drop") then {
 		
 		waituntil {((getpos _cargo) select 2) < 750};
 		
-		_carrier animate ["ramp_top", 0];
-		_carrier animate ["ramp_bottom", 0];
+		if (_carrier isKindOf "VTOL_Base_F") then {
+			_carrier animate ["Door_1_source", 0];
+		} else {
+			_carrier animate ["ramp_top", 0];
+			_carrier animate ["ramp_bottom", 0];
+		};
 		
 		_chute = "B_Parachute_02_F" createVehicle [(getpos _cargo select 0),(getpos _cargo select 1),(getpos _cargo select 2) + 10];
 		//_chute setpos (_cargo ModelToWorld [0,0,3]);
@@ -247,6 +267,9 @@ if (_action == "drop") then {
 		
 		_lower = false;
 		_heightcorrection = 0;
+		if (_carrier isKindOf "VTOL_Base_F") then {
+			_heightcorrection = -1.3;
+		};
 		_widthcorrection = 0;
 		_lengthcorrection = -2;
 		if (_carried iskindof "M1A1") then {if (typeof _carried == "M1A2_US_TUSK_MG_EP1")exitwith{_heightcorrection = 0.3; _lengthcorrection = -2.2;};_lengthcorrection = -2.5;_heightcorrection = -1.4; _widthcorrection = 0.35;};
@@ -278,8 +301,12 @@ if (_action == "drop") then {
 		carried = false;
 		hint "Cargo released.";
 		[_cargo, false] remoteExecCall ["d_fnc_l_v", _cargo];
-		_carrier animate ["ramp_top", 0];
-		_carrier animate ["ramp_bottom", 0];
+		if (_carrier isKindOf "VTOL_Base_F") then {
+			_carrier animate ["Door_1_source", 0];
+		} else {
+			_carrier animate ["ramp_top", 0];
+			_carrier animate ["ramp_bottom", 0];
+		};
 	};
 	
 	_carrier setVariable ["cargo",""];

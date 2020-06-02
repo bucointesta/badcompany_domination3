@@ -16,10 +16,10 @@ _ctrl ctrlSetScale 10;
 _ctrl ctrlCommit 0;
 _ctrl ctrlSetScale 1.2;
 _ctrl ctrlCommit 0.5;
-sleep 15;
+sleep 7.5;
 _ctrl ctrlSetFade 1;
-_ctrl ctrlCommit 1;
-sleep 2;
+_ctrl ctrlCommit 13.5;
+sleep 1;
 d_animL_controls pushBack _ctrl;
 
 true

@@ -254,7 +254,7 @@ d_x_drop_array =
 		if (d_rhs) exitWith {
 			[[], [localize "STR_DOM_MISSIONSTRING_22", "rhsusf_m998_w_2dr"], [localize "STR_DOM_MISSIONSTRING_20", "Box_NATO_Ammo_F"]]
 		};
-		[[], [localize "STR_DOM_MISSIONSTRING_22", ["B_MRAP_01_F", "B_T_LSV_01_unarmed_F"] select d_tanoa], [localize "STR_DOM_MISSIONSTRING_20", "Box_NATO_Ammo_F"]]
+		[[], [localize "STR_DOM_MISSIONSTRING_22", "B_LSV_01_unarmed_F"], [localize "STR_DOM_MISSIONSTRING_20", "Box_NATO_Ammo_F"]]
 	};
 #endif
 #ifdef __OWN_SIDE_OPFOR__
@@ -724,7 +724,7 @@ if (!d_tt_tanoa) then {
 #endif
 	d_specops_G = [["I_G_Soldier_exp_F", "I_Soldier_exp_F", "I_G_Soldier_GL_F", "I_G_medic_F"]];
 
-	d_sabotage_E = [["O_recon_exp_F"]];
+	d_sabotage_E = [["O_R_Patrol_Soldier_TL_F"]];
 	d_sabotage_W = [["B_recon_exp_F"]];
 	d_sabotage_G = [["I_diver_exp_F"]];
 #ifdef __CUP__
@@ -796,7 +796,7 @@ if (!d_tt_tanoa) then {
 	];
 
 #ifdef __ALTIS__
-	d_arti_observer_E = [["O_recon_JTAC_F"]];
+	d_arti_observer_E = [["O_G_Soldier_A_F"]];
 #endif
 #ifdef __ROSCHE__
 	d_arti_observer_E = [["O_recon_JTAC_F"]];
@@ -876,7 +876,7 @@ if (!d_tt_tanoa) then {
 		"I_Heli_Transport_02_F";
 #endif
 #ifdef __OWN_SIDE_BLUFOR__
-		["CUP_B_MV22_USMC", "B_Heli_Transport_01_camo_F"] select (!d_cup);
+		["CUP_B_MV22_USMC", "B_T_VTOL_01_infantry_F"] select (!d_cup);
 #endif
 #ifdef __OWN_SIDE_OPFOR__
 		"O_T_VTOL_02_infantry_dynamicLoadout_F";
@@ -905,8 +905,7 @@ if (!d_tt_tanoa) then {
 	d_cas_plane = ["RHS_Su25SM_vvsc", "RHS_A10"] select d_rhs_blufor;
 #endif
 
-	// Hunter: need to define vanilla default
-	d_cargoPlanes = [];
+	d_cargoPlanes = ["B_T_VTOL_01_infantry_F","B_T_VTOL_01_vehicle_F"];
 #ifdef __RHS__
 	d_cargoPlanes = ["RHS_C130J"];
 #endif
@@ -1046,7 +1045,7 @@ if (!d_tt_tanoa) then {
 	// type of enemy plane that will fly over the main target
 #ifndef __CUP__
 	d_airai_attack_plane = switch (d_enemy_side_short) do {
-		case "E": {["O_Plane_CAS_02_F", "O_Plane_Fighter_02_F", "I_Plane_Fighter_03_AA_F"]};
+		case "E": {["O_Plane_CAS_02_dynamicLoadout_F","I_Plane_Fighter_03_dynamicLoadout_F","I_Plane_Fighter_04_F"]};
 		case "W": {[["LIB_FW190F8", "LIB_FW190F8_4", "LIB_FW190F8_2", "LIB_FW190F8_5", "LIB_FW190F8_3"], ["B_Plane_CAS_01_F"]] select (!d_ifa3lite)};
 		case "G": {["I_Plane_Fighter_03_CAS_F"]};
 	};
@@ -1059,7 +1058,7 @@ if (!d_tt_tanoa) then {
 #endif
 
 //Hunter: add CAP
-d_airai_CAP_plane = d_airai_attack_plane;
+d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 
 #ifdef __RHS__
 	d_airai_attack_plane = switch (d_enemy_side_short) do {
@@ -1074,7 +1073,7 @@ d_airai_CAP_plane = d_airai_attack_plane;
 #ifndef __CUP__
 	// type of enemy chopper that will fly over the main target
 	d_airai_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["O_Heli_Attack_02_F"]};
+		case "E": {["O_Heli_Attack_02_dynamicLoadout_F","I_Heli_light_03_dynamicLoadout_F","O_T_VTOL_02_infantry_dynamicLoadout_F"]};
 		case "W": {[["LIB_Ju87_Italy2", "LIB_Ju87_Italy", "LIB_Ju87"], ["B_Heli_Attack_01_F"]] select (!d_ifa3lite)};
 		case "G": {["I_Heli_light_03_F"]};
 	};
@@ -1099,7 +1098,7 @@ d_airai_CAP_plane = d_airai_attack_plane;
 #ifdef __ALTIS__
 	// enemy parachute troops transport chopper
 	d_transport_chopper = switch (d_enemy_side_short) do {
-		case "E": {["O_T_VTOL_02_infantry_grey_F", "I_Heli_Transport_02_F"]};
+		case "E": {["O_Heli_Transport_04_covered_F","I_Heli_Transport_02_F"]};
 		case "W": {["B_T_VTOL_01_infantry_blue_F"]};
 		case "G": {["I_Heli_Transport_02_F"]};
 	};
@@ -1184,7 +1183,7 @@ d_airai_CAP_plane = d_airai_attack_plane;
 #ifndef __CUP__
 	// light attack chopper (for example I_Heli_light_03_F with MG)
 	d_light_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["O_Heli_Attack_02_black_F", "I_Heli_light_03_F"]};
+		case "E": {["I_Heli_light_03_dynamicLoadout_F"]};
 		case "W": {[["LIB_Ju87_Italy2"], ["B_Heli_Light_01_armed_F"]] select (!d_ifa3lite)};
 		case "G": {["I_Heli_light_03_F"]};
 	};
@@ -1241,7 +1240,7 @@ if (hasInterface) then {
 	["I_Quadbike_01_F"];
 #endif
 #ifdef __OWN_SIDE_BLUFOR__
-	[["B_Quadbike_01_F", "B_LSV_01_unarmed_F"], ["B_Quadbike_01_F", "B_T_LSV_01_unarmed_F","C_Scooter_Transport_01_F"]] select d_tanoa;
+	[["B_LSV_01_unarmed_F","C_Scooter_Transport_01_F"], ["B_Quadbike_01_F", "B_T_LSV_01_unarmed_F","C_Scooter_Transport_01_F"]] select d_tanoa;
 #endif
 #ifdef __OWN_SIDE_OPFOR__
 	[["O_Quadbike_01_F", "O_LSV_02_unarmed_F"], ["O_Quadbike_01_F", "O_T_LSV_02_unarmed_F"]] select d_tanoa;
@@ -1288,7 +1287,7 @@ if (hasInterface) then {
 	d_check_ammo_load_vecs =
 #ifdef __OWN_SIDE_BLUFOR__
 	#ifndef __RHS__
-	["C_Van_01_box_F", "B_Truck_01_box_F", "B_Truck_01_ammo_F", "B_Truck_01_covered_F", "B_MRAP_01_F", "B_APC_Tracked_01_CRV_F", "B_T_APC_Tracked_01_CRV_F", "B_Boat_Armed_01_minigun_F", "B_Heli_Transport_01_F", "B_Heli_Transport_01_camo_F", "B_Heli_Transport_03_F", "B_Heli_Transport_03_unarmed_F", "B_Heli_Transport_03_black_F", "B_LSV_01_unarmed_F", "O_Heli_Light_02_unarmed_F", "O_Heli_Light_02_dynamicLoadout_F"];
+	["B_Truck_01_covered_F", "B_Truck_01_transport_F", "B_Truck_01_mover_F", "B_Heli_Transport_03_F","I_Boat_Armed_01_minigun_F"];
 	#else
 	["RHSUSF_M1078A1P2_B_D_CP_FMTV_USARMY","RHSUSF_M1078A1P2_B_M2_D_FMTV_USARMY","RHSUSF_M1083A1P2_B_M2_D_FMTV_USARMY","RHS_CH_47F_10","RHSUSF_MKVSOC"];
 	#endif

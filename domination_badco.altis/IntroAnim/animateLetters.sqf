@@ -37,10 +37,10 @@ for "_i" from _Slot to (_Slot + 30) do {
 };
 if (_doexit) exitWith {};
 for "_i" from 0 to 29 do {
-	sleep 0.06;
+	sleep 0.03;
 	d_animL_controls params ["_ctrl"];
 	if !(isNil "_ctrl") then {[_ctrl, _chars # _i, _i, _Slot] execVM _mode};
-	sleep 0.06;
+	sleep 0.03;
 };
 d_animL_i = d_animL_i + 1;
 true

@@ -566,28 +566,29 @@ d_p_vecs = [
 	["D_TR2",201,"d_truck2","n_support","ColorGreen","F1",""],["D_TR5",204,"d_truck5","n_support","ColorGreen","F2",""],
 	["D_TR3",202,"d_truck3","n_support","ColorGreen","A1",""],["D_TR4",205,"d_truck6","n_support","ColorGreen","A2",""],
 	["D_TR7",300,"d_truck7","n_service","ColorGreen","E1",""],["D_TR8",301,"d_truck8","n_service","ColorGreen","E2",""],
-	["D_TR10",400,"d_truck10","n_motor_inf","ColorBlue","Roamer-4",""],["D_TR9",401,"d_truck9","n_motor_inf","ColorBlue","Roamer-5",""],
+	["D_TR10",400,"d_truck10","n_motor_inf","ColorBlue","Sandbox-5",""],["D_TR9",401,"d_truck9","n_motor_inf","ColorBlue","Sandbox-6",""],
 	["D_TR11",402,"d_truck11","n_motor_inf","ColorBrown","T1",""],["D_TR12",403,"d_truck12","n_motor_inf","ColorBrown","T2",""],
 	
-	["D_C01",801,"d_car1","n_motor_inf","ColorBlue","Boxer-1",""],["D_C02",802,"d_car2","n_motor_inf","ColorBlue","Boxer-2",""],
-	["D_C03",803,"d_car3","n_motor_inf","ColorBlue","Hammer-1",""],	["D_C04",804,"d_car4","n_motor_inf","ColorBlue","Hammer-2",""],
-	["D_C05",805,"d_car5","n_motor_inf","ColorBlue","Roamer-2",""],	["D_C06",806,"d_car6","n_motor_inf","ColorBlue","Cartel-1",""],
-	["D_C07",807,"d_car7","n_motor_inf","ColorBlue","Cartel-2",""],	["D_C08",808,"d_car8","n_motor_inf","ColorBlue","Boss",""],
-	["D_C09",809,"d_car9","n_motor_inf","ColorBlue","Roamer-3",""],	["D_C10",810,"d_car10","n_motor_inf","ColorBlue","Hammer-3",""],
-	["D_C11",811,"d_car11","n_motor_inf","ColorBlue","Boxer-3",""],["D_C12",812,"d_car12","n_motor_inf","ColorBlue","Boxer-4",""],
-	["D_C13",813,"d_car13","n_motor_inf","ColorBlue","Roamer-1",""],["D_C14",814,"d_car14","n_motor_inf","ColorBlue","Hammer-4",""],
-	["D_C15",815,"d_car15","n_motor_inf","ColorBlue","Crossbow",""],["D_C16",816,"d_car16","n_motor_inf","ColorBlue","Sandbox-1",""],
-	["D_C17",817,"d_car17","n_motor_inf","ColorBlue","Sandbox-2",""],["D_C18",818,"d_car18","n_motor_inf","ColorBlue","Sandbox-3",""],
+	["D_C01",801,"d_car1","n_motor_inf","ColorBlue","Sandbox-1",""],["D_C02",802,"d_car2","n_motor_inf","ColorBlue","Sandbox-2",""],
+	["D_C03",803,"d_car3","n_motor_inf","ColorBlue","Assaulter-1",""],	["D_C04",804,"d_car4","n_motor_inf","ColorBlue","Assaulter-2",""],
+	["D_C05",805,"d_car5","n_motor_inf","ColorBlue","Gecko-1",""],	["D_C06",806,"d_car6","n_motor_inf","ColorBlue","Mafia",""],
+	["D_C07",807,"d_car7","n_motor_inf","ColorBlue","Cartel",""],	["D_C08",808,"d_car8","n_motor_inf","ColorBlue","Boss",""],
+	["D_C09",809,"d_car9","n_motor_inf","ColorBlue","Gecko-3",""],	["D_C10",810,"d_car10","n_motor_inf","ColorBlue","Trigger",""],
+	["D_C11",811,"d_car11","n_motor_inf","ColorBlue","Sandbox-3",""],["D_C12",812,"d_car12","n_motor_inf","ColorBlue","Sandbox-4",""],
+	["D_C13",813,"d_car13","n_motor_inf","ColorBlue","Gecko-2",""],["D_C14",814,"d_car14","n_motor_inf","ColorBlue","Assaulter-3",""],
+	["D_C15",815,"d_car15","n_motor_inf","ColorBlue","Crossbow",""],["D_C16",816,"d_car16","n_motor_inf","ColorBlue","Duster-1",""],
+	["D_C17",817,"d_car17","n_motor_inf","ColorBlue","Gecko-4",""],["D_C18",818,"d_car18","n_motor_inf","ColorBlue","Duster-2",""],
 	
 	["D_B1",851,"d_boat1","b_naval","ColorBlue","Wakeboard",""],["D_B2",852,"d_boat2","b_naval","ColorBlue","Seal-1",""],
 	["D_B3",853,"d_boat3","b_naval","ColorBlue","Seal-2",""],["D_B4",854,"d_boat4","b_naval","ColorBlue","Catcher",""],
 	["D_B5",855,"d_boat5","b_naval","ColorBlue","Shark-1",""],["D_B6",856,"d_boat6","b_naval","ColorBlue","Shark-2",""],
 	["D_B7",857,"d_boat7","b_naval","ColorBlue","Shark-3",""],	
 		
-	["D_T01",900,"d_tank1","n_armor","ColorBlue","Grizzly",""],["D_T02",901,"d_tank2","n_mech_inf","ColorBlue","Lava-1",""],
-	["D_T03",902,"d_tank3","n_mech_inf","ColorBlue","Lava-2",""],["D_T04",903,"d_tank4","n_mech_inf","ColorBlue","Lava-3",""],
-	["D_T05",904,"d_tank5","n_mech_inf","ColorBlue","Boomer",""],["D_T06",905,"d_tank6","n_mech_inf","ColorBlue","Ram-1",""],
-	["D_T07",906,"d_tank7","n_mech_inf","ColorBlue","Ram-2",""],["D_T08",907,"d_tank8","n_mech_inf","ColorBlue","Stinger",""]
+	["D_T01",900,"d_tank1","n_armor","ColorBlue","Grizzly",""],["D_T02",901,"d_tank2","n_mech_inf","ColorBlue","Boomer",""],
+	["D_T03",902,"d_tank3","n_mech_inf","ColorBlue","Lava-1",""],["D_T04",903,"d_tank4","n_mech_inf","ColorBlue","Lava-2",""],
+	["D_T05",904,"d_tank5","n_mech_inf","ColorBlue","Target",""],["D_T06",905,"d_tank6","n_mech_inf","ColorBlue","Ram-1",""],
+	["D_T07",906,"d_tank7","n_mech_inf","ColorBlue","Ram-2",""],["D_T08",907,"d_tank8","n_mech_inf","ColorBlue","Stinger",""],
+	["D_T09",908,"d_tank9","n_mech_inf","ColorBlue","Sander",""]
 ];
 if (d_ifa3lite) then {
 	d_p_vecs pushBack ["D_TR11",500,"d_truck11","n_support","ColorGreen","W1",""];

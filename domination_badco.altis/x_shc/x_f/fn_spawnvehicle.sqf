@@ -83,6 +83,17 @@ if (_typev1 isKindOf "Air") then {
 };
 
 private _crew = [_veh, _grp] call d_fnc_spawnCrew;
+{
+	_x addEventHandler ["HandleDamage",{
+		_return = _this select 2;
+		_source = _this select 3;
+		_unit = _this select 0;		
+		if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
+			_return = 0;
+		};
+		_return 
+	}];
+} foreach _crew;
 _grp addVehicle _veh;
 _grp deleteGroupWhenEmpty true;
 

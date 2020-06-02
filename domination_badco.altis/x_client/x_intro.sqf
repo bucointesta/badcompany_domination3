@@ -43,7 +43,7 @@ _arrow_over_head spawn {
 "dynamicBlur" ppEffectAdjust [6];
 "dynamicBlur" ppEffectCommit 0;
 "dynamicBlur" ppEffectAdjust [0.0];
-"dynamicBlur" ppEffectCommit 15;
+"dynamicBlur" ppEffectCommit 7.5;
 
 playMusic "d_intro_music";
 
@@ -274,7 +274,7 @@ if (str player in d_grenadiers) exitWith {
 	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
 	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
 	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a GRENADIER. Your main role is to provide support to your team in medium range combat with smoke and HE grenades. Use your HE grenades as a force multiplier and your smokes for concealment and to mark targets.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, grenade launchers and disposable launchers.</t><br/>
+	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and grenade launchers.</t><br/>
 	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
 	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
 	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
