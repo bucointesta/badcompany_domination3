@@ -96,7 +96,9 @@ while {true} do {
 				detach _attached;
 				_vec setVariable ["d_attachedto_v", nil, true];
 			};
-			private _skinpoly = _vec call d_fnc_getskinpoly;
+			//Hunter: this is set from the beginning now to avoid vanilla jets losing their canopies on respawn
+			//private _skinpoly = _vec call d_fnc_getskinpoly;
+			private _skinpoly = _vec_a select 9;
 			sleep 0.1;
 			
 			_ammbox = _vec getvariable ["actualAmmobox",objNull];			

@@ -24,7 +24,7 @@ d_helirespawn2_ar = [];
 	if (!isNil "_vec" && {!isNull _vec}) then {
 		_vec_a params ["", "_number_v", "_ifdamage"];
 		private _vposp = (getPosATL _vec) vectorAdd [0, 0, 0.1];
-		d_helirespawn2_ar pushBack [_vec, _number_v, _ifdamage, -1, _vposp, direction _vec, typeOf _vec, if (_ifdamage) then {-1} else {_vec_a # 3},if (_ifdamage) then {-1} else {_vec_a # 3}];
+		d_helirespawn2_ar pushBack [_vec, _number_v, _ifdamage, -1, _vposp, direction _vec, typeOf _vec, [_vec_a # 3, -1] select _ifdamage, [_vec_a # 3, -1] select _ifdamage, _vec call d_fnc_getskinpoly];
 		
 		_vec setVariable ["d_OUT_OF_SPACE", -1];
 		_vec setVariable ["d_vec", _number_v, true];
