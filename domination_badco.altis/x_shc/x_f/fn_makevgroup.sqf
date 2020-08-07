@@ -16,7 +16,7 @@ _the_vecs resize _numvecs;
 private _nnvnum = _numvecs - 1;
 for "_n" from 0 to _nnvnum do {
 	__TRACE_1("","_npos")
-	// Hunter: Let Arma handle safe position handling
+	// Hunter: Move this stuff to spawnvehicle function
 	//private _nnpos = _npos findEmptyPosition [0, 70, _vname];
 	//if !(_nnpos isEqualTo []) then {_npos = _nnpos};
 	private _vec_ar = [_npos, [floor random 360, _dir] select (_dir != -1.111), _vname, _grp] call d_fnc_spawnVehicle;
@@ -29,18 +29,6 @@ for "_n" from 0 to _nnvnum do {
 	};
 	
 	_vec addEventHandler ["killed", {_this call d_fnc_handleDeadVec}];
-	
-	//Hunter: weeell what can you do... #justarmathings
-	private _sideVec = side _vec;
-	{
-	
-		if ((local _x) && {((side _x) getfriend _sideVec) >= 0.6}) then {
-		
-			_x disableCollisionWith _vec;
-		
-		};
-	
-	} foreach allunits;
 	
 	addToRemainsCollector [_vec];
 	

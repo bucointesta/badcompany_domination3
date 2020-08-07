@@ -8,7 +8,7 @@ class EditorData
 	toggles=521;
 	class ItemIDProvider
 	{
-		nextID=9343;
+		nextID=9348;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={26449.408,-18.534111,24872.764};
-		dir[]={-0.0065203025,-0.99994999,0.0075816405};
-		up[]={-0.65201199,0.00999978,0.75814283};
-		aside[]={0.75818074,0,0.65204459};
+		pos[]={26401.822,-19.781616,24752.061};
+		dir[]={-0.0085322065,-0.99994999,0.0052150791};
+		up[]={-0.85319674,0.00999978,0.52149326};
+		aside[]={0.52151936,0,0.85323942};
 	};
 };
 binarizationWanted=0;
@@ -142,17 +142,21 @@ addons[]=
 	"A3_Armor_F_Tank_AFV_Wheeled_01",
 	"A3_Boat_F_Beta_Boat_Armed_01",
 	"A3_Air_F_Heli_Heli_Transport_04",
+	"A3_Weapons_F_Rifles_MX",
+	"A3_Sounds_F",
+	"A3_Sounds_F_Enoch",
+	"A3_Weapons_F_Pistols_P07",
+	"A3_Weapons_F_Items",
 	"A3_Weapons_F_Pistols_Pistol_Heavy_02",
 	"A3_Weapons_F_Acc",
 	"A3_Weapons_F_Mark",
-	"A3_Characters_F_Orange_Headgear",
-	"A3_Weapons_F_Items"
+	"A3_Characters_F_Orange_Headgear"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=52;
+		items=54;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -505,12 +509,26 @@ class AddonsMetaData
 		};
 		class Item50
 		{
+			className="A3_Sounds_F";
+			name="Arma 3 - Sound Effects";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item51
+		{
+			className="A3_Sounds_F_Enoch";
+			name="Arma 3 Enoch - Sound Effects";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item52
+		{
 			className="A3_Weapons_F_Mark";
 			name="Arma 3 Marksmen - Weapons and Accessories";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item51
+		class Item53
 		{
 			className="A3_Characters_F_Orange";
 			name="Arma 3 Orange - Characters and Clothing";
@@ -617,7 +635,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=1359;
+		items=1361;
 		class Item0
 		{
 			dataType="Marker";
@@ -12415,7 +12433,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="76561198039019269";
+							value="d_zeus";
 						};
 					};
 				};
@@ -12434,7 +12452,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=0;
+							value=1;
 						};
 					};
 				};
@@ -12491,7 +12509,7 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=3;
+							value=2;
 						};
 					};
 				};
@@ -12615,6 +12633,7 @@ class Mission
 			{
 				lock="UNLOCKED";
 				name="d_chopper_11";
+				textures="Green";
 				receiveRemoteTargets=1;
 			};
 			id=6843;
@@ -32047,7 +32066,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="[[[[],[]],[[],[]],[[""B_UavTerminal""],[1]],[[],[]]],false]";
+							value="[[[[],[]],[[],[]],[[],[]],[[],[]]],false]";
 						};
 					};
 				};
@@ -44221,6 +44240,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
+				init="this addAction [""<img size='2' image='\a3\ui_f\data\IGUI\Cfg\Actions\heal_ca'/>"",{" \n "player playmove ""AinvPknlMstpSlayWrflDnon_medic"";" \n "sleep 5; " \n "player setdamage 0;" \n "}, [], 0, true, true, """", ""((vehicle player) == player) && {(damage player) > 0}"", 5];";
 				dynamicSimulation=1;
 			};
 			id=8381;
@@ -45689,7 +45709,7 @@ class Mission
 												"SCALAR"
 											};
 										};
-										value=0;
+										value=2;
 									};
 								};
 								class Item1
@@ -58498,10 +58518,67 @@ class Mission
 					flags=4;
 					class Attributes
 					{
-						init="removeVest this;  this setGroupIdGlobal [""BadCompany""];";
+						init="this setGroupIdGlobal [""BadCompany""];";
 						name="d_badco_11";
 						description="Bad Company - Crewman";
 						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="arifle_MXC_F";
+								class primaryMuzzleMag
+								{
+									name="30Rnd_65x39_caseless_mag";
+									ammoLeft=30;
+								};
+							};
+							class handgun
+							{
+								name="hgun_P07_F";
+								class primaryMuzzleMag
+								{
+									name="16Rnd_9x21_Mag";
+									ammoLeft=16;
+								};
+							};
+							class uniform
+							{
+								typeName="U_B_CombatUniform_mcam_vest";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=2;
+									class Item0
+									{
+										name="30Rnd_65x39_caseless_mag";
+										count=2;
+										ammoLeft=30;
+									};
+									class Item1
+									{
+										name="Chemlight_green";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							radio="ItemRadio";
+							hmd="NVGoggles";
+							headgear="H_HelmetCrew_B";
+						};
 					};
 					id=8965;
 					type="B_crew_F";
@@ -58560,10 +58637,67 @@ class Mission
 					flags=4;
 					class Attributes
 					{
-						init="removeVest this;  this setGroupIdGlobal [""BadCompany""];";
+						init="this setGroupIdGlobal [""BadCompany""];";
 						name="d_badco_12";
 						description="Bad Company - Crewman";
 						isPlayable=1;
+						class Inventory
+						{
+							class primaryWeapon
+							{
+								name="arifle_MXC_F";
+								class primaryMuzzleMag
+								{
+									name="30Rnd_65x39_caseless_mag";
+									ammoLeft=30;
+								};
+							};
+							class handgun
+							{
+								name="hgun_P07_F";
+								class primaryMuzzleMag
+								{
+									name="16Rnd_9x21_Mag";
+									ammoLeft=16;
+								};
+							};
+							class uniform
+							{
+								typeName="U_B_CombatUniform_mcam_vest";
+								isBackpack=0;
+								class MagazineCargo
+								{
+									items=2;
+									class Item0
+									{
+										name="30Rnd_65x39_caseless_mag";
+										count=2;
+										ammoLeft=30;
+									};
+									class Item1
+									{
+										name="Chemlight_green";
+										count=1;
+										ammoLeft=1;
+									};
+								};
+								class ItemCargo
+								{
+									items=1;
+									class Item0
+									{
+										name="FirstAidKit";
+										count=1;
+									};
+								};
+							};
+							map="ItemMap";
+							compass="ItemCompass";
+							watch="ItemWatch";
+							radio="ItemRadio";
+							hmd="NVGoggles";
+							headgear="H_HelmetCrew_B";
+						};
 					};
 					id=8966;
 					type="B_crew_F";
@@ -59120,8 +59254,8 @@ class Mission
 					class Attributes
 					{
 						name="d_admin";
+						presenceCondition="false";
 						description="Admin";
-						isPlayable=1;
 						class Inventory
 						{
 							class handgun
@@ -59284,6 +59418,164 @@ class Mission
 								};
 							};
 							value="Admin";
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item1359
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={26784.314,22.076279,24650.561};
+				angles[]={0,5.4092817,0};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+				disableSimulation=1;
+			};
+			id=9343;
+			type="SignAd_Sponsor_ARMEX_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ObjectTextureCustom0";
+					expression="_this setObjectTextureGlobal [0,_value]";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="pics\flaps.paa";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
+			};
+		};
+		class Item1360
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={8558.1943,129.72415,25042.291};
+						angles[]={0,1.7308255,0};
+					};
+					side="West";
+					flags=7;
+					class Attributes
+					{
+						name="d_zeus";
+						description="Zeus";
+						isPlayable=1;
+					};
+					id=9345;
+					type="C_man_shorts_1_F";
+					atlOffset=0.097640991;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="speaker";
+							expression="_this setspeaker _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"STRING"
+										};
+									};
+									value="Male03GRE";
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.95999998;
+								};
+							};
+						};
+						nAttributes=2;
+					};
+				};
+			};
+			class Attributes
+			{
+			};
+			id=9344;
+			atlOffset=0.097640991;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="groupID";
+					expression="_this setGroupID [_value];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="Zeus";
 						};
 					};
 				};

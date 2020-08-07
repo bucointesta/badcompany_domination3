@@ -27,7 +27,12 @@ _this spawn {
 		_norm_resp = true;
 		_old call xr_fnc_CheckRespawn;
 	};
-	deleteVehicle _old;
+	private _vehOld = vehicle _old;
+	if (_vehOld == _old) then {
+		deleteVehicle _old;
+	} else {
+		_vehOld deleteVehicleCrew _old;
+	};
 	__TRACE_1("","_norm_resp")
 	private _d_pos = xr_death_pos;
 	__TRACE_1("","_d_pos")

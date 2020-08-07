@@ -148,7 +148,7 @@ private _make_jump = {
 #endif
 		_paragrp allowFleeing 0;
 		_paragrp setCombatMode "RED";
-		_paragrp setBehaviour "COMBAT";
+		_paragrp setBehaviour "AWARE";
 		
 		[_paragrp, d_cur_tgt_pos, d_cur_target_radius] spawn {
 			scriptName "spawn_x_createpara3_usegroup";
@@ -195,6 +195,7 @@ if (d_searchintel # 0 == 1) then {
 	[43] remoteExecCall ["d_fnc_DoKBMsg", 2];
 };
 
+private _flyToHeight = _flytopos select 2;
 for "_i" from 1 to _number_vehicles do {
 	if (d_mt_radio_down) exitWith {_stop_it = true};
 	if (d_cur_tgt_pos distance2D _cur_tgt_pos > 500) exitWith {_stop_it = true};
@@ -220,6 +221,9 @@ for "_i" from 1 to _number_vehicles do {
 	};
 	
 	[_vgrp, _vec, _attackpoint, _flytopos, _heliendpoint, _delveccrew, _crew] spawn _make_jump;
+	// Hunter: make following choppers drop further
+	_flytopos = [_flytopos, 200, ([_flytopos,d_cur_tgt_pos] call bis_fnc_dirto)] call BIS_fnc_relPos;
+	_flytopos set [2, _flyToHeight];
 	
 	//Hunter: no need to wait so much
 	//sleep 30 + random 30;

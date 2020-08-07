@@ -12,6 +12,30 @@ disableSerialization;
 
 waitUntil {sleep 0.112;!isNil "d_preloaddone"};
 sleep 0.01;
+
+//JIP set texture for bad co uniforms
+{
+
+	if ((str _x) in d_badcompany) then {
+	
+		_x setObjectTexture [0, "\A3\Characters_F\Common\Data\basicbody_black_co.paa"];
+		_x setObjectTexture [1, "\A3\Characters_F\Common\Data\basicbody_black_co.paa"];
+		
+	};
+
+} foreach allPlayers;
+
+private _playerUID = getPlayerUID player;
+
+if (str player == "d_zeus") exitWith {
+	d_still_in_intro = false;
+	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
+	zeusDisableUserInput = false;
+	if !(_playerUID in zeusers) then {
+			endMission "zeusRestriction";
+	};
+};
+
 1 fadeSound 1;
 
 d_still_in_intro = true;
@@ -174,8 +198,6 @@ if (!(d_reserved_slot isEqualTo []) && {str player in d_reserved_slot}) then {
 	execVM "x_client\x_reservedslot.sqf";
 };
 
-_playerUID = getPlayerUID player;
-
 if (!_uidcheck_done && {!(d_uid_reserved_slots isEqualTo [])} && {!(membersarr isEqualTo [])}) then {
 	d_uid_reserved_slots = d_uid_reserved_slots apply {toUpper _x};
 	if ((toUpper str player) in d_uid_reserved_slots) then {
@@ -225,18 +247,6 @@ uiNamespace setVariable ["d_DomThree", nil];
 if (name player == "Error: No unit" || {!isPlayer player}) then {
 	hintC "Please rejoin again!!!! Your game has not connected correctly!!!!!";
 };
-
-//JIP set texture for bad co uniforms
-{
-
-	if ((str _x) in d_badcompany) then {
-	
-		_x setObjectTexture [0, "\A3\Characters_F\Common\Data\basicbody_black_co.paa"];
-		_x setObjectTexture [1, "\A3\Characters_F\Common\Data\basicbody_black_co.paa"];
-		
-	};
-
-} foreach allPlayers;
 
 if (str player == "d_admin") exitWith {diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"]};
 

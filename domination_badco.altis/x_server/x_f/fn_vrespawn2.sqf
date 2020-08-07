@@ -174,7 +174,8 @@ while {true} do {
 			d_vrespawn2_ar set [_forEachIndex, _vec_a];
 			_vec setVariable ["d_OUT_OF_SPACE", -1];
 			_vec setVariable ["d_vec", _number_v, true];
-			_vec setAmmoCargo 0;
+			// Hunter: initvec call should take care of this and we shouldn't be forcing this for all vics (which includes ammo trucks!)
+			//_vec setAmmoCargo 0;
 			_vec setVariable ["d_vec_islocked", _isitlocked];
 			if (_isitlocked) then {_vec lock true};
 			if (_vec isKindOf "Air") then {

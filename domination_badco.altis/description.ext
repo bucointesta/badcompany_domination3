@@ -1418,6 +1418,29 @@ class CfgMusic
  
 };
 
+class CfgDebriefing
+{  
+	class END1
+	{
+		title = "Mission Completed";
+		subtitle = "";
+		description = "";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0.0,0.3,0.6,1};
+	};
+	
+	class zeusRestriction
+	{
+		title = "Unauthorized Slot";
+		subtitle = "";
+		description = "You are not authorized to use this slot. Please select another slot in the lobby!";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0.6,0.1,0.2,1};
+	};
+};
+
 #include "CfgVehicles.hpp"
 
 //__EXEC(diag_log [diag_frameno, diag_ticktime, time, "Dom description.ext processed"]);

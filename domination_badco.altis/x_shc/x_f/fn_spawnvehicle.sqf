@@ -59,6 +59,10 @@ if (_typev1 isKindOf "Air") then {
 		];
 	};
 } else {
+	if ((!(_typev1 iskindof "Ship")) && {surfaceIsWater _posv1}) then {
+		private _nnpos = _posv1 findEmptyPosition [0, 1000, _typev1];
+		if !(_nnpos isEqualTo []) then {_posv1 = _nnpos};
+	};
 	//Hunter: "0" radius causes vics to spawn inside objects and blow up...
 	_veh = createVehicle [_typev1, _posv1, [], 200, "NONE"];
 	// Hunter: anti-bad driving (does not cover flipping...)
@@ -77,7 +81,9 @@ if (_typev1 isKindOf "Air") then {
 		_posv1 = _isFlat;
 		_posv1 set [2, 0];
 	};*/
-	if (random 100 > 50) then {_veh allowCrewInImmobile true};
+	//Hunter: make this	default
+	//if (random 100 > 50) then {_veh allowCrewInImmobile true};
+	_veh allowCrewInImmobile true;
 	_veh setDir _azi;
 	//_veh setVehiclePosition [_veh, [], 0, "NONE"];
 };

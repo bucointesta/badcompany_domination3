@@ -29,7 +29,7 @@
 	if (_unit in d_badcompany) then {
 	
 		_defaultWeps = d_defaultWeapons + d_whitelistWeapons - d_machineguns - d_sniping_rifles - d_launchers - d_grenadelaunchers - d_saboteur_only;
-		_defaultBackpacks = d_defaultBackpacks + d_whitelistBackpacks - d_medium_backpacks - d_large_backpacks;
+		_defaultBackpacks = d_defaultBackpacks + d_whitelistBackpacks - d_medium_backpacks - d_large_backpacks - d_engineer_backpacks;
 		_defaultItems = d_defaultItems + d_whitelistItems - d_medium_armors - d_heavy_armors - d_medic_only - d_engineer_only - d_sniper_only - d_saboteur_only;
 		_defaultMags = d_defaultMagazines + d_whitelistMagazines - d_engineer_only - d_machinegunnermags;
 	
@@ -95,7 +95,7 @@
 		case (_unit in d_is_engineer) : {
 		
 			restrictions_allowedWeapons = _defaultWeps;
-			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
+			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks + d_engineer_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
 			restrictions_allowedItems = _defaultItems + d_engineer_only  + d_medium_armors + ["Rangefinder","Laserdesignator","Laserdesignator_03","Laserdesignator_01_khk_F","Laserdesignator_02","Laserdesignator_02_ghex_F"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags + d_explosives - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});
 		
@@ -339,7 +339,12 @@
 			[player,objnull,_x] call d_fnc_ptakeweapon;		
 		} foreach (((weapons player) + (magazines player) + (items player) + [uniform player] + [backpack player] + [vest player] + (assigneditems player) + [goggles player] + [headgear player]) - [""]);
 		
-		if (item_check_arsenalChecked) then {hint format ["Your loadout contains items (%1) that are restricted depending on your current role.\n\nYou can only use items that you see in the Arsenal.",debug_forbidden_item];};
+		if (item_check_arsenalChecked) then {hint format ["Your loadout contains items (%1) that are restricted depending on the role you have chosen.\n\nYou can only use items that you see in the Arsenal. To change your role, exit back to the server lobby and pick a different slot.",debug_forbidden_item];};
+		
+		// for some reason loading saved PCML loadout doesn't come with a rocket loaded... needs checking for RHS too
+		if (((secondaryWeapon player) == "launch_NLAW_F") && {(count (secondaryWeaponMagazine player)) == 0}) then {
+			player addSecondaryWeaponItem "NLAW_F";
+		};
 		
 		item_check_isArsenal = false;
 		item_check_arsenalChecked = false;

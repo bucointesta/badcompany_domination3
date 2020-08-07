@@ -253,7 +253,7 @@ player addEventhandler ["Take", {_this call d_fnc_ptakeweapon}];
 player addEventhandler ["Put", {_this call d_fnc_pputweapon}];
 player addEventhandler ["Reloaded", {call d_fnc_save_layoutgear}];
 
-if ((str player) != "d_admin") then {
+if (!((str player) in ["d_admin", "d_zeus"])) then {
 	removeAllWeapons player;
 	removeallItems player;
 	removeAllAssignedItems player;
@@ -426,6 +426,12 @@ d_all_ammoloads = (allMissionObjects "HeliH") select {(str _x) select [0, 10] ==
 		d_points_needed = d_points_needed_db;
 	};
 	0 spawn d_fnc_playerrankloop;
+	
+	if (str player == "d_zeus") then {
+		xr_phd_invulnerable = true;
+		["Warning", "<t align='center' size='2.5' color='#ff0000'>Remember<br></br>the<br></br>rules</t>", 12] call BIS_fnc_curatorHint;
+	};
+	
 };
 
 diag_log ["Internal D Version: 3.99k"];

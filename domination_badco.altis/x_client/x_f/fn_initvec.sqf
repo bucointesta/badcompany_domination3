@@ -179,7 +179,8 @@ if (_d_vec < 300) exitWith {
 		__vecname;
 	};
 	if (!alive _vec) exitWith {};
-	_vec setAmmoCargo 0;
+	// Hunter: 200s contain rearm/repair/refuel trucks so we shouldn't empty ammo here...
+	//_vec setAmmoCargo 0;
 #ifdef __TT__
 	__sidew;
 	__checkenterer;
@@ -488,6 +489,7 @@ if (_d_vec < 4000) exitWith {
 	__TRACE_1("","_car")
 	if !(_car isEqualTo []) then {
 		if (!alive _vec) exitWith {};
+		_vec setAmmoCargo 0;
 		missionNamespace setVariable [_car # 0, _vec];
 		__chopname;
 		__chopmarker;
@@ -528,6 +530,7 @@ if (_d_vec < 5000) exitWith {
 		};
 	};
 	if (!alive _vec) exitWith {};
+	_vec setAmmoCargo 0;
 	__addchopm;
 	__chopset;
 	__sidee;

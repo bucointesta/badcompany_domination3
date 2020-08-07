@@ -189,8 +189,11 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 									_liftobj setposatl _liftPos;
 									sleep 1;
 								} else {
-									detach _liftobj;
-									sleep 3;
+									// don't detach if ropes were broken by desync... keep using legacy system
+									if ((count (ropeAttachedObjects _chopper)) > 0) then {
+										detach _liftobj;
+										sleep 3;
+									};
 								};	
 							};							
 						};									

@@ -13,7 +13,7 @@ params ["_type"];
 
 while {true} do {
 #ifndef __DEBUG__
-	waitUntil {sleep 10; (call d_fnc_PlayersNumber) > 11};
+	waitUntil {sleep 10; (call d_fnc_PlayersNumber) > 14};
 	if (!d_mt_radio_down) then {
 		while {!d_mt_spotted} do {sleep 11.32};
 	} else {

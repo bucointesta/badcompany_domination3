@@ -6937,13 +6937,13 @@
 <Russian>Вы не можете вызвать эвакуацию. Вам нужны %2 очков, а у Вас %1!</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1426">
-<English>Attention!\nThis is a reserved member slot.\nYou'll get kicked automatically in a few seconds!\nPlease select another slot!</English>
-<Spanish>¡Atención!\nEsta es una ranura reservada para miembros.\nVa a ser expulsado de forma automática en pocos segundos.\nPor favor seleccione otra ranura.</Spanish>
-<Portuguese>Atenção!nThis É uma ranhura de membro reservada.nyou'll Consegue chutado automaticamente em uns quantos segundos!nPlease Seleciona outra ranhura!</Portuguese>
-<Korean>경고!\n그룹원 전용 슬랏입니다.\n곧 자동으로 킥처리되오니\n조속히 다른 슬랏으로 이동해주십시오.</Korean>
-<Japanese>注意！\nこれは予約されたメンバースロットです。\nあなたは数秒で自動的にキックされます!\n別のスロットを選択してください!</Japanese>
-<Original>Attention!\nThis is a reserved member slot.\nYou'll get kicked automatically in a few seconds!\nPlease select another slot!</Original>
-<Russian>Внимание!\nЭто резервный слот. \n Вас кикнет автоматически через 5 секунд!</Russian>
+<English>Attention!\nThe slot you have chosen is reserved for Bad Company members only.\nYou'll get kicked automatically in a few seconds!\nPlease select a non-Bad Company slot in the lobby!</English>
+<Spanish>Attention!\nThe slot you have chosen is reserved for Bad Company members only.\nYou'll get kicked automatically in a few seconds!\nPlease select a non-Bad Company slot in the lobby!</Spanish>
+<Portuguese>Attention!\nThe slot you have chosen is reserved for Bad Company members only.\nYou'll get kicked automatically in a few seconds!\nPlease select a non-Bad Company slot in the lobby!</Portuguese>
+<Korean>Attention!\nThe slot you have chosen is reserved for Bad Company members only.\nYou'll get kicked automatically in a few seconds!\nPlease select a non-Bad Company slot in the lobby!</Korean>
+<Japanese>Attention!\nThe slot you have chosen is reserved for Bad Company members only.\nYou'll get kicked automatically in a few seconds!\nPlease select a non-Bad Company slot in the lobby!</Japanese>
+<Original>Attention!\nThe slot you have chosen is reserved for Bad Company members only.\nYou'll get kicked automatically in a few seconds!\nPlease select a non-Bad Company slot in the lobby!</Original>
+<Russian>Attention!\nThe slot you have chosen is reserved for Bad Company members only.\nYou'll get kicked automatically in a few seconds!\nPlease select a non-Bad Company slot in the lobby!</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1428">
 <English>Ammo box drop only possible from the pilot seat!</English>

@@ -6,6 +6,15 @@ diag_log [diag_frameno, diag_ticktime, time, "Executing MPF initPlayerLocal.sqf"
 __TRACE_1("","_this")
 
 if (hasInterface) then {
+	if (str player == "d_zeus") then {
+		[] spawn {
+			waitUntil {!isNull findDisplay 312};
+			disableUserInput true;
+			waitUntil {sleep 0.1; !isNil "zeusDisableUserInput"};
+			sleep 1;
+			disableUserInput false;
+		};
+	};
 	0 spawn {
 		sleep (1 + random 1);
 		private _np = player getVariable ["d_plname", ""];
@@ -41,5 +50,6 @@ if (str player in d_autoriflemen) then {player setVariable ["d_playerRole"," (Ma
 if (str player in d_missilesp) then {player setVariable ["d_playerRole"," (AT/AA Specialist)", true];};
 if (str player in d_crewmen) then {player setVariable ["d_playerRole"," (Crewman)", true];};
 if (str player == "d_admin") then {player setVariable ["d_playerRole"," (Admin)", true];};
+if (str player == "d_zeus") then {player setVariable ["d_playerRole"," (Zeus)", true];};
 
 diag_log [diag_frameno, diag_ticktime, time, "MPF initPlayerLocal.sqf processed"];

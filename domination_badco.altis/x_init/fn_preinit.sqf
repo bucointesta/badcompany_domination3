@@ -922,8 +922,8 @@ if (!d_tt_tanoa) then {
 	// Hunter: convert to function to scaled for player count
 	d_airai_respawntime = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 15) exitWith {1800};
-		if (_p < 22) exitWith {1200};
+		if (_p < 18) exitWith {1800};
+		if (_p < 23) exitWith {1200};
 		if (_p < 30) exitWith {900};
 		if (_p < 40) exitWith {600};
 		if (_p < 50) exitWith {300};
@@ -1240,7 +1240,7 @@ if (hasInterface) then {
 	["I_Quadbike_01_F"];
 #endif
 #ifdef __OWN_SIDE_BLUFOR__
-	[["B_LSV_01_unarmed_F","C_Scooter_Transport_01_F"], ["B_Quadbike_01_F", "B_T_LSV_01_unarmed_F","C_Scooter_Transport_01_F"]] select d_tanoa;
+	[["B_LSV_01_unarmed_F","B_Quadbike_01_F","C_Scooter_Transport_01_F"], ["B_Quadbike_01_F", "B_T_LSV_01_unarmed_F","C_Scooter_Transport_01_F"]] select d_tanoa;
 #endif
 #ifdef __OWN_SIDE_OPFOR__
 	[["O_Quadbike_01_F", "O_LSV_02_unarmed_F"], ["O_Quadbike_01_F", "O_T_LSV_02_unarmed_F"]] select d_tanoa;

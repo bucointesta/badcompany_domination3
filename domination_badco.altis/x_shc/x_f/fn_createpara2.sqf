@@ -98,7 +98,7 @@ if (alive _chopper && {canMove _chopper && {alive driver _chopper}}) then {
 	} forEach _real_units;
 	_paragrp allowFleeing 0;
 	_paragrp setCombatMode "YELLOW";
-	_paragrp setBehaviour "AWARE";
+	_paragrp setBehaviour "STEALTH";
 	
 	sleep 0.113;
 	_paragrp spawn {
