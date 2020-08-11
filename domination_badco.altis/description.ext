@@ -84,6 +84,7 @@ class CfgRemoteExec {
 
 		// security risk...
 		class bis_fnc_debugconsoleexec {};	
+		class d_fnc_initZeus {allowedTargets=2;};
 		class d_fnc_addScoreHandler {allowedTargets=2;};	
 		class d_fnc_badco_uniform {allowedTargets=1; jip = 0;};	
 		class d_fnc_setOwner {allowedTargets=2;};

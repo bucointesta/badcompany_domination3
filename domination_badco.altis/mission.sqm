@@ -8,7 +8,7 @@ class EditorData
 	toggles=521;
 	class ItemIDProvider
 	{
-		nextID=9348;
+		nextID=9350;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={26401.822,-19.781616,24752.061};
-		dir[]={-0.0085322065,-0.99994999,0.0052150791};
-		up[]={-0.85319674,0.00999978,0.52149326};
-		aside[]={0.52151936,0,0.85323942};
+		pos[]={26421.025,-17.489489,24671.574};
+		dir[]={-0.13212022,-0.98955518,0.057770427};
+		up[]={-0.9066692,0.14415918,0.39644751};
+		aside[]={0.40063453,-1.6723061e-007,0.9162451};
 	};
 };
 binarizationWanted=0;
@@ -150,13 +150,14 @@ addons[]=
 	"A3_Weapons_F_Pistols_Pistol_Heavy_02",
 	"A3_Weapons_F_Acc",
 	"A3_Weapons_F_Mark",
-	"A3_Characters_F_Orange_Headgear"
+	"A3_Characters_F_Orange_Headgear",
+	"A3_Structures_F_Enoch_Infrastructure_Railways"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=54;
+		items=55;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -535,6 +536,13 @@ class AddonsMetaData
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
+		class Item54
+		{
+			className="A3_Structures_F_Enoch_Infrastructure";
+			name="Arma 3 Contact Platform - Infrastructure Objects";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
 	};
 };
 class DynamicSimulation
@@ -635,7 +643,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=1361;
+		items=1362;
 		class Item0
 		{
 			dataType="Marker";
@@ -59495,7 +59503,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={8558.1943,129.72415,25042.291};
+						position[]={47221.238,0.13331065,-25435.188};
 						angles[]={0,1.7308255,0};
 					};
 					side="West";
@@ -59508,7 +59516,7 @@ class Mission
 					};
 					id=9345;
 					type="C_man_shorts_1_F";
-					atlOffset=0.097640991;
+					atlOffset=0.14918861;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -59557,7 +59565,7 @@ class Mission
 			{
 			};
 			id=9344;
-			atlOffset=0.097640991;
+			atlOffset=0.14918861;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -59581,6 +59589,22 @@ class Mission
 				};
 				nAttributes=1;
 			};
+		};
+		class Item1361
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={47222.199,-1.3853221,-25434.703};
+			};
+			side="Empty";
+			flags=1;
+			class Attributes
+			{
+			};
+			id=9349;
+			type="Land_Rail_ConcreteRamp_F";
+			atlOffset=184.62663;
 		};
 	};
 };

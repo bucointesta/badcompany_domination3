@@ -33,115 +33,123 @@
 #define VAN_ATTO "launch_RPG7_F"
 #define VAN_ATTO_MAG "RPG7_F"
 
-#ifdef __RHS__
+_this spawn {
 
-	_vestItems = vestItems _this;
-	_uniformItems = uniformItems _this;
-	_backpackItems = backpackItems _this;
+	// Not ideal to do it one by one this way but a sleep is needed to determine group side if different factions are used
+	sleep 2;
+	if ((str side group _this) != d_enemy_side) exitWith {};
 
-	_this addheadgear "rhs_ssh68";
-	_this addvest "V_TacChestrig_oli_F";
-	_container = vestContainer _this;
-	{_container addItemCargoGlobal [_x,1];} foreach _vestItems;
-	
-#else
+	#ifdef __RHS__
 
-	_primary = primaryWeapon _this;
-	_mag = (primaryWeaponMagazine _this) select 0;
-	
-	//if vehicle crew force into default
-	if ((vehicle _this) != _this) then {
-		_this removeWeapon _primary;
-		_primary = "asdaergerg";
-	};
-	
-	switch ([_primary] call BIS_fnc_baseWeapon) do {
-		case VAN_RIFLE2FROM : {
-			_this removeMagazines _mag;
+		_vestItems = vestItems _this;
+		_uniformItems = uniformItems _this;
+		_backpackItems = backpackItems _this;
+
+		_this addheadgear "rhs_ssh68";
+		_this addvest "V_TacChestrig_oli_F";
+		_container = vestContainer _this;
+		{_container addItemCargoGlobal [_x,1];} foreach _vestItems;
+		
+	#else
+
+		_primary = primaryWeapon _this;
+		_mag = (primaryWeaponMagazine _this) select 0;
+		
+		//if vehicle crew force into default
+		if ((vehicle _this) != _this) then {
 			_this removeWeapon _primary;
-			_this addWeapon VAN_RIFLE2TO;
-			_this addPrimaryWeaponItem VAN_RIFLE2TO_MAG;
-			_this addPrimaryWeaponItem "1Rnd_HE_Grenade_shell";			
-			_this addMagazines [VAN_RIFLE2TO_MAG, 10];
-			_this addMagazines ["1Rnd_HE_Grenade_shell", 10];
+			_primary = "asdaergerg";
 		};
-		case VAN_RIFLE1FROM : {
-			_this removeMagazines _mag;
-			_this removeWeapon _primary;
-			_this addWeapon VAN_RIFLE1TO;
-			_this addPrimaryWeaponItem VAN_RIFLE1TO_MAG;
-			_this addMagazines [VAN_RIFLE1TO_MAG, 10];
+		
+		switch ([_primary] call BIS_fnc_baseWeapon) do {
+			case VAN_RIFLE2FROM : {
+				_this removeMagazines _mag;
+				_this removeWeapon _primary;
+				_this addWeapon VAN_RIFLE2TO;
+				_this addPrimaryWeaponItem VAN_RIFLE2TO_MAG;
+				_this addPrimaryWeaponItem "1Rnd_HE_Grenade_shell";			
+				_this addMagazines [VAN_RIFLE2TO_MAG, 10];
+				_this addMagazines ["1Rnd_HE_Grenade_shell", 10];
+			};
+			case VAN_RIFLE1FROM : {
+				_this removeMagazines _mag;
+				_this removeWeapon _primary;
+				_this addWeapon VAN_RIFLE1TO;
+				_this addPrimaryWeaponItem VAN_RIFLE1TO_MAG;
+				_this addMagazines [VAN_RIFLE1TO_MAG, 10];
+			};
+			case VAN_RIFLE3FROM : {
+				_this removeMagazines _mag;
+				_this removeWeapon _primary;
+				_this addWeapon VAN_RIFLE3TO;
+				_this addPrimaryWeaponItem VAN_RIFLE3TO_MAG;
+				_this addMagazines [VAN_RIFLE3TO_MAG, 10];
+			};
+			default {
+				_this removeMagazines _mag;
+				_this removeWeapon _primary;
+				_this addWeapon VAN_RIFLEDEFTO;
+				_this addPrimaryWeaponItem VAN_RIFLEDEFTO_MAG;
+				_this addMagazines [VAN_RIFLEDEFTO_MAG, 10];
+			};
 		};
-		case VAN_RIFLE3FROM : {
-			_this removeMagazines _mag;
-			_this removeWeapon _primary;
-			_this addWeapon VAN_RIFLE3TO;
-			_this addPrimaryWeaponItem VAN_RIFLE3TO_MAG;
-			_this addMagazines [VAN_RIFLE3TO_MAG, 10];
+		
+		_secondary = secondaryWeapon _this;
+		_mag = (secondaryWeaponMagazine _this) select 0;
+		
+		switch ([_secondary] call BIS_fnc_baseWeapon) do {
+			case VAN_AAFROM : {
+				_this removeMagazines _mag;
+				_this removeWeapon _secondary;
+				_this addWeapon VAN_AATO;
+				_this addSecondaryWeaponItem VAN_AATO_MAG;
+				_this addMagazines [VAN_AATO_MAG, 10];
+			};
+			case VAN_ATFROM : {
+				_this removeMagazines _mag;
+				_this removeMagazines "Titan_AT";
+				_this removeMagazines "Titan_AP";
+				_this removeWeapon _secondary;
+				_this addWeapon VAN_ATTO;
+				_this addSecondaryWeaponItem VAN_ATTO_MAG;
+				_this addMagazines [VAN_ATTO_MAG, 10];
+			};
 		};
-		default {
-			_this removeMagazines _mag;
-			_this removeWeapon _primary;
-			_this addWeapon VAN_RIFLEDEFTO;
-			_this addPrimaryWeaponItem VAN_RIFLEDEFTO_MAG;
-			_this addMagazines [VAN_RIFLEDEFTO_MAG, 10];
-		};
-	};
-	
-	_secondary = secondaryWeapon _this;
-	_mag = (secondaryWeaponMagazine _this) select 0;
-	
-	switch ([_secondary] call BIS_fnc_baseWeapon) do {
-		case VAN_AAFROM : {
-			_this removeMagazines _mag;
-			_this removeWeapon _secondary;
-			_this addWeapon VAN_AATO;
-			_this addSecondaryWeaponItem VAN_AATO_MAG;
-			_this addMagazines [VAN_AATO_MAG, 10];
-		};
-		case VAN_ATFROM : {
-			_this removeMagazines _mag;
-			_this removeMagazines "Titan_AT";
-			_this removeMagazines "Titan_AP";
-			_this removeWeapon _secondary;
-			_this addWeapon VAN_ATTO;
-			_this addSecondaryWeaponItem VAN_ATTO_MAG;
-			_this addMagazines [VAN_ATTO_MAG, 10];
-		};
-	};
-	
-	_vestItems = vestItems _this;
-	_uniformItems = uniformItems _this;
-	
+		
+		_vestItems = vestItems _this;
+		_uniformItems = uniformItems _this;
+		
 
-	_this addvest (selectRandom VAN_VESTS);
-	_container = vestContainer _this;
-	{_container addItemCargoGlobal [_x,1];} foreach _vestItems;
-	_this forceAddUniform (selectRandom VAN_UNIFORMS);
-	_container = uniformContainer _this;
-	{_container addItemCargoGlobal [_x,1];} foreach _uniformItems;
-	if ((random 1) < 0.5) then {
-		_this addheadgear (selectRandom VAN_HEADGEAR);
-	} else {
-		removeHeadgear _this;
-		_this linkItem (selectRandom VAN_FACEWEAR);
-	};
-	if ((backpack _this) != "") then {
-		_backpackItems = backpackItems _this;		
-		removeBackpack _this;
-		_this addBackpack (selectRandom VAN_BACKPACKS);
-		_container = backpackContainer _this;
-		{_container addItemCargoGlobal [_x,1];} foreach _backpackItems;
-		if ("Titan_AT" in _backpackItems) then {
-			_this removeMagazines "Titan_AT";
-			_this removeMagazines "Titan_AP";
-			_this addMagazines [VAN_ATTO_MAG, 8];
+		_this addvest (selectRandom VAN_VESTS);
+		_container = vestContainer _this;
+		{_container addItemCargoGlobal [_x,1];} foreach _vestItems;
+		_this forceAddUniform (selectRandom VAN_UNIFORMS);
+		_container = uniformContainer _this;
+		{_container addItemCargoGlobal [_x,1];} foreach _uniformItems;
+		if ((random 1) < 0.5) then {
+			_this addheadgear (selectRandom VAN_HEADGEAR);
+		} else {
+			removeHeadgear _this;
+			_this linkItem (selectRandom VAN_FACEWEAR);
 		};
-	};
-	_this unlinkItem "NVGoggles_OPFOR";	
-	
-#endif
+		if ((backpack _this) != "") then {
+			_backpackItems = backpackItems _this;		
+			removeBackpack _this;
+			_this addBackpack (selectRandom VAN_BACKPACKS);
+			_container = backpackContainer _this;
+			{_container addItemCargoGlobal [_x,1];} foreach _backpackItems;
+			if ("Titan_AT" in _backpackItems) then {
+				_this removeMagazines "Titan_AT";
+				_this removeMagazines "Titan_AP";
+				_this addMagazines [VAN_ATTO_MAG, 8];
+			};
+		};
+		_this unlinkItem "NVGoggles_OPFOR";	
+		
+	#endif
 
-if ((primaryWeapon _this) != "") then {
-	_this selectWeapon (primaryWeapon _this);
+	if ((primaryWeapon _this) != "") then {
+		_this selectWeapon (primaryWeapon _this);
+	};
+
 };

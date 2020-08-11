@@ -429,6 +429,12 @@ d_all_ammoloads = (allMissionObjects "HeliH") select {(str _x) select [0, 10] ==
 	
 	if (str player == "d_zeus") then {
 		xr_phd_invulnerable = true;
+		hint "Initializing...";
+		[] remoteExec ["d_fnc_initZeus", 2, false];
+		player setCaptive true;
+		sleep 9;
+		hintSilent "";
+		openCuratorInterface;
 		["Warning", "<t align='center' size='2.5' color='#ff0000'>Remember<br></br>the<br></br>rules</t>", 12] call BIS_fnc_curatorHint;
 	};
 	

@@ -411,7 +411,8 @@ class cfgFunctions {
 			addc(handlescore);
 			addc(add_hs);
 			addc(giveplayerscore);					
-			addc(addScoreHandler);					
+			addc(addScoreHandler);	
+			addc(initZeus);
 		};
 		class Dom_SHC {
 			file = "x_shc\x_f";

@@ -72,7 +72,10 @@ if (isnull _boxobj) then {
 	
 	detach _boxobj;		
 	if (_unit iskindof "Ship") then {
+		#ifdef __RHS__
 		_boxobj attachto [_unit,[0,-1,0.5]];
+		#else
+		_boxobj attachto [_unit,[0,-2.5,-4.5]];
 	} else {
 		_boxobj setpos _boxpos;
 	};

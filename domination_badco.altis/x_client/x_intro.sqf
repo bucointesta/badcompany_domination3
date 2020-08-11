@@ -27,6 +27,8 @@ sleep 0.01;
 
 private _playerUID = getPlayerUID player;
 
+1 fadeSound 1;
+
 if (str player == "d_zeus") exitWith {
 	d_still_in_intro = false;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -34,9 +36,16 @@ if (str player == "d_zeus") exitWith {
 	if !(_playerUID in zeusers) then {
 			endMission "zeusRestriction";
 	};
+	// A Zeus that doesn't clean up after himself is a filthy Zeus...
+	[] spawn {
+		while {true} do {
+			sleep 10;
+			{
+				deleteGroup _x;
+			} foreach (allgroups select {(local _x) && {(count units _x) == 0}});
+		};
+	};
 };
-
-1 fadeSound 1;
 
 d_still_in_intro = true;
 
