@@ -367,7 +367,7 @@
 				player forceAddUniform item_check_fallbackUniform;
 				_container = uniformContainer player;
 				{
-					_container addItemCargoGlobal _x; 
+					_container addItemCargoGlobal [_x, 1]; 
 				} foreach _items;
 			} else {
 				removeUniform player;
@@ -380,7 +380,7 @@
 				player addVest item_check_fallbackVest;
 				_container = vestContainer player;
 				{
-					_container addItemCargoGlobal _x; 
+					_container addItemCargoGlobal [_x, 1]; 
 				} foreach _items;
 			} else {
 				removeVest player;
@@ -393,7 +393,7 @@
 				player addBackpack item_check_fallbackBackpack;
 				_container = backpackContainer player;
 				{
-					_container addItemCargoGlobal _x; 
+					_container addItemCargoGlobal [_x, 1]; 
 				} foreach _items;
 			} else {
 				removeBackpack player;
@@ -411,7 +411,7 @@
 				player removeMagazines _x;
 			};
 		} foreach (((weapons player) + (magazines player) + (items player)  + (assigneditems player) + [goggles player] + [headgear player] + (primaryWeaponItems player) + (secondaryWeaponItems player) + (handgunItems player)) - [""]);
-		if (item_check_arsenalChecked) then {hint "Your loadout contains items that are restricted depending on the role you have chosen.\n\nYou can only use items that you see in the Arsenal. To change your role, exit back to the server lobby and pick a different slot.\n\nItems have been removed or replaced with defaults.";};
+		if (item_check_arsenalChecked) then {hint "Your loadout contains items that are restricted depending on the role you have chosen.\n\nYou can only use items that you see in the Arsenal. To change your role, exit back to the server lobby and pick a different slot.\n\nItems have been removed or replaced with defaults.\n\nNote that some items might also be restricted to members only.";};
 		
 		// for some reason loading saved PCML loadout doesn't come with a rocket loaded... needs checking for RHS too
 		if (((secondaryWeapon player) == "launch_NLAW_F") && {(count (secondaryWeaponMagazine player)) == 0}) then {

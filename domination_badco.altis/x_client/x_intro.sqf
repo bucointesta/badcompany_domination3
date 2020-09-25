@@ -215,7 +215,7 @@ if (!_uidcheck_done && {!(d_uid_reserved_slots isEqualTo [])} && {!(membersarr i
 		} else {
 			if (((count (squadParams player)) == 0) || {
 				_clanTag = ((squadParams player) select 0) select 0;
-				(_clanTag != "Bad Co") || {_clanTag != "B.A.D. PMC"}
+				(_clanTag != "Bad Co") && {_clanTag != "B.A.D. PMC"}
 			}) then {
 				execVM "x_client\x_reservedslot3.sqf";
 			};		
