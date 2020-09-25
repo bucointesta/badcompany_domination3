@@ -52,7 +52,7 @@ _this spawn {
 		
 		_mags = primaryWeaponMagazine _this;
 		if ((count _mags) > 0) then {
-			_this addMagazines [_mags, 10];
+			_this addMagazines [_mags select 0, 10];
 		};
 		
 		if ((backpack _this) == "rhs_rpg") then {
