@@ -48,7 +48,53 @@ _this spawn {
 		_this addheadgear "rhs_ssh68";
 		_this addvest "V_TacChestrig_oli_F";
 		_container = vestContainer _this;
-		{_container addItemCargoGlobal [_x,1];} foreach _vestItems;
+		{_container addItemCargoGlobal [_x,1];} foreach _vestItems;		
+		
+		_mags = primaryWeaponMagazine _this;
+		if ((count _mags) > 0) then {
+			_this addMagazines [_mags, 10];
+		};
+		
+		if ((backpack _this) == "rhs_rpg") then {
+			_container = backpackContainer _this;
+			clearMagazineCargoGlobal _container;
+			_container addMagazineCargoGlobal ["rhs_rpg7_PG7VL_mag", 4];
+			_container addMagazineCargoGlobal ["rhs_rpg7_PG7VR_mag", 3];
+		};
+		
+		if ((secondaryWeapon _this) == "rhs_weap_rpg7_pgo") then {
+			_this addSecondaryWeaponItem "rhs_rpg7_PG7VL_mag";
+		};
+		
+		switch (true) do {
+		
+			case ((count (primaryWeaponMagazine _this)) > 1) : {
+				_glMag = (primaryWeaponMagazine _this) select 1;
+				_container = uniformContainer _this;
+				_container addMagazineCargoGlobal [_glMag, 12];
+			};
+		
+			case ((secondaryWeapon _this) == "rhs_weap_rpg26") : {
+				_this addWeapon "launch_O_Vorona_green_F";
+				_this addSecondaryWeaponItem "Vorona_HEAT";
+				_this addBackpack "rhs_assault_umbts";
+				_container = backpackContainer _this;
+				_container addMagazineCargoGlobal ["Vorona_HEAT", 4];
+			};
+			
+			case (((backpack _this) == "rhs_rpg") && {(secondaryWeapon _this) == ""}) : {
+				_this addWeapon "rhs_weap_rpg7_pgo";	
+				_this addSecondaryWeaponItem "rhs_rpg7_PG7VR_mag";
+			};
+			
+			case ((secondaryWeapon _this) == "rhs_weap_igla") : {
+				_this addBackpack "rhs_assault_umbts";
+				_container = backpackContainer _this;
+				_container addMagazineCargoGlobal ["rhs_mag_9k38_rocket", 10];
+			};		
+		
+		};	
+		
 		
 	#else
 
@@ -69,7 +115,7 @@ _this spawn {
 				_this addPrimaryWeaponItem VAN_RIFLE2TO_MAG;
 				_this addPrimaryWeaponItem "1Rnd_HE_Grenade_shell";			
 				_this addMagazines [VAN_RIFLE2TO_MAG, 10];
-				_this addMagazines ["1Rnd_HE_Grenade_shell", 10];
+				_this addMagazines ["1Rnd_HE_Grenade_shell", 20];
 			};
 			case VAN_RIFLE1FROM : {
 				_this removeMagazines _mag;
@@ -145,6 +191,11 @@ _this spawn {
 			};
 		};
 		_this unlinkItem "NVGoggles_OPFOR";	
+		
+		if ((secondaryWeapon _this) == "launch_O_Vorona_brown_F") then {
+			_container = backpackContainer _this;
+			_container addMagazineCargoGlobal ["Vorona_HEAT", 2];
+		};
 		
 	#endif
 
