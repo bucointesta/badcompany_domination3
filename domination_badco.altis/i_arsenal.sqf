@@ -134,7 +134,11 @@
 		
 			restrictions_allowedWeapons = _defaultWeps + d_grenadelaunchers - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder","Laserdesignator","Laserdesignator_03","Laserdesignator_01_khk_F","Laserdesignator_02","Laserdesignator_02_ghex_F"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder","Laserdesignator","Laserdesignator_03","Laserdesignator_01_khk_F","Laserdesignator_02","Laserdesignator_02_ghex_F"]
+			#ifdef __RHS__
+				+ ["rhsusf_acc_M2A1"]
+			#endif
+			- (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags;		
 				
 		
@@ -144,7 +148,11 @@
 		
 			restrictions_allowedWeapons = _defaultWeps + d_machineguns - (if (_unit in d_badcompany) then {[]} else {d_whitelistWeapons});
 			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks - (if (_unit in d_badcompany) then {[]} else {d_whitelistBackpacks});
-			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder","Laserdesignator","Laserdesignator_03","Laserdesignator_01_khk_F","Laserdesignator_02","Laserdesignator_02_ghex_F"] - (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
+			restrictions_allowedItems = _defaultItems + d_heavy_armors + d_medium_armors + ["Rangefinder","Laserdesignator","Laserdesignator_03","Laserdesignator_01_khk_F","Laserdesignator_02","Laserdesignator_02_ghex_F"]
+			#ifdef __RHS__
+				+ ["rhsusf_acc_ACOG_MDO" + "rhsusf_acc_ELCAN_ard" + "rhsusf_acc_ELCAN"] // "ELCAN"s are M145 MG sights...
+			#endif
+			- (if (_unit in d_badcompany) then {[]} else {d_whitelistItems});
 			restrictions_allowedMagazines = _defaultMags + d_machinegunnermags - (if (_unit in d_badcompany) then {[]} else {d_whitelistMagazines});;
 		
 		};
@@ -304,10 +312,21 @@
 			{(_display displayCtrl _x) ctrlShow false} forEach [/*44151,*/44150,/*44146,44147,*/44148, 44149, 44346];
 	}] call BIS_fnc_addScriptedEventHandler;
 
-	//apply badco uniform
+	
+	item_check_fallbackBackpack = "";
+	item_check_fallbackUniform = uniform player;
+	item_check_fallbackVest = "";
+	if ("V_Chestrig_rgr" in restrictions_allowedItems) then {
+		item_check_fallbackVest = "V_Chestrig_rgr";
+	};
+	if ("B_AssaultPack_dgtl" in restrictions_allowedBackpacks) then {
+		item_check_fallbackBackpack = "B_AssaultPack_dgtl";
+	};
+	
 	//check for restricted gear in case of saved loadout used
 	[missionNamespace, "arsenalClosed", {
-
+	
+		//apply badco uniform
 		if ((str player) in d_badcompany) then {
 
 			player remoteExecCall ["d_fnc_badco_uniform",-2,false];
@@ -318,10 +337,10 @@
 		item_check_isInArsenal = false;
 		item_check_arsenalChecked = false;
 		
+		//remove default magazines that might have been automatically added if not allowed
 		_item = (primaryWeaponMagazine player) select 0;
 		if (!(_item in restrictions_allAllowedItems)) then {
 			player removePrimaryWeaponItem _item;
-			hint _item;
 			player removeMagazines _item;
 		};
 		_item = (secondaryWeaponMagazine player) select 0;
@@ -335,11 +354,64 @@
 			player removeMagazines _item;
 		};
 		
+		// check all items and remove any disallowed ones since most people will attempt to load their preset loadouts.
+		/*
 		{		
 			[player,objnull,_x] call d_fnc_ptakeweapon;		
 		} foreach (((weapons player) + (magazines player) + (items player) + [uniform player] + [backpack player] + [vest player] + (assigneditems player) + [goggles player] + [headgear player]) - [""]);
-		
-		if (item_check_arsenalChecked) then {hint format ["Your loadout contains items (%1) that are restricted depending on the role you have chosen.\n\nYou can only use items that you see in the Arsenal. To change your role, exit back to the server lobby and pick a different slot.",debug_forbidden_item];};
+		*/
+		if (!((uniform player) in restrictions_allowedItems)) then {
+			item_check_arsenalChecked = true;
+			if (item_check_fallbackUniform != "") then {
+				_items = uniformItems player;
+				player forceAddUniform item_check_fallbackUniform;
+				_container = uniformContainer player;
+				{
+					_container addItemCargoGlobal _x; 
+				} foreach _items;
+			} else {
+				removeUniform player;
+			};
+		};
+		if (!((vest player) in restrictions_allowedItems)) then {
+			item_check_arsenalChecked = true;
+			if (item_check_fallbackVest != "") then {
+				_items = vestItems player;
+				player addVest item_check_fallbackVest;
+				_container = vestContainer player;
+				{
+					_container addItemCargoGlobal _x; 
+				} foreach _items;
+			} else {
+				removeVest player;
+			};
+		};
+		if (!((backpack player) in restrictions_allowedBackpacks)) then {
+			item_check_arsenalChecked = true;
+			if (item_check_fallbackBackpack != "") then {
+				_items = backpackItems player;
+				player addBackpack item_check_fallbackBackpack;
+				_container = backpackContainer player;
+				{
+					_container addItemCargoGlobal _x; 
+				} foreach _items;
+			} else {
+				removeBackpack player;
+			};
+		};
+		{		
+			if (!(_x in restrictions_allAllowedItems)) then {
+				item_check_arsenalChecked = true;
+				player removeitems _x;
+				player removePrimaryWeaponItem _x;
+				player removeSecondaryWeaponItem _x;
+				player removeHandgunItem _x;
+				player unlinkItem _x;
+				player removeWeapon _x;
+				player removeMagazines _x;
+			};
+		} foreach (((weapons player) + (magazines player) + (items player)  + (assigneditems player) + [goggles player] + [headgear player] + (primaryWeaponItems player) + (secondaryWeaponItems player) + (handgunItems player)) - [""]);
+		if (item_check_arsenalChecked) then {hint "Your loadout contains items that are restricted depending on the role you have chosen.\n\nYou can only use items that you see in the Arsenal. To change your role, exit back to the server lobby and pick a different slot.\n\nItems have been removed or replaced with defaults.";};
 		
 		// for some reason loading saved PCML loadout doesn't come with a rocket loaded... needs checking for RHS too
 		if (((secondaryWeapon player) == "launch_NLAW_F") && {(count (secondaryWeaponMagazine player)) == 0}) then {
