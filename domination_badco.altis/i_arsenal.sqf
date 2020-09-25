@@ -388,6 +388,7 @@
 		};
 		if (!((backpack player) in restrictions_allowedBackpacks)) then {
 			item_check_arsenalChecked = true;
+			removeBackpack player; //otherwise old backpack gets dropped on ground
 			if (item_check_fallbackBackpack != "") then {
 				_items = backpackItems player;
 				player addBackpack item_check_fallbackBackpack;
@@ -395,8 +396,6 @@
 				{
 					_container addItemCargoGlobal [_x, 1]; 
 				} foreach _items;
-			} else {
-				removeBackpack player;
 			};
 		};
 		{		
@@ -411,7 +410,14 @@
 				player removeMagazines _x;
 			};
 		} foreach (((weapons player) + (magazines player) + (items player)  + (assigneditems player) + [goggles player] + [headgear player] + (primaryWeaponItems player) + (secondaryWeaponItems player) + (handgunItems player)) - [""]);
-		if (item_check_arsenalChecked) then {hint "Your loadout contains items that are restricted depending on the role you have chosen.\n\nYou can only use items that you see in the Arsenal. To change your role, exit back to the server lobby and pick a different slot.\n\nItems have been removed or replaced with defaults.\n\nNote that some items might also be restricted to members only.";};
+		if (item_check_arsenalChecked) then {
+		
+			hint parseText
+				"<t color='#FF0000' shadow='1' shadowColor='#000000' size='3.0'>WARNING!</t><br/><br/>
+				<t color='#FF0000' shadow='1' shadowColor='#000000' size='1.5'>Your loadout contains items that are restricted depending on the role you have chosen.</t><br/><br/>
+				<t color='#00AAFF' shadow='1' shadowColor='#000000' size='1.5'>You can only use items that you see in the Arsenal. To change your role, exit back to the server lobby and pick a different slot.</t><br/><br/>
+				<t color='#FFFFFF' shadow='1' shadowColor='#000000' size='1.5'>Items have been removed or replaced with defaults.<br/><br/>Note that some items might also be restricted to members only.</t>";
+		};
 		
 		// for some reason loading saved PCML loadout doesn't come with a rocket loaded... needs checking for RHS too
 		if (((secondaryWeapon player) == "launch_NLAW_F") && {(count (secondaryWeaponMagazine player)) == 0}) then {
