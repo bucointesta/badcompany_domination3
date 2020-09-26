@@ -30,7 +30,7 @@
 	
 		_defaultWeps = d_defaultWeapons + d_whitelistWeapons - d_machineguns - d_sniping_rifles - d_launchers - d_grenadelaunchers - d_saboteur_only;
 		_defaultBackpacks = d_defaultBackpacks + d_whitelistBackpacks - d_medium_backpacks - d_large_backpacks - d_engineer_backpacks;
-		_defaultItems = d_defaultItems + d_whitelistItems - d_medium_armors - d_heavy_armors - d_medic_only - d_engineer_only - d_sniper_only - d_saboteur_only;
+		_defaultItems = d_defaultItems + d_whitelistItems - d_medium_armors - d_heavy_armors - d_medic_only - d_engineer_only - d_sniper_only - d_saboteur_only - d_pilot_only - d_crewman_only;
 		_defaultMags = d_defaultMagazines + d_whitelistMagazines - d_engineer_only - d_machinegunnermags;
 	
 	} else {
@@ -338,29 +338,33 @@
 		item_check_arsenalChecked = false;
 		
 		//remove default magazines that might have been automatically added if not allowed
-		_item = (primaryWeaponMagazine player) select 0;
-		if (!(_item in restrictions_allAllowedItems)) then {
-			player removePrimaryWeaponItem _item;
-			player removeMagazines _item;
+		_mags = primaryWeaponMagazine player;
+		if ((count _mags) > 0) then {
+			_item = _mags select 0;
+			if (!(_item in restrictions_allowedMagazines)) then {
+				player removePrimaryWeaponItem _item;
+				player removeMagazines _item;
+			};
 		};
-		_item = (secondaryWeaponMagazine player) select 0;
-		if (!(_item in restrictions_allAllowedItems)) then {
-			player removeSecondaryWeaponItem _item;
-			player removeMagazines _item;
+		_mags = secondaryWeaponMagazine player;
+			if ((count _mags) > 0) then {
+			_item = _mags select 0;
+			if (!(_item in restrictions_allowedMagazines)) then {
+				player removeSecondaryWeaponItem _item;
+				player removeMagazines _item;
+			};
 		};
-		_item = (handgunMagazine player) select 0;
-		if (!(_item in restrictions_allAllowedItems)) then {
-			player removeHandgunItem _item;
-			player removeMagazines _item;
+		_mags = handgunMagazine player;
+			if ((count _mags) > 0) then {
+			_item = _mags select 0;
+			if (!(_item in restrictions_allowedMagazines)) then {
+				player removeHandgunItem _item;
+				player removeMagazines _item;
+			};
 		};
-		
-		// check all items and remove any disallowed ones since most people will attempt to load their preset loadouts.
-		/*
-		{		
-			[player,objnull,_x] call d_fnc_ptakeweapon;		
-		} foreach (((weapons player) + (magazines player) + (items player) + [uniform player] + [backpack player] + [vest player] + (assigneditems player) + [goggles player] + [headgear player]) - [""]);
-		*/
-		if (!((uniform player) in restrictions_allowedItems)) then {
+
+		//check whole gear to remove any disallowed items acquired from loading a saved loadout
+		if (((uniform player) != "") && {!((uniform player) in restrictions_allowedItems)}) then {
 			item_check_arsenalChecked = true;
 			if (item_check_fallbackUniform != "") then {
 				_items = uniformItems player;
@@ -373,7 +377,7 @@
 				removeUniform player;
 			};
 		};
-		if (!((vest player) in restrictions_allowedItems)) then {
+		if (((vest player) != "") && {!((vest player) in restrictions_allowedItems)}) then {
 			item_check_arsenalChecked = true;
 			if (item_check_fallbackVest != "") then {
 				_items = vestItems player;
@@ -386,7 +390,7 @@
 				removeVest player;
 			};
 		};
-		if (!((backpack player) in restrictions_allowedBackpacks)) then {
+		if (((backpack player) != "") && {!((backpack player) in restrictions_allowedBackpacks)}) then {
 			item_check_arsenalChecked = true;
 			removeBackpack player; //otherwise old backpack gets dropped on ground
 			if (item_check_fallbackBackpack != "") then {
