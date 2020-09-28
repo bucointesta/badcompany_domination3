@@ -836,20 +836,23 @@ if (!d_tt_tanoa) then {
 	//Hunter: convert to player number scaled functions
 	d_number_attack_planes = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 20) exitWith {1};
-		if (_p < 30) exitWith {2};
+		if (_p < 20) exitWith {0};
+		if (_p < 40) exitWith {1};
+		if (_p < 55) exitWith {2};
 		3
 	};
 	d_number_CAP_planes = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 20) exitWith {1};
-		if (_p < 30) exitWith {2};
+		if (_p < 30) exitWith {0};
+		if (_p < 45) exitWith {1};
+		if (_p < 55) exitWith {2};
 		3
 	};
 	d_number_attack_choppers = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 20) exitWith {1};
-		if (_p < 30) exitWith {2};
+		if (_p < 16) exitWith {0};
+		if (_p < 30) exitWith {1};
+		if (_p < 50) exitWith {2};
 		3
 	};
 	
@@ -922,12 +925,12 @@ if (!d_tt_tanoa) then {
 	// Hunter: convert to function to scaled for player count
 	d_airai_respawntime = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 18) exitWith {1800};
-		if (_p < 23) exitWith {1200};
-		if (_p < 30) exitWith {900};
-		if (_p < 40) exitWith {600};
-		if (_p < 50) exitWith {300};
-		180
+		if (_p < 30) exitWith {1800};
+		if (_p < 40) exitWith {1200};
+		if (_p < 50) exitWith {900};
+		if (_p < 60) exitWith {600};
+		if (_p < 67) exitWith {450};
+		300
 	};
 
 	d_side_missions_random = [];

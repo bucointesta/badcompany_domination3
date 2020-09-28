@@ -12,31 +12,30 @@ params ["_type"];
 #define __wp_behave "COMBAT"
 
 while {true} do {
-#ifndef __DEBUG__
-	waitUntil {sleep 10; (call d_fnc_PlayersNumber) > 14};
-	if (!d_mt_radio_down) then {
-		while {!d_mt_spotted} do {sleep 11.32};
-	} else {
-		while {d_mt_radio_down} do {sleep 10.123};
-		if (!d_mt_spotted) then {
-			while {!d_mt_spotted} do {sleep 12.32};
+
+	private _numberFnc = {};
+	switch (_type) do {
+		case "AH": {
+			_numberFnc = d_number_attack_choppers;
+		};
+		case "CAP": {
+			_numberFnc = d_number_CAP_planes;
+		};
+		case "CAS": {
+			_numberFnc = d_number_attack_planes;
 		};
 	};
-#endif
+
+	#ifndef __DEBUG__
+		waitUntil {
+			sleep 11.32;
+			(!d_mt_radio_down) && {d_mt_spotted} && {(call _numberFnc) > 0}
+		};
+	#endif
 	private _vec = objNull;
 	private _vehicles = [];
 	private _funits = [];
-/*
-	private _num_p = call d_fnc_PlayersNumber;
-#ifndef __DEBUG__
-	sleep (call {
-		if (_num_p < 5) exitWith {2700};
-		if (_num_p < 10) exitWith {1200};
-		if (_num_p < 20) exitWith {600};
-		300;
-	});
-#endif
-*/
+
 	while {d_mt_radio_down} do {sleep 6.123};
 	private _pos = call d_fnc_GetRanPointOuterAir;
 	if !(d_cur_tgt_pos isEqualTo []) then {
