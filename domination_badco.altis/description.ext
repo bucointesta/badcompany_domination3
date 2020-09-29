@@ -219,7 +219,7 @@ class CfgRemoteExec {
 		class join {};
 		class joinSilent {};
 		class setVelocity {};
-		class engineOn {};
+		class engineOn { allowedTargets=0; jip=0;};
 		class setMass {};
 		class addScore {allowedTargets = 2;};
 		class hideObjectGlobal {allowedTargets = 2;};
