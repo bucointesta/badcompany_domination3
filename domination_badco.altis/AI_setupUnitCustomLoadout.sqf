@@ -104,7 +104,7 @@ _this spawn {
 		//if vehicle crew force into default
 		if ((vehicle _this) != _this) then {
 			_this removeWeapon _primary;
-			_primary = "asdaergerg";
+			_primary = "hgun_esd_01_dummy_F";
 		};
 		
 		switch ([_primary] call BIS_fnc_baseWeapon) do {

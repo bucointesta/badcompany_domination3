@@ -60,7 +60,9 @@ if !(d_show_player_marker isEqualTo 0) then {
 							};
 						};
 					} else {
-						if (player distance2D _v < 4000) then {
+						//if (player distance2D _v < 4000) then {
+						//Hunter: show player names in vehicles at any distance
+						if (true) then {
 							_vc = _v getVariable "d_vma_c";
 							if (isNil "_vc" || {_vc > 7}) then {
 								_nmt = _v getVariable "d_ma_text";

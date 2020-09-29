@@ -615,10 +615,8 @@ if (!d_with_ace) then {
 		waitUntil {sleep 0.232;!d_still_in_intro};
 
 		d_phudraw3d = -1;
-		//d_pnhudgroupcolor = [0.96, 1, 0, 0.7];
-		//d_pnhudothercolor = [0.86, 0.89, 0.1, 0.7];
-		d_pnhudgroupcolor = [0, 1, 0, 0.9];
-		d_pnhudothercolor = [1, 1, 1, 0.8];
+		d_pnhudgroupcolor = [0, 0.85, 0, 0.9];
+		d_pnhudothercolor = [0.2, 0.2, 0.7, 0.9];
 		d_pnhuddeadcolor = [0, 0, 0, 0];
 
 		d_pnhuddo2_prevCT = objNull;
