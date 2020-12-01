@@ -24,7 +24,8 @@ d_vrespawn2_ar = [];
 			if (_number_v < 100) then {_vec setVariable ["d_vec_is_mhq", [_x select 2, _number_v]]};
 		};
 		*/
-		d_vrespawn2_ar pushBack [_vec, _number_v, _vposp, getDir _vec, typeOf _vec,_respawnTimer];
+		
+		d_vrespawn2_ar pushBack [_vec, _number_v, _vposp, getDir _vec, typeOf _vec,_respawnTimer, _vec call bis_fnc_getVehicleCustomization];
 		
 		_vec setVariable ["d_OUT_OF_SPACE", -1];
 		_vec setVariable ["d_vec", _number_v, true];

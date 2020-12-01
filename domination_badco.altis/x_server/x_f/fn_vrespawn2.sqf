@@ -117,7 +117,7 @@ while {true} do {
 			if (unitIsUAV _vec) then {
 				{_vec deleteVehicleCrew _x} forEach (crew _vec);
 			};
-			_customs = _vec call bis_fnc_getVehicleCustomization;			
+			_customs = _vec_a select 6;			
 			deleteVehicle _vec;
 			sleep 0.5;
 			//_vec = createVehicle [_vec_a # 4, _vec_a # 2, [], 0, "NONE"];
