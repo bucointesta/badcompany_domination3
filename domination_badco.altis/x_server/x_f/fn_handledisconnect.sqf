@@ -42,6 +42,10 @@ if (!isNil "_pa") then {
 	__TRACE_1("player store before change","_pa")
 	_pa set [0, [time - (_pa # 0), -1] select (time - (_pa # 0) < 0)];
 	_pa set [9, time];
+	//Hunter: in case player disconnects before timer runs out and blocks prison slot
+	if ((_pa select 13) > 0) then {
+		(d_prison select (_pa select 13)) set [1, true];
+	};
 	private _mname = (_pa # 4) + "_xr_dead";
 	__TRACE_1("","_mname")
 	if !(markerPos _mname isEqualTo [0,0,0]) then {
@@ -81,13 +85,14 @@ if !(_ar isEqualTo []) then {
 
 removeAllOwnedMines _unit;
 
+// Hunter: make sure no AI ghost stays after leaving the server...
 _unit spawn {
-	params ["_unit"];
-	sleep 10;
-	if (isNull objectParent _unit) then {
-		deleteVehicle _unit;
+	sleep 5;
+	_veh = vehicle _this;
+	if (_veh == _this) then {
+		deleteVehicle _this;
 	} else {
-		(vehicle _unit) deleteVehicleCrew _unit;
+		[_veh, _this] remoteExecCall ["deleteVehicleCrew", _veh, false];
 	};
 };
 

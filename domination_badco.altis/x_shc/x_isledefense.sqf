@@ -22,7 +22,7 @@ d_old_old_start = [0,0,0];
 
 private _isle_grps = [];
 
-waitUntil {sleep 10; (call d_fnc_PlayersNumber) >= 20};
+waitUntil {sleep 10; (call d_fnc_PlayersNumber) > 52};
 
 for "_i" from 1 to (d_with_isledefense # 4) do {
 	_isle_grps pushBack (call d_fnc_make_isle_grp);
@@ -37,7 +37,7 @@ while {true} do {
 	sleep 10;
 #endif
 
-	waitUntil {sleep 10; (call d_fnc_PlayersNumber) >= 20};
+	waitUntil {sleep 10; (call d_fnc_PlayersNumber) > 52};
 
 	{
 		_x params ["_igrp"];

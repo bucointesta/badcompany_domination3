@@ -596,9 +596,12 @@ if (_isserv_or_hc) then {
 			};
 		};
 		
+		// Hunter: we have a different time mechanism now
+		/*
 		if (d_timemultiplier > 1) then {
 			setTimeMultiplier d_timemultiplier;
 		};
+		*/
 		
 		d_fifo_ar = [];
 	};	
@@ -836,23 +839,23 @@ if (!d_tt_tanoa) then {
 	//Hunter: convert to player number scaled functions
 	d_number_attack_planes = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 20) exitWith {0};
-		if (_p < 40) exitWith {1};
-		if (_p < 55) exitWith {2};
-		3
+		if (_p < 35) exitWith {0};
+		if (_p < 52) exitWith {1};
+		if (_p < 65) exitWith {2};
+		2
 	};
 	d_number_CAP_planes = {
 		private _p = call d_fnc_PlayersNumber;
 		if (_p < 30) exitWith {0};
-		if (_p < 45) exitWith {1};
-		if (_p < 55) exitWith {2};
-		3
+		if (_p < 50) exitWith {1};
+		if (_p < 64) exitWith {2};
+		2
 	};
 	d_number_attack_choppers = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 16) exitWith {0};
-		if (_p < 30) exitWith {1};
-		if (_p < 50) exitWith {2};
+		if (_p < 22) exitWith {0};
+		if (_p < 41) exitWith {1};
+		if (_p < 60) exitWith {2};
 		3
 	};
 	
@@ -914,6 +917,7 @@ if (!d_tt_tanoa) then {
 #endif
 	publicVariable "d_cargoPlanes";
 
+	// Hunter: WARNING! Setting these numbers too high will cause AO to not initialise at all, especially with numbers scaling!	
 	// max men for main target clear
 	d_man_count_for_target_clear = 6;
 	// max tanks for main target clear
@@ -925,12 +929,10 @@ if (!d_tt_tanoa) then {
 	// Hunter: convert to function to scaled for player count
 	d_airai_respawntime = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 30) exitWith {1800};
-		if (_p < 40) exitWith {1200};
-		if (_p < 50) exitWith {900};
-		if (_p < 60) exitWith {600};
-		if (_p < 67) exitWith {450};
-		300
+		if (_p < 50) exitWith {1800};
+		if (_p < 57) exitWith {1500};
+		if (_p < 65) exitWith {1200};		
+		900
 	};
 
 	d_side_missions_random = [];

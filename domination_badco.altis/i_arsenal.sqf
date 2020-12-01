@@ -282,9 +282,9 @@
 				_box = _x;
 				if (!isNull _box) then {
 					_distp = _pos_cam distance _box;				
-					if (_distp < 50) then {
+					if (_distp < 70) then {
 						_pos = getPosATL _box;
-						_scale = 0.033 - (_distp / 9000);
+						_scale = 0.044 - (_distp / 9000);
 						_pos set [2, 1.5 + (_distp * 0.05)];
 						_alpha = 1 - (_distp / 200);
 						drawIcon3D ["#(argb,8,8,3)color(0,0,0,0)", [0,1,0.2,_alpha], _pos, 1, 1, 0, "Virtual Arsenal", 1, _scale, "RobotoCondensed"];
@@ -342,6 +342,7 @@
 		if ((count _mags) > 0) then {
 			_item = _mags select 0;
 			if (!(_item in restrictions_allowedMagazines)) then {
+				item_check_arsenalChecked = true;
 				player removePrimaryWeaponItem _item;
 				player removeMagazines _item;
 			};
@@ -350,6 +351,7 @@
 			if ((count _mags) > 0) then {
 			_item = _mags select 0;
 			if (!(_item in restrictions_allowedMagazines)) then {
+				item_check_arsenalChecked = true;
 				player removeSecondaryWeaponItem _item;
 				player removeMagazines _item;
 			};
@@ -358,6 +360,7 @@
 			if ((count _mags) > 0) then {
 			_item = _mags select 0;
 			if (!(_item in restrictions_allowedMagazines)) then {
+				item_check_arsenalChecked = true;
 				player removeHandgunItem _item;
 				player removeMagazines _item;
 			};
@@ -410,10 +413,18 @@
 				player removeSecondaryWeaponItem _x;
 				player removeHandgunItem _x;
 				player unlinkItem _x;
-				player removeWeapon _x;
 				player removeMagazines _x;
 			};
-		} foreach (((weapons player) + (magazines player) + (items player)  + (assigneditems player) + [goggles player] + [headgear player] + (primaryWeaponItems player) + (secondaryWeaponItems player) + (handgunItems player)) - [""]);
+		} foreach (((magazines player) + (items player)  + (assigneditems player) + [goggles player] + [headgear player] + (primaryWeaponItems player) + (secondaryWeaponItems player) + (handgunItems player)) - [""]);
+
+		_weapons = (weapons player) - (assigneditems player);
+		{
+			if (!(_x in restrictions_allowedWeapons)) then {
+				item_check_arsenalChecked = true;
+				player removeWeapon (_weapons select _foreachIndex);
+			};
+		} foreach (_weapons apply {[_x] call BIS_fnc_baseWeapon});
+		
 		if (item_check_arsenalChecked) then {
 		
 			hint parseText

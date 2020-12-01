@@ -9,6 +9,8 @@ disableSerialization;
 
 if (isMultiplayer && {!d_pisadminp}) exitWith {
 	[player, d_name_pl, 3] remoteExecCall ["d_fnc_KickPlayerBS", 2];
+	sleep 3;
+	endMission "LOSER";
 };
 
 xr_phd_invulnerable = true;

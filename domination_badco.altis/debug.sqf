@@ -1,9 +1,6 @@
-#define THIS_FILE "debug.sqf"
-#include "x_setup.sqf"
-
 /*private _mine = createMine ["APERSBoundingMine", position player,["apers1"], 1];*/
 
-{systemChat str _x} forEach diag_activeSQFScripts;
+//{systemChat str _x} forEach diag_activeSQFScripts;
 
 /*
 {diag_log format ["cassa 1: %1", _x]; sleep 2} forEach [(getWeaponCargo d_ammobox_1) select 0, (getMagazineCargo d_ammobox_1) select 0, (getBackpackCargo d_ammobox_1) select 0, (getItemCargo d_ammobox_1) select 0];
@@ -34,3 +31,10 @@
 {diag_log format ["ENGINEER %1", _x];} ForEach d_engineer_only;
 {diag_log format ["PILOT %1", _x];} ForEach d_pilot_uniform;
 */
+
+[] spawn {
+	while {true} do {
+		uisleep 10;
+		diag_log format ["### Hz_diag: %1, %2, %3, %4, %5, %6",diag_fps,viewDistance, count diag_activeSQFScripts, {local _x} count allunits, {local _x} count vehicles, {local agent _x} count agents];
+	};
+};

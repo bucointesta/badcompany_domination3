@@ -17,7 +17,10 @@ Hz_customUnitLoadouts = true;
 AI_setupUnitCustomLoadout = compile preprocessFileLineNumbers "AI_setupUnitCustomLoadout.sqf";
 
 if (hasInterface) then {
-	private _vd = profileNamespace getVariable ["dom_viewdistance", d_InitialViewDistance];
+	// Hunter: set this to a default low value so people don't forget their setting at high and then complain about low FPS...
+	//private _vd = profileNamespace getVariable ["dom_viewdistance", d_InitialViewDistance];
+	private _vd = 2000;
+	setTerrainGrid 50;
 	if (_vd > d_MaxViewDistance) then {
 		_vd = d_MaxViewDistance;
 	};

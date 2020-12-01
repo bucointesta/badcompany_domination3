@@ -10,7 +10,7 @@ _carried = objNull;
 
 if (_action == "load") then {
 	if (_cargo == "") then {
-		_near = nearestObjects [_loadpos, ["Land","Ship"], 10];
+		_near = nearestObjects [_loadpos, ["LandVehicle","Ship"], 10];
 		_obj = _near select 0;
 		
 		if((count crew (vehicle _obj)) > 0) then {_carried = vehicle _obj;} else {_carried = _obj;};
@@ -27,42 +27,35 @@ if (_action == "load") then {
 				//_carrier setVariable ["cargo",_obj];
 				_carrier removeAction _act1;
 				
-				if (_carrier isKindOf "VTOL_Base_F") then {
-					_carrier animate ["Door_1_source", 1];
-				} else {
-					_carrier animate ["ramp_top", 1];
-					_carrier animate ["ramp_bottom", 1];
-				};
-				
 				_carrier setVariable ["cargo",_carried];
 				carried = true;
 				
 				[_carried, true] remoteExecCall ["d_fnc_l_v", _cargo];
+				
+				_lower = true;
+				_heightcorrection = 0;
+				_lengthcorrection = -2;
+				if (_carrier isKindOf "VTOL_Base_F") then {
+					_heightcorrection = -0.8;
+					_lengthcorrection = 1;
+				};
+				_widthcorrection = 0;
+				
+				_carried setVariable ["rhs_paradrop",true,true];
+				
+				_carried attachTo [_carrier,[0+_widthcorrection,-52/4,-3.5 +_heightcorrection]];
+				if (_carrier isKindOf "VTOL_Base_F") then {
+					_carrier animateDoor ["Door_1_source", 1];
+				} else {
+					_carrier animate ["ramp_top", 1];
+					_carrier animate ["ramp_bottom", 1];
+				};
 				
 				hint "Lowering ramp...";
 				
 				sleep 3;
 				
 				hint format ["Loading %1 into cargo now...",typeOf _obj];
-				_lower = true;
-				_heightcorrection = 0;
-				if (_carrier isKindOf "VTOL_Base_F") then {
-					_heightcorrection = -1.3;
-				};
-				_widthcorrection = 0;
-				_lengthcorrection = -2;
-				if (_carried iskindof "M1A1") then {if (typeof _carried == "M1A2_US_TUSK_MG_EP1")exitwith{_heightcorrection = 0.3; _lengthcorrection = -2.2;};_lengthcorrection = -2.5;_heightcorrection = -1.4; _widthcorrection = 0.35;};
-				if (_carried iskindof "M2A2_Base") then {_lengthcorrection = -1;_heightcorrection = 0.1;};
-				if (_carried iskindof "ACE_StrykerBase") then {_lengthcorrection = 0;_heightcorrection = -2.5;};
-				if (_carried iskindof "StrykerBase_EP1") then {_lengthcorrection = -3;_heightcorrection = -0.2;};
-				if (_carried iskindof "HMMWV_Base") then {_lengthcorrection=-2;_heightcorrection = 0.3; if (_carried iskindof "HMMWV_Avenger") then {_heightcorrection = 0.6;};if (_carried iskindof "HMMWV_M998A2_SOV_DES_EP1") then {_heightcorrection = -0.2;};};
-				if (_carried iskindof "MTVR") then {_heightcorrection = -0.2;};
-				if (_carried iskindof "BAF_Jackal2_BASE_D") then {_heightcorrection = -0.5;_lengthcorrection=-3;};
-				if (_carried iskindof "LandRover_Base") then {_heightcorrection = -0.5;};
-				if (_carried iskindof "BAF_FV510_D") then {_heightcorrection = 0.3;_lengthcorrection = -1.1;};
-				if (_carried iskindof "SUV_PMC") then {_heightcorrection = -0.5;};
-				
-				_carried setVariable ["rhs_paradrop",true,true];
 				
 				for "_i" from -52 to 8 do {
 
@@ -81,7 +74,7 @@ if (_action == "load") then {
 				//_carried setVariable ["carrier",_carrier];
 				sleep 2;
 				if (_carrier isKindOf "VTOL_Base_F") then {
-					_carrier animate ["Door_1_source", 0];
+					_carrier animateDoor ["Door_1_source", 0];
 				} else {
 					_carrier animate ["ramp_top", 0];
 					_carrier animate ["ramp_bottom", 0];
@@ -161,7 +154,7 @@ if (_action == "drop") then {
 	//_cargo removeEventHandler ["GetOut", _id];
 	hint "Lowering ramp...";
 	if (_carrier isKindOf "VTOL_Base_F") then {
-		_carrier animate ["Door_1_source", 1];
+		_carrier animateDoor ["Door_1_source", 1];
 	} else {
 		_carrier animate ["ramp_top", 1];
 		_carrier animate ["ramp_bottom", 1];
@@ -179,22 +172,13 @@ if (_action == "drop") then {
 								sleep 0.1;
 								*/
 		_lower = false;
-		_heightcorrection = 0;
+		_heightcorrection = 0;		
+		_lengthcorrection = -2;
 		if (_carrier isKindOf "VTOL_Base_F") then {
-			_heightcorrection = -1.3;
+			_heightcorrection = -0.8;
+			_lengthcorrection = 1;
 		};
 		_widthcorrection = 0;
-		_lengthcorrection = -2;
-		if (_carried iskindof "M1A1") then {if (typeof _carried == "M1A2_US_TUSK_MG_EP1")exitwith{_heightcorrection = 0.3; _lengthcorrection = -2.2;};_lengthcorrection = -2.5;_heightcorrection = -1.4; _widthcorrection = 0.35;};
-		if (_carried iskindof "M2A2_Base") then {_lengthcorrection = -1;_heightcorrection = 0.1;};
-		if (_carried iskindof "ACE_StrykerBase") then {_lengthcorrection = 0;_heightcorrection = -2.5;};
-		if (_carried iskindof "StrykerBase_EP1") then {_lengthcorrection = -3;_heightcorrection = -0.2;};
-		if (_carried iskindof "HMMWV_Base") then {_lengthcorrection=-2;_heightcorrection = 0.3; if (_carried iskindof "HMMWV_Avenger") then {_heightcorrection = 0.6;};if (_carried iskindof "HMMWV_M998A2_SOV_DES_EP1") then {_heightcorrection = -0.2;};};
-		if (_carried iskindof "MTVR") then {_heightcorrection = -0.2;};
-		if (_carried iskindof "BAF_Jackal2_BASE_D") then {_heightcorrection = -0.5;_lengthcorrection=-3;};
-		if (_carried iskindof "LandRover_Base") then {_heightcorrection = -0.5;};
-		if (_carried iskindof "BAF_FV510_D") then {_heightcorrection = 0.3;_lengthcorrection = -1.1;};
-		if (_carried iskindof "SUV_PMC") then {_heightcorrection = -0.5;};
 		
 		for "_i" from -4 to 24 do {
 			
@@ -211,13 +195,14 @@ if (_action == "drop") then {
 		detach _cargo;
 		carried = false;
 		hint "Cargo is out!";
+		sleep 1;
 		
 		[_plane, _cargo] remoteExec ["d_fnc_cargoPlaneDropMP",_cargo,false];
 		
 		waituntil {((getpos _cargo) select 2) < 750};
 		
 		if (_carrier isKindOf "VTOL_Base_F") then {
-			_carrier animate ["Door_1_source", 0];
+			_carrier animateDoor ["Door_1_source", 0];
 		} else {
 			_carrier animate ["ramp_top", 0];
 			_carrier animate ["ramp_bottom", 0];
@@ -266,23 +251,13 @@ if (_action == "drop") then {
 		hint "Cargo is being released...";
 		
 		_lower = false;
-		_heightcorrection = 0;
-		if (_carrier isKindOf "VTOL_Base_F") then {
-			_heightcorrection = -1.3;
-		};
-		_widthcorrection = 0;
+		_heightcorrection = 0;		
 		_lengthcorrection = -2;
-		if (_carried iskindof "M1A1") then {if (typeof _carried == "M1A2_US_TUSK_MG_EP1")exitwith{_heightcorrection = 0.3; _lengthcorrection = -2.2;};_lengthcorrection = -2.5;_heightcorrection = -1.4; _widthcorrection = 0.35;};
-		if (_carried iskindof "M2A2_Base") then {_lengthcorrection = -1;_heightcorrection = 0.1;};
-		if (_carried iskindof "ACE_StrykerBase") then {_lengthcorrection = 0;_heightcorrection = -2.5;};
-		if (_carried iskindof "StrykerBase_EP1") then {_lengthcorrection = -3;_heightcorrection = -0.2;};
-		if (_carried iskindof "HMMWV_Base") then {_lengthcorrection=-2;_heightcorrection = 0.3; if (_carried iskindof "HMMWV_Avenger") then {_heightcorrection = 0.6;};if (_carried iskindof "HMMWV_M998A2_SOV_DES_EP1") then {_heightcorrection = -0.2;};};
-		if (_carried iskindof "MTVR") then {_heightcorrection = -0.2;};
-		if (_carried iskindof "BAF_Jackal2_BASE_D") then {_heightcorrection = -0.5;_lengthcorrection=-3;};
-		if (_carried iskindof "LandRover_Base") then {_heightcorrection = -0.5;};
-		if (_carried iskindof "BAF_FV510_D") then {_heightcorrection = 0.3;_lengthcorrection = -1.1;};
-		if (_carried iskindof "SUV_PMC") then {_heightcorrection = -0.5;};
-		
+		if (_carrier isKindOf "VTOL_Base_F") then {
+			_heightcorrection = -0.8;
+			_lengthcorrection = 1;
+		};
+		_widthcorrection = 0;		
 		
 		for "_i" from -8 to 48 do {
 			
@@ -302,7 +277,7 @@ if (_action == "drop") then {
 		hint "Cargo released.";
 		[_cargo, false] remoteExecCall ["d_fnc_l_v", _cargo];
 		if (_carrier isKindOf "VTOL_Base_F") then {
-			_carrier animate ["Door_1_source", 0];
+			_carrier animateDoor ["Door_1_source", 0];
 		} else {
 			_carrier animate ["ramp_top", 0];
 			_carrier animate ["ramp_bottom", 0];

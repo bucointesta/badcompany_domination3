@@ -7,8 +7,8 @@ item2[] = {"Init",2,250,-34.407341,-21.204952,55.592728,28.795052,0.000000,"Init
 item3[] = {"Delay_4000plus",4,218,-34.553276,84.865578,55.446739,134.865616,0.000000,"Delay 4000plus"};
 item4[] = {"Create_Chopper",2,250,-33.414291,286.450806,56.585716,336.450806,0.000000,"Create Chopper"};
 item5[] = {"Delay_400",4,218,126.183594,285.617645,216.183609,335.617645,0.000000,"Delay 400"};
-item6[] = {"Dummy",2,250,126.285538,83.930473,216.285553,133.930450,0.000000,"Dummy"};
-item7[] = {"Is_MP",4,4314,-200.931793,106.172112,-110.931778,156.172028,1.000000,"Is MP"};
+item6[] = {"Dummy",2,4346,126.285538,83.930473,216.285553,133.930450,0.000000,"Dummy"};
+item7[] = {"Is_MP",4,218,-200.931793,106.172112,-110.931778,156.172028,1.000000,"Is MP"};
 item8[] = {"Sleep",2,250,-348.878754,161.002350,-258.878906,211.002335,0.000000,"Sleep"};
 item9[] = {"Delay2",4,218,-200.797043,210.501663,-110.796951,260.501526,0.000000,"Delay2"};
 item10[] = {"MP_Player_Check",2,250,-33.335449,155.507095,56.664566,205.507095,0.000000,"MP Player" \n "Check"};
@@ -117,7 +117,7 @@ class FSM
     class Dummy
     {
       name = "Dummy";
-      init = /*%FSM<STATEINIT""">*/"_timenow = time + 3000 + (random 600);"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"_timenow = time + 1800 + (random 600);"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -169,7 +169,7 @@ class FSM
           priority = 1.000000;
           to="Sleep";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"isMultiplayer && (call d_fnc_PlayersNumber) < 20"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"isMultiplayer && (call d_fnc_PlayersNumber) < 56"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

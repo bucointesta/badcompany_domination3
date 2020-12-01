@@ -80,7 +80,7 @@ while {true} do {
 	};
 #endif
 	for "_xxx" from 1 to _numair do {
-		private _vec_array = [[_pos # 0, _pos # 1, 400], _cdir, _heli_type, _grp] call d_fnc_spawnVehicle;
+		private _vec_array = [[(_pos # 0) + (random 500), (_pos # 1) + (random 500), 400], _cdir, _heli_type, _grp] call d_fnc_spawnVehicle;
 		__TRACE_1("","_vec_array")
 		
 		 _vec_array params ["_vec"];
@@ -133,7 +133,7 @@ while {true} do {
 	
 	sleep 30;
 	if (_type == "AH") then {		
-		// arma 3's pathfinding problems...
+		// arma 3's move problems...
 		{
 			_vehicle = _x;
 			isNil {							
@@ -141,6 +141,9 @@ while {true} do {
 				_agent setVariable ["veh",_vehicle];
 				_agent addEventHandler ["PathCalculated", {
 					_agent = _this select 0;
+					// prevent from EH firing twice? TODO: confirm it works...
+					if ((isNull _agent) || {_agent getVariable ["pathCalculated", false]}) exitWith {};
+					_agent setVariable ["pathCalculated", true];
 					_path = [];
 					{
 						_path pushBack [_x select 0, _x select 1, 250];

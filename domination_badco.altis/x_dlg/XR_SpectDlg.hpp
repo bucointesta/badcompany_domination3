@@ -142,7 +142,8 @@ class xr_SpectDlg {
 		};
 		class MapButton: RscButton {
 			idc = 1002;
-			colorBackgroundActive[] = {1,1,1,0.1};
+			colorBackgroundActive[] = {0.5,0.3,0,1};
+			colorBackground[] = {0.25,0.15,0,0.8};
 			text = "$STR_DOM_MISSIONSTRING_1333"; 
 			action = "if (ctrlShown ((uiNamespace getVariable 'XR_SpectDlg') displayCtrl 1000)) then {ctrlShow [1000, false];((uiNamespace getVariable 'XR_SpectDlg') displayCtrl 1003) ctrlSetText (localize 'STR_DOM_MISSIONSTRING_1334');};if (ctrlShown ((uiNamespace getVariable 'XR_SpectDlg') displayCtrl 3000)) then {ctrlShow [3000, false];((uiNamespace getVariable 'XR_SpectDlg') displayCtrl 1002) ctrlSetText (localize 'STR_DOM_MISSIONSTRING_1333');d_x_loop_end = true;} else {ctrlShow [3000, true];((uiNamespace getVariable 'XR_SpectDlg') displayCtrl 1002) ctrlSetText (localize 'STR_DOM_MISSIONSTRING_1333a'); call xr_fnc_updaterlb}";
 			x = "SafeZoneX + SafeZoneW - 0.33";
@@ -193,6 +194,8 @@ class xr_SpectDlg {
 					y = 0;
 					w = 0.3;
 					h = 0.038;
+					colorBackgroundActive[] = {0.5,0.3,0,1};
+					colorBackground[] = {0.25,0.15,0,0.8};
 					text = "$STR_DOM_MISSIONSTRING_1532"; 
 					action = "call xr_fnc_showppos";
 					SizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
@@ -204,11 +207,13 @@ class xr_SpectDlg {
 					w = 0.3;
 					h = 0.91;
 					sizeEx = "2 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+					colorBackground[] = {0,0,0,0.8};
 					onLBSelChanged = "[_this, 1] call d_fnc_update_telerespsel";
 				};
 				class respawn: RscButton {
 					idc = 100102;
-					colorBackgroundActive[] = {1,1,1,0.1};
+					colorBackgroundActive[] = {0.075,0.45,0.8,0.8};
+					colorBackground[] = {0.05,0.3,0.57,0.8};
 					text = "$STR_DOM_MISSIONSTRING_298"; 
 					action = "call xr_fnc_closeSpectControls;0 spawn xr_fnc_buttonclickrespawn";
 					x = 1 - 0.3;
@@ -222,7 +227,7 @@ class xr_SpectDlg {
 					style = ST_MULTI;
 					sizeEx = 0.028;
 					lineSpacing = 1;
-					colorBackground[] = {0,0,0,0.3};
+					colorBackground[] = {0,0,0,0.8};
 					x = 0.30;
 					y = 0.845;
 					w = 0.7;
@@ -239,6 +244,7 @@ class xr_SpectDlg {
 					sizeEx = 0.032;
 					text = "";
 					colorText[] = {1,1,0,1};
+					colorBackground[] = {0,0,0,0.8};
 				};
 			};
 		};

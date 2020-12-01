@@ -5,6 +5,10 @@
 
 //assign to variable _tk the killer player's object
 private _tk = _this select 2;
+private _ramKill = false;
+if ((count _this) > 3) then {
+	_ramKill = _this select 3;
+};
 
 //subtracts the points for teamkilling to player's object
 _tk addScore (d_sub_tk_points * -1);
@@ -22,10 +26,24 @@ then
 */
 if (!isNil "_p") then {
 	private _numtk = (_p # 7) + 1;
-	_p set [7, _numtk];
+	private _basekill = false;
+	if (((_tk distance d_flag_base) < 700) && {(count (allPlayers - entities "HeadlessClient_F")) >= 20}) then {
+		_numtk = d_maxnum_tks_forkick;
+		_basekill = true;
+	} else {
+		_ramKill = false;
+	};
+	_p set [7, _numtk];	
 	if (_numtk >= d_maxnum_tks_forkick) exitWith {
 		remoteExecCall ["d_fnc_save_layoutgear", _tk];
+		_p set [14, 300];
 		private _pna = _p select 6;
+		if (_basekill) then {
+			_numtk = 1;
+			if (_ramKill) then {
+				_p set [14, 900];
+			};
+		};
 		[format [localize "STR_DOM_MISSIONSTRING_507", _pna, _numtk], "GLOBAL"] remoteExecCall ["d_fnc_HintChatMsg", [0, -2] select isDedicated];
 		diag_log format ["killer is %1", _tk];
 		_tk call d_fnc_prison_check; //	"LOSER" remoteExecCall ["endMission", _tk];

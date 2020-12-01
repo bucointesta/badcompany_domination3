@@ -28,6 +28,13 @@ private _units = [];
 private _vecs = [];
 private _agrp = [d_side_enemy] call d_fnc_creategroup;
 private _npos = _start_point;
+
+// Hunter: make it simpler
+private _reta = [1, _npos, selectRandom ([d_enemy_side_short] call d_fnc_getmixedlist), _agrp, -1.111] call d_fnc_makevgroup;
+_vecs append (_reta # 0);
+_units append (_reta # 1);
+
+/*
 {
 	private _rand = floor random 2;
 	if (_rand > 0) then {
@@ -38,6 +45,7 @@ private _npos = _start_point;
 		_npos = ((_reta # 0) # 0) modelToWorld [0,-12,0];
 	};
 } forEach ([d_enemy_side_short] call d_fnc_getmixedlist);
+*/
 _agrp deleteGroupWhenEmpty true;
 sleep 0.31;
 

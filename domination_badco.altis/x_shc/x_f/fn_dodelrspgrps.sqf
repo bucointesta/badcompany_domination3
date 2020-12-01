@@ -31,7 +31,7 @@ if !(d_respawn_ai_groups isEqualTo []) then {
 		sleep 240;
 		waitUntil {
 			sleep 60;
-			({(_x distance _pos) < 1000} count playableUnits) == 0
+			({(_x distance _pos) < 2000} count playableUnits) == 0
 		};
 		{
 			if (alive _x) then {

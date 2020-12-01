@@ -36,3 +36,8 @@ if (_isLeader && {_new_lead != player}) then {
 };
 
 uiNamespace setVariable ["d_dyxn_gr_disp", nil];
+[] spawn {
+	sleep 3;
+	uiNamespace setVariable ["BadCoLastGroup", str group player];
+	uiNamespace setVariable ["BadCoIsGroupLeader", player == (leader group player)];
+};

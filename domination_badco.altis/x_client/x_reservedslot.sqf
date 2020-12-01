@@ -26,5 +26,6 @@ if (d_pisadminp) exitWith {
 };
 
 hint (localize "STR_DOM_MISSIONSTRING_338");
-sleep 1;
 [player, d_name_pl, 2] remoteExecCall ["d_fnc_KickPlayerBS", 2];
+sleep 3;
+endMission "LOSER";

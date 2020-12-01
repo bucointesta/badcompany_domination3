@@ -1,9 +1,5 @@
 #include "..\x_setup.sqf"
 
-_vestType = "V_TacChestrig_oli_F";
-_uniformType = "rhs_uniform_gorka_r_g";
-_helmetType = "rhs_ssh68";
-
 scriptName "Boat_Patrol";
 
 waitUntil {	
@@ -35,7 +31,7 @@ while {true} do {
 
 	waitUntil {
 		sleep 20;		
-		(call d_fnc_PlayersNumber) > 19		
+		(call d_fnc_PlayersNumber) > 52		
 	};
 	
 	#ifdef __OWN_SIDE_BLUFOR__
@@ -48,23 +44,7 @@ while {true} do {
 	_units = units _grp;
 		
 	{
-		if (_vestType != "") then {
-			_vestItems = vestItems _x;
-			_x addvest _vestType;			
-			_vc = vestContainer _x;
-			{_vc addItemCargoGlobal [_x,1];} foreach _vestItems;
-		};
-		if (_helmetType != "") then {
-			_x addheadgear _helmetType;
-			removeAllAssignedItems _x;
-			removeGoggles _x;
-		};
-		if (_uniformType != "") then {
-			_uniformItems = uniformItems _x;
-			_x addUniform _uniformType;			
-			_vc = uniformContainer _x;
-			{_vc addItemCargoGlobal [_x,1];} foreach _uniformItems;
-		};		
+		_x call AI_setupUnitCustomLoadout;	
 	} foreach _units;
 
 	{

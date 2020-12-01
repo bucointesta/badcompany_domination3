@@ -583,10 +583,10 @@ if (player getUnitTrait "Medic") then {
 d_x_loop_end = false;
 if (d_WithMHQTeleport == 0) then {
 #ifndef __TT__
-	d_FLAG_BASE addAction [format ["<t color='#ff0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx},[],99];
+	d_FLAG_BASE addAction [format ["<t color='#ff0000' size='2.0'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx},[],99];
 #else
 	private _base_flag = [d_EFLAG_BASE, d_WFLAG_BASE] select (d_player_side == blufor);
-	_base_flag addAction [format ["<t color='#ff0000'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx},[],99];
+	_base_flag addAction [format ["<t color='#ff0000' size='2.0'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx},[],99];
 #endif
 };
 

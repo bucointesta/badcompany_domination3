@@ -41,17 +41,17 @@ d_side_main_done = false;
 d_sum_camps = -91;
 
 #ifndef __TT__
-//Hunter: this is a very bad implementation if we customise the enemy numbers... modify the numbers so it triggers much more easily
+//Hunter: modified so we don't necessarily need armor to spawn for AO to initialise since spawned enemy type depends on player count...
 private _tsar = if (d_WithLessArmor == 0) then {
-	["('Man' countType thislist > 0) || {'Tank' countType thislist > 0 || {'Car' countType thislist  > 0}}", "d_target_clear = false; publicVariable 'd_target_clear';d_update_target=true;call d_fnc_makemtgmarker;remoteExec ['d_fnc_createnexttargetclient', [0, -2] select isDedicated];d_kb_logic1 kbTell [d_kb_logic2,d_kb_topic_side,'Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],d_kbtel_chan];deleteVehicle d_check_trigger", ""]
+	["('CAManBase' countType thislist >= d_man_count_for_target_clear) && {'Car' countType thislist  >= d_car_count_for_target_clear}", "d_target_clear = false; publicVariable 'd_target_clear';d_update_target=true;call d_fnc_makemtgmarker;remoteExec ['d_fnc_createnexttargetclient', [0, -2] select isDedicated];d_kb_logic1 kbTell [d_kb_logic2,d_kb_topic_side,'Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],d_kbtel_chan];deleteVehicle d_check_trigger", ""]
 } else {
-	["('Man' countType thislist > 0)", "d_target_clear = false; publicVariable 'd_target_clear';d_update_target=true;call d_fnc_makemtgmarker;remoteExec ['d_fnc_createnexttargetclient', [0, -2] select isDedicated];d_kb_logic1 kbTell [d_kb_logic2,d_kb_topic_side,'Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],d_kbtel_chan];deleteVehicle d_check_trigger;", ""]
+	["('CAManBase' countType thislist >= d_man_count_for_target_clear)", "d_target_clear = false; publicVariable 'd_target_clear';d_update_target=true;call d_fnc_makemtgmarker;remoteExec ['d_fnc_createnexttargetclient', [0, -2] select isDedicated];d_kb_logic1 kbTell [d_kb_logic2,d_kb_topic_side,'Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],d_kbtel_chan];deleteVehicle d_check_trigger;", ""]
 };
 #else
 private _tsar = if (d_WithLessArmor == 0) then {
-	["('Man' countType thislist > 0) || {'Tank' countType thislist > 0 || {'Car' countType thislist  > 0}}", "d_target_clear = false; publicVariable 'd_target_clear';d_update_target=true;call d_fnc_makemtgmarker;remoteExec ['d_fnc_createnexttargetclient', [0, -2] select isDedicated];d_hq_logic_blufor1 kbTell [d_hq_logic_blufor2,'HQ_W','Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],'SIDE'];d_hq_logic_opfor1 kbTell [d_hq_logic_opfor2,'HQ_E','Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],'SIDE'];deleteVehicle d_check_trigger", ""]
+	["('CAManBase' countType thislist >= d_man_count_for_target_clear) && {'Car' countType thislist  >= d_car_count_for_target_clear}", "d_target_clear = false; publicVariable 'd_target_clear';d_update_target=true;call d_fnc_makemtgmarker;remoteExec ['d_fnc_createnexttargetclient', [0, -2] select isDedicated];d_hq_logic_blufor1 kbTell [d_hq_logic_blufor2,'HQ_W','Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],'SIDE'];d_hq_logic_opfor1 kbTell [d_hq_logic_opfor2,'HQ_E','Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],'SIDE'];deleteVehicle d_check_trigger", ""]
 } else {
-	["('Man' countType thislist > 0)", "d_target_clear = false; publicVariable 'd_target_clear';d_update_target=true;call d_fnc_makemtgmarker;remoteExec ['d_fnc_createnexttargetclient', [0, -2] select isDedicated];d_hq_logic_blufor1 kbTell [d_hq_logic_blufor2,'HQ_W','Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],'SIDE'];d_hq_logic_opfor1 kbTell [d_hq_logic_opfor2,'HQ_E','Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],'SIDE'];deleteVehicle d_check_trigger;", ""]
+	["('CAManBase' countType thislist >= d_man_count_for_target_clear)", "d_target_clear = false; publicVariable 'd_target_clear';d_update_target=true;call d_fnc_makemtgmarker;remoteExec ['d_fnc_createnexttargetclient', [0, -2] select isDedicated];d_hq_logic_blufor1 kbTell [d_hq_logic_blufor2,'HQ_W','Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],'SIDE'];d_hq_logic_opfor1 kbTell [d_hq_logic_opfor2,'HQ_E','Attack',['1','','" + d_cur_tgt_name + "',['" + d_cur_tgt_name + "']],'SIDE'];deleteVehicle d_check_trigger;", ""]
 };
 #endif
 
@@ -65,7 +65,7 @@ __TRACE("!d_update_target done")
 
 #ifndef __TT__
 _tsar = if (d_ao_check_for_ai == 1) then {
-	["d_mt_radio_down && {d_campscaptured == d_sum_camps && {'Car' countType thislist <= d_car_count_for_target_clear && {'Tank' countType thislist <= d_tank_count_for_target_clear && {'Man' countType thislist <= d_man_count_for_target_clear}}}}", "0 = 0 spawn d_fnc_target_clear", ""]
+	["d_mt_radio_down && {d_campscaptured == d_sum_camps && {'Car' countType thislist <= d_car_count_for_target_clear && {'Tank' countType thislist <= d_tank_count_for_target_clear && {'CAManBase' countType thislist <= d_man_count_for_target_clear}}}}", "0 = 0 spawn d_fnc_target_clear", ""]
 } else {
 	["d_mt_radio_down && {d_campscaptured == d_sum_camps}", "0 = 0 spawn d_fnc_target_clear", ""]
 };

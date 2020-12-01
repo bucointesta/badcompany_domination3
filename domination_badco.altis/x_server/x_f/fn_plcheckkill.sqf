@@ -31,13 +31,29 @@ if (d_with_ai) then {
 	};
 };
 
-if (!isNull _killer && {(_killer call d_fnc_isplayer) && {vehicle _killer != vehicle _killed}}) then {
+if (!isNull _killer && {(_killer call d_fnc_isplayer) && {(vehicle _killer) != (vehicle _killed)}}) then {
 	private _par = d_player_store getVariable (getPlayerUID _killed);
 	__TRACE_1("_killed",_par)
 	private _namep = [_par # 6, "Unknown"] select (isNil "_par");
 	private _par = d_player_store getVariable (getPlayerUID _killer);
 	__TRACE_1("_killer",_par)
 	private _namek = [_par # 6, "Unknown"] select (isNil "_par");
-	[_namek, _namep, _killer] call d_fnc_TKKickCheck;
+	
+	private _ramKill = false;
+	if (((vehicle _killed) != _killed) && {!alive (vehicle _killed)}) then {
+		_ramKill = true;
+	}; 
+	if ((((vehicle _killer) iskindOf "LandVehicle") || {((vehicle _killer) iskindOf "Ship")}) && {_killer == (driver vehicle _killer)} && {
+		// Hunter: notify this as teamkilling  but don't activate tk counter for this one... could still be innocent
+		if ((vehicle _killed) == _killed) then {
+			true
+		} else {
+			_ramKill = true;
+			false
+		}
+	}) exitWith {
+		[_namep, _namek] remoteExecCall ["d_fnc_unit_tk", [0, -2] select isDedicated];
+	};
 	[_namep, _namek] remoteExecCall ["d_fnc_unit_tk", [0, -2] select isDedicated];
+	[_namek, _namep, _killer, _ramKill] call d_fnc_TKKickCheck;	
 };

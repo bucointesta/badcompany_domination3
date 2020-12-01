@@ -110,6 +110,14 @@ if (_typepos == 1) then {
 	};
 
 	{player reveal _x} forEach ((player nearEntities [["Man", "Air", "Car", "Motorcycle", "Tank"], 30]) + (player nearSupplies 30));
+	
+	if ((!isnil "d_tutorialMHQNotDone") && {d_tutorialMHQNotDone} && {((getpos player) distance d_tutorialStartingPos) > 1000}) then {
+		d_tutorialMHQNotDone = false;
+		if (!isnil "d_tutorialMHQ") then {
+			tutorialHandle = [] spawn d_tutorialMHQ;
+			[] execVM "tutorial_forceend.sqf";
+		};
+	};
 
 	if (d_with_ai && {alive player && {!(player getVariable ["xr_pluncon", false]) && {_typepos != 2 && {!(player getVariable ["ace_isunconscious", false])}}}}) then {[] spawn d_fnc_moveai};
 };

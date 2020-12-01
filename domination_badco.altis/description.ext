@@ -39,11 +39,11 @@ class Header {
 	maxPlayers = 68;
 };
 
-joinUnassigned = false; // auto assign
+joinUnassigned = 1;
 
 // 0 = Global, 1 = Side, 2 = Command, 3 = Group, 4 = Vehicle, 5 = Direct, 6 = System
 // {channelid, disablechat, disablevoice}
-disableChannels[] = {{0,false,true},{1,false,false},{2,false,true},{6,true,true}};
+disableChannels[] = {{0,true,true},{1,false,false},{2,true,true},{6,true,true}};
 enableItemsDropping = 0;
 
 //(0 - default, options based; 1 forced on; 2 forced off)
@@ -214,8 +214,8 @@ class CfgRemoteExec {
 		class setCaptive {};
 		class switchMove {};
 		class setDir {};
-		class lock {};
-		class selectLeader {};
+		class lock {};		
+		class selectLeader { allowedTargets=0; jip=0;};
 		class join {};
 		class joinSilent {};
 		class setVelocity {};
@@ -238,6 +238,7 @@ class CfgRemoteExec {
 		class setOwner {allowedTargets = 2;};
 		class setSpeaker {allowedTargets = 1;};
 		class hint {allowedTargets = 1;};
+		class deleteVehicleCrew {allowedTargets=0; jip=0;};
 #ifdef __TT__
 		class deleteMarkerLocal {allowedTargets = 1;};
 		class systemChat {allowedTargets = 1;};
@@ -510,7 +511,7 @@ class Params {
 	class d_InitialViewDistance {
 		title = "$STR_DOM_MISSIONSTRING_1025";
 		values[] = {1000,1500,2000,2500,3000,3500,4000,4500,5000};
-		default = 1500;
+		default = 2000;
 		texts[] = {"1000 m","1500 m","2000 m","2500 m","3000 m","3500 m","4000 m","4500 m","5000 m"};
 	};
 	
@@ -580,7 +581,7 @@ class Params {
 	class xr_max_lives {
 		title = "$STR_DOM_MISSIONSTRING_1009";
 		values[] = {1,5,10,20,30,40,50,-1};
-		default = 30;
+		default = -1;
 		texts[] = {"1","5","10","20","30","40","50","$STR_DOM_MISSIONSTRING_1010"};
 	};
 	
@@ -594,7 +595,7 @@ class Params {
 	class xr_respawn_available_after {
 		title = "$STR_DOM_MISSIONSTRING_1019";
 		values[] = {5,30,60,90,120,180,240,300,600};
-		default = 5;
+		default = 20;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1020a","$STR_DOM_MISSIONSTRING_1020","$STR_DOM_MISSIONSTRING_1012","$STR_DOM_MISSIONSTRING_1021","$STR_DOM_MISSIONSTRING_1013","$STR_DOM_MISSIONSTRING_1014","$STR_DOM_MISSIONSTRING_1015","$STR_DOM_MISSIONSTRING_1016","$STR_DOM_MISSIONSTRING_1017"};
 	};
 	

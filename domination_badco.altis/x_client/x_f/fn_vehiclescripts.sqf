@@ -34,15 +34,18 @@ if (!(d_clientScriptsAr # 1) && {!isNil "d_player_autokick_time"}) then {
 if (_do_exit) exitWith {};
 
 //Hunter: Doesn't just check for pilots, but drivers of reserved vehicles too
-if (((_position == "driver") || {(_turret select 0 == 0) && {_position == "gunner"}}) && {!([str _enterer,_vec,_vecnum] call d_fnc_isPilotCheck)}) exitWith {		
-		if (local _vec) then {
-			_vec engineOn false;
+if (((_position == "driver") || {(_turret select 0 == 0) && {_position == "gunner"}}) && {!([str _enterer,_vec,_vecnum] call d_fnc_isPilotCheck)}) exitWith {				
+	//player action ["getOut", _vec];
+	moveout player;
+	_vec spawn {
+		sleep 0.1;
+		if (local _this) then {
+			_this engineOn false;
 		} else {
-			[_vec, false] remoteExecCall ["engineOn",_vec,false];
+			[_this, false] remoteExecCall ["engineOn",_this,false];
 		};
-		//player action ["getOut", _vec];
-			moveout player;
 	};
+};
 
 if (_vec isKindOf "Air") then {
 	if (!unitIsUAV _vec && {isClass (configFile>>"CfgVehicles">>(typeOf _vec)>>"Components">>"TransportPylonsComponent")}) then {

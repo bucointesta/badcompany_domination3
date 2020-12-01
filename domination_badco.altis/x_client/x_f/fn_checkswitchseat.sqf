@@ -16,20 +16,23 @@ if (_position != "Driver") then {
 
 };
 
-if ((d_pilots_only == 0) && {(_position == "Driver") || {((_turret select 0) == 0) && {_position == "Turret"}}}) then {
+if ((d_pilots_only == 0) && {(_position == "Driver") || {((_turret select 0) == 0) && {_position == "Turret"} && {(count _turret) == 1}}}) then {
 
 	if (!([str player,_vec,_vec getvariable ["d_vec",0]] call d_fnc_isPilotCheck)) then {
 	
-		_vec spawn {
+		_vec spawn {				
 				
+				uisleep 0.3;
+				moveout player;
+				uisleep 0.01;
+				waitUntil {(vehicle player) == player};
+				player moveInCargo _this;
+				sleep 0.1;
 				if (local _this) then {
 					_this engineOn false;
 				} else {
 					[_this, false] remoteExecCall ["engineOn",_this,false];
-				};
-				moveout player;
-				sleep 0.1;
-				player moveInCargo _this;
+				};				
 				
 			};		
 		 

@@ -16,23 +16,26 @@ if (local _player) then {
 	[_player] orderGetIn false;
 	moveOut _player;
 	waitUntil {vehicle _player == _player};
-	_playerStartPosition = AGLtoASL (_heli modelToWorldVisual _rappelPoint);
+	_playerStartPosition = (AGLtoASL (_heli modelToWorldVisual _rappelPoint)) vectorAdd [0,0,-5];
 	_playerStartPosition set [2, (_playerStartPosition select 2) - 1];
 	_playerStartPosition set [1, (_playerStartPosition select 1) - (((random 100) - 50) / 25)];
 	_playerStartPosition set [0, (_playerStartPosition select 0) - (((random 100) - 50) / 25)];
 	_player setPosWorld _playerStartPosition;
-
-	_anchor = "Land_Can_V2_F" createVehicle position _player;
-	_anchor allowDamage false;
-	hideObject _anchor;
-	[_anchor] remoteExecCall ["AR_fnc_Hide_Object_Global", 2];
-	_anchor attachTo [_heli,_rappelPoint];
 	
-	_rappelDevice = "B_static_AA_F" createVehicle position _player;
-	_rappelDevice setPosWorld _playerStartPosition;
+	_rappelDevice = "B_static_AA_F" createVehicle [0,0,0];	
 	_rappelDevice allowDamage false;
 	hideObject _rappelDevice;
 	[_rappelDevice] remoteExecCall ["AR_fnc_Hide_Object_Global", 2];
+
+	_anchor = "Land_Can_V2_F" createVehicle [0,0,0];
+	_anchor allowDamage false;
+	hideObject _anchor;
+	[_anchor] remoteExecCall ["AR_fnc_Hide_Object_Global", 2];
+	_anchor attachTo [_heli,_rappelPoint];	
+	
+	uisleep 1.5;
+	_playerStartPosition = AGLtoASL (_heli modelToWorldVisual _rappelPoint);
+	_rappelDevice setPosWorld _playerStartPosition;
 	
 	[_player, _rappelDevice, _anchor] remoteExecCall ["AR_fnc_Play_Rappelling_Sounds", 2];
 	
@@ -188,7 +191,7 @@ if (local _player) then {
 		
 		if ((getPos _player) select 2 < 1 || {!alive _player || {vehicle _player != _player || {_bottomRopeLength <= 1 || {_player getVariable ["AR_Detach_Rope", false]}}}}) exitWith {};
 
-		sleep 0.01;
+		uisleep 0.01;
 	};
 			
 	if (_bottomRopeLength > 1 && {alive _player && {vehicle _player == _player}}) then {

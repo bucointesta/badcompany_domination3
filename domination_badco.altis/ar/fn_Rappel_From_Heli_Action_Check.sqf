@@ -13,8 +13,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 params ["_player","_vehicle"];
 
 if !([_vehicle] call AR_fnc_Is_Supported_Vehicle) exitWith {false};
-if (((getPos _vehicle) select 2) < 5) exitWith {false};
+if (((getPos _vehicle) select 2) < 20) exitWith {false};
 if (((getPos _vehicle) select 2) > 150) exitWith {false};
 if (driver _vehicle == _player && {isEngineOn _vehicle}) exitWith {false};
-if (speed _vehicle > 100) exitWith {false};
+if (speed _vehicle > 20) exitWith {false};
 true

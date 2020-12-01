@@ -15,10 +15,14 @@ private ["_distp", "_cwt", "_col", "_ico"];
 	_distp = _pos_cam distance _obj;
 	if (_distp < 250) then {
 		_cwt = _obj getVariable ["d_curreptime" , -1];
-		if (_cwt == -1) then {
-			drawIcon3D ["#(argb,8,8,3)color(0,0,0,0)", [0, 0, 1, 1 - (_distp / 200)], ASLToAGL ((getPosASL _obj) vectorAdd [0, 0, (_x # 2) + (_distp * 0.05)]), 1, 1, 0, _x # 1, 1, 0.033 - (_distp / 9000), "RobotoCondensed"];
+		_scale = 0.033;
+		if (_cwt == -1) then {			
+			if (_forEachIndex == 0) then {
+				_scale = 0.055;
+			};
+			drawIcon3D ["#(argb,8,8,3)color(0,0,0,0)", [0, 0, 1, 1 - (_distp / 200)], ASLToAGL ((getPosASL _obj) vectorAdd [0, 0, (_x # 2) + (_distp * 0.05)]), 1, 1, 0, _x # 1, 1, _scale - (_distp / 9000), "RobotoCondensed"];
 		} else {
-			drawIcon3D ["#(argb,8,8,3)color(0,0,0,0)", [0, 0, 1, 1 - (_distp / 200)], ASLToAGL ((getPosASL _obj) vectorAdd [0, 0, (_x # 2) + (_distp * 0.05)]), 1, 1, 0, format [d_d3d_locs4a, round (_cwt - time)], 1, 0.033 - (_distp / 9000), "RobotoCondensed"];
+			drawIcon3D ["#(argb,8,8,3)color(0,0,0,0)", [0, 0, 1, 1 - (_distp / 200)], ASLToAGL ((getPosASL _obj) vectorAdd [0, 0, (_x # 2) + (_distp * 0.05)]), 1, 1, 0, format [d_d3d_locs4a, round (_cwt - time)], 1, _scale - (_distp / 9000), "RobotoCondensed"];
 		};
 	};
 } forEach d_3draw_ar;

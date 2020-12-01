@@ -143,5 +143,5 @@ if (_rtype == 0) then { // player died
 	player setBleedingRemaining 0;
 	
 	[player] remoteExecCall ["d_fnc_addceo", 2];
-	player remoteExecCall ["d_fnc_prison_check", 2];
+	//player remoteExecCall ["d_fnc_prison_check", 2];
 };

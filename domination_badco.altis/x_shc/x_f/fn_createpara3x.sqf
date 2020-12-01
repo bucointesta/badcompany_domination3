@@ -201,7 +201,7 @@ for "_i" from 1 to _number_vehicles do {
 	if (d_cur_tgt_pos distance2D _cur_tgt_pos > 500) exitWith {_stop_it = true};
 	private _vgrp = [d_side_enemy] call d_fnc_creategroup;
 	private _heli_type = selectRandom d_transport_chopper;
-	private _spos = [_startpoint # 0, _startpoint # 1, 300];
+	private _spos = [(_startpoint # 0) + (random 500), (_startpoint # 1) + (random 500), 300];
 	([_spos, _spos getDir _attackpoint, _heli_type, _vgrp] call d_fnc_spawnVehicle) params ["_vec", "_crew"];
 	addToRemainsCollector [_vec];
 	_vec remoteExec ["d_fnc_airmarkermove", 2];

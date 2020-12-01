@@ -75,7 +75,7 @@ if (isnull _boxobj) then {
 		#ifdef __RHS__
 		_boxobj attachto [_unit,[0,-1,0.5]];
 		#else
-		_boxobj attachto [_unit,[0,-2.5,-4.5]];
+		_boxobj attachto [_unit,[0,-6,-2.5]];
 		#endif
 	} else {
 		_boxobj setpos _boxpos;

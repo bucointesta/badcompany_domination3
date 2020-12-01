@@ -26,7 +26,7 @@ if (_exitj) exitWith {};
 d_x_do_call_taxi = false;
 
 d_x_airtaximarker = "d_air_taxi_" + str player;
-[d_x_airtaximarker, d_FLAG_BASE, "ICON", "ColorBlue", [0.8,0.8], localize "STR_DOM_MISSIONSTRING_1882", 0, "mil_dot"] call d_fnc_CreateMarkerLocal;
+[d_x_airtaximarker, (getpos d_FLAG_BASE) vectorAdd [50,50,0], "ICON", "ColorBlue", [0.8,0.8], localize "STR_DOM_MISSIONSTRING_1882", 0, "mil_dot"] call d_fnc_CreateMarkerLocal;
 
 createDialog "D_AirTaxiDialog";
 waitUntil {!isNil "d_airdtaxi_dialog_open" && {d_x_do_call_taxi || {!d_airdtaxi_dialog_open || {!alive player || {player getVariable ["xr_pluncon", false] || {player getVariable ["ace_isunconscious", false]}}}}}};

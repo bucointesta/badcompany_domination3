@@ -5,7 +5,8 @@
 
 params ["_pl", "_pl_name", "_reason"];
 private _uid = getPlayerUID _pl;
-"LOSER" remoteExecCall ["endMission", _pl];
+// Hunter: is this the reason for random mission restarts?! what if player isnull?! move endmission to clientside...
+//"LOSER" remoteExecCall ["endMission", _pl];
 if (_reason != -1) then {
 	switch (_reason) do {
 		case 2: {

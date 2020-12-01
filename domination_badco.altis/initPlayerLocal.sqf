@@ -49,6 +49,7 @@ if (str player in d_grenadiers) then {player setVariable ["d_playerRole"," (Gren
 if (str player in d_autoriflemen) then {player setVariable ["d_playerRole"," (Machine gunner)", true];};
 if (str player in d_missilesp) then {player setVariable ["d_playerRole"," (AT/AA Specialist)", true];};
 if (str player in d_crewmen) then {player setVariable ["d_playerRole"," (Crewman)", true];};
+if (str player == "d_medpilot") then {player setVariable ["d_playerRole"," (MedEvac Pilot)", true];};
 if (str player == "d_admin") then {player setVariable ["d_playerRole"," (Admin)", true];};
 if (str player == "d_zeus") then {player setVariable ["d_playerRole"," (Zeus)", true];};
 

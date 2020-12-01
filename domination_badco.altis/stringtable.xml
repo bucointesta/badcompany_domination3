@@ -12,31 +12,31 @@
 <Russian>Ремонт Призовой техники</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_2">
-<English>Plane Service</English>
-<Spanish>Plane Service</Spanish>
-<Portuguese>Plane Service</Portuguese>
+<English>Airplane Service</English>
+<Spanish>Airplane Service</Spanish>
+<Portuguese>Airplane Service</Portuguese>
 <Korean>Jet Service 고정익 정비</Korean>
 <Japanese>Jet Service</Japanese>
-<Original>Plane Service</Original>
+<Original>Airplane Service</Original>
 <Russian>Ремонт Самолетов</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_3">
-<English>Chopper/UAV Service</English>
-<Spanish>Servicio de Helicópteros/UAV</Spanish>
-<Portuguese>Chopper/UAV Serviço</Portuguese>
+<English>Helicopter Service</English>
+<Spanish>Servicio de Helicópteros</Spanish>
+<Portuguese>Helicopter Serviço</Portuguese>
 <Korean>회전익 무인기 정비</Korean>
-<Japanese>Chopper/UAV Service</Japanese>
-<Original>Chopper/UAV Service</Original>
-<Russian>Ремонт вертолетов\БПЛА</Russian>
+<Japanese>Helicopter Service</Japanese>
+<Original>Helicopter Service</Original>
+<Russian>Ремонт вертолетов</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_4">
-<English>Vehicle/UAV Service</English>
-<Spanish>Servicio/UAV de Vehículos</Spanish>
-<Portuguese>Veículo/UAV Serviço</Portuguese>
+<English>Vehicle Service</English>
+<Spanish>Servicio de Vehículos</Spanish>
+<Portuguese>Veículo Serviço</Portuguese>
 <Korean>차량 정비</Korean>
-<Japanese>Vehicle/UAV Service</Japanese>
-<Original>Vehicle/UAV Service</Original>
-<Russian>Ремонт техники и БПА</Russian>
+<Japanese>Vehicle Service</Japanese>
+<Original>Vehicle Service</Original>
+<Russian>Ремонт техники</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_5">
 <English>Ammobox Loading Point</English>
@@ -1534,7 +1534,7 @@
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_262">
 <English>MHQ Menu</English>
-<Spanish>=Menú MHQ=</Spanish>
+<Spanish>Menú MHQ</Spanish>
 <Portuguese>MHQ Carta</Portuguese>
 <Korean>MHQ 메뉴</Korean>
 <Japanese>MHQ メニュー</Japanese>
@@ -2118,39 +2118,39 @@
 <Russian>Дальность прорисовки: %1</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_359">
-<English>No Gras</English>
+<English>No Grass</English>
 <Spanish>Sin Hierba</Spanish>
 <Portuguese>Nenhum Gras</Portuguese>
 <Korean>숲풀 없음</Korean>
 <Japanese>草無し</Japanese>
-<Original>No Gras</Original>
+<Original>No Grass</Original>
 <Russian>Без травы</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_360">
-<English>Medium Gras</English>
+<English>Medium Grass</English>
 <Spanish>Poca Hierba</Spanish>
 <Portuguese>Médio Gras</Portuguese>
 <Korean>숲풀 중간</Korean>
 <Japanese>草量 中</Japanese>
-<Original>Medium Gras</Original>
+<Original>Medium Grass</Original>
 <Russian>Средняя трава</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_361">
-<English>Full Gras</English>
+<English>Full Grass</English>
 <Spanish>Mucha Hierba</Spanish>
 <Portuguese>Cheio Gras</Portuguese>
 <Korean>숲풀 최대</Korean>
 <Japanese>草量 フル</Japanese>
-<Original>Full Gras</Original>
+<Original>Full Grass</Original>
 <Russian>Много травы</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_362">
-<English>Gras Layer</English>
+<English>Grass Layer</English>
 <Spanish>Capa de Hierba</Spanish>
 <Portuguese>Gras Capa</Portuguese>
 <Korean>숲풀 레이어</Korean>
 <Japanese>草層</Japanese>
-<Original>Gras Layer</Original>
+<Original>Grass Layer</Original>
 <Russian>Уровень травы</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_363">
@@ -2433,31 +2433,31 @@
 <Russian>Боеприпасы</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_524">
-<English>Vehicle/UAV Service Point</English>
-<Spanish>Punto de Servicio de Vehículos/UAV</Spanish>
-<Portuguese>Veículo/UAV Ponto de Serviço</Portuguese>
-<Korean>차량 / UGV 정비</Korean>
-<Japanese>Vehicle/UAV Service Point</Japanese>
-<Original>Vehicle/UAV Service Point</Original>
-<Russian>Ремонт техники и ПБЛА.</Russian>
+<English>Vehicle Service Point</English>
+<Spanish>Punto de Servicio de Vehículos</Spanish>
+<Portuguese>Veículo Ponto de Serviço</Portuguese>
+<Korean>차량 정비</Korean>
+<Japanese>Vehicle Service Point</Japanese>
+<Original>Vehicle Service Point</Original>
+<Russian>Ремонт техники</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_526">
-<English>Plane Service Point</English>
+<English>Airplane Service Point</English>
 <Spanish>Punto de Servicio de Aviones</Spanish>
 <Portuguese>Ponto de Serviço do avião</Portuguese>
 <Korean>고정익 정비</Korean>
-<Japanese>Plane Service Point</Japanese>
-<Original>Plane Service Point</Original>
+<Japanese>Airplane Service Point</Japanese>
+<Original>Airplane Service Point</Original>
 <Russian>Ремонт самолетов</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_528">
-<English>Chopper/UAV Service Point</English>
-<Spanish>Punto de Servicio de Helicópteros/UAV</Spanish>
-<Portuguese>Chopper/UAV Ponto de serviço</Portuguese>
-<Korean>회전익 / UAV 정비</Korean>
-<Japanese>Chopper/UAV Service Point</Japanese>
-<Original>Chopper/UAV Service Point</Original>
-<Russian>Ремонт вертолетов и ПБЛА</Russian>
+<English>Helicopter Service Point</English>
+<Spanish>Punto de Servicio de Helicópteros</Spanish>
+<Portuguese>Helicopter Ponto de serviço</Portuguese>
+<Korean>회전익 정비</Korean>
+<Japanese>Helicopter Service Point</Japanese>
+<Original>Helicopter Service Point</Original>
+<Russian>Ремонт вертолетов</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_531">
 <English>Ammobox load point</English>
@@ -2524,8 +2524,8 @@
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_533">
 <English>Teleport</English>
-<Spanish>=TELETRASPORTAR MHQ=</Spanish>
-<Portuguese>=TELETRASPORTAR MHQ=</Portuguese>
+<Spanish>Teletrasportar</Spanish>
+<Portuguese>Teletrasportar</Portuguese>
 <Korean>텔레포트하기</Korean>
 <Japanese>テレポートする</Japanese>
 <Original>Teleport</Original>
@@ -2656,12 +2656,12 @@
 <Russian>Устройство пока не найдено...</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_552">
-<English>Squad Mgmt</English>
+<English>Squad Management</English>
 <Spanish>Estado Equipo</Spanish>
 <Portuguese>Equipe Estado</Portuguese>
 <Korean>그룹 관리</Korean>
 <Japanese>グループ管理</Japanese>
-<Original>Squad Mgmt</Original>
+<Original>Squad Management</Original>
 <Russian>Вступить в группу</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_554">
@@ -3455,12 +3455,12 @@
 <Russian>Противник вынужден отступить.</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_686">
-<English>Gras layer set to: %1</English>
+<English>Grass layer set to: %1</English>
 <Spanish>Establece Capa de Hierba: %1</Spanish>
 <Portuguese>Gras A capa posta a: %1</Portuguese>
 <Korean>풀숲 레이어 설정: %1</Korean>
 <Japanese>草むら層の設定: %1</Japanese>
-<Original>Gras layer set to: %1</Original>
+<Original>Grass layer set to: %1</Original>
 <Russian>Уровень травы установить: %1.</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_689">
@@ -6081,12 +6081,12 @@
 <Russian>Дальность обзора</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1287">
-<English>Select Gras Layer</English>
+<English>Select Grass Layer</English>
 <Spanish>Selec. Capa de Hierba</Spanish>
 <Portuguese>Seleciona Gras Capa</Portuguese>
 <Korean>숲과 풀 표시여부</Korean>
 <Japanese>下草のレイヤーを選択</Japanese>
-<Original>Select Gras Layer</Original>
+<Original>Select Grass Layer</Original>
 <Russian>Выбрать уровень травы</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1289">
@@ -6298,8 +6298,8 @@
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1322">
 <English>VEHICLE DIALOG</English>
-<Spanish>MHQ MENU VEHICULO</Spanish>
-<Portuguese>MHQ CARTA VEHICULO</Portuguese>
+<Spanish>MENU VEHICULO</Spanish>
+<Portuguese>CARTA VEHICULO</Portuguese>
 <Korean>장비 상태창</Korean>
 <Japanese>車両ダイアログ</Japanese>
 <Original>VEHICLE DIALOG</Original>
@@ -6396,13 +6396,13 @@
 <Russian>Возрождение доступно:</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1333">
-<English>Show Map</English>
-<Spanish>Mostrar Mapa</Spanish>
-<Portuguese>Mostrar Mapa</Portuguese>
-<Korean>지도 보기</Korean>
-<Japanese>地図を開く</Japanese>
-<Original>Show Map</Original>
-<Russian>Открыть карту</Russian>
+<English>Show Map/Respawn</English>
+<Spanish>Mostrar Mapa/Respawn</Spanish>
+<Portuguese>Mostrar Mapa/Respawn</Portuguese>
+<Korean>지도 보기/Respawn</Korean>
+<Japanese>地図を開/Respawnく</Japanese>
+<Original>Show Map/Respawn</Original>
+<Russian>Открыть карту/Respawn</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1333a">
 <English>Hide Map</English>

@@ -234,23 +234,21 @@ if (!_uidcheck_done && {!(d_uid_reserved_slots isEqualTo [])} && {!(membersarr i
 if ((!isnil "adminarr") && {_playerUID in adminarr}) then {
 
 	d_spectating = false;
-	player addAction ["<t color='#CCCC00'>Spectate Players</t﻿﻿>",{d_spectating = true; hintc "To stop spectating, you need to spectate yourself in FIRST PERSON and use your scroll wheel menu options."; sleep 1; waituntil {isnull (findDisplay 57)}; ["Initialize", [player, [side player], false, false, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;},[],-99,false,true,"","!d_spectating"];
+	player addAction ["<t color='#CCCC00'>Spectate Players</t﻿﻿>",{d_spectating = true; hintc "To stop spectating, you need to spectate yourself in FIRST PERSON and use your scroll wheel menu options."; sleep 1; waituntil {isnull (findDisplay 57)}; ["Initialize", [player, [], false, true, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;},[],-99,false,true,"","!d_spectating"];
 	player addAction ["<t color='#FF0000'>Stop Spectating</t﻿﻿>",{d_spectating = false; ["Terminate"] call BIS_fnc_EGSpectator;},[],99,false,true,"","d_spectating"];
 		
 	player addEventHandler ["Respawn",{
 		params ["_unit", "_corpse"];	
-		_unit addAction ["<t color='#CCCC00'>Spectate Players</t﻿﻿>",{d_spectating = true; hintc "To stop spectating, you need to spectate yourself in FIRST PERSON and use your scroll wheel menu options."; sleep 1; waituntil {isnull (findDisplay 57)}; ["Initialize", [player, [side player], false, false, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;},[],-99,false,true,"","!d_spectating"];
+		_unit addAction ["<t color='#CCCC00'>Spectate Players</t﻿﻿>",{d_spectating = true; hintc "To stop spectating, you need to spectate yourself in FIRST PERSON and use your scroll wheel menu options."; sleep 1; waituntil {isnull (findDisplay 57)}; ["Initialize", [player, [], false, true, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;},[],-99,false,true,"","!d_spectating"];
 		_unit addAction ["<t color='#FF0000'>Stop Spectating</t﻿﻿>",{d_spectating = false; ["Terminate"] call BIS_fnc_EGSpectator;},[],99,false,true,"","d_spectating"];
 	}];	
 		
 };
 
-d_still_in_intro = false;
-
 enableSentences false;
 
+/*
 sleep 5;
-
 if (_firstTimeJoined) then {
 
 	[
@@ -265,9 +263,7 @@ if (_firstTimeJoined) then {
 	sleep 6;
 
 };
-
-//"d_introtxt1" cutText [format [localize "STR_DOM_MISSIONSTRING_1434", actionKeysNames "TeamSwitch"], "PLAIN"];
-xr_phd_invulnerable = false;
+*/
 
 uiNamespace setVariable ["D_DomLabel", nil];
 uiNamespace setVariable ["d_DomThree", nil];
@@ -277,186 +273,203 @@ if (name player == "Error: No unit" || {!isPlayer player}) then {
 
 uiNamespace setVariable ["firstTimeJoined", false];
 
-if (str player == "d_admin") exitWith {diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"]};
+introFuckedUp = true;
+introBackgroundEffect = ppEffectCreate ["ColorCorrections", 1587];
+introBackgroundEffect ppEffectEnable true;
+introBackgroundEffect ppEffectAdjust [0.1, 0.5, 0, [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]];
+introBackgroundEffect ppEffectCommit 0;
 
-_backgroundEffect = ppEffectCreate ["ColorCorrections", 1587];
-_backgroundEffect ppEffectEnable true;
-_backgroundEffect ppEffectAdjust [0.1, 0.5, 0, [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]];
-_backgroundEffect ppEffectCommit 0;
+[] spawn {
+	sleep 20;
+	if (introFuckedUp) then {
+		ppEffectDestroy introBackgroundEffect;
+		d_still_in_intro = false;
+		xr_phd_invulnerable = false;
+	};
+};
 
-if (str player in d_crewmen) exitWith {	
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a CREWMAN. Your main role is to make use of armoured vehicles to support your team.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light armor and crewman helmets.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_riflemen) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a RIFLEMAN. Your role is to be the main manpower in combat to help achieve your team's objectives.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and disposable launchers.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-  <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators and you can deploy MAVs.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_grenadiers) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a GRENADIER. Your main role is to provide support to your team in medium range combat with smoke and HE grenades. Use your HE grenades as a force multiplier and your smokes for concealment and to mark targets.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and grenade launchers.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_autoriflemen) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an AUTOMATIC RIFLEMAN. Your main role is to support friendlies by suppressing enemy contacts at all ranges.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and machine guns.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_snipers) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MARKSMAN. Your main role is to support your team by providing precision fire at medium and long range.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, sniper rifles and sniper optics.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-  <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can only carry small backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_spotters) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a FORWARD OBSERVER. Your main role is to spot targets for artillery and close air support (CAS).</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and sniper optics.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can only wear light armor.</t><br/>
-  <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can only carry small backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_missilesp) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MISSILE SPECIALIST. Your main role is to support your team by engaging enemy ground and air vehicles.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and all launchers.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_saboteurs) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a SABOTEUR. Your main role is to infiltrate enemy lines and destroy targets with explosives.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, disposable launchers and some special-purpose weapons and uniforms.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
-  <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if ((str player) == "d_medpilot") exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MEDEVAC PILOT. Your main role is to provide rapid air transport for medical operations.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_medics) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a COMBAT MEDIC. Your main role is to support your team by healing and reviving wounded friendlies on the battlefield.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-  <t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use medkits and laser designators.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_is_engineer) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an ENGINEER. Your main role is to repair friendly vehicles, destroy enemy targets with explosives and defuse enemy mines.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns and assault rifles.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
-	<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
-	<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use toolkits.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-/*
-if (str player in d_attack_pilots) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an ATTACK PILOT. Your main role is to provide close air support (ONLY WHEN REQUESTED BY YOUR TEAM - READ THE RULES).</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-if (str player in d_transport_pilots) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a TRANSPORT PILOT. Your main role is to provide air transport for troops and logistics, as well as delivery and retrieval of friendly vehicles.</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
-};
-*/
+if (true) then {
 
-if ((str player in d_transport_pilots) || {str player in d_attack_pilots}) exitWith {
-	"Welcome to Bad Company Domination!" hintc parseText
-	"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
-	<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the Domination menu.</t><br/><br/>
-	<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a PILOT. Your primary role is to provide air transport for troops and logistics, as well as delivery and retrieval of friendly vehicles (remember that with more than 25 players online, MHQs will be disabled). Your secondary role is to provide close air support (ONLY WHEN REQUESTED BY YOUR TEAM - READ THE RULES).</t><br/><br/>
-	<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
-	<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>";
-	sleep 0.1;
-	ppEffectDestroy _backgroundEffect;
-	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
+	_keyArr = actionKeysNamesArray ["TeamSwitch", 1];
+	_key = "undefined";
+	if ((count _keyArr) > 0) then {
+		_key = _keyArr select 0;
+	};	
+
+	if (str player in d_crewmen) exitWith {	
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a CREWMAN. Your main role is to make use of armoured vehicles to support your team.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light armor and crewman helmets.</t>", _key];
+	};
+	if (str player in d_riflemen) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a RIFLEMAN. Your role is to be the main manpower in combat to help achieve your team's objectives.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and disposable launchers.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
+		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators and you can deploy MAVs.</t>", _key];
+	};
+	if (str player in d_grenadiers) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a GRENADIER. Your main role is to provide support to your team in medium range combat with smoke and HE grenades. Use your HE grenades as a force multiplier and your smokes for concealment and to mark targets.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and grenade launchers.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
+		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>", _key];
+	};
+	if (str player in d_autoriflemen) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an AUTOMATIC RIFLEMAN. Your main role is to support friendlies by suppressing enemy contacts at all ranges.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and machine guns.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
+		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>", _key];
+	};
+	if (str player in d_snipers) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MARKSMAN. Your main role is to support your team by providing precision fire at medium and long range.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, sniper rifles and sniper optics.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can only carry small backpacks.</t><br/>
+		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>", _key];
+	};
+	if (str player in d_spotters) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a FORWARD OBSERVER. Your main role is to spot targets for artillery and close air support (CAS).</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and sniper optics.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can only wear light armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can only carry small backpacks.</t><br/>
+		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>", _key];
+	};
+	if (str player in d_missilesp) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MISSILE SPECIALIST. Your main role is to support your team by engaging enemy ground and air vehicles.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and all launchers.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
+		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>", _key];
+	};
+	if (str player in d_saboteurs) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a SABOTEUR. Your main role is to infiltrate enemy lines and destroy targets with explosives.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, disposable launchers and some special-purpose weapons and uniforms.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t>", _key];
+	};
+	if ((str player) == "d_medpilot") exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MEDEVAC PILOT. Your main role is to provide rapid air transport for medical operations.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>", _key];
+	};
+	if (str player in d_medics) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a COMBAT MEDIC. Your main role is to support your team by healing and reviving wounded friendlies on the battlefield.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
+		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use medkits and laser designators.</t>", _key];
+	};
+	if (str player in d_is_engineer) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an ENGINEER. Your main role is to repair friendly vehicles, destroy enemy targets with explosives and defuse enemy mines.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns and assault rifles.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
+		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use toolkits.</t>", _key];
+	};
+	/*
+	if (str player in d_attack_pilots) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an ATTACK PILOT. Your main role is to provide close air support (ONLY WHEN REQUESTED BY YOUR TEAM - READ THE RULES).</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>", _key];
+	};
+	if (str player in d_transport_pilots) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold your TeamSwitch key (default: U) to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a TRANSPORT PILOT. Your main role is to provide air transport for troops and logistics, as well as delivery and retrieval of friendly vehicles.</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>", _key];
+	};
+	*/
+
+	if ((str player in d_transport_pilots) || {str player in d_attack_pilots}) exitWith {
+		"Welcome to Bad Company Domination!" hintc parseText format [
+		"<t size='7' shadow='0' align='center'> <img image='pics\dthree.paa' /></t><br/><br/>
+		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
+		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a PILOT. Your primary role is to provide air transport for troops and logistics, as well as delivery and retrieval of friendly vehicles (remember that with more than 25 players online, MHQs will be disabled). Your secondary role is to provide close air support (ONLY WHEN REQUESTED BY YOUR TEAM - READ THE RULES).</t><br/><br/>
+		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>", _key];
+	};
+
 };
+
+sleep 2;
+waitUntil {(isnull findDisplay 57) && {isnull findDisplay 72}};
+ppEffectDestroy introBackgroundEffect;
+
+if (!(profileNamespace getVariable ["BadCoTutorialDone", false])) then {
+	profileNamespace setVariable ["BadCoTutorialDone", true];
+	tutorialHandle = execVM "tutorial.sqf";
+	execVM "tutorial_forceend.sqf";
+} else {
+	uiSleep 0.1;
+	d_still_in_intro = false;
+	xr_phd_invulnerable = false;
+	_grpStr = uiNamespace getVariable ["BadCoLastGroup", str grpNull];
+	if (_grpStr != (str grpNull)) then {
+		private _grp = grpNull;
+		{
+			if ((str _x) == _grpStr) exitWith {
+				_grp = _x;
+			};
+		} foreach allGroups;
+		if (!isNull _grp) then {
+			[player] joinSilent _grp;
+			if (uiNamespace getVariable ["BadCoIsGroupLeader", false]) then {
+				sleep 2;
+				if (player != (leader group player)) then {
+					[group player, player] remoteExecCall ["selectLeader", groupOwner group player];
+					sleep 2;
+				};
+				uiNamespace setVariable ["d_dyxn_gr_disp", findDisplay 46 createDisplay "RscDisplayDynamicGroups"];
+				0 spawn d_fnc_grouplead;
+			};
+		};
+	} else {
+		uiNamespace setVariable ["d_dyxn_gr_disp", findDisplay 46 createDisplay "RscDisplayDynamicGroups"];
+		0 spawn d_fnc_grouplead;
+	};
+};
+
+introFuckedUp = false;
 
 diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];

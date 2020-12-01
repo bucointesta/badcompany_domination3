@@ -15,10 +15,16 @@ private _v_p = vehicle player;
 private _is_para = (_v_p isKindOf "BIS_Steerable_Parachute") || {_v_p isKindOf "ParachuteBase"};
 
 d_DomUserMenu = [
-	["Domination", false],
+	["Bad Company Domination", false],
 	[localize "STR_DOM_MISSIONSTRING_304", [call _fnc_inc_num], "", -5, [["expression", "0 call d_fnc_DomCommandingMenuExec"]], "1", "1"],
 	["-", [0], "", -1, [["expression", ""]], "1", "1"]
 ];
+
+d_DomUserMenu pushBack [localize "STR_DOM_MISSIONSTRING_552", [call _fnc_inc_num], "", -5, [["expression", "closeDialog 0; _disp = findDisplay 46 createDisplay 'RscDisplayDynamicGroups'; _disp spawn {uiSleep 0.1; waitUntil {isNull _this}; _disp = findDisplay 46 createDisplay 'RscDisplayDynamicGroups'; uiNamespace setVariable ['d_dyxn_gr_disp', _disp]; 0 spawn d_fnc_grouplead};"]], "1", "1"];
+d_DomUserMenu pushBack ["-", [0], "", -1, [["expression", ""]], "1", "1"];
+
+d_DomUserMenu pushBack [[localize "STR_DOM_MISSIONSTRING_1727", localize "STR_DOM_MISSIONSTRING_1726"] select d_earplugs_fitted, [call _fnc_inc_num], "", -5, [["expression", "40 call d_fnc_DomCommandingMenuExec"]], "1", "1"];
+d_DomUserMenu pushBack ["-", [0], "", -1, [["expression", ""]], "1", "1"];
 
 if (d_player_can_call_arti > 0 && {d_areArtyVecsAvailable && {!_is_para}}) then {
 #ifndef __TT__
@@ -93,9 +99,6 @@ if (!d_with_ace) then {
 		};
 	};
 
-	d_DomUserMenu pushBack ["-", [0], "", -1, [["expression", ""]], "1", "1"];
-
-	d_DomUserMenu pushBack [[localize "STR_DOM_MISSIONSTRING_1727", localize "STR_DOM_MISSIONSTRING_1726"] select d_earplugs_fitted, [call _fnc_inc_num], "", -5, [["expression", "40 call d_fnc_DomCommandingMenuExec"]], "1", "1"];
 };
 
 if (d_with_ranked) then {

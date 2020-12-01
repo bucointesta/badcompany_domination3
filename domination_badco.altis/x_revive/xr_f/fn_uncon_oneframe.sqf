@@ -71,7 +71,7 @@ if (_tt <= 0) exitWith {
 		player setDamage 0;
 		[player, 105] remoteExecCall ["xr_fnc_handlenet"];
 		call d_fnc_retrieve_layoutgear;
-		player remoteExec ["d_fnc_prison_check", 2];
+		//player remoteExec ["d_fnc_prison_check", 2];
 		sleep 1.3;
 		__TRACE("time over black in")
 		"xr_revtxt" cutText ["","BLACK IN", 2];

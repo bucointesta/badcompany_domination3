@@ -29,8 +29,8 @@ if (_isBoat) then {
 	#ifdef __RHS__
 		_box attachto [_unit,[0,-1,0.5]];
 	#else
-		_box attachto [_unit,[0,-2.5,-4.5]];
-		#endif
+		_box attachto [_unit,[0,-6,-2.5]];
+	#endif
 } else {
 	_box setpos _box_pos;
 };

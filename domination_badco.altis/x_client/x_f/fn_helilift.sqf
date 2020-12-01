@@ -180,18 +180,22 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 						} else {
 							if (!isNull attachedTo _liftobj) then {		
 								if (((getposatl _liftobj) select 2) < 3) then {
+									_liftPos = getposATL _liftobj;
 									{
 										ropeDestroy _x;
 									} forEach (_ropes select {!isNull _x});
-									detach _liftobj;	
-									_liftPos = getposATL _liftobj;
-									_liftPos set [2,1];
+									detach _liftobj;
+									_liftPos set [2,0.1];
 									_liftobj setposatl _liftPos;
 									sleep 1;
 								} else {
 									// don't detach if ropes were broken by desync... keep using legacy system
 									if ((count (ropeAttachedObjects _chopper)) > 0) then {
-										detach _liftobj;
+										_liftPos = getpos _liftobj;
+										detach _liftobj;					
+										_liftPos set [2, (((getposatl _chopper) select 2) - 15) max 3];
+										_liftobj setposatl _liftPos;
+										[_liftobj, velocity _chopper] remoteExecCall ["setVelocity", _liftobj, false];
 										sleep 3;
 									};
 								};	

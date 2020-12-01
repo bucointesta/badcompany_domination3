@@ -132,7 +132,9 @@ _this spawn {
 				_this addMagazines [VAN_RIFLE3TO_MAG, 10];
 			};
 			default {
-				_this removeMagazines _mag;
+				if (!isNil "_mag") then {
+					_this removeMagazines _mag;
+				};				
 				_this removeWeapon _primary;
 				_this addWeapon VAN_RIFLEDEFTO;
 				_this addPrimaryWeaponItem VAN_RIFLEDEFTO_MAG;

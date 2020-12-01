@@ -126,7 +126,7 @@ player setVariable ["xr_plno3dd", nil, true];
 d_last_beam_target = d_beam_target;
 d_beam_target = "";
 player setDamage 0;
-player remoteExec ["d_fnc_prison_check", 2];
+//player remoteExec ["d_fnc_prison_check", 2];
 __TRACE("MapClickRespawn, black in")
 "xr_revtxt" cutText [localize "STR_DOM_MISSIONSTRING_918", "BLACK IN", 6];
 if (xr_max_lives != -1) then {

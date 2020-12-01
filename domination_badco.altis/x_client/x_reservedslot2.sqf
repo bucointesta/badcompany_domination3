@@ -12,5 +12,6 @@ for "_i" from 1 to 3 do {
 };
 
 hint (localize "STR_DOM_MISSIONSTRING_338");
-sleep 1;
 [player, d_name_pl, -1] remoteExecCall ["d_fnc_KickPlayerBS", 2];
+sleep 3;
+endMission "LOSER";

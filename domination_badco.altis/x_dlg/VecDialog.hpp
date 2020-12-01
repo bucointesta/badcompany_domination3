@@ -80,6 +80,7 @@ class D_VecDialog {
 			style = 2;
 			text = "$STR_DOM_MISSIONSTRING_1326"; 
 			action = "call d_fnc_create_vecx";
+			colorBackground[] = {0, 0.5, 0.5, 0.8};
 			x = 0.52;
 			y = 0.59;
 		};

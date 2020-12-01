@@ -109,7 +109,7 @@ if (_d_vec < 100) exitWith {
 #ifdef __TT__
 	if (d_player_side == blufor) then {
 #endif
-	_vec addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_262"], {_this call d_fnc_vecdialog}, _d_vec, -1, false];
+	_vec addAction [format ["<t color='#00FFFF' size='2.0'>%1</t>", localize "STR_DOM_MISSIONSTRING_262"], {_this call d_fnc_vecdialog}, _d_vec, -1, true, false, "", "(speed _target) < 2", 20];
 #ifdef __TT__
 	} else {
 		_vec setVariable ["d_liftit", false];
@@ -315,7 +315,7 @@ if (_d_vec < 1100) exitWith {
 	};
 	if (!alive _vec) exitWith {};
 	if (d_player_side == opfor) then {
-		_vec addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_262"], {_this call d_fnc_vecdialog}, _d_vec, -1, false];
+		_vec addAction [format ["<t color='#00FFFF' size='2.0'>%1</t>", localize "STR_DOM_MISSIONSTRING_262"], {_this call d_fnc_vecdialog}, _d_vec, -1, true, false, "", "(speed _target) < 2", 20];
 	};
 	_vec setVariable ["d_vec_type", "MHQ"];
 	_vec setAmmoCargo 0;

@@ -39,6 +39,8 @@ if (_uidx == -1) then {
 		if (!isNull _mrs) then {
 			private _curaridx = _not_avail_array pushBack _data; 
 			private _lbcolor = call {
+				//Hunter: disable respawn at MHQ with player count
+				if ((count (allPlayers - entities "HeadlessClient_F")) >= 25) exitWith {_logtxt = "MHQs are disabled"; __COLRED};
 				if (_mrs getVariable ["d_in_air", false]) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_592",  _ctrl lbText _sel, _logtxt]; __COLRED};
 				if (speed _mrs > 4) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_593", _ctrl lbText _sel, _logtxt]; __COLRED};
 				if ((surfaceIsWater (getPosWorld _mrs)) && {!(_mrs iskindof "Ship")}) exitWith {_logtxt = format [localize "STR_DOM_MISSIONSTRING_594", _ctrl lbText _sel, _logtxt]; __COLRED};

@@ -53,15 +53,35 @@ if (isServer) then {
 	//Hunter: Bad method. Works only if you leave time inside editor at midnight...
 	//skipTime d_TimeOfDay;
 	
+	// d_TimeOfDay as a parameter is now obsolete. use editor to grab set time
+	
 	//also wait until someone joins to set time so autoinit doesn't burn daylight
 	[] spawn {
+		_hour = date select 3;
+		_min = date select 4;
 		waitUntil {		
 			sleep 1;
 			((call d_fnc_PlayersNumber) > 0)
 		};
 		_date = date;
-		_date set [3,d_TimeOfDay];
+		_date set [3,_hour];
+		_date set [4,_min];
 		setDate _date;
+		
+		waitUntil {
+			sleep 120;
+			daytime > 20
+		};
+		setTimeMultiplier 4.0;
+		waitUntil {
+			sleep 120;
+			daytime < _hour
+		};
+		waitUntil {
+			sleep 120;
+			daytime > _hour
+		};
+		setTimeMultiplier 1.0;
 	};
 
 };
@@ -176,29 +196,29 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 			case (_pCount < 20) : {			
 				d_vec_numbers_guard = [
 					[[0,0], 0], // tanks
-					[[1,1], 1], // tracked apc
+					[[0,0], 0], // tracked apc
 					[[1,1], 1], // wheeled apc
 					[[0,0], 0], // jeep with mg
 					[[1,1], 1] // jeep with gl
 				];
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
-					[[0,0], 0], // tracked apc
+					[[1,1], 1], // tracked apc
 					[[1,1], 2] // aa
 				];				
 				d_vec_numbers_patrol = [
 					[[0,0], 0], // tanks
-					[[1,1], 1], // tracked apc
+					[[0,0], 0], // tracked apc
 					[[1,1], 1], // wheeled apc
-					[[0,0], 0], // jeep with mg
+					[[1,1], 1], // jeep with mg
 					[[1,1], 1] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[3,3], // basic groups
+					[2,2], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[3,3], // basic groups
+					[1,1], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
@@ -208,23 +228,23 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 			};
 			case (_pCount < 30) : {			
 				d_vec_numbers_guard = [
-					[[1,1], 1], // tanks
-					[[1,1], 1], // tracked apc
+					[[0,0], 0], // tanks
+					[[0,0], 0], // tracked apc
 					[[1,1], 1], // wheeled apc
 					[[0,0], 0], // jeep with mg
 					[[0,0], 0] // jeep with gl
 				];
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
-					[[0,0], 0], // tracked apc
+					[[1,1], 1], // tracked apc
 					[[1,1], 2] // aa
 				];				
 				d_vec_numbers_patrol = [
-					[[1,1], 1], // tanks
-					[[1,1], 1], // tracked apc
+					[[0,0], 0], // tanks
+					[[0,0], 0], // tracked apc
 					[[1,1], 1], // wheeled apc
-					[[0,0], 0], // jeep with mg
-					[[0,0], 0] // jeep with gl
+					[[1,1], 2], // jeep with mg
+					[[1,1], 1] // jeep with gl
 				];				
 				d_footunits_guard = [
 					[2,2], // basic groups
@@ -241,30 +261,30 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 			};
 			case (_pCount < 40) : {			
 				d_vec_numbers_guard = [
-					[[1,1], 1], // tanks
-					[[1,1], 2], // tracked apc
-					[[0,0], 0], // wheeled apc
+					[[0,0], 0], // tanks
+					[[0,0], 0], // tracked apc
+					[[1,1], 1], // wheeled apc
 					[[0,0], 0], // jeep with mg
 					[[0,0], 0] // jeep with gl
 				];
 				d_vec_numbers_guard_static = [
-					[[0,0], 0], // tanks
+					[[1,1], 1], // tanks
 					[[0,0], 0], // tracked apc
-					[[2,2], 2] // aa
+					[[1,1], 2] // aa
 				];				
 				d_vec_numbers_patrol = [
-					[[1,1], 1], // tanks
-					[[1,1], 2], // tracked apc
-					[[0,0], 0], // wheeled apc
-					[[0,0], 0], // jeep with mg
-					[[0,0], 0] // jeep with gl
+					[[0,0], 0], // tanks
+					[[0,0], 0], // tracked apc
+					[[1,1], 1], // wheeled apc
+					[[1,1], 1], // jeep with mg
+					[[1,1], 1] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[1,1], // basic groups
+					[3,3], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[1,1], // basic groups
+					[3,3], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
@@ -272,37 +292,103 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 					[4,4] // specop groups
 				];			
 			};
-			default {
+			case (_pCount < 50) : {			
 				d_vec_numbers_guard = [
-					[[1,1], 2], // tanks
-					[[1,1], 2], // tracked apc
-					[[0,0], 0], // wheeled apc
+					[[1,1], 1], // tanks
+					[[1,1], 1], // tracked apc
+					[[1,1], 1], // wheeled apc
 					[[0,0], 0], // jeep with mg
 					[[0,0], 0] // jeep with gl
 				];
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
 					[[0,0], 0], // tracked apc
-					[[2,2], 3] // aa
+					[[1,1], 2] // aa
 				];				
 				d_vec_numbers_patrol = [
-					[[1,1], 2], // tanks
-					[[1,1], 2], // tracked apc
-					[[0,0], 0], // wheeled apc
-					[[0,0], 0], // jeep with mg
+					[[1,1], 1], // tanks
+					[[1,1], 1], // tracked apc
+					[[1,1], 2], // wheeled apc
+					[[1,1], 1], // jeep with mg
 					[[0,0], 0] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[1,1], // basic groups
+					[4,4], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[0,0], // basic groups
+					[4,4], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
 					[0,0], // basic groups
-					[3,3] // specop groups
+					[5,5] // specop groups
+				];			
+			};
+			case (_pCount < 60) : {			
+				d_vec_numbers_guard = [
+					[[1,1], 1], // tanks
+					[[1,1], 1], // tracked apc
+					[[1,1], 1], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
+				];
+				d_vec_numbers_guard_static = [
+					[[0,0], 0], // tanks
+					[[0,0], 0], // tracked apc
+					[[1,1], 3] // aa
+				];				
+				d_vec_numbers_patrol = [
+					[[1,1], 1], // tanks
+					[[1,1], 2], // tracked apc
+					[[1,1], 2], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
+				];				
+				d_footunits_guard = [
+					[5,5], // basic groups
+					[0,0] // specop groups
+				];
+				d_footunits_patrol = [
+					[5,5], // basic groups
+					[0,0] // specop groups
+				];
+				d_footunits_guard_static = [
+					[0,0], // basic groups
+					[5,5] // specop groups
+				];			
+			};
+			default {
+				d_vec_numbers_guard = [
+					[[1,1], 1], // tanks
+					[[1,1], 1], // tracked apc
+					[[1,1], 1], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
+				];
+				d_vec_numbers_guard_static = [
+					[[0,0], 0], // tanks
+					[[0,0], 0], // tracked apc
+					[[1,1], 3] // aa
+				];				
+				d_vec_numbers_patrol = [
+					[[1,1], 2], // tanks
+					[[1,1], 2], // tracked apc
+					[[1,1], 2], // wheeled apc
+					[[0,0], 0], // jeep with mg
+					[[0,0], 0] // jeep with gl
+				];				
+				d_footunits_guard = [
+					[5,5], // basic groups
+					[0,0] // specop groups
+				];
+				d_footunits_patrol = [
+					[5,5], // basic groups
+					[0,0] // specop groups
+				];
+				d_footunits_guard_static = [
+					[0,0], // basic groups
+					[5,5] // specop groups
 				];		
 			};		
 		};	
@@ -588,7 +674,7 @@ d_p_vecs = [
 	["D_T03",902,"d_tank3","n_mech_inf","ColorBlue","Lava-1",""],["D_T04",903,"d_tank4","n_mech_inf","ColorBlue","Lava-2",""],
 	["D_T05",904,"d_tank5","n_mech_inf","ColorBlue","Target",""],["D_T06",905,"d_tank6","n_mech_inf","ColorBlue","Ram-1",""],
 	["D_T07",906,"d_tank7","n_mech_inf","ColorBlue","Ram-2",""],["D_T08",907,"d_tank8","n_mech_inf","ColorBlue","Stinger",""],
-	["D_T09",908,"d_tank9","n_mech_inf","ColorBlue","Sander",""]
+	["D_T09",908,"d_tank9","n_armor","ColorBlue","Sander",""]
 ];
 if (d_ifa3lite) then {
 	d_p_vecs pushBack ["D_TR11",500,"d_truck11","n_support","ColorGreen","W1",""];

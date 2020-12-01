@@ -7,6 +7,12 @@ params ["", "_uid", "_name"];
 
 if (_name == "__SERVER__" || {_name == "headlessclient"}) exitWith {};
 
+// Hunter: everything here is connected to the DB. It's not needed and it doesn't even have a DB-found check! 
+// just log here when a player leaves to help debugging server issues.
+diag_log ("Player " + _name + " left the game.");
+
+/*
+
 private _unit = objNull;
 (allPlayers - entities "HeadlessClient_F") findIf {
 	if (getPlayerUID _x == _uid) then {
@@ -30,12 +36,7 @@ private _ps = if (!isNull _unit) then {getPlayerScores _unit} else {_pa # 12};
 private _scpl = if (!isNull _unit) then {score _unit} else {-1};
 __TRACE_1("","getPlayerScores _unit")
 __TRACE_1("","_ps")
-if (_ps isEqualTo []) exitWith {
 
-	//Hunter: make sure player unit doesn't turn into AI in some cases...
-	deletevehicle _unit;
-
-};
 //  [infantry kills, soft vehicle kills, armor kills, air kills, deaths, total score]
 private _usc = _uid + "_scores";
 private _t_ps = d_player_store getVariable [_usc, [0, 0, 0, 0, 0, 0]];
@@ -64,5 +65,4 @@ __TRACE_1("","_playtime")
 
 __TRACE("extDB3 called")
 
-//Hunter: make sure player unit doesn't turn into AI in some cases...
-deletevehicle _unit;
+*/

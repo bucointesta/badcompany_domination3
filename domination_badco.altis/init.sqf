@@ -29,4 +29,12 @@ addMissionEventhandler ["EachFrame", {
 	removeMissionEventHandler ["EachFrame", _thisEventHandler];
 }];
 
+if (isServer) then {
+	call compile preprocessFileLineNumbers "debug.sqf";
+	addMissionEventHandler ["Ended", {
+		params ["_endType"];
+		diag_log format ["Mission ended! End type: %1", _endType];
+	}];
+};
+
 diag_log [diag_frameno, diag_ticktime, time, "Dom init.sqf processed"];
