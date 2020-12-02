@@ -59,10 +59,13 @@ private _make_jump = {
 	while {_posLead = getPosASL (leader _vgrp); (_attackpoint distance2D _posLead > 1000) || {surfaceIsWater _posLead}} do {
 		if (!alive _vec || {!alive _driver_vec || {!canMove _vec}}) exitWith {d_should_be_there = d_should_be_there - 1};
 		sleep 0.01;
+		// Hunter: let them come :)
+		/*
 		if (d_mt_radio_down && {_attackpoint distance2D (leader _vgrp) > 10000}) exitWith {
 			[_crew_vec, _vec, 1 + random 1] spawn _delveccrew;
 			_stop_me = true;
 		};
+		*/
 		sleep 0.01;
 		if (time > _checktime) then {
 			if (_startpos distance2D _vec < 500) then {
@@ -88,10 +91,12 @@ private _make_jump = {
 		_chopperCap = _vec emptyPositions "Cargo";
 		if (count _real_units < _chopperCap) then {
 			while {count _real_units < _chopperCap} do {
-				_real_units pushBack (selectRandom _real_units);
+				sleep 0.1;
+				_real_units = _real_units + (["allmen", d_enemy_side_short] call d_fnc_getunitlistm);
 			};
+		} else {
+			sleep 0.1;
 		};
-		sleep 0.1;
 		private _subskill = if (diag_fps > 29) then {
 			(0.1 + (random 0.2))
 		} else {
@@ -99,6 +104,7 @@ private _make_jump = {
 		};
 		private _sleeptime = [0.551, 0.15] select (speed _vec > 80);
 		{
+			if (_foreachIndex == _chopperCap) exitWith {};
 			private _pposcx = getPosATL _vec;
 			private _one_unit = _paragrp createUnit [_x, [_pposcx # 0, _pposcx # 1, 0], [], 0,"NONE"];
 			if (Hz_customUnitLoadouts) then {
@@ -222,7 +228,8 @@ for "_i" from 1 to _number_vehicles do {
 	
 	[_vgrp, _vec, _attackpoint, _flytopos, _heliendpoint, _delveccrew, _crew] spawn _make_jump;
 	// Hunter: make following choppers drop further
-	_flytopos = [_flytopos, 200, ([_flytopos,d_cur_tgt_pos] call bis_fnc_dirto)] call BIS_fnc_relPos;
+	_attackpoint = [_attackpoint, 400, ([_startpoint,_attackpoint] call bis_fnc_dirto)] call BIS_fnc_relPos;
+	_flytopos = _startpoint getPos [(_startpoint distance2D _attackpoint) + 1500, _startpoint getDir _attackpoint];
 	_flytopos set [2, _flyToHeight];
 	
 	//Hunter: no need to wait so much
