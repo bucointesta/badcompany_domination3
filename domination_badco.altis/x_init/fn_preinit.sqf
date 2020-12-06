@@ -885,7 +885,7 @@ if (!d_tt_tanoa) then {
 		["CUP_B_MV22_USMC", "B_T_VTOL_01_infantry_F"] select (!d_cup);
 #endif
 #ifdef __OWN_SIDE_OPFOR__
-		"O_T_VTOL_02_infantry_dynamicLoadout_F";
+		"O_T_VTOL_02_infantry_grey_F";
 #endif
 #ifdef __TT__
 		"O_Heli_Light_02_unarmed_F";
@@ -1047,10 +1047,10 @@ if (!d_tt_tanoa) then {
 		case "G": {"Land_Cargo_HQ_V1_F"};
 	};
 
-	// type of enemy plane that will fly over the main target
+	// Hunter: type of CAS plane that will fly over main target
 #ifndef __CUP__
 	d_airai_attack_plane = switch (d_enemy_side_short) do {
-		case "E": {["O_Plane_CAS_02_dynamicLoadout_F","I_Plane_Fighter_03_dynamicLoadout_F","I_Plane_Fighter_04_F"]};
+		case "E": {["O_Plane_CAS_02_Cluster_F","I_Plane_Fighter_03_Cluster_F","I_Plane_Fighter_04_F"]};
 		case "W": {[["LIB_FW190F8", "LIB_FW190F8_4", "LIB_FW190F8_2", "LIB_FW190F8_5", "LIB_FW190F8_3"], ["B_Plane_CAS_01_F"]] select (!d_ifa3lite)};
 		case "G": {["I_Plane_Fighter_03_CAS_F"]};
 	};
@@ -1078,7 +1078,7 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 #ifndef __CUP__
 	// type of enemy chopper that will fly over the main target
 	d_airai_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["O_Heli_Attack_02_dynamicLoadout_F","I_Heli_light_03_dynamicLoadout_F","O_T_VTOL_02_infantry_dynamicLoadout_F"]};
+		case "E": {["O_Heli_Attack_02_F","I_Heli_light_03_F","O_T_VTOL_02_infantry_grey_F"]};
 		case "W": {[["LIB_Ju87_Italy2", "LIB_Ju87_Italy", "LIB_Ju87"], ["B_Heli_Attack_01_F"]] select (!d_ifa3lite)};
 		case "G": {["I_Heli_light_03_F"]};
 	};
@@ -1188,7 +1188,7 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 #ifndef __CUP__
 	// light attack chopper (for example I_Heli_light_03_F with MG)
 	d_light_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["I_Heli_light_03_dynamicLoadout_F"]};
+		case "E": {["I_Heli_light_03_F"]};
 		case "W": {[["LIB_Ju87_Italy2"], ["B_Heli_Light_01_armed_F"]] select (!d_ifa3lite)};
 		case "G": {["I_Heli_light_03_F"]};
 	};
