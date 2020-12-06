@@ -9,13 +9,11 @@ createVehicleCrew _vec;
 private _crew = crew _vec;
 if (count _crew > 0) then {
 
-	#ifndef __RHS__
-		if (Hz_customUnitLoadouts) then {
-			{
-				_x call AI_setupUnitCustomLoadout;
-			} foreach _crew;		
-		};		
-	#endif
+	if (Hz_customUnitLoadouts) then {
+		{
+			_x call AI_setupUnitCustomLoadout;
+		} foreach _crew;		
+	};		
 
 	private _grp_old = group (_crew # 0);
 	_crew joinSilent _grp;
