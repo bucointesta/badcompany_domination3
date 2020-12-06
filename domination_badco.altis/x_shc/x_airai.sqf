@@ -124,17 +124,22 @@ while {true} do {
 	private _cur_tgt_pos =+ d_cur_tgt_pos;
 	private _lastTargetIndex = -1;
 	_cur_tgt_pos set [2, 250];
+	
+	sleep 10;
 	private _wp = _grp addWayPoint [_cur_tgt_pos, 250];
 	_wp setWaypointType "MOVE";
 	private _pat_pos =+ _cur_tgt_pos;
 	[_grp, 1] setWaypointStatements ["never", ""];
 	_wp setWaypointCompletionRadius 250;
-	private _old_pos = getPosASL vehicle leader _grp;
+	private _old_pos = getPosASL vehicle leader _grp;		
+	sleep 10;
 	
-	sleep 30;
-	if (_type == "AH") then {		
+	if (_type == "AH") then {
 		// arma 3's move problems...
 		{
+			_x doMove _cur_tgt_pos;
+			sleep 3;
+			/*
 			_vehicle = _x;
 			isNil {							
 				_agent = calculatePath [typeof _vehicle,"CARELESS",getposatl _vehicle, _cur_tgt_pos];
@@ -176,8 +181,22 @@ while {true} do {
 				};
 				
 			};
+			*/
 		} foreach _vehicles;
-		sleep 120;	
+		sleep 30;	
+		{
+			_x doMove _cur_tgt_pos;
+			sleep 3;
+		} foreach _vehicles;
+		sleep 30;
+		{
+			_x doMove _cur_tgt_pos;
+			sleep 3;
+		} foreach _vehicles;
+		sleep 30;
+		
+	} else {
+		sleep 10;
 	};
 	
 	_radius = 1500;

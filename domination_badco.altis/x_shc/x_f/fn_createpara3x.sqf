@@ -36,6 +36,8 @@ private _make_jump = {
 	_heliendpoint set [2, 80];
 	_attackpoint set [2, 0];
 	
+	sleep 10;
+	
 	private _wp = _vgrp addWaypoint [_flytopos, 0];
 	_wp setWaypointBehaviour "CARELESS";
 	_wp setWaypointSpeed "NORMAL";
@@ -52,6 +54,10 @@ private _make_jump = {
 	_vec flyInHeight 100;
 	
 	sleep 10.0231;
+	
+	_vec doMove _flytopos;
+	
+	sleep 5;
 	
 	private _stop_me = false;
 	private _checktime = time + 300;
@@ -153,7 +159,7 @@ private _make_jump = {
 		(units _paragrp) remoteExecCall ["d_fnc_addceo", 2];
 #endif
 		_paragrp allowFleeing 0;
-		_paragrp setCombatMode "RED";
+		_paragrp setCombatMode "YELLOW";
 		_paragrp setBehaviour "AWARE";
 		
 		[_paragrp, d_cur_tgt_pos, d_cur_target_radius] spawn {
