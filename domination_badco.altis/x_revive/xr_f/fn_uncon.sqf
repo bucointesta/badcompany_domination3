@@ -119,8 +119,10 @@ __TRACE("starting main uncon loop")
 				if (!(player getVariable "xr_hasusedmapclickspawn")) then {
 					__TRACE("player alive and lives left, black in")
 					"xr_revtxt" cutText ["","BLACK IN", 6];
+					// Hunter: make revived guy have a lot of damage on revive so medics are useful...
+					player setDamage 0.901;
 					if (xr_max_lives != -1) then {
-						0 spawn {
+						0 spawn {							
 							sleep 7;
 							hintSilent format [localize "STR_DOM_MISSIONSTRING_933", player getVariable "xr_lives"];
 						};
