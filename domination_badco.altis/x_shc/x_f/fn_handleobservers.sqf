@@ -15,7 +15,8 @@ while {d_nr_observers > 0} do {
 		{
 			if (alive _x) then {
 				private _enemy = _x findNearestEnemy _x;
-				if (!isNull _enemy && {alive _enemy && {_x knowsAbout _enemy >= 1.5 && {!((vehicle _enemy) isKindOf "Air") && {_x distance2D _enemy < 500}}}}) then {
+				// Hunter: increased max distance from observer, changed personal knowledge to side knowledge and increased required knowledge
+				if (!isNull _enemy && {alive _enemy && {d_side_enemy knowsAbout _enemy > 3.5 && {!((vehicle _enemy) isKindOf "Air") && {_x distance2D _enemy < 1500}}}}) then {
 					if ((_enemy nearEntities [_man_type, 30]) isEqualTo []) then {
 						_e_ari_avail = false;
 						_nextaritime = time + 120 + (random 120);
@@ -30,6 +31,8 @@ while {d_nr_observers > 0} do {
 				};
 			};
 			sleep 2.321;
+			// Hunter: also exit here if arty already called by one observer so all of them don't spam at same time...
+			if (!_e_ari_avail) exitWith {};
 		} forEach (d_obs_array select {alive _x});
 	};
 	sleep 5.123;
