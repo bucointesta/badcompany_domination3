@@ -79,12 +79,14 @@ while {true} do {
 		case "CAS": {if (d_searchintel # 3 == 1) then {[2] remoteExecCall ["d_fnc_DoKBMsg", 2]}};
 	};
 #endif
+	
 	for "_xxx" from 1 to _numair do {
-		private _vec_array = [[(_pos # 0) + (random 500), (_pos # 1) + (random 500), 400], _cdir, _heli_type, _grp] call d_fnc_spawnVehicle;
+		private _randPos = [(_pos # 0) + (random 500), (_pos # 1) + (random 500), 400];
+		private _vec_array = [_randPos, _cdir, _heli_type, _grp] call d_fnc_spawnVehicle;
 		__TRACE_1("","_vec_array")
 		
 		 _vec_array params ["_vec"];
-		_vec setPos [_pos # 0, _pos # 1, 400];
+		_vec setPos _randPos;
 		_vehicles pushBack _vec;
 		__TRACE_1("","_vehicles")
 		
