@@ -56,6 +56,13 @@ private _make_jump = {
 	sleep 10.0231;
 	
 	_vec doMove _flytopos;
+	[_vec, _flytopos] spawn {
+		params ["_vec", "_flytopos"];
+		sleep 30;
+		_vec doMove _flytopos;
+		sleep 30;
+		_vec doMove _flytopos;
+	};
 	
 	sleep 5;
 	

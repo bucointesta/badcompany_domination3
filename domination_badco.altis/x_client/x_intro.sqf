@@ -29,6 +29,12 @@ private _playerUID = getPlayerUID player;
 
 1 fadeSound 1;
 
+// uncomment to set default channel to Direct
+// setCurrentChannel 5;
+
+// disable side voip
+1 enableChannel [true, false];
+
 if (str player == "d_zeus") exitWith {
 	d_still_in_intro = false;
 	diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];
@@ -207,22 +213,32 @@ showChat true;
 if (sunOrMoon < 0.99 && {d_without_nvg == 1 && {player call d_fnc_hasnvgoggles}}) then {player action ["NVGoggles", player]};
 #endif
 
+uiNamespace setVariable ["D_DomLabel", nil];
+uiNamespace setVariable ["d_DomThree", nil];
+if (name player == "Error: No unit" || {!isPlayer player} || {{isplayer _x && alive _x} count playableunits == 0}) exitWith {
+	hintC "The game has failed to load properly. Please rejoin.";
+	endMission "LOSER";
+};
+
 private _uidcheck_done = false;
 if (!(d_reserved_slot isEqualTo []) && {str player in d_reserved_slot}) then {
 	_uidcheck_done = true;
 	execVM "x_client\x_reservedslot.sqf";
 };
 
+private _reservedSlotCheckPassed = true;
 if (!_uidcheck_done && {!(d_uid_reserved_slots isEqualTo [])} && {!(membersarr isEqualTo [])}) then {
 	d_uid_reserved_slots = d_uid_reserved_slots apply {toUpper _x};
 	if ((toUpper str player) in d_uid_reserved_slots) then {
 		if !(_playerUID in membersarr) then {
+			_reservedSlotCheckPassed = false;
 			execVM "x_client\x_reservedslot2.sqf";
 		} else {
 			if (((count (squadParams player)) == 0) || {
 				_clanTag = ((squadParams player) select 0) select 0;
 				(_clanTag != "Bad Co") && {_clanTag != "B.A.D. PMC"}
 			}) then {
+				_reservedSlotCheckPassed = false;
 				execVM "x_client\x_reservedslot3.sqf";
 			};		
 		};
@@ -231,8 +247,13 @@ if (!_uidcheck_done && {!(d_uid_reserved_slots isEqualTo [])} && {!(membersarr i
 	};
 };
 
+if (!_reservedSlotCheckPassed) exitWith {};
+
 if ((!isnil "adminarr") && {_playerUID in adminarr}) then {
 
+	// enable command channel for admins
+	2 enableChannel [true, true];
+	
 	d_spectating = false;
 	player addAction ["<t color='#CCCC00'>Spectate Players</t﻿﻿>",{d_spectating = true; hintc "To stop spectating, you need to spectate yourself in FIRST PERSON and use your scroll wheel menu options."; sleep 1; waituntil {isnull (findDisplay 57)}; ["Initialize", [player, [], false, true, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;},[],-99,false,true,"","!d_spectating"];
 	player addAction ["<t color='#FF0000'>Stop Spectating</t﻿﻿>",{d_spectating = false; ["Terminate"] call BIS_fnc_EGSpectator;},[],99,false,true,"","d_spectating"];
@@ -264,12 +285,6 @@ if (_firstTimeJoined) then {
 
 };
 */
-
-uiNamespace setVariable ["D_DomLabel", nil];
-uiNamespace setVariable ["d_DomThree", nil];
-if (name player == "Error: No unit" || {!isPlayer player}) then {
-	hintC "Please rejoin again!!!! Your game has not connected correctly!!!!!";
-};
 
 uiNamespace setVariable ["firstTimeJoined", false];
 

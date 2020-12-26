@@ -929,9 +929,9 @@ if (!d_tt_tanoa) then {
 	// Hunter: convert to function to scaled for player count
 	d_airai_respawntime = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 50) exitWith {1800};
-		if (_p < 57) exitWith {1500};
-		if (_p < 65) exitWith {1200};		
+		if (_p < 50) exitWith {1500};
+		if (_p < 57) exitWith {1300};
+		if (_p < 65) exitWith {1100};		
 		900
 	};
 
