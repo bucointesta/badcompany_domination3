@@ -28,7 +28,8 @@ private _num_shells = if (_kind in [0, 1]) then {
 	1
 }; 
 
-sleep 9.25 + (random 8);
+// Hunter: increased "flight time" for better long-range arty simulation
+sleep 45 + (random 15);
 for "_i" from 0 to (_num_shells - 1) do {
 	private _npos = _pos_enemy getPos [random 30, floor random 360];
 	_npos set [2, _height];

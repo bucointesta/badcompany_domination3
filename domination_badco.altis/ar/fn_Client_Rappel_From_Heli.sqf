@@ -34,7 +34,7 @@ if (local _player) then {
 	_anchor attachTo [_heli,_rappelPoint];	
 	
 	uisleep 1.5;
-	_playerStartPosition = AGLtoASL (_heli modelToWorldVisual _rappelPoint);
+	_playerStartPosition = (AGLtoASL (_heli modelToWorldVisual _rappelPoint)) vectorAdd [0,0,-5];
 	_rappelDevice setPosWorld _playerStartPosition;
 	
 	[_player, _rappelDevice, _anchor] remoteExecCall ["AR_fnc_Play_Rappelling_Sounds", 2];

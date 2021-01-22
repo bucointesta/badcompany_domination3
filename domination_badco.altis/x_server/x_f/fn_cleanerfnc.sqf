@@ -5,75 +5,53 @@
 
 while {true} do {
 	sleep (300 + random 150);
-	private _allmisobjs = allMissionObjects "groundWeaponHolder";
-	sleep 4;
-	private _helperx = allMissionObjects "WeaponHolder";
+	private _allmisobjs = allMissionObjects "WeaponHolder";
+	sleep 8;
+	private _helperx = entities [["WeaponHolderSimulated", "Plane_Canopy_Base_F", "Ejection_Seat_Base_F"], []];
 	if !(_helperx isEqualTo []) then {
 		_allmisobjs append _helperx;
 	};
-	sleep 4;
-	_helperx = entities [["WeaponHolderSimulated", "Plane_Canopy_Base_F", "Ejection_Seat_Base_F"], []];
+	sleep 8;
+	_helperx = allMissionObjects "Chemlight_base";
 	if !(_helperx isEqualTo []) then {
 		_allmisobjs append _helperx;
 	};
-	sleep 4;
-	_helperx = allMissionObjects "WeaponHolder_Single_F";
+	sleep 8;
+	_helperx = allMissionObjects "Crater";
 	if !(_helperx isEqualTo []) then {
 		_allmisobjs append _helperx;
 	};
-	sleep 4;
-	_helperx = allMissionObjects "Chemlight_green";
-	if !(_helperx isEqualTo []) then {
-		_allmisobjs append _helperx;
-	};
-	sleep 4;
-	_helperx = allMissionObjects "Chemlight_red";
-	if !(_helperx isEqualTo []) then {
-		_allmisobjs append _helperx;
-	};
-	sleep 4;
-	_helperx = allMissionObjects "Chemlight_yellow";
-	if !(_helperx isEqualTo []) then {
-		_allmisobjs append _helperx;
-	};
-	sleep 4;
-	_helperx = allMissionObjects "Chemlight_blue";
-	if !(_helperx isEqualTo []) then {
-		_allmisobjs append _helperx;
-	};
-	sleep 4;
+	sleep 8;
 	_helperx = allMissionObjects "CraterLong";
 	if !(_helperx isEqualTo []) then {
 		_allmisobjs append _helperx;
 	};
-	sleep 4;
-	_helperx = allMissionObjects "CraterLong_small";
-	if !(_helperx isEqualTo []) then {
-		_allmisobjs append _helperx;
-	};
+	sleep 8;
 	if !(_allmisobjs isEqualTo []) then {
 		{
-			private _ct = _x getVariable ["d_checktime", -1];
-			if (_ct == -1) then {
-				_x setVariable ["d_checktime", time];
-			} else {
-#ifndef __TT__
-				if (_x distance2D d_FLAG_BASE < 20) then {
-#else
-				if (_x distance2D d_WFLAG_BASE < 20 || {_x distance2D d_EFLAG_BASE < 20}) then {
-#endif
-					deleteVehicle _x;
+			if (!isNull _x) then {
+				private _ct = _x getVariable ["d_checktime", -1];
+				if (_ct == -1) then {
+					_x setVariable ["d_checktime", time];
 				} else {
-					if ((_x nearEntities ["CAManBase", 50]) findIf {_x call d_fnc_isplayer} == -1) then {
+#ifndef __TT__
+					if (_x distance2D d_FLAG_BASE < 20) then {
+#else
+					if (_x distance2D d_WFLAG_BASE < 20 || {_x distance2D d_EFLAG_BASE < 20}) then {
+#endif
 						deleteVehicle _x;
+					} else {
+						if ((_x nearEntities ["CAManBase", 50]) findIf {_x call d_fnc_isplayer} == -1) then {
+							deleteVehicle _x;
+						};
 					};
 				};
+				sleep 0.212;
 			};
-			sleep 0.212;
 		} forEach (_allmisobjs select {!isNull _x});
 	};
 	_allmisobjs = nil;
-	sleep 3;
+	sleep 4;
 	if (!isNil "d_player_created") then {
 		{
 			private _hastime = _x getVariable "d_end_time";

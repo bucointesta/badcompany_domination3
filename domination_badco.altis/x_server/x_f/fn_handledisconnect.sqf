@@ -88,6 +88,7 @@ removeAllOwnedMines _unit;
 // Hunter: make sure no AI ghost stays after leaving the server...
 _unit spawn {
 	sleep 5;
+	if (isNull _this) exitWith {};
 	_veh = vehicle _this;
 	if (_veh == _this) then {
 		deleteVehicle _this;

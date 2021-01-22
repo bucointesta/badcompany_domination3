@@ -204,7 +204,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
 					[[1,1], 1], // tracked apc
-					[[1,1], 2] // aa
+					[[1,1], 1] // aa
 				];				
 				d_vec_numbers_patrol = [
 					[[0,0], 0], // tanks
@@ -237,7 +237,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
 					[[1,1], 1], // tracked apc
-					[[1,1], 2] // aa
+					[[2,2], 1] // aa
 				];				
 				d_vec_numbers_patrol = [
 					[[0,0], 0], // tanks
@@ -270,7 +270,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				d_vec_numbers_guard_static = [
 					[[1,1], 1], // tanks
 					[[0,0], 0], // tracked apc
-					[[1,1], 2] // aa
+					[[2,2], 1] // aa
 				];				
 				d_vec_numbers_patrol = [
 					[[0,0], 0], // tanks
@@ -303,7 +303,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
 					[[0,0], 0], // tracked apc
-					[[1,1], 2] // aa
+					[[2,2], 1] // aa
 				];				
 				d_vec_numbers_patrol = [
 					[[1,1], 1], // tanks
@@ -336,7 +336,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
 					[[0,0], 0], // tracked apc
-					[[1,1], 3] // aa
+					[[2,2], 1] // aa
 				];				
 				d_vec_numbers_patrol = [
 					[[1,1], 1], // tanks
@@ -369,7 +369,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
 					[[0,0], 0], // tracked apc
-					[[1,1], 3] // aa
+					[[2,2], 1] // aa
 				];				
 				d_vec_numbers_patrol = [
 					[[1,1], 2], // tanks

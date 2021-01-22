@@ -4,7 +4,7 @@ waitUntil {sleep 3; !isNull player};
 
 if ((typeof _plane) in d_cargoPlanes) then {
 
-	_id = _plane addaction ["<t color='#0000FF'>Load cargo</t>", "logistics\cargoscript.sqf", ["load"],999999,true,true,"","driver  _target == _this"];
+	_id = _plane addaction ["<t color='#0000FF'>Load cargo</t>", "logistics\cargoscript.sqf", ["load"],999999,true,true,"","(driver  _target == _this) && {(speed _target) < 2}"];
 	_plane setVariable ["act1",_id];
 	_plane setVariable ["cargo",""];
 

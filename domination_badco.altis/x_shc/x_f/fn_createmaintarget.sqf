@@ -6,7 +6,9 @@
 if !(call d_fnc_checkSHC) exitWith {};
 
 private _selectit = {
-	(ceil (random (((_this select 0) select (_this select 1)) # 1)))
+	//(ceil (random (((_this select 0) select (_this select 1)) # 1)))
+	//Hunter: make this static and not randomised for better balancing control
+	((_this select 0) select (_this select 1)) # 1
 };
 
 private _selectitmen = {

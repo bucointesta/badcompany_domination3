@@ -254,7 +254,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 			_vehPlayer = vehicle _x;
 			if (!(_vehPlayer in _playerVehs)) then {
 				_playerVehs pushBack _vehPlayer;
-				if ((_vehPlayer isKindOf "Air") || {(_type != "CAP") && {(_vehPlayer distance2D _cur_tgt_pos) < _radius}}) then {
+				if ((_vehPlayer isKindOf "Air") || {(_type != "CAP") && {!captive _vehPlayer} && {(_vehPlayer distance2D _cur_tgt_pos) < _radius}}) then {
 					_grp reveal [_vehPlayer, 4];
 				};
 			};
@@ -288,6 +288,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 				};
 				
 				_curvec doWatch objNull;
+				_grp forgetTarget _vecTarget;
 				_grp setCombatMode "GREEN";
 				_grp setBehaviour "CARELESS";
 			
@@ -323,6 +324,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 				};
 				
 				_curvec doWatch objNull;
+				_grp forgetTarget _vecTarget;
 				_grp setCombatMode "GREEN";
 				_grp setBehaviour "CARELESS";
 				

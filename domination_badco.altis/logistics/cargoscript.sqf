@@ -190,7 +190,7 @@ if (_action == "drop") then {
 			if (_i > 30 && _i < 40) then {_cargo setvectorup[0,-0.1,1];};
 			if (_i > 40 && _i < 50) then {_cargo setvectorup[0,0,1];};
 		};
-		_cargo attachTo [_carrier,[0+_widthcorrection,-13+_lengthcorrection,-8+_heightcorrection]];
+		_cargo attachTo [_carrier,[0+_widthcorrection,-18+_lengthcorrection,-10+_heightcorrection]];
 		sleep 0.3;
 		detach _cargo;
 		carried = false;
@@ -269,7 +269,7 @@ if (_action == "drop") then {
 			if (_i > 30 && _i < 40) then {_cargo setvectorup[0,-0.1,1];};
 			if (_i > 40 && _i < 50) then {_cargo setvectorup[0,0,1];};
 		};
-		_cargo attachTo [_carrier,[0+_widthcorrection,-13+_lengthcorrection,-3.5+_heightcorrection]];
+		_cargo attachTo [_carrier,[0+_widthcorrection,-18+_lengthcorrection,-3.5+_heightcorrection]];
 		sleep 1;
 		detach _cargo;
 		_cargo setVelocity (velocity _carrier);
@@ -285,7 +285,7 @@ if (_action == "drop") then {
 	};
 	
 	_carrier setVariable ["cargo",""];
-	_id = _carrier addaction ["<t color='#0000FF'>Load cargo</t>", "logistics\cargoscript.sqf", ["load"],999999,true,true,"","driver  _target == _this"];
+	_id = _carrier addaction ["<t color='#0000FF'>Load cargo</t>", "logistics\cargoscript.sqf", ["load"],999999,true,true,"","(driver  _target == _this) && {(speed _target) < 2}"];
 	_carrier setVariable ["act1",_id];
 
 };

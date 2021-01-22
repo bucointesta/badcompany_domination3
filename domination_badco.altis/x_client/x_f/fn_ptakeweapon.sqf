@@ -22,26 +22,32 @@ if (d_without_nvg == 0 && {_item call d_fnc_isnvgoggles}) then {
 private _itemtype = ((_item call BIS_fnc_itemType) select 1);
 
 _item = [_item] call BIS_fnc_baseWeapon;
+_disalloweditemfound = false;
 
 if ([player, _item] call d_fnc_checkitem) then {
 	if (_itemtype == "Backpack") then {
-		{if !([player, _x] call d_fnc_checkitem) exitWith {debug_forbidden_item = _x; call d_fnc_forbidden_item}; false} count (backpackItems player);
+		{if !([player, _x] call d_fnc_checkitem) exitWith {_disalloweditemfound = true; debug_forbidden_item = _x; call d_fnc_forbidden_item}; false} count (backpackItems player);
 	} else {
 		if (_itemtype == "Vest") then {
-			{if !([player, _x] call d_fnc_checkitem) exitWith {debug_forbidden_item = _x; call d_fnc_forbidden_item}; false} count (vestItems player);
+			{if !([player, _x] call d_fnc_checkitem) exitWith {_disalloweditemfound = true; debug_forbidden_item = _x; call d_fnc_forbidden_item}; false} count (vestItems player);
 		} else {
 			if (_itemtype == "Uniform") then {
-				{if !([player, _x] call d_fnc_checkitem) exitWith {debug_forbidden_item = _x; call d_fnc_forbidden_item}; false} count (uniformItems player);
+				{if !([player, _x] call d_fnc_checkitem) exitWith {_disalloweditemfound = true; debug_forbidden_item = _x; call d_fnc_forbidden_item}; false} count (uniformItems player);
 			};
 		};
 	};
 	call d_fnc_allowed_item;
 } else {
+	_disalloweditemfound = true;
 	debug_forbidden_item = _item; call d_fnc_forbidden_item;
 };
 
-if ((_itemtype == "Uniform") && {str _unit in d_badcompany}) exitWith {
+if ((_itemtype == "Uniform") && {str _unit in d_badcompany}) then {
 	player remoteExecCall ["d_fnc_badco_uniform",-2,false];
+};
+
+if (!_disalloweditemfound) then {
+	call d_fnc_save_layoutgear;
 };
 
 if (!d_with_ranked) exitWith {};

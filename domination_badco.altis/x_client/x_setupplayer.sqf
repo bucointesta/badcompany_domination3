@@ -428,6 +428,8 @@ d_all_ammoloads = (allMissionObjects "HeliH") select {(str _x) select [0, 10] ==
 	0 spawn d_fnc_playerrankloop;
 	
 	if (str player == "d_zeus") then {
+		waitUntil {sleep 1; !isNil "zeusers"};
+		if !((getPlayerUID player) in zeusers) exitWith {};
 		xr_phd_invulnerable = true;
 		hint "Initializing...";
 		[] remoteExec ["d_fnc_initZeus", 2, false];

@@ -6,6 +6,7 @@ if (isDedicated) exitWith {};
 
 sleep 1;
 
+/*
 for "_i" from 1 to 3 do {
 	hint (localize "STR_DOM_MISSIONSTRING_1426");
 	sleep 5;
@@ -14,4 +15,6 @@ for "_i" from 1 to 3 do {
 hint (localize "STR_DOM_MISSIONSTRING_338");
 [player, d_name_pl, -1] remoteExecCall ["d_fnc_KickPlayerBS", 2];
 sleep 3;
-endMission "LOSER";
+*/
+
+endMission "reservedSlot";

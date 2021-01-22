@@ -43,8 +43,8 @@ link19[] = {14,15};
 link20[] = {15,2};
 link21[] = {16,17};
 link22[] = {18,17};
-globals[] = {0.000000,0,0,0,0,640,480,1,49,6316128,1,-396.584625,490.150574,735.398865,-255.092972,923,1031,1};
-window[] = {2,-1,-1,-1,-1,818,100,1060,100,3,941};
+globals[] = {0.000000,0,0,0,0,640,480,1,49,6316128,1,-348.257568,441.823456,681.416992,-201.111160,923,1031,1};
+window[] = {2,-1,-1,-1,-1,993,275,1235,275,3,941};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -131,7 +131,7 @@ class FSM
     {
       name = "Check";
       init = /*%FSM<STATEINIT""">*/"private _counter = 0;" \n
-       ""/*%FSM</STATEINIT""">*/;
+       "private _d_respawn_ai_groups_count = count d_respawn_ai_groups;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -152,9 +152,9 @@ class FSM
     class Loop2
     {
       name = "Loop2";
-      init = /*%FSM<STATEINIT""">*/"if (_counter >= count d_respawn_ai_groups) exitWith {};" \n
-       "private _onegrpar = d_respawn_ai_groups select _counter;" \n
+      init = /*%FSM<STATEINIT""">*/"private _onegrpar = d_respawn_ai_groups select _counter;" \n
        "private _dowaitfg = false;" \n
+       "private _isInfGrp = false;" \n
        "if (_onegrpar isEqualType []) then {" \n
        "	private _grp = _onegrpar select 0;" \n
        "	if (isNull _grp || {(units _grp) findIf {alive _x} == -1}) then {" \n
@@ -163,7 +163,7 @@ class FSM
        "			if  (!d_mt_barracks_down) then {" \n
        "				private _nearest = [];" \n
        "				private _barracksObjs = d_mt_barracks_obj_ar select {" \n
-       "					_nearest = (_x nearEntities [[""CAManBase"", ""Car"", ""Motorcycle"", ""Tank""], 100]) apply {!isplayer effectiveCommander _x};" \n
+       "					_nearest = (_x nearEntities [[""CAManBase"", ""Car"", ""Motorcycle"", ""Tank"", ""Ship""], 100]) apply {!isplayer effectiveCommander _x};" \n
        "					if ((count _nearest) > 0) then {" \n
        "						selectMin _nearest" \n
        "					} else {" \n
@@ -177,7 +177,7 @@ class FSM
        "				{	" \n
        "					private _minDist = 1000;" \n
        "					private _obj = _x;" \n
-       "					private _nearest = _x nearEntities [[""CAManBase"", ""Car"", ""Motorcycle"", ""Tank""], 1000];" \n
+       "					private _nearest = _x nearEntities [[""CAManBase"", ""Car"", ""Motorcycle"", ""Tank"", ""Ship""], 1000];" \n
        "					if ((count _nearest) > 0) then {" \n
        "						{" \n
        "							_dist = _x distance _obj;" \n
@@ -193,8 +193,10 @@ class FSM
        "				_mg_array set [1, [_d_mt_barracks_obj_pos]];" \n
        "				_mg_array set [11, _d_mt_barracks_obj_pos];" \n
        "				_mg_array call d_fnc_makegroup;" \n
-       "				_dowaitfg = true;" \n
+       "				_dowaitfg = true;	" \n
+       "				_isInfGrp = true;" \n
        "			};" \n
+       "			d_respawn_ai_groups set [_counter, -1];" \n
        "		} else {" \n
        "			if (!d_mt_mobile_hq_down) then {" \n
        "				private _resp_mid = _mg_array select 11;" \n
@@ -202,8 +204,8 @@ class FSM
        "				_mg_array call d_fnc_makegroup;" \n
        "				_dowaitfg = true;" \n
        "			};" \n
-       "		};" \n
-       "		d_respawn_ai_groups set [_counter, -1];" \n
+       "			d_respawn_ai_groups set [_counter, -1];" \n
+       "		};		" \n
        "	};" \n
        "} else {" \n
        "	d_respawn_ai_groups set [_counter, -1];" \n
@@ -216,10 +218,15 @@ class FSM
        "	_basetime = 190;" \n
        "	_maxtime = 140;" \n
        "};" \n
+       "if (_isInfGrp) then {" \n
+       "	_basetime = 110;" \n
+       "	_maxtime = 60;" \n
+       "};" \n
+       "" \n
        "_timenow = if (_dowaitfg) then {" \n
        "	time + (((_basetime - (([1, count (allPlayers - (entities ""HeadlessClient_F""))] select isMultiplayer) * 5)) max _maxtime) + random 10)" \n
        "} else {" \n
-       "	time + 10" \n
+       "	time + 3" \n
        "};" \n
        ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -231,7 +238,7 @@ class FSM
           priority = 1.000000;
           to="_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"d_mt_done || {(_counter >= count d_respawn_ai_groups)}"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"d_mt_done || {_counter >= _d_respawn_ai_groups_count}"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

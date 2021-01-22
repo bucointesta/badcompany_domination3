@@ -16,7 +16,14 @@ while {d_nr_observers > 0} do {
 			if (alive _x) then {
 				private _enemy = _x findNearestEnemy _x;
 				// Hunter: increased max distance from observer, changed personal knowledge to side knowledge and increased required knowledge
-				if (!isNull _enemy && {alive _enemy && {d_side_enemy knowsAbout _enemy > 3.5 && {!((vehicle _enemy) isKindOf "Air") && {_x distance2D _enemy < 1500}}}}) then {
+				if (!isNull _enemy && {alive _enemy && {!captive _enemy} && {d_side_enemy knowsAbout _enemy > 3.5 && {!((vehicle _enemy) isKindOf "Air") && {_x distance2D _enemy < 1500}}}}) then {
+					
+					// Hunter: always fire 120mm HE shells...
+					_e_ari_avail = false;
+					_nextaritime = time + 120 + (random 240);
+					[getPosWorld _enemy, 1] spawn d_fnc_shootari;
+					
+					/*
 					if ((_enemy nearEntities [_man_type, 30]) isEqualTo []) then {
 						_e_ari_avail = false;
 						_nextaritime = time + 120 + (random 120);
@@ -28,6 +35,7 @@ while {d_nr_observers > 0} do {
 							[getPosWorld _enemy, 2] spawn d_fnc_shootari;
 						};
 					};
+					*/
 				};
 			};
 			sleep 2.321;

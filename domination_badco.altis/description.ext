@@ -501,7 +501,7 @@ class Params {
 	class d_house_patrol {
 		title = "$STR_DOM_MISSIONSTRING_1868";
 		values[] = {0,1};
-		default = 0;
+		default = 1;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
@@ -1434,6 +1434,26 @@ class CfgDebriefing
 		pictureBackground = "";
 		picture = "";
 		pictureColor[] = {0.0,0.3,0.6,1};
+	};
+	
+	class reservedSlot
+	{
+		title = "Reserved Slot";
+		subtitle = "";
+		description = "The slot you have chosen is reserved for Bad Company members. Pick a non-reserved slot from the lobby to play.";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0.6,0.1,0.2,1};
+	};
+	
+	class tagProblem
+	{
+		title = "Problem with Clan Tag";
+		subtitle = "";
+		description = "There is a problem with your clan tag. Please make sure you have followed the instructions on how to add your clan tag to your profile and that your name is spelled correctly. If you did everything correctly and it's still not working, please contact recruitment staff for support. You will not be able to use reserved slots until the problem is resolved.";
+		pictureBackground = "";
+		picture = "";
+		pictureColor[] = {0.6,0.1,0.2,1};
 	};
 	
 	class zeusRestriction
