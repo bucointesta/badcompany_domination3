@@ -258,10 +258,69 @@ if ((!isnil "adminarr") && {_playerUID in adminarr}) then {
 	player addAction ["<t color='#CCCC00'>Spectate Players</t﻿﻿>",{d_spectating = true; hintc "To stop spectating, you need to spectate yourself in FIRST PERSON and use your scroll wheel menu options."; sleep 1; waituntil {isnull (findDisplay 57)}; ["Initialize", [player, [], false, true, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;},[],-99,false,true,"","!d_spectating"];
 	player addAction ["<t color='#FF0000'>Stop Spectating</t﻿﻿>",{d_spectating = false; ["Terminate"] call BIS_fnc_EGSpectator;},[],99,false,true,"","d_spectating"];
 		
+	d_ghostPlayerMarkers = [];
+	player addaction ["<t color='#888800'>Reveal Unnamed Players</t﻿﻿>",{
+		
+		{
+			deleteMarkerLocal _x;
+		} foreach d_ghostPlayerMarkers;
+		
+		_ghosts = allPlayers - playableunits;
+		{
+			_marker = createMarkerLocal [str random 1000000, getpos _x];
+			_marker setMarkerTypeLocal "hd_destroy";
+			_marker setMarkerColorLocal "ColorWhite";
+			_marker setMarkerTextLocal ((name _x) + " , Altitude: " + str round ((asltoagl aimpos player) select 2));
+			d_ghostPlayerMarkers pushBack _marker;
+		} foreach _ghosts;
+		
+		_ghosts = (_ghosts apply {[name _x, _x, typeof vehicle _x, mapGridPosition _x, round ((asltoagl aimpos player) select 2)]});
+		_text = "";
+
+		{
+		 _text = _text + (str _x) + "\n\n";
+		} foreach _ghosts;
+		if (_text != "") then {
+			_text = "Markers added to map!\n\n" + _text;
+			hint _text;		
+		} else {
+			hint "No unnamed players found!";
+		};
+	
+	},[],-100,false,true];
+		
 	player addEventHandler ["Respawn",{
+	
 		params ["_unit", "_corpse"];	
 		_unit addAction ["<t color='#CCCC00'>Spectate Players</t﻿﻿>",{d_spectating = true; hintc "To stop spectating, you need to spectate yourself in FIRST PERSON and use your scroll wheel menu options."; sleep 1; waituntil {isnull (findDisplay 57)}; ["Initialize", [player, [], false, true, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;},[],-99,false,true,"","!d_spectating"];
 		_unit addAction ["<t color='#FF0000'>Stop Spectating</t﻿﻿>",{d_spectating = false; ["Terminate"] call BIS_fnc_EGSpectator;},[],99,false,true,"","d_spectating"];
+		_unit addaction ["<t color='#888800'>Reveal Unnamed Players</t﻿﻿>",{
+			{
+				deleteMarkerLocal _x;
+			} foreach d_ghostPlayerMarkers;			
+			_ghosts = allPlayers - playableunits;
+			{
+				_marker = createMarkerLocal [str random 1000000, getpos _x];
+				_marker setMarkerTypeLocal "hd_destroy";
+				_marker setMarkerColorLocal "ColorWhite";
+				_marker setMarkerTextLocal ((name _x) + " , Altitude: " + str round ((asltoagl aimpos player) select 2));
+				d_ghostPlayerMarkers pushBack _marker;
+			} foreach _ghosts;
+			
+			_ghosts = (_ghosts apply {[name _x, _x, typeof vehicle _x, mapGridPosition _x, round ((asltoagl aimpos player) select 2)]});
+			_text = "";
+
+			{
+			 _text = _text + (str _x) + "\n\n";
+			} foreach _ghosts;
+			if (_text != "") then {
+				_text = "Markers added to map!\n\n" + _text;
+				hint _text;		
+			} else {
+				hint "No unnamed players found!";
+			};	
+		},[],-100,false,true];
+		
 	}];	
 		
 };
