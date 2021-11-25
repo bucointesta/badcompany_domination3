@@ -36,7 +36,7 @@ if (count _tr_cargo_ar >= d_max_truck_cargo) then {
 	_vec setVariable ["d_CARGO_AR", _tr_cargo_ar, true];
 };
 private _alive = true;
-for "_i" from 10 to 1 step -1 do {
+for "_i" from 90 to 1 step -1 do {
 	hintSilent format [localize "STR_DOM_MISSIONSTRING_74", _type_name, _i];
 	if (!alive player || {!alive _vec || {player getVariable ["xr_pluncon", false] || {player getVariable ["ace_isunconscious", false]}}}) exitWith {_alive = false};
 	sleep 1;

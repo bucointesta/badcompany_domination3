@@ -56,12 +56,12 @@ d_medic_only = ["Medikit", "U_C_Paramedic_01_F", "V_Plain_crystal_F"];
 
 d_engineer_only = ["ToolKit", "V_EOD_olive_F","V_EOD_blue_F","V_EOD_coyote_F","IEDUrbanBig_Remote_Mag","IEDLandBig_Remote_Mag","IEDUrbanSmall_Remote_Mag","IEDLandSmall_Remote_Mag"]; //only added IEDs because they are Bad Co only and will appear on all Bad Co otherwise. The rest is handled properly by "d_explosives"
 #ifdef __RHS__
-	d_engineer_backpacks = ["RHS_M2_Gun_Bag","RHS_M2_Tripod_Bag","RHS_M2_MiniTripod_Bag","RHS_Mk19_Gun_Bag","RHS_Mk19_Tripod_Bag","rhs_Tow_Gun_Bag","rhs_TOW_Tripod_Bag","RHS_Metis_Gun_Bag","RHS_Metis_Tripod_Bag","RHS_Kornet_Gun_Bag","RHS_Kornet_Tripod_Bag","RHS_AGS30_Tripod_Bag","RHS_AGS30_Gun_Bag","RHS_DShkM_Gun_Bag","RHS_DShkM_TripodHigh_Bag","RHS_DShkM_TripodLow_Bag","RHS_Kord_Tripod_Bag","RHS_Kord_Gun_Bag","RHS_NSV_Tripod_Bag","RHS_NSV_Gun_Bag","RHS_SPG9_Gun_Bag","RHS_SPG9_Tripod_Bag"];
+	d_engineer_backpacks = ["RHS_M2_Gun_Bag","RHS_M2_Tripod_Bag","RHS_M2_MiniTripod_Bag","RHS_Mk19_Gun_Bag","RHS_Mk19_Tripod_Bag","rhs_Tow_Gun_Bag","rhs_TOW_Tripod_Bag","RHS_Metis_Gun_Bag","RHS_Metis_Tripod_Bag","RHS_Kornet_Gun_Bag","RHS_Kornet_Tripod_Bag","RHS_AGS30_Tripod_Bag","RHS_AGS30_Gun_Bag","RHS_DShkM_Gun_Bag","RHS_DShkM_TripodHigh_Bag","RHS_DShkM_TripodLow_Bag","RHS_Kord_Tripod_Bag","RHS_Kord_Gun_Bag","RHS_NSV_Tripod_Bag","RHS_NSV_Gun_Bag","RHS_SPG9_Gun_Bag","RHS_SPG9_Tripod_Bag", "rhs_M252_Gun_Bag", "rhs_M252_Bipod_Bag", "RHS_Podnos_Bipod_Bag", "RHS_Podnos_Gun_Bag"];
 	{
 		d_whitelistBackpacks pushBack _x;
-	} foreach ["RHS_SPG9_Gun_Bag","RHS_SPG9_Tripod_Bag","RHS_DShkM_Gun_Bag","RHS_DShkM_TripodHigh_Bag","RHS_DShkM_TripodLow_Bag","RHS_Metis_Gun_Bag","RHS_Metis_Tripod_Bag"];
+	} foreach ["RHS_SPG9_Gun_Bag","RHS_SPG9_Tripod_Bag","RHS_DShkM_Gun_Bag","RHS_DShkM_TripodHigh_Bag","RHS_DShkM_TripodLow_Bag","RHS_Metis_Gun_Bag","RHS_Metis_Tripod_Bag", "RHS_Podnos_Bipod_Bag", "RHS_Podnos_Gun_Bag"];
 #else
-	d_engineer_backpacks = ["I_G_HMG_02_high_weapon_F", "I_G_HMG_02_weapon_F", "B_HMG_01_high_weapon_F", "B_HMG_01_weapon_F", "B_GMG_01_high_weapon_F","B_GMG_01_weapon_F","B_HMG_01_support_high_F","B_HMG_01_support_F","I_G_HMG_02_support_high_F","I_C_HMG_02_support_F","B_AA_01_weapon_F","B_AT_01_weapon_F"];
+	d_engineer_backpacks = ["I_G_HMG_02_high_weapon_F", "I_G_HMG_02_weapon_F", "B_HMG_01_high_weapon_F", "B_HMG_01_weapon_F", "B_GMG_01_high_weapon_F","B_GMG_01_weapon_F","B_HMG_01_support_high_F","B_HMG_01_support_F","I_G_HMG_02_support_high_F","I_C_HMG_02_support_F","B_AA_01_weapon_F","B_AT_01_weapon_F", "I_Mortar_01_support_F", "B_Mortar_01_support_F", "I_Mortar_01_weapon_F", "B_Mortar_01_weapon_F"];
 	{
 		d_whitelistBackpacks pushBack _x;
 	} foreach ["I_G_HMG_02_high_weapon_F", "I_G_HMG_02_weapon_F","I_G_HMG_02_support_high_F","I_C_HMG_02_support_F"];

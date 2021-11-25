@@ -252,6 +252,11 @@ if (d_with_ranked || {d_database_found}) then {
 player addEventhandler ["Take", {_this call d_fnc_ptakeweapon}];
 player addEventhandler ["Put", {_this call d_fnc_pputweapon}];
 player addEventhandler ["Reloaded", {call d_fnc_save_layoutgear}];
+player addEventHandler ["WeaponAssembled", {
+	params ["_unit", "_staticWeapon"];	
+	_staticWeapon setVehicleAmmo 0;
+	_staticWeapon lock 0;
+}];
 
 if (!((str player) in ["d_admin", "d_zeus"])) then {
 	removeAllWeapons player;

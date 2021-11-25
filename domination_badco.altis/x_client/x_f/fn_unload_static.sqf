@@ -36,7 +36,7 @@ _vec setVariable ["d_CARGO_AR", _tr_cargo_ar, true];
 private _pos_to_set = player modelToWorldVisual [0,5,0];
 private _static = _cargo createVehicleLocal [0,0,0];
 _static setPos _pos_to_set;
-_static lock false;
+_static lock 0;
 private _dir_to_set = getDir player;
 
 private _place_error = false;
@@ -100,7 +100,7 @@ _static = createVehicle [_cargo, _pos_to_set, [], 0, "NONE"];
 _static setDir _dir_to_set;
 _static setPos [_pos_to_set # 0, _pos_to_set # 1, 0];
 player reveal _static;
-_static lock false;
+_static lock 0;
 _static remoteExecCall ["d_fnc_allunits_add", 2];
 
 private _str_placed = format [localize "STR_DOM_MISSIONSTRING_89", [_cargo, "CfgVehicles"] call d_fnc_GetDisplayName];

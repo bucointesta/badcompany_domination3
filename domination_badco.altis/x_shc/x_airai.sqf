@@ -254,7 +254,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 			_vehPlayer = vehicle _x;
 			if (!(_vehPlayer in _playerVehs)) then {
 				_playerVehs pushBack _vehPlayer;
-				if ((_vehPlayer isKindOf "Air") || {(_type != "CAP") && {!captive _vehPlayer} && {(_vehPlayer distance2D _cur_tgt_pos) < _radius}}) then {
+				if ((_vehPlayer isKindOf "Air") || {(_type != "CAP") && {!captive _vehPlayer} && {(_vehPlayer isKindOf "StaticWeapon") || {(_vehPlayer distance2D _cur_tgt_pos) < _radius}}}) then {
 					_grp reveal [_vehPlayer, 4];
 				};
 			};
