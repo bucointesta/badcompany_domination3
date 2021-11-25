@@ -12,6 +12,12 @@ private _npos = _pos findEmptyPosition [0, 50, _vtype];
 if !(_npos isEqualTo []) then {_pos = _npos};
 _vec = createVehicle [_vtype, _pos, [], 0, "NONE"];
 
+#ifndef __RHS__
+	if (_vtype iskindof "B_LSV_01_unarmed_F") then {
+		[_vec, ["Sand",1],["HideDoor1",1,"HideDoor2",1,"HideDoor3",1,"HideDoor4",1]] call BIS_fnc_initVehicle;
+	};
+#endif
+
 _vec setDir direction _unit;
 _vec remoteExecCall ["d_fnc_stocbike", _unit];
 if (_b_mode != 1) then {

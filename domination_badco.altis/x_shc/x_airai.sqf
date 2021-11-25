@@ -211,14 +211,11 @@ while {true} do {
 			_cur_tgt_pos =+ d_cur_tgt_pos;
 			_cur_tgt_pos set [2, 250];
 			private _radius = switch (_type) do {
-				case "AH": {d_cur_target_radius * 1.5};
-				case "CAS": {d_cur_target_radius * 3};
-				case "CAP": {d_cur_target_radius * 4};
+				case "AH": {2500};
+				case "CAS": {4000};
+				case "CAP": {7000};
 				default {1500};
 			};		
-			if (_radius < 1500) then {
-				_radius = 1500;
-			};
 			
 			__TRACE_1("","_radius")
 			

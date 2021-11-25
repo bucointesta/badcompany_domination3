@@ -256,6 +256,7 @@ player addEventHandler ["WeaponAssembled", {
 	params ["_unit", "_staticWeapon"];	
 	_staticWeapon setVehicleAmmo 0;
 	_staticWeapon lock 0;
+	_staticWeapon disableTIEquipment true;
 }];
 
 if (!((str player) in ["d_admin", "d_zeus"])) then {

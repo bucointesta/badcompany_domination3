@@ -22,7 +22,15 @@ private _dd = 599;
 if (isNull _mhq) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_1451")};
 
 #ifndef __TT__
-if (_mhq inArea d_base_array || {!(_mhq iskindof "Ship") && {surfaceIsWater (getPosATLVisual d_curvec_dialog)}}) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_213")};
+
+
+if ((_mhq inArea d_base_array) || {
+
+	private _surfaceIsWater = surfaceIsWater (getPosATLVisual d_curvec_dialog);
+	private _isBoat = _mhq iskindof "Ship";
+	
+	(_isBoat && {!_surfaceIsWater}) || {(!_isBoat) && {_surfaceIsWater}}
+}) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_213")};
 #else
 if (_mhq inArea (d_base_array # 0) || {_mhq inArea (d_base_array # 1) || {!(_mhq iskindof "Ship") && {surfaceIsWater (getPosATLVisual d_curvec_dialog)}}}) exitWith {systemChat (localize "STR_DOM_MISSIONSTRING_213")};
 #endif
