@@ -194,10 +194,10 @@
 	#ifdef __RHS__
 		{	
 			restrictions_allowedMagazines pushback _x;		
-		} foreach ["rhs_m136_mag","rhs_m72a7_mag","rhs_m136_hp_mag","rhs_m136_hedp_mag","rhs_rpg26_mag","rhs_rshg2_mag"];
+		} foreach ["rhs_m136_mag","rhs_m72a7_mag","rhs_m136_hp_mag","rhs_m136_hedp_mag","rhs_rpg26_mag","rhs_rshg2_mag", "rhs_rpg18_mag", "rhs_fgm148_magazine_AT_empty"];
 		{	
 			restrictions_allowedWeapons pushback _x;		
-		} foreach ["rhs_weap_M136_used","rhs_weap_m72a7_used","rhs_weap_rpg26_used","rhs_weap_rshg2_used","rhs_weap_M136_hedp_used","rhs_weap_M136_hp_used"];
+		} foreach ["rhs_weap_M136_used","rhs_weap_m72a7_used","rhs_weap_rpg26_used","rhs_weap_rshg2_used","rhs_weap_M136_hedp_used","rhs_weap_M136_hp_used", "rhs_weap_rpg18_used"];
 	#else
 		{	
 			restrictions_allowedMagazines pushback _x;		

@@ -658,7 +658,13 @@ d_p_vecs = [
 	["D_C01",801,"d_car1","n_motor_inf","ColorBlue","Sandbox-1",""],["D_C02",802,"d_car2","n_motor_inf","ColorBlue","Sandbox-2",""],
 	["D_C03",803,"d_car3","n_motor_inf","ColorBlue","Assaulter-1",""],	["D_C04",804,"d_car4","n_motor_inf","ColorBlue","Assaulter-2",""],
 	["D_C05",805,"d_car5","n_motor_inf","ColorBlue","Gecko-1",""],	["D_C06",806,"d_car6","n_motor_inf","ColorBlue","Mafia",""],
-	["D_C07",807,"d_car7","n_motor_inf","ColorBlue","Cartel",""],	["D_C08",808,"d_car8","n_motor_inf","ColorBlue","Boss",""],
+	["D_C07",807,"d_car7","n_motor_inf","ColorBlue","Cartel",""],
+	#ifdef __RHS__
+		["D_C08",808,"d_car8","n_motor_inf","ColorBlue","Mercenary",""],
+	#else
+		["D_C08",808,"d_car8","n_motor_inf","ColorBlue","Boss",""],
+	#endif
+	
 	["D_C09",809,"d_car9","n_motor_inf","ColorBlue","Gecko-3",""],	["D_C10",810,"d_car10","n_motor_inf","ColorBlue","Trigger",""],
 	["D_C11",811,"d_car11","n_motor_inf","ColorBlue","Sandbox-3",""],["D_C12",812,"d_car12","n_motor_inf","ColorBlue","Sandbox-4",""],
 	["D_C13",813,"d_car13","n_motor_inf","ColorBlue","Gecko-2",""],["D_C14",814,"d_car14","n_motor_inf","ColorBlue","Assaulter-3",""],

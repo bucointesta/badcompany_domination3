@@ -31,7 +31,7 @@ d_defaultUniforms = [];
 d_grenadelaunchers = [];
 
 #ifdef __RHS__
-	d_sniper_optics = ["rhsusf_acc_M8541","rhsusf_acc_M8541_low","rhsusf_acc_M8541_low_d","rhsusf_acc_M8541_low_wd","rhsusf_acc_premier_low","rhsusf_acc_premier_anpvs27","rhsusf_acc_premier","rhsusf_acc_LEUPOLDMK4","rhsusf_acc_LEUPOLDMK4_2","rhsusf_acc_LEUPOLDMK4_d","rhsusf_acc_LEUPOLDMK4_wd","rhsusf_acc_LEUPOLDMK4_2_d","rhs_acc_dh520x56","rhs_acc_pso1m2","rhs_acc_pso1m21"];
+	d_sniper_optics = ["rhsusf_acc_M8541","rhsusf_acc_M8541_low","rhsusf_acc_M8541_low_d","rhsusf_acc_M8541_low_wd","rhsusf_acc_premier_low","rhsusf_acc_premier_anpvs27","rhsusf_acc_premier","rhsusf_acc_LEUPOLDMK4","rhsusf_acc_LEUPOLDMK4_2","rhsusf_acc_LEUPOLDMK4_d","rhsusf_acc_LEUPOLDMK4_wd","rhsusf_acc_LEUPOLDMK4_2_d","rhs_acc_dh520x56","rhs_acc_pso1m2","rhs_acc_pso1m21", "rhsusf_acc_nxs_3515x50_md", "rhsusf_acc_nxs_3515x50f1_h58", "rhsusf_acc_nxs_3515x50f1_md", "rhsusf_acc_nxs_3515x50f1_h58_sun", "rhsusf_acc_nxs_3515x50f1_md_sun", "rhsusf_acc_nxs_5522x56_md", "rhsusf_acc_nxs_5522x56_md_sun"];
 #else
 	d_sniper_optics = ["optic_AMS","optic_AMS_khk","optic_AMS_snd","optic_KHS_hex","optic_KHS_old","optic_KHS_tan","optic_KHS_blk","optic_LRPS","optic_LRPS_ghex_F","optic_LRPS_tna_F"];
 #endif
