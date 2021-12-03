@@ -59,12 +59,21 @@ if (_typev1 isKindOf "Air") then {
 		];
 	};
 } else {
-	if ((!(_typev1 iskindof "Ship")) && {surfaceIsWater _posv1}) then {
-		private _nnpos = _posv1 findEmptyPosition [0, 1000, _typev1];
-		if !(_nnpos isEqualTo []) then {_posv1 = _nnpos};
+
+	private _waterMode = 0;
+	if (_typev1 iskindof "Ship") then {
+		_waterMode = 2;
 	};
-	//Hunter: "0" radius causes vics to spawn inside objects and blow up...
-	_veh = createVehicle [_typev1, _posv1, [], 200, "NONE"];
+	
+	private _count = 0;
+	_posv1 set [2,0];
+	while {(_count < 500) && {((_posv1 select 2) == 0) || {({(_posv1 distance _x) < 400} count playableUnits) > 0}}} do {
+		_posv1 = [_posv1, 0, 200, 10, _waterMode] call BIS_fnc_findSafePos;
+		_count = _count + 1;
+	};
+	
+	_veh = _typev1 createVehicle _posv1;
+	
 	// Hunter: anti-bad driving (does not cover flipping...)
 	_veh addEventHandler ["HandleDamage",{
 		_return = _this select 2;
