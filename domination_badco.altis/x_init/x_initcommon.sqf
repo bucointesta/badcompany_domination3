@@ -115,16 +115,16 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 					[[0,0], 0] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[1,1], // basic groups
+					[2,2], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[0,0], // basic groups
+					[1,1], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
 					[0,0], // basic groups
-					[0,0] // specop groups
+					[1,1] // specop groups
 				];			
 			};
 			case (_pCount < 8) : {			
@@ -152,7 +152,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[0,0], // basic groups
+					[2,2], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
@@ -181,11 +181,11 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 					[[1,1], 1] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[2,2], // basic groups
+					[3,3], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[1,1], // basic groups
+					[3,3], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
@@ -204,7 +204,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				d_vec_numbers_guard_static = [
 					[[0,0], 0], // tanks
 					[[1,1], 1], // tracked apc
-					[[1,1], 1] // aa
+					[[2,2], 1] // aa
 				];				
 				d_vec_numbers_patrol = [
 					[[0,0], 0], // tanks
@@ -214,11 +214,11 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 					[[1,1], 1] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[2,2], // basic groups
+					[4,4], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[1,1], // basic groups
+					[4,4], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
@@ -247,11 +247,11 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 					[[1,1], 1] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[2,2], // basic groups
+					[4,4], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[2,2], // basic groups
+					[4,4], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
