@@ -5,9 +5,9 @@
 
 //assign to variable _tk the killer player's object
 private _tk = _this select 2;
-private _ramKill = false;
+private _baseRamKill = false;
 if ((count _this) > 3) then {
-	_ramKill = _this select 3;
+	_baseRamKill = _this select 3;
 };
 
 //subtracts the points for teamkilling to player's object
@@ -27,11 +27,11 @@ then
 if (!isNil "_p") then {
 	private _numtk = (_p # 7) + 1;
 	private _basekill = false;
-	if (((_tk distance d_flag_base) < 700) && {(count (allPlayers - entities "HeadlessClient_F")) >= 20}) then {
+	if ((_tk distance d_flag_base) < 700) then {
 		_numtk = d_maxnum_tks_forkick;
 		_basekill = true;
 	} else {
-		_ramKill = false;
+		_baseRamKill = false;
 	};
 	_p set [7, _numtk];	
 	if (_numtk >= d_maxnum_tks_forkick) exitWith {
@@ -40,7 +40,7 @@ if (!isNil "_p") then {
 		private _pna = _p select 6;
 		if (_basekill) then {
 			_numtk = 1;
-			if (_ramKill) then {
+			if (_baseRamKill) then {
 				_p set [14, 900];
 			};
 		};

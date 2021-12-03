@@ -519,7 +519,7 @@ if (isServer) then {
 	//grab the loadout and delete unnecessary units...
 	d_prisonerLoadout = getUnitLoadout d_prisoner_1;
 	publicVariable "d_prisonerLoadout";
-	{d_prison pushback [getPosATL(_x),true]; deletevehicle _x;} foreach units d_prisoners;	
+	{d_prison pushback [getPosATL(_x), false]; deletevehicle _x;} foreach units d_prisoners;	
 	
 };
 
