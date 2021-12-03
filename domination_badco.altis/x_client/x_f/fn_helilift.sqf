@@ -24,7 +24,7 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 		
 		if (!(_chopper getVariable ["d_vec_attached", false]) && {_pos # 2 > 2.5 && {_pos # 2 < 11}}) then {
 			_liftobj = objNull;
-			private _nobjects = nearestObjects [_chopper, ["LandVehicle", "Air","Ship"], 50];
+			private _nobjects = nearestObjects [_chopper, ["Car", "Tank", "Air","Ship"], 50];
 			if !(_nobjects isEqualTo []) then {
 				_nobjects params ["_dummy"];
 				if (_dummy == _chopper) then {
