@@ -44,7 +44,7 @@ while {true} do {
 					if (time > _empty_respawn) then {
 						private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
 						sleep 0.1;
-						if ({_x distance2D _vec < 50} count _runits == 0) then { //distance from other player
+						if ({_x distance2D _vec < 15} count _runits == 0) then { //distance from other player
 							_disabled = true;
 						};
 					};
@@ -149,7 +149,7 @@ while {true} do {
 					};
 				};
 			};
-			_vec setFuel _fuelleft;
+			//_vec setFuel _fuelleft;
 			[_vec, _skinpoly] call d_fnc_skinpolyresp;
 			_skinpoly = nil;
 #ifdef __TT_
