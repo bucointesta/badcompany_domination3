@@ -6603,13 +6603,13 @@
 <Russian>Обнаружена радиовышка в городе. Уничтожьте ее и противник не сможет вызывать подкрепления!</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1364">
-<English>Main target radio tower down. Now the enemy will not be able to call in further airborne inf reinforcements.</English>
-<Spanish>Main target radio tower down. Now the enemy will not be able to call in further airborne inf reinforcements.</Spanish>
-<Portuguese>Main target radio tower down. Now the enemy will not be able to call in further airborne inf reinforcements.</Portuguese>
-<Korean>Main target radio tower down. Now the enemy will not be able to call in further airborne inf reinforcements.</Korean>
-<Japanese>Main target radio tower down. Now the enemy will not be able to call in further airborne inf reinforcements.</Japanese>
-<Original>Main target radio tower down. Now the enemy will not be able to call in further airborne inf reinforcements.</Original>
-<Russian>Радиовышка уничтожена. Теперь противник не может вызывать подкрепления и десант!</Russian>
+<English>Main target radio tower down. Now the enemy will not be able to call in further airborne reinforcements.</English>
+<Spanish>Main target radio tower down. Now the enemy will not be able to call in further airborne reinforcements.</Spanish>
+<Portuguese>Main target radio tower down. Now the enemy will not be able to call in further airborne reinforcements.</Portuguese>
+<Korean>Main target radio tower down. Now the enemy will not be able to call in further airborne reinforcements.</Korean>
+<Japanese>Main target radio tower down. Now the enemy will not be able to call in further airborne reinforcements.</Japanese>
+<Original>Main target radio tower down. Now the enemy will not be able to call in further airborne reinforcements.</Original>
+<Russian>Радиовышка уничтожена. Теперь противник не может вызывать воздушные подкрепления!</Russian>
 </Key>
 <Key ID="STR_DOM_MISSIONSTRING_1365">
 <English>%1 enemy camps sighted at main target... capture them all!!!</English>

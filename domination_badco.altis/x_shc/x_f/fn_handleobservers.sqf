@@ -11,7 +11,7 @@ private _man_type = format ["Soldier%1B", d_enemy_side_short];
 
 sleep 10.123;
 while {d_nr_observers > 0} do {
-	if (_e_ari_avail && {(call d_fnc_PlayersNumber) > 19}) then {
+	if (_e_ari_avail && {(call d_fnc_PlayersNumber) > 29}) then {
 		{
 			if (alive _x) then {
 				private _enemy = _x findNearestEnemy _x;

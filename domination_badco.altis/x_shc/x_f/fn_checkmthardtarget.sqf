@@ -5,10 +5,14 @@
 
 params ["_vec"];
 _vec addEventHandler ["killed", {
+
+	// Hunter: Don't set this so non-airborne reinforcements can still spawn in
+	/*
 	d_mt_spotted = false;
 	if (d_IS_HC_CLIENT) then {
 		[missionNamespace, ["d_mt_spotted", false]] remoteExecCall ["setVariable", 2];
 	};
+	*/
 	d_mt_radio_down = true;
 	[missionNamespace, ["d_mt_radio_down", true]] remoteExecCall ["setVariable", 2];
 	"d_main_target_radiotower" remoteExecCall ["deleteMarker", 2];

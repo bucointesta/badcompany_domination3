@@ -69,7 +69,7 @@ private _make_jump = {
 	private _stop_me = false;
 	private _checktime = time + 300;
 	//Hunter: Increased distance from DZ because #armaAI.... (was 300)
-	while {_posLead = getPosASL (leader _vgrp); (_attackpoint distance2D _posLead > 1000) || {surfaceIsWater _posLead}} do {
+	while {_posLead = getPosASL (leader _vgrp); (_flytopos distance2D _posLead > 1900) || {surfaceIsWater _posLead}} do {
 		if (!alive _vec || {!alive _driver_vec || {!canMove _vec}}) exitWith {d_should_be_there = d_should_be_there - 1};
 		sleep 0.01;
 		// Hunter: let them come :)

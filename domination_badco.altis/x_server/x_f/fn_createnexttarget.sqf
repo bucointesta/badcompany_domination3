@@ -65,7 +65,11 @@ __TRACE("!d_update_target done")
 
 #ifndef __TT__
 _tsar = if (d_ao_check_for_ai == 1) then {
+	// Hunter: modified this so capturing the AO doesn't depend on enemy numbers at all for new gameplay style		
+	/*
 	["d_mt_radio_down && {d_campscaptured == d_sum_camps && {'Car' countType thislist <= d_car_count_for_target_clear && {'Tank' countType thislist <= d_tank_count_for_target_clear && {'CAManBase' countType thislist <= d_man_count_for_target_clear}}}}", "0 = 0 spawn d_fnc_target_clear", ""]
+	*/
+	["d_mt_radio_down && {d_campscaptured == d_sum_camps}", "0 = 0 spawn d_fnc_target_clear", ""]
 } else {
 	["d_mt_radio_down && {d_campscaptured == d_sum_camps}", "0 = 0 spawn d_fnc_target_clear", ""]
 };

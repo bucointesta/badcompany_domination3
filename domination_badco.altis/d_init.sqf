@@ -63,7 +63,7 @@ d_target_names = [];
 		_pos set [2, 0];
 		_ar set [0, _pos]; // position CityCenter by logic
 		_ar set [1, _name]; // name village/city
-		_ar set [2, _dtar getVariable ["d_cityradius", 300]];
+		_ar set [2, _dtar getVariable ["d_cityradius", 400]];
 		_ar set [3, _forEachIndex];
 		__TRACE_1("One target found","_ar")
 		d_target_names pushBack _ar;
@@ -82,7 +82,7 @@ d_target_names = [];
 			};
 			_name = text (_nlocs # 0);
 			_ar set [1, _name]; // name village/city
-			_ar set [2, _dtar getVariable ["d_cityradius", 300]];
+			_ar set [2, _dtar getVariable ["d_cityradius", 400]];
 			_ar set [3, _forEachIndex];
 			_dtar setVariable ["d_cityname", _name];
 			__TRACE_1("One target found","_ar")

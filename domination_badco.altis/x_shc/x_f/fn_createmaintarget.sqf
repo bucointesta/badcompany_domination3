@@ -78,23 +78,113 @@ __TRACE_3("","_trgobj","_radius","_patrol_radius")
 __TRACE_1("","_this")
 
 #ifndef __TT__
-d_num_barracks_objs = (ceil random 4) max 2;
+d_num_barracks_objs = (ceil random 7) max 4;
 __TRACE_1("","d_num_barracks_objs")
 d_mt_barracks_obj_ar = [];
 private ["_iccount", "_ecounter", "_poss"];
 private _vec = [0,0,0];
 private _allbars = [];
 private _doexit = false;
+
+// Hunter: moved this here from fn_createsecondary to make it spawn before anything else
+
+private _poss = [_trg_center, _radius/2, 3, 1, 0.3, 30, 0] call d_fnc_GetRanPointCircleBig;
+private _iccount = 0;
+while {_poss isEqualTo []} do {
+	_iccount = _iccount + 1;
+	_poss = [_trg_center, _radius/2, 3, 1, 0.3, 30, 0] call d_fnc_GetRanPointCircleBig;
+	if (_iccount >= 500 && {!(_poss isEqualTo [])}) exitWith {};
+};
+if (isNil "_poss" || {_poss isEqualTo []}) then {
+	_poss = [_trg_center, _radius] call d_fnc_getranpointcircle;
+};
+_poss set [2, 0];
+private _vec = createVehicle [d_illum_tower, _poss, [], 0, "NONE"];
+_vec setPos _poss;
+_vec setVectorUp [0,0,1];
+[_vec] call d_fnc_CheckMTHardTarget;
+d_mt_radio_down = false;
+// Hunter: set spotted to false here on new AO init instead of inside tower killed EH in previous AO
+d_mt_spotted = false;
+if (d_IS_HC_CLIENT) then {
+	[missionNamespace, ["d_mt_spotted", false]] remoteExecCall ["setVariable", 2];
+};
+[missionNamespace, ["d_mt_radio_down", false]] remoteExecCall ["setVariable", 2];
+["d_main_target_radiotower", _poss,"ICON","ColorBlack",[0.5,0.5],localize "STR_DOM_MISSIONSTRING_521",0,"mil_dot"] remoteExecCall ["d_fnc_CreateMarkerGlobal", 2];
+
+#ifndef __TT__
+[9] remoteExecCall ["d_fnc_DoKBMsg", 2];
+#else
+[10] remoteExecCall ["d_fnc_DoKBMsg", 2];
+#endif
+sleep 1.0112;
+
+private _newgroup = [d_side_enemy] call d_fnc_creategroup;
+__TRACE("from createsecondary 1")
+[_poss, ["specops", d_enemy_side_short] call d_fnc_getunitlistm, _newgroup] spawn d_fnc_makemgroup;
+_newgroup deleteGroupWhenEmpty true;
+sleep 1.0112;
+_newgroup allowFleeing 0;
+_newgroup setVariable ["d_defend", true];
+[_newgroup, _poss] spawn d_fnc_taskDefend;
+if (d_with_dynsim == 0) then {
+	_newgroup spawn {
+		sleep 10;
+		_this enableDynamicSimulation true;
+	};
+};
+
+// Hunter: move vehicle HQ spawning above so it gets to pick spawn pos first and ignores barracks positions
+_ecounter = 0;
+	while {true} do {
+	_poss = [_trg_center, _radius/2, 4, 1, 0.3, sizeOf d_vehicle_building, 0] call d_fnc_GetRanPointCircleBig;
+	if (_poss isEqualTo []) then {
+		_iccount = 0;
+		while {_poss isEqualTo []} do {
+			_iccount = _iccount + 1;
+			_poss = [_trg_center, _radius/2, 4, 1, 0.3, sizeOf d_vehicle_building, 0] call d_fnc_GetRanPointCircleBig;
+			if (_iccount >= 500 && {!(_poss isEqualTo [])}) exitWith {};
+		};
+	};
+	_doexit = false;
+	if !(_allbars isEqualTo []) then {
+		if (_allbars findIf {_poss distance2D _vec >= 120} == count _allbars) then {
+			_doexit = true;
+		};
+	} else {
+		_doexit = true;
+	};
+	_ecounter = _ecounter + 1;
+	if (_doexit || {_ecounter == 50}) exitWith {};
+};
+if (isNil "_poss" || {_poss isEqualTo []}) then {
+	_poss = [_trg_center, _radius] call d_fnc_getranpointcircle;
+};
+_poss set [2, 0];
+
+_vec = createVehicle [d_vehicle_building, _poss, [], 0, "NONE"];
+__TRACE_1("d_vehicle_building","_vec")
+_vec setPos _poss;
+_vec setVectorUp [0,0,1];
+_vec setVariable ["d_v_pos", _poss];
+[_vec, 1] call d_fnc_checkmtrespawntarget;
+d_mt_mobile_hq_down = false;
+d_mt_mobile_hq_obj = _vec;
+if (!isServer) then {
+	[missionNamespace, ["d_mt_mobile_hq_down", false]] remoteExecCall ["setVariable", 2];
+};
+sleep 0.1;
+
 for "_i" from 1 to d_num_barracks_objs do {
 	_ecounter = 0;
 	while {true} do {
-		_poss = [_trg_center, _radius, 4, 1, 0.3, sizeOf d_barracks_building, 0] call d_fnc_GetRanPointCircleBig;
+		_poss = [_trg_center, _radius*0.7, 4, 1, 0.3, sizeOf d_barracks_building, 0] call d_fnc_GetRanPointCircleBig;
 		if (_poss isEqualTo []) then {
 			_iccount = 0;
 			while {_poss isEqualTo []} do {
 				_iccount = _iccount + 1;
-				_poss = [_trg_center, _radius, 4, 1, 0.3, sizeOf d_barracks_building, 0] call d_fnc_GetRanPointCircleBig;
-				if (_iccount >= 50 && {!(_poss isEqualTo [])}) exitWith {};
+				_poss = [_trg_center, _radius*0.7, 4, 1, 0.3, sizeOf d_barracks_building, 0] call d_fnc_GetRanPointCircleBig;
+				if (_iccount >= 100 && {!(_poss isEqualTo [])}) exitWith {};
 			};
 		};
 		_doexit = false;
@@ -130,45 +220,6 @@ if (!isServer) then {
 	[missionNamespace, ["d_mt_barracks_down", false]] remoteExecCall ["setVariable", 2];
 };
 
-_ecounter = 0;
-	while {true} do {
-	_poss = [_trg_center, _radius, 4, 1, 0.3, sizeOf d_vehicle_building, 0] call d_fnc_GetRanPointCircleBig;
-	if (_poss isEqualTo []) then {
-		_iccount = 0;
-		while {_poss isEqualTo []} do {
-			_iccount = _iccount + 1;
-			_poss = [_trg_center, _radius, 4, 1, 0.3, sizeOf d_vehicle_building, 0] call d_fnc_GetRanPointCircleBig;
-			if (_iccount >= 50 && {!(_poss isEqualTo [])}) exitWith {};
-		};
-	};
-	_doexit = false;
-	if !(_allbars isEqualTo []) then {
-		if (_allbars findIf {_poss distance2D _vec >= 120} == count _allbars) then {
-			_doexit = true;
-		};
-	} else {
-		_doexit = true;
-	};
-	_ecounter = _ecounter + 1;
-	if (_doexit || {_ecounter == 50}) exitWith {};
-};
-if (isNil "_poss" || {_poss isEqualTo []}) then {
-	_poss = [_trg_center, _radius] call d_fnc_getranpointcircle;
-};
-_poss set [2, 0];
-
-_vec = createVehicle [d_vehicle_building, _poss, [], 0, "NONE"];
-__TRACE_1("d_vehicle_building","_vec")
-_vec setPos _poss;
-_vec setVectorUp [0,0,1];
-_vec setVariable ["d_v_pos", _poss];
-[_vec, 1] call d_fnc_checkmtrespawntarget;
-d_mt_mobile_hq_down = false;
-d_mt_mobile_hq_obj = _vec;
-if (!isServer) then {
-	[missionNamespace, ["d_mt_mobile_hq_down", false]] remoteExecCall ["setVariable", 2];
-};
-sleep 0.1;
 #endif
 
 #ifdef __DEBUG__
@@ -238,7 +289,7 @@ _type_list_patrol = nil;
 sleep 2.124;
 
 if (!d_no_more_observers) then {
-	d_nr_observers = floor random 4;
+	d_nr_observers = floor random 5;
 	if (d_nr_observers < 2) then {d_nr_observers = 2};
 	d_obs_array = [];
 	d_obs_array resize d_nr_observers;
@@ -251,11 +302,12 @@ if (!d_no_more_observers) then {
 		__TRACE("from createmaintarget 1")
 		private _observer = ([_xpos, _unit_array, _agrp] call d_fnc_makemgroup) # 0;
 		_agrp deleteGroupWhenEmpty true;
-		[_agrp, _xpos, [_trg_center, _radius], [5, 20, 40], "", 0] spawn d_fnc_MakePatrolWPX;
+		[_agrp, _xpos, [_trg_center, _radius/2], [5, 20, 40], "", 0] spawn d_fnc_MakePatrolWPX;
 		_agrp setVariable ["d_PATR", true];
 		if (d_with_dynsim == 0) then {
 			_agrp enableDynamicSimulation true;
 		};
+		_agrp setBehaviour "STEALTH";
 		_observer addEventHandler ["killed", {d_nr_observers = d_nr_observers - 1;
 			if (d_nr_observers == 0) then {
 #ifndef __TT__
