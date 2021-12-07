@@ -41,4 +41,20 @@ if (((_vecnum == 806) || {(_vecnum == 807) || {_vecnum == 808}}) && {!(_enterer 
 //if ((_vec isKindOf "Air") && {!((_enterer in d_attack_pilots) || {_enterer in _transPilots})}) exitWith {hint "You need to be a pilot to fly this vehicle";false};
 if ((_vec isKindOf "Air") && {!(_enterer in _pilots)}) exitWith {hint "You need to be a pilot to fly this aircraft";false};
 
+#ifndef __RHS__
+	// Jet nerf
+	if ((_vec iskindof "Plane_CAS_01_base_F") || {_vec iskindof "Plane_Fighter_01_Base_F"}) then {
+		// seems there is no EH for this...
+		_vec spawn {
+			while {(alive player) && {(vehicle player) == _this}} do {
+				uiSleep 0.1;
+				if (cameraView == "GUNNER") then {
+					hint "The targeting pod on jets is disabled on this server. Ask a ground team member to lase targets!";
+					_this switchCamera "INTERNAL";
+				};
+			};
+		};
+	};
+#endif
+
 true

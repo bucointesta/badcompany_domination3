@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={26480.285,-8.8199711,24750.428};
-		dir[]={-0.0068407822,-0.99994999,0.0072937845};
-		up[]={-0.68405908,0.00999978,0.72935802};
-		aside[]={0.7293945,0,0.6840933};
+		pos[]={26505.197,-5.203208,24738.846};
+		dir[]={-0.0070491694,-0.99994999,0.0070925886};
+		up[]={-0.70489722,0.00999978,0.70923901};
+		aside[]={0.70927447,0,0.70493245};
 	};
 };
 binarizationWanted=0;
@@ -53698,8 +53698,9 @@ class Mission
 			class Attributes
 			{
 				lock="UNLOCKED";
+				init="if (isServer) then { this removeWeapon ""Laserdesignator_pilotCamera""; };";
 				name="d_attack_1";
-				pylons="PylonRack_1Rnd_AAA_missiles;PylonRack_7Rnd_Rocket_04_HE_F;PylonRack_3Rnd_Missile_AGM_02_F;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonRack_3Rnd_Missile_AGM_02_F;PylonRack_7Rnd_Rocket_04_HE_F;PylonRack_1Rnd_AAA_missiles;";
+				pylons="PylonRack_1Rnd_Missile_AA_04_F;PylonRack_7Rnd_Rocket_04_HE_F;PylonRack_3Rnd_LG_scalpel;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonMissile_1Rnd_Bomb_04_F;PylonRack_7Rnd_Rocket_04_HE_F;PylonRack_1Rnd_Missile_AA_04_F;";
 			};
 			id=8967;
 			type="B_Plane_CAS_01_dynamicLoadout_F";
@@ -53733,19 +53734,20 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={26761.18,23.587543,24649.264};
+				position[]={26761.18,23.587608,24649.264};
 				angles[]={0,2.2936943,6.2820859};
 			};
 			side="Empty";
 			class Attributes
 			{
 				lock="UNLOCKED";
+				init="if (isServer) then { this removeWeapon ""Laserdesignator_pilotCamera""; };";
 				name="d_attack_2";
 				pylons=";;;;PylonMissile_Missile_BIM9X_x1;PylonMissile_Missile_BIM9X_x1;PylonMissile_Missile_AMRAAM_D_INT_x1;PylonMissile_Missile_AMRAAM_D_INT_x1;PylonMissile_Missile_AMRAAM_D_INT_x1;PylonMissile_Missile_AMRAAM_D_INT_x1;PylonMissile_Bomb_GBU12_x1;PylonMissile_Bomb_GBU12_x1;";
 			};
 			id=8968;
 			type="B_Plane_Fighter_01_Stealth_F";
-			atlOffset=0.56993484;
+			atlOffset=0.56999969;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -53807,7 +53809,7 @@ class Mission
 			{
 				lock="UNLOCKED";
 				name="d_chopper_8";
-				pylons="PylonRack_12Rnd_PG_missiles[0];PylonMissile_1Rnd_AAA_missiles;PylonRack_12Rnd_missiles;PylonRack_12Rnd_missiles;PylonMissile_1Rnd_AAA_missiles;PylonRack_12Rnd_PG_missiles[0];";
+				pylons="PylonMissile_1Rnd_LG_scalpel[0];PylonMissile_1Rnd_AAA_missiles;PylonRack_12Rnd_missiles;PylonRack_12Rnd_missiles;PylonMissile_1Rnd_AAA_missiles;PylonRack_12Rnd_PG_missiles[0];";
 			};
 			id=8970;
 			type="B_Heli_Attack_01_dynamicLoadout_F";

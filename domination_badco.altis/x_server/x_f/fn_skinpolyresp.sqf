@@ -25,4 +25,11 @@ if (_vec isKindOf "air") then {
 	{
 		_vec setPylonLoadOut [_forEachIndex + 1, _x, true, _pylonPaths select _forEachIndex]
 	} forEach (_airar # 0);
+	
+	#ifndef __RHS__
+		// Jet nerf
+		if ((_vec iskindof "Plane_CAS_01_base_F") || {_vec iskindof "Plane_Fighter_01_Base_F"}) then {
+			_vec removeWeapon "Laserdesignator_pilotCamera";
+		};
+	#endif
 };
