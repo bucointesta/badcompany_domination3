@@ -253,9 +253,12 @@ player addEventhandler ["Take", {_this call d_fnc_ptakeweapon}];
 player addEventhandler ["Put", {_this call d_fnc_pputweapon}];
 player addEventhandler ["Reloaded", {call d_fnc_save_layoutgear}];
 player addEventHandler ["WeaponAssembled", {
-	params ["_unit", "_staticWeapon"];	
-	_staticWeapon setVehicleAmmo 0;
-	_staticWeapon lock 0;
+	params ["_unit", "_staticWeapon"];
+	// it could also be backpack drones...
+	if (_staticWeapon iskindof "StaticWeapon") then {
+		_staticWeapon setVehicleAmmo 0;
+		_staticWeapon lock 0;
+	};
 	_staticWeapon disableTIEquipment true;
 }];
 
