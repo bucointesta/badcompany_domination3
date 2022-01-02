@@ -29,11 +29,11 @@ private _playerUID = getPlayerUID player;
 
 1 fadeSound 1;
 
-// uncomment to set default channel to Direct
-// setCurrentChannel 5;
-
 // disable side voip
 1 enableChannel [true, false];
+
+// set default channel to side
+setCurrentChannel 1;
 
 if (str player == "d_zeus") exitWith {
 	d_still_in_intro = false;
