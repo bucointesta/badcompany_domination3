@@ -16,4 +16,8 @@ if (!alive _vec) exitWith {
 d_curvec_dialog = _vec;
 d_curcaller_dialog = _this select 1;
 
+if ((_vec getVariable ["d_vec_type", ""] == "MHQ") && {(count (allPlayers - entities "HeadlessClient_F")) >= 25}) exitWith {
+	hint "MHQs are disabled when player count is above 25!";
+};
+
 createDialog "d_VecDialog";
