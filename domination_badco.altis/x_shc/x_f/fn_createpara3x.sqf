@@ -70,7 +70,7 @@ private _make_jump = {
 	private _checktime = time + 300;
 	//Hunter: Increased distance from DZ because #armaAI.... (was 300)
 	while {_posLead = getPosASL (leader _vgrp); (_flytopos distance2D _posLead > 1900) || {surfaceIsWater _posLead}} do {
-		if (!alive _vec || {!alive _driver_vec || {!canMove _vec}}) exitWith {d_should_be_there = d_should_be_there - 1};
+		if (!alive _vec || {!alive _driver_vec || {((getposATL _vec) select 2) < 20}}) exitWith {d_should_be_there = d_should_be_there - 1};
 		sleep 0.01;
 		// Hunter: let them come :)
 		/*
@@ -96,7 +96,7 @@ private _make_jump = {
 	
 	sleep 0.534;
 	
-	if (alive _vec && {alive _driver_vec && {canMove _vec}}) then {
+	if (alive _vec && {alive _driver_vec && {((getposATL _vec) select 2) > 20}}) then {
 	
 		private _paragrp = [d_side_enemy] call d_fnc_creategroup;
 		private _real_units = ["allmen", d_enemy_side_short] call d_fnc_getunitlistm;

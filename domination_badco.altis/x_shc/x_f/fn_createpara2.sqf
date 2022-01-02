@@ -5,7 +5,7 @@
 
 if (!isServer) exitWith {};
 
-#define __exitchop if (!alive _chopper || {!canMove _chopper || {!alive driver _chopper}}) exitWith {[_crew_vec, _chopper,240 + random 100] spawn _delveccrew}
+#define __exitchop if (!alive _chopper || {(((getposATL _chopper) select 2) < 20) || {!alive driver _chopper}}) exitWith {[_crew_vec, _chopper,240 + random 100] spawn _delveccrew}
 
 params ["_vgrp", "_chopper", "_helifirstpoint", "_heliendpoint"];
 private _crew_vec = crew _chopper;
@@ -45,7 +45,7 @@ while {_helifirstpoint distance2D (leader _vgrp) > 300} do {
 	sleep 2.123;
 };
 
-if (alive _chopper && {canMove _chopper && {alive driver _chopper}}) then {
+if (alive _chopper && {(((getposATL _chopper) select 2) > 20) && {alive driver _chopper}}) then {
 	private _subskill = if (diag_fps > 29) then {
 		(0.1 + (random 0.2))
 	} else {
