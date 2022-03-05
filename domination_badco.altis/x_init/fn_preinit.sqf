@@ -839,23 +839,21 @@ if (!d_tt_tanoa) then {
 	//Hunter: convert to player number scaled functions
 	d_number_attack_planes = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 35) exitWith {0};
-		if (_p < 52) exitWith {1};
-		if (_p < 65) exitWith {2};
+		if (_p < 45) exitWith {0};
+		if (_p < 55) exitWith {1};
 		2
 	};
 	d_number_CAP_planes = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 30) exitWith {0};
-		if (_p < 50) exitWith {1};
-		if (_p < 64) exitWith {2};
+		if (_p < 50) exitWith {0};
+		if (_p < 60) exitWith {1};
 		2
 	};
 	d_number_attack_choppers = {
 		private _p = call d_fnc_PlayersNumber;
 		if (_p < 22) exitWith {0};
-		if (_p < 41) exitWith {1};
-		if (_p < 60) exitWith {2};
+		if (_p < 40) exitWith {1};
+		if (_p < 55) exitWith {2};
 		3
 	};
 	
@@ -929,8 +927,8 @@ if (!d_tt_tanoa) then {
 	// Hunter: convert to function to scaled for player count
 	d_airai_respawntime = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 50) exitWith {1500};
-		if (_p < 57) exitWith {1300};
+		if (_p < 35) exitWith {1500};
+		if (_p < 55) exitWith {1200};
 		if (_p < 65) exitWith {1100};		
 		900
 	};
