@@ -639,7 +639,7 @@ class Mission
 	assetType="Free";
 	class Intel
 	{
-		briefingName="BC Domination Altis";
+		briefingName="BadCo Domination Altis";
 		overviewText="Mission by Xeno. Modified by A.Renton and K.Hunter";
 		startWeather=0;
 		startWind=0;

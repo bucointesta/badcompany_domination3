@@ -279,7 +279,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 			
 				_vecTarget = assignedTarget _curvec;
 			
-				if ((!isNull _vecTarget) && {(speed _curvec) > 10} && {(_vecTarget distance2D d_cur_tgt_pos) < _radius}) exitWith {			
+				if ((!isNull _vecTarget) && {(speed _curvec) > 10} && {(_vecTarget distance2D _cur_tgt_pos) < _radius}) exitWith {			
 					_old_pos = getPosASL _curvec;
 					sleep 5;
 				};
@@ -315,7 +315,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 				
 				_vecTarget = assignedTarget _curvec;
 			
-				if ((!isNull _vecTarget) && {(_vecTarget iskindof "Air") || {(_type == "CAS") && {(_vecTarget distance2D d_cur_tgt_pos) < _radius}}}) exitWith {		
+				if ((!isNull _vecTarget) && {(_vecTarget iskindof "Air") || {(_type == "CAS") && {(_vecTarget distance2D _cur_tgt_pos) < _radius}}}) exitWith {		
 					_old_pos = getPosASL _curvec;
 					sleep 5;
 				};
