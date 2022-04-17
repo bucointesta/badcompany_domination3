@@ -23,7 +23,13 @@
 
 #define VAN_MMRIFLEFROM "srifle_DMR_01_F"
 #define VAN_MMRIFLETO "srifle_DMR_06_hunter_F"
+#define VAN_MMRIFLETO_MAG "20Rnd_762x51_Mag"
 #define VAN_MMSCOPE "optic_KHS_old"
+#define VAN_MMBIPOD "bipod_03_F_blk"
+
+#define VAN_ARTO "arifle_RPK12_F"
+#define VAN_ARTO_MAG "75Rnd_762x39_Mag_Tracer_F"
+#define VAN_ARSCOPE "optic_SOS"
 
 #define VAN_AAFROM "launch_O_Titan_F"
 #define VAN_AATO "launch_B_Titan_olive_F"
@@ -120,9 +126,25 @@ _this spawn {
 			case VAN_RIFLE1FROM : {
 				_this removeMagazines _mag;
 				_this removeWeapon _primary;
-				_this addWeapon VAN_RIFLE1TO;
-				_this addPrimaryWeaponItem VAN_RIFLE1TO_MAG;
-				_this addMagazines [VAN_RIFLE1TO_MAG, 10];
+				
+				if ((secondaryWeapon _this) != "") then {
+					_this addWeapon VAN_RIFLE1TO;
+					_this addPrimaryWeaponItem VAN_RIFLE1TO_MAG;
+					_this addMagazines [VAN_RIFLE1TO_MAG, 10];
+				} else {
+					if ((random 1) < 0.3) then {
+						_this addWeapon VAN_MMRIFLETO;
+						_this addPrimaryWeaponItem VAN_MMSCOPE;
+						_this addPrimaryWeaponItem VAN_MMBIPOD;
+						_this addPrimaryWeaponItem VAN_MMRIFLETO_MAG;
+						_this addMagazines [VAN_MMRIFLETO_MAG, 12];
+					} else {
+						_this addWeapon VAN_ARTO;
+						_this addPrimaryWeaponItem VAN_ARSCOPE;
+						_this addPrimaryWeaponItem VAN_ARTO_MAG;
+						_this addMagazines [VAN_ARTO_MAG, 10];
+					};
+				};
 			};
 			case VAN_RIFLE3FROM : {
 				_this removeMagazines _mag;
