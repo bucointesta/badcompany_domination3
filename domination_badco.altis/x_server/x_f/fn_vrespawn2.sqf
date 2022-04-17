@@ -32,11 +32,11 @@ while {true} do {
 		private _empty = {alive _x} count (crew _vec) == 0; //true if empty
 
 /*script for respawn if abandoned, set to work only with bikes*/	
-		if ((_number_v >= 700) && {_number_v < 800} && {alive _vec}) then {  
+		if ((_number_v >= 700) && {_number_v < 800}) then {  
 			if (_empty) then {
 				private _empty_respawn = _vec_a select 5;
 				if (_empty_respawn == -1) then {
-					if (_vec distance2D (_vec_a select 2) > 10) then { //distance from initial respawn
+					if ((!alive _vec) || {_vec distance2D (_vec_a select 2) > 10} || {(getDammage _vec) > 0.3}) then { //distance from initial respawn
 						_vec_a set [5, time + 60]; // abandoned timeout
 						d_vrespawn2_ar set [_forEachIndex, _vec_a];
 					};
@@ -44,7 +44,7 @@ while {true} do {
 					if (time > _empty_respawn) then {
 						private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
 						sleep 0.1;
-						if ({_x distance2D _vec < 15} count _runits == 0) then { //distance from other player
+						if ({_x distance2D _vec < 20} count _runits == 0) then { //distance from other player
 							_disabled = true;
 						};
 					};
