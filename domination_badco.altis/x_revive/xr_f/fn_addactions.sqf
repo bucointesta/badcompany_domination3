@@ -19,7 +19,7 @@ if (_unit getVariable ["xr_ReviveAction", -9999] == -9999) then {
 		/* 8 code executed on completion */	{_this call xr_fnc_cdorevive},
 		/* 9 code executed on interruption*/{},
 		/* 10 arguments */					[_unit],
-		/* 11 action duration */			[6, 3] select (player getUnitTrait "medic"),
+		/* 11 action duration */			[25, 16] select (player getUnitTrait "medic"),
 		/* 12 priority */					-1,
 		/* 13 remove on completion */		false,
 		/* 14 show unconscious */			false
