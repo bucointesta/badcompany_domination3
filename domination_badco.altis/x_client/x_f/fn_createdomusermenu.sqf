@@ -55,9 +55,13 @@ if (d_player_can_call_drop > 0 && {!visibleMap && {!_is_para}}) then {
 	d_DomUserMenu pushBack [localize "STR_DOM_MISSIONSTRING_230", [call _fnc_inc_num], "", -5, [["expression", "2 call d_fnc_DomCommandingMenuExec"]], "1", "1"];
 };
 
+// Hunter: remove MASH
+
+/*
 if (player getUnitTrait "Medic" && {isNull objectParent player && {(player getVariable "d_medtent") isEqualTo []}}) then {
 	d_DomUserMenu pushBack [localize "STR_DOM_MISSIONSTRING_305", [call _fnc_inc_num], "", -5, [["expression", "5 call d_fnc_DomCommandingMenuExec"]], "1", "1"];
 };
+*/
 
 if (player getUnitTrait "engineer" && {isNull objectParent player && {(player getVariable "d_farp_pos") isEqualTo []}}) then {
 	d_DomUserMenu pushBack [localize "STR_DOM_MISSIONSTRING_307", [call _fnc_inc_num], "", -5, [["expression", "6 call d_fnc_DomCommandingMenuExec"]], "1", "1"];
