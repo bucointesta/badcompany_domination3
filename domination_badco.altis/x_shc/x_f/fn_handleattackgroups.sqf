@@ -4,7 +4,7 @@
 
 if (!isServer) exitWith {};
 
-params ["_grps"];
+params ["_grps", "_unitLimit", "_playerCount"];
 
 private _allunits = [];
 {
@@ -22,8 +22,23 @@ sleep 1.2123;
 	_x forceSpeed 20;
 } foreach _allunits;
 
+_unitLimit = 4;
+
 while {!d_mt_radio_down} do {
-	if ({alive _x} count _allunits < 5) exitWith {
+	
+	// Hunter: based on same calculation as chopper count (assumed 10 units per chopper)
+	// so when ~ 1/3 of units left call reinforcements
+	// probably should centralise this...
+	
+	_playerCount = call d_fnc_PlayersNumber;
+	switch (true) do {
+		case (_playerCount > 59) : { _unitLimit = 14};
+		case (_playerCount > 44) : { _unitLimit = 11};
+		case (_playerCount > 34) : { _unitLimit = 8 };
+		default {_unitLimit = 4};
+	};
+
+	if ({alive _x} count _allunits < _unitLimit) exitWith {
 		d_c_attacking_grps = [];
 		d_create_new_paras = true;
 	};
