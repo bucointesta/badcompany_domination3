@@ -399,7 +399,22 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 	};
 	sleep (d_airai_respawntime + _re_random + (random _re_random));
 	*/
-	sleep (call d_airai_respawntime);
+	
+	private _sleepTime = 0;
+	switch (_type) do {
+		case "AH": {
+			_sleepTime = call d_airai_AHrespawntime;
+		};
+		case "CAP": {
+			_sleepTime = call d_airai_CASrespawntime;
+		};
+		case "CAS": {
+			_sleepTime = call d_airai_CAPrespawntime;
+		};
+	};
+	
+	sleep _sleepTime;
+	
 #else
 	sleep 10;
 #endif

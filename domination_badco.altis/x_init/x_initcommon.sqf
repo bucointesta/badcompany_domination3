@@ -325,7 +325,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 					[5,5] // specop groups
 				];			
 			};
-			case (_pCount < 60) : {			
+			case (_pCount < 55) : {			
 				d_vec_numbers_guard = [
 					[[1,1], 1], // tanks
 					[[1,1], 1], // tracked apc

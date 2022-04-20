@@ -846,14 +846,13 @@ if (!d_tt_tanoa) then {
 	d_number_CAP_planes = {
 		private _p = call d_fnc_PlayersNumber;
 		if (_p < 50) exitWith {0};
-		if (_p < 60) exitWith {1};
-		2
+		1
 	};
 	d_number_attack_choppers = {
 		private _p = call d_fnc_PlayersNumber;
 		if (_p < 22) exitWith {0};
 		if (_p < 40) exitWith {1};
-		if (_p < 55) exitWith {2};
+		if (_p < 59) exitWith {2};
 		3
 	};
 	
@@ -925,12 +924,23 @@ if (!d_tt_tanoa) then {
 		
 	// time (in sec) between attack planes and choppers over main target will respawn once they were shot down.
 	// Hunter: convert to function to scaled for player count
-	d_airai_respawntime = {
+	d_airai_AHrespawntime = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 35) exitWith {1500};
-		if (_p < 55) exitWith {1200};
-		if (_p < 65) exitWith {1100};		
+		if (_p < 43) exitWith {1500};
+		if (_p < 55) exitWith {1200};		
+		if (_p < 60) exitWith {1050};		
 		900
+	};
+	d_airai_CASrespawntime = {
+		private _p = call d_fnc_PlayersNumber;
+		if (_p < 55) exitWith {1800};
+		if (_p < 60) exitWith {1500};
+		1200
+	};
+	d_airai_CAPrespawntime = {
+		private _p = call d_fnc_PlayersNumber;
+		if (_p < 55) exitWith {1800};	
+		1500
 	};
 
 	d_side_missions_random = [];
