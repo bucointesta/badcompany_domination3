@@ -546,4 +546,17 @@ if (!(profileNamespace getVariable ["BadCoTutorialDone", false])) then {
 
 introFuckedUp = false;
 
+#ifndef __RHS__
+	[] spawn {
+		while {true} do {
+			adBillboard1 setObjectTexture [0,"pics\ad_1_1.paa"];
+			adBillboard2 setObjectTexture [0,"pics\ad_1_1.paa"];
+			uisleep 4;
+			adBillboard1 setObjectTexture [0,"pics\ad_1_2.paa"];
+			adBillboard2 setObjectTexture [0,"pics\ad_1_2.paa"];
+			uisleep 15;
+		};
+	};	
+#endif
+
 diag_log [diag_frameno, diag_ticktime, time, "Dom intro ended"];

@@ -8,7 +8,7 @@ class EditorData
 	toggles=521;
 	class ItemIDProvider
 	{
-		nextID=9400;
+		nextID=9402;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={26505.197,-5.203208,24738.846};
-		dir[]={-0.0070491694,-0.99994999,0.0070925886};
-		up[]={-0.70489722,0.00999978,0.70923901};
-		aside[]={0.70927447,0,0.70493245};
+		pos[]={26453.588,-14.79164,24770.07};
+		dir[]={-0.15461093,-0.98260021,0.10325233};
+		up[]={-0.81712425,0.18581115,0.54569227};
+		aside[]={0.55538505,1.4694815e-006,0.83163536};
 	};
 };
 binarizationWanted=0;
@@ -658,7 +658,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=1371;
+		items=1373;
 		class Item0
 		{
 			dataType="Marker";
@@ -60879,6 +60879,128 @@ class Mission
 					};
 				};
 				nAttributes=1;
+			};
+		};
+		class Item1371
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={26711.762,22.163055,24628.115};
+				angles[]={0,3.9674516,-0};
+			};
+			side="Empty";
+			flags=1;
+			class Attributes
+			{
+				name="adBillboard1";
+				disableSimulation=1;
+			};
+			id=9400;
+			type="Land_Billboard_F";
+			atlOffset=0.65167236;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ObjectTextureCustom0";
+					expression="_this setObjectTextureGlobal [0,_value]";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
+			};
+		};
+		class Item1372
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={26727.855,22.318474,24648.248};
+				angles[]={0,0.48403215,0};
+			};
+			side="Empty";
+			flags=1;
+			class Attributes
+			{
+				name="adBillboard2";
+				disableSimulation=1;
+			};
+			id=9401;
+			type="Land_Billboard_F";
+			atlOffset=0.65099716;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ObjectTextureCustom0";
+					expression="_this setObjectTextureGlobal [0,_value]";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="";
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=2;
 			};
 		};
 	};
