@@ -35,7 +35,7 @@ if (!isNil "_p") then {
 	};
 	_p set [7, _numtk];	
 	if (_numtk >= d_maxnum_tks_forkick) exitWith {
-		remoteExecCall ["d_fnc_save_layoutgear", _tk];
+		//remoteExecCall ["d_fnc_save_layoutgear", _tk];
 		_p set [14, 300];
 		private _pna = _p select 6;
 		if (_basekill) then {

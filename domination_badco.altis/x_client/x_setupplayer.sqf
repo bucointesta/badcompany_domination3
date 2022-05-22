@@ -391,8 +391,8 @@ d_all_ammoloads = (allMissionObjects "HeliH") select {(str _x) select [0, 10] ==
 	d_3draw_ar = [
 		[d_FLAG_BASE, localize "STR_DOM_MISSIONSTRING_1644", 2.5],
 		[d_vecre_trigger, localize "STR_DOM_MISSIONSTRING_524", 5],
-		[d_jet_trigger, localize "STR_DOM_MISSIONSTRING_526", 5],
-		[d_wreck_rep, localize "STR_DOM_MISSIONSTRING_0", 5]
+		[d_jet_trigger, localize "STR_DOM_MISSIONSTRING_526", 5]/*,
+		[d_wreck_rep, localize "STR_DOM_MISSIONSTRING_0", 5]*/
 	];
 	
 	if (!d_ifa3lite) then {

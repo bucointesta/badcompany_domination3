@@ -21,9 +21,9 @@ class EditorData
 	class Camera
 	{
 		pos[]={26453.588,-14.79164,24770.07};
-		dir[]={-0.15461093,-0.98260021,0.10325233};
-		up[]={-0.81712425,0.18581115,0.54569227};
-		aside[]={0.55538505,1.4694815e-006,0.83163536};
+		dir[]={-0.15460567,-0.98256642,0.10324884};
+		up[]={-0.81710923,0.18591194,0.54568231};
+		aside[]={0.55536431,0,0.8316071};
 	};
 };
 binarizationWanted=0;
@@ -14172,13 +14172,14 @@ class Mission
 			class PositionInfo
 			{
 				position[]={26707.707,21.917387,24558.35};
-				angles[]={0.022662206,3.8445053,0.015998369};
+				angles[]={0.022654373,3.8445065,0.016004669};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
 				skill=0.60000002;
+				init="this hideObject true";
 				name="d_wreck_rep";
 			};
 			id=7018;
@@ -60887,7 +60888,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={26711.762,22.163055,24628.115};
-				angles[]={0,3.9674516,-0};
+				angles[]={0,3.9674516,0};
 			};
 			side="Empty";
 			flags=1;
