@@ -23,3 +23,4 @@ diag_log format ["container %1", _container];
 
 */
 
+call d_fnc_save_layoutgear;
