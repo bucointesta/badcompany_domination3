@@ -24,8 +24,12 @@ if (_enterer == "d_medpilot") exitWith {
 	if (_vecnum == 3012) then {
 		true
 	} else {
-		hint "You are not authorized to fly this aircraft!";
-		false
+		if (_vec isKindOf "Air") then {
+			hint "You are not authorized to fly this aircraft!";
+			false		
+		} else {
+			true
+		}
 	}
 };
 if (_vecnum == 3012) exitWith {
