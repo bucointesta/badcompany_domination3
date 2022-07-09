@@ -32,6 +32,13 @@ d_vrespawn2_ar = [];
 		// Hunter: initvec should take care of this and we shouldn't be forcing this for all vics (which includes ammo trucks!)
 		//_vec setAmmoCargo 0;
 		_vec setVariable ["d_vec_islocked", _vec call d_fnc_isVecLocked];
+		
+		if ((_number_v >= 950) && {_number_v < 1000}) then {
+			[_vec, ["Get In",{params ["_target", "_caller", "_actionId", "_arguments"]; _caller moveInGunner _target},nil,100,false,true,"","(alive _target) && {(vehicle _this) == _this} && {(_target emptyPositions 'Gunner') > 0}",5]] remoteExecCall ["addAction", -2 , true];
+			_vec setVariable ["d_no_lift", true, true];
+			_vec setVehicleLock "UNLOCKED";
+		};
+		
 #ifdef __TT_
 		if (_number_v < 1000) then {
 			_vec addMPEventhandler ["MPKilled", {if (isServer) then {_this call d_fnc_checkveckillblufor}}];

@@ -73,7 +73,6 @@ while {true} do {
 			};
 		};
 
-		
 		__TRACE_1("","_vec call d_fnc_OutOfBounds")
 		
 		if (_empty && {!_disabled && {alive _vec && {_vec call d_fnc_OutOfBounds}}}) then {
@@ -169,6 +168,14 @@ while {true} do {
 				_vec addMPEventhandler ["MPKilled", {if (isServer) then {_this call d_fnc_fuelCheck; _this call d_fnc_mhqmsg}}];
 				_vec addEventHandler ["handleDamage", {_this call d_fnc_pshootatmhq}];
 			};
+			
+			// base AA
+			if ((_number_v >= 950) && {_number_v < 1000}) then {
+				[_vec, ["Get In",{params ["_target", "_caller", "_actionId", "_arguments"]; _caller moveInGunner _target},nil,100,false,true,"","(alive _target) && {(vehicle _this) == _this} && {(_target emptyPositions 'Gunner') > 0}",5]] remoteExecCall ["addAction", -2 , true];
+				_vec setVariable ["d_no_lift", true, true];
+				_vec setVehicleLock "UNLOCKED";
+			};
+			
 			_vec addMPEventhandler ["MPKilled", {if (isServer) then {_this call d_fnc_fuelCheck}}];
 			_vec_a set [0, _vec];
 			d_vrespawn2_ar set [_forEachIndex, _vec_a];

@@ -8,7 +8,7 @@ class EditorData
 	toggles=521;
 	class ItemIDProvider
 	{
-		nextID=9402;
+		nextID=9404;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={26453.588,-14.79164,24770.07};
-		dir[]={-0.15460567,-0.98256642,0.10324884};
-		up[]={-0.81710923,0.18591194,0.54568231};
-		aside[]={0.55536431,0,0.8316071};
+		pos[]={26450.49,-15.034918,24735.426};
+		dir[]={-0.059988525,-0.99660182,0.056558952};
+		up[]={-0.72512388,0.082413912,0.68366885};
+		aside[]={0.68600798,7.2130933e-007,0.72760409};
 	};
 };
 binarizationWanted=0;
@@ -153,13 +153,14 @@ addons[]=
 	"A3_Characters_F_Orange_Headgear",
 	"A3_Structures_F_Enoch_Infrastructure_Railways",
 	"A3_Structures_F_Enoch_VR_Helpers",
-	"A3_Armor_F_EPB_APC_Tracked_03"
+	"A3_Armor_F_EPB_APC_Tracked_03",
+	"A3_Static_F_Jets_AAA_System_01"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=55;
+		items=56;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -545,6 +546,13 @@ class AddonsMetaData
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
+		class Item55
+		{
+			className="A3_Static_F_Jets";
+			name="Arma 3 Jets - Turrets";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
 	};
 };
 class DynamicSimulation
@@ -658,7 +666,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=1373;
+		items=1375;
 		class Item0
 		{
 			dataType="Marker";
@@ -61003,6 +61011,46 @@ class Mission
 				};
 				nAttributes=2;
 			};
+		};
+		class Item1373
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={27220.717,28.705513,24926.303};
+				angles[]={0.0093375118,3.8603191,0.053284902};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+				lock="UNLOCKED";
+				name="d_vec_baseaa_1";
+				reportRemoteTargets=1;
+				receiveRemoteTargets=1;
+				reportOwnPosition=1;
+				aiRadarUsage=1;
+			};
+			id=9402;
+			type="B_AAA_System_01_F";
+		};
+		class Item1374
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={27220.564,26.523079,24929.896};
+				angles[]={0,3.8886983,0};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+				disableSimulation=1;
+			};
+			id=9403;
+			type="Land_Walkover_01_F";
+			atlOffset=0.0029983521;
 		};
 	};
 };

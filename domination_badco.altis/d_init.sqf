@@ -464,7 +464,9 @@ if (isServer) then {
 		[d_boat_7,857,-1],
 		
 		[d_vec_tank_1,900,-1],[d_vec_tank_2,901,-1],[d_vec_tank_3,902,-1],[d_vec_tank_4,903,-1],
-		[d_vec_tank_5,904,-1],[d_vec_tank_6,905,-1],[d_vec_tank_7,906,-1],[d_vec_tank_8,907,-1],[d_vec_tank_9,908,-1]
+		[d_vec_tank_5,904,-1],[d_vec_tank_6,905,-1],[d_vec_tank_7,906,-1],[d_vec_tank_8,907,-1],[d_vec_tank_9,908,-1],
+		
+		[d_vec_baseaa_1,950,-1]
 		
 		];
 		
