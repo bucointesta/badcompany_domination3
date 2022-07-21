@@ -9,7 +9,7 @@ private _vecnum =  param [2];
 
 if (_enterer == "d_admin") exitWith {true};
 
-if ((_vecnum >= 900) && {_vecnum < 1000} && {!(_enterer in d_crewmen)}) exitWith {
+if ((_vecnum >= 900) && {_vecnum < 950} && {!(_enterer in d_crewmen)}) exitWith {
 	hint "You need to be a crewman to use this vehicle.";
 	false
 };
