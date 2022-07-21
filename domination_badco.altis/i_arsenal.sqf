@@ -425,6 +425,11 @@
 			};
 		} foreach (_weapons apply {[_x] call BIS_fnc_baseWeapon});
 		
+		// disable remote connecting to base AA
+		{
+			player disableUAVConnectability [_x, true];
+		} foreach d_baseAAremotevics;
+		
 		if (item_check_arsenalChecked) then {
 		
 			hint parseText

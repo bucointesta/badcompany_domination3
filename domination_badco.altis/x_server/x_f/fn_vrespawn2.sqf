@@ -174,6 +174,18 @@ while {true} do {
 				[_vec, ["Get In",{params ["_target", "_caller", "_actionId", "_arguments"]; _caller moveInGunner _target},nil,100,false,true,"","(alive _target) && {(vehicle _this) == _this} && {(_target emptyPositions 'Gunner') > 0}",5]] remoteExecCall ["addAction", -2 , true];
 				_vec setVariable ["d_no_lift", true, true];
 				_vec setVehicleLock "UNLOCKED";
+				
+				// cleanup & update UAV-type AA tracker
+				private _temp = +d_baseAAremotevics;
+				{
+					if (!alive _x) then {
+						d_baseAAremotevics = d_baseAAremotevics - [_x];
+					};
+				} foreach _temp;
+				
+				d_baseAAremotevics pushBack _vec;
+				publicVariable "d_baseAAremotevics";
+				
 			};
 			
 			_vec addMPEventhandler ["MPKilled", {if (isServer) then {_this call d_fnc_fuelCheck}}];

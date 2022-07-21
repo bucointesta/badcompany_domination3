@@ -50,6 +50,11 @@ if (!_disalloweditemfound) then {
 	call d_fnc_save_layoutgear;
 };
 
+// disable remote connecting to base AA
+{
+	player disableUAVConnectability [_x, true];
+} foreach d_baseAAremotevics;
+
 if (!d_with_ranked) exitWith {};
 
 private _cfgi = configFile>>"CfgWeapons">>_item;

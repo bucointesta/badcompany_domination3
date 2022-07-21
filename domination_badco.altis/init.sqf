@@ -12,6 +12,21 @@ __TRACE_1("","d_IS_HC_CLIENT")
 if (!isMultiplayer) then {membersarr = ["_SP_PLAYER_"]; adminarr = ["_SP_PLAYER_"];};
 if (isDedicated) then {disableRemoteSensors true};
 
+// to keep track of CIWS objects so they can be UAV-disabled...
+if (isServer) then {
+	d_baseAAremotevics = [];
+	{
+		if (_x isKindOf "B_AAA_System_01_F") then {
+			d_baseAAremotevics pushBack _x;
+		};
+	} foreach vehicles;
+	publicVariable "d_baseAAremotevics";
+} else {
+	if (isNil "d_baseAAremotevics") then {
+		d_baseAAremotevics = [];
+	};
+};
+
 if (isMultiplayer && {hasInterface}) then {
 	enableRadio false;
 	showChat false;
