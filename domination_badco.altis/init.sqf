@@ -12,6 +12,8 @@ __TRACE_1("","d_IS_HC_CLIENT")
 if (!isMultiplayer) then {membersarr = ["_SP_PLAYER_"]; adminarr = ["_SP_PLAYER_"];};
 if (isDedicated) then {disableRemoteSensors true};
 
+RHSDecalsOff = true;
+
 // to keep track of CIWS objects so they can be UAV-disabled...
 if (isServer) then {
 	d_baseAAremotevics = [];

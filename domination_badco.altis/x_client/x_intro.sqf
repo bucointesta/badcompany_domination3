@@ -510,7 +510,7 @@ sleep 2;
 waitUntil {(isnull findDisplay 57) && {isnull findDisplay 72}};
 ppEffectDestroy introBackgroundEffect;
 
-if (!(profileNamespace getVariable ["BadCoTutorialDone", false])) then {
+if (((tolower worldName) == "altis") && {!(profileNamespace getVariable ["BadCoTutorialDone", false])}) then {
 	profileNamespace setVariable ["BadCoTutorialDone", true];
 	tutorialHandle = execVM "tutorial.sqf";
 	execVM "tutorial_forceend.sqf";

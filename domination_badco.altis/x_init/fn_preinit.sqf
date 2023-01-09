@@ -284,7 +284,11 @@ d_servicepoint_building = "Land_Cargo_House_V2_F";
 
 d_illum_tower = "Land_TTowerBig_2_F";
 #ifndef __IFA3LITE__
-d_wcamp = "Land_Cargo_Patrol_V1_F";
+	#ifdef __ALTIS__
+		d_wcamp = "Land_Cargo_Patrol_V1_F";
+	#else
+		d_wcamp = "Land_Cargo_Patrol_V3_F";
+	#endif
 #else
 d_wcamp = "Land_Misc_deerstand";
 #endif
@@ -1049,11 +1053,19 @@ if (!d_tt_tanoa) then {
 		case "G": {"Land_Radar_Small_F"};
 	};
 
-	d_enemy_hq = switch (d_enemy_side_short) do {
-		case "E": {"Land_Cargo_HQ_V1_F"};
-		case "W": {"Land_Cargo_HQ_V1_F"};
-		case "G": {"Land_Cargo_HQ_V1_F"};
-	};
+	#ifdef __ALTIS__
+		d_enemy_hq = switch (d_enemy_side_short) do {
+			case "E": {"Land_Cargo_HQ_V1_F"};
+			case "W": {"Land_Cargo_HQ_V1_F"};
+			case "G": {"Land_Cargo_HQ_V1_F"};
+		};
+	#else
+		d_enemy_hq = switch (d_enemy_side_short) do {
+			case "E": {"Land_Cargo_HQ_V3_F"};
+			case "W": {"Land_Cargo_HQ_V3_F"};
+			case "G": {"Land_Cargo_HQ_V3_F"};
+		};
+	#endif
 
 	// Hunter: type of CAS plane that will fly over main target
 #ifndef __CUP__
@@ -1075,12 +1087,12 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 
 #ifdef __RHS__
 	d_airai_attack_plane = switch (d_enemy_side_short) do {
-		case "E": {["RHS_Su25SM_vvsc","RHS_Su25SM_vvs"]};
+		case "E": {["rhsgref_cdf_su25"]};
 		case "W": {["RHS_A10","rhsusf_f22"]};
 		case "G": {["I_Plane_Fighter_03_CAS_F"]};
 	};
 	
-	d_airai_CAP_plane = ["rhs_mig29sm_vmf","rhs_mig29sm_vvsc","RHS_T50_vvs_051","RHS_T50_vvs_052"];
+	d_airai_CAP_plane = ["rhsgref_cdf_mig29s","rhsgref_cdf_mig29s","RHS_T50_vvs_051","RHS_T50_vvs_052","rhsgref_cdf_mig29s"];
 #endif
 
 #ifndef __CUP__
@@ -1102,7 +1114,7 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 #ifdef __RHS__
 	// type of enemy chopper that will fly over the main target
 	d_airai_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["RHS_Ka52_vvs","RHS_Mi24V_vvs","rhs_mi28n_vvs","RHS_Mi8MTV3_heavy_vvs","RHS_Ka52_vvsc","RHS_Mi24V_vvsc","rhs_mi28n_vvsc","RHS_Mi8MTV3_heavy_vvsc"]};
+		case "E": {["RHS_Ka52_vvsc","rhsgref_cdf_Mi24D","rhsgref_cdf_Mi24D_early","rhsgref_mi24g_CAS","rhsgref_cdf_Mi35","rhs_mi28n_vvsc","rhsgref_cdf_reg_Mi17Sh"]};
 		case "W": {["RHS_AH64D","RHS_AH64DGrey","RHS_AH64D_wd","RHS_AH1Z","RHS_AH1Z_wd"]};
 		case "G": {["I_Heli_light_03_F"]};
 	};
@@ -1187,7 +1199,7 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 #endif
 #ifdef __RHS__
 	d_transport_chopper = switch (d_enemy_side_short) do {
-		case "E": {["RHS_Mi8mt_Cargo_vv"]};
+		case "E": {["rhsgref_cdf_reg_Mi8amt"]};
 		case "W": {["rhsusf_CH53E_USMC"]};
 		case "G": {["I_Heli_Transport_02_F"]};
 	};
@@ -1209,7 +1221,7 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 #endif
 #ifdef __RHS__
 	d_light_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["RHS_Mi24P_vvs"]};
+		case "E": {["RHS_Mi24P_vvsc"]};
 		case "W": {["RHS_MELB_AH6M","RHS_UH1Y_d","RHS_UH1Y"]};
 		case "G": {["I_Heli_light_03_F"]};
 	};
@@ -1223,7 +1235,11 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 	
 	// same as barracks building. But enemy AI vehicles do not spawn inside the main target area but outside
 	// if destroyed no more enemy vehicles respawn
-	d_vehicle_building = "Land_Cargo_HQ_V1_F";
+	#ifdef __ALTIS__
+		d_vehicle_building = "Land_Cargo_HQ_V1_F";
+	#else
+		d_vehicle_building = "Land_Cargo_HQ_V3_F";
+	#endif
 };
 
 if (hasInterface) then {

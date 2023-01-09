@@ -1,10 +1,13 @@
 #include "x_setup.sqf"
 #define VAN_UNIFORMS ["U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Para_1_F"]
 #define VAN_VESTS ["V_TacChestrig_oli_F","V_TacChestrig_grn_F","V_TacChestrig_cbr_F"]
+#define VAN_ARMOR ["V_CarrierRigKBT_01_light_EAF_F", "V_CarrierRigKBT_01_light_Olive_F"]
 #define VAN_HEADGEAR ["H_Shemag_olive","H_ShemagOpen_tan"]
 #define VAN_FACEWEAR ["G_Bandanna_tan","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_aviator"]
 
 #define VAN_BACKPACKS ["B_FieldPack_cbr","B_FieldPack_green_F","B_FieldPack_oli"]
+
+#define RHS_ARMOR ["rhs_6b3_RPK", "rhs_6b3_VOG", "rhs_6b3_VOG_2"]
 
 #define VAN_RIFLE1FROM "arifle_Katiba_F"
 #define VAN_RIFLE1TO "arifle_AKM_F"
@@ -50,11 +53,34 @@ _this spawn {
 		_vestItems = vestItems _this;
 		_uniformItems = uniformItems _this;
 		_backpackItems = backpackItems _this;
-
-		_this addheadgear "rhs_ssh68";
-		_this addvest "V_TacChestrig_oli_F";
+		
+		removeGoggles _this; // RHS uses headphones as goggles so remove them just in case
+		if ((call d_fnc_PlayersNumber) < 15) then {
+			if ((random 1) < 0.5) then {
+				_this addheadgear (selectRandom VAN_HEADGEAR);
+			} else {
+				removeHeadgear _this;
+				_this linkItem (selectRandom VAN_FACEWEAR);
+			};
+		} else {
+			_this addHeadgear "rhs_ssh68";
+			if ((random 1) < 0.5) then {
+				_this linkItem (selectRandom VAN_FACEWEAR);
+			};
+		};
+		
+		if ((call d_fnc_PlayersNumber) < 15) then {
+			_this addvest (selectRandom VAN_VESTS);
+		} else {
+			_this addvest (selectRandom RHS_ARMOR);
+		};
+		
 		_container = vestContainer _this;
-		{_container addItemCargoGlobal [_x,1];} foreach _vestItems;		
+		{_container addItemCargoGlobal [_x,1];} foreach _vestItems;
+		
+		_this forceAddUniform (selectRandom VAN_UNIFORMS);
+		_container = uniformContainer _this;
+		{_container addItemCargoGlobal [_x,1];} foreach _uniformItems;
 		
 		_mags = primaryWeaponMagazine _this;
 		if ((count _mags) > 0) then {
@@ -99,7 +125,15 @@ _this spawn {
 				_container addMagazineCargoGlobal ["rhs_mag_9k38_rocket", 10];
 			};		
 		
-		};	
+		};
+		
+		if ((backpack _this) != "") then {
+			_backpackItems = backpackItems _this;		
+			removeBackpack _this;
+			_this addBackpack (selectRandom VAN_BACKPACKS);
+			_container = backpackContainer _this;
+			{_container addItemCargoGlobal [_x,1];} foreach _backpackItems;
+		};
 		
 		
 	#else
@@ -189,19 +223,32 @@ _this spawn {
 		_vestItems = vestItems _this;
 		_uniformItems = uniformItems _this;
 		
-
-		_this addvest (selectRandom VAN_VESTS);
+		if ((call d_fnc_PlayersNumber) < 15) then {
+			_this addvest (selectRandom VAN_VESTS);
+		} else {
+			_this addvest (selectRandom VAN_ARMOR);
+		};
+		
 		_container = vestContainer _this;
 		{_container addItemCargoGlobal [_x,1];} foreach _vestItems;
 		_this forceAddUniform (selectRandom VAN_UNIFORMS);
 		_container = uniformContainer _this;
 		{_container addItemCargoGlobal [_x,1];} foreach _uniformItems;
-		if ((random 1) < 0.5) then {
-			_this addheadgear (selectRandom VAN_HEADGEAR);
+		
+		if ((call d_fnc_PlayersNumber) < 15) then {
+			if ((random 1) < 0.5) then {
+				_this addheadgear (selectRandom VAN_HEADGEAR);
+			} else {
+				removeHeadgear _this;
+				_this linkItem (selectRandom VAN_FACEWEAR);
+			};
 		} else {
-			removeHeadgear _this;
-			_this linkItem (selectRandom VAN_FACEWEAR);
+			_this addHeadgear "H_PASGT_basic_olive_F";
+			if ((random 1) < 0.5) then {
+				_this linkItem (selectRandom VAN_FACEWEAR);
+			};
 		};
+		
 		if ((backpack _this) != "") then {
 			_backpackItems = backpackItems _this;		
 			removeBackpack _this;
