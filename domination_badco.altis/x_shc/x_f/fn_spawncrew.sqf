@@ -7,13 +7,7 @@ params ["_vec", "_grp"];
 
 createVehicleCrew _vec;
 private _crew = crew _vec;
-if (count _crew > 0) then {
-
-	if (Hz_customUnitLoadouts) then {
-		{
-			_x call AI_setupUnitCustomLoadout;
-		} foreach _crew;		
-	};		
+if (count _crew > 0) then {	
 
 	private _grp_old = group (_crew # 0);
 	_crew joinSilent _grp;
@@ -73,6 +67,9 @@ if (count _crew > 0) then {
 		_x setSkill ["spotTime", _subskill];
 		*/
 		_x call AI_setSkill;
+		if (Hz_customUnitLoadouts) then {
+			_x call AI_setupUnitCustomLoadout;
+		};	
 	} forEach _crew;
 	if !(isNull (driver _vec)) then {(driver _vec) setRank "LIEUTENANT"};
 	if !(isNull (gunner _vec)) then {(gunner _vec) setRank "SERGEANT"};
