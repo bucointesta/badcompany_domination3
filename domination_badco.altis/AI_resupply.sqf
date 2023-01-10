@@ -16,7 +16,7 @@ if (isServer) then {
 			} foreach d_vrespawn2_ar;
 			
 			{
-				if ((local _x) && {!(_x in _playerVics)} && {({alive _x} count crew _x) > 0}) then {
+				if ((local _x) && {!(_x in _playerVics)} && {({alive _x} count crew _x) > 0} && {({isPlayer _x} count crew _x) == 0}) then {
 					_x setFuel 1;					
 					_x setVehicleAmmo 1;
 				};

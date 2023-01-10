@@ -63,7 +63,7 @@ _this spawn {
 				_this linkItem (selectRandom VAN_FACEWEAR);
 			};
 		} else {
-			_this addHeadgear "rhs_ssh68";
+			_this addHeadgear "rhsgref_helmet_pasgt_olive";
 			if ((random 1) < 0.5) then {
 				_this linkItem (selectRandom VAN_FACEWEAR);
 			};

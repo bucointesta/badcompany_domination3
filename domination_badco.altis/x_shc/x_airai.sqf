@@ -137,64 +137,72 @@ while {true} do {
 	sleep 10;
 	
 	if (_type == "AH") then {
-		// arma 3's move problems...
-		{
-			_x doMove _cur_tgt_pos;
-			sleep 3;
-			/*
-			_vehicle = _x;
-			isNil {							
-				_agent = calculatePath [typeof _vehicle,"CARELESS",getposatl _vehicle, _cur_tgt_pos];
-				_agent setVariable ["veh",_vehicle];
-				_agent addEventHandler ["PathCalculated", {
-					_agent = _this select 0;
-					// prevent from EH firing twice? TODO: confirm it works...
-					if ((isNull _agent) || {_agent getVariable ["pathCalculated", false]}) exitWith {};
-					_agent setVariable ["pathCalculated", true];
-					_path = [];
-					{
-						_path pushBack [_x select 0, _x select 1, 250];
-					} foreach (_this select 1);
-					(_agent getVariable "veh") setDriveOnPath _path;	
-					
-					_vehAgent = vehicle _agent;
-					if (_vehAgent == _agent) then {							
-						deletevehicle _agent;							
-					} else {							
-						{_vehAgent deleteVehicleCrew _x} foreach crew _vehAgent;							
-					};											
-					deleteVehicle _vehAgent;
-				}];
-				
-				_agent spawn {										
-					sleep 55;			
-					if (diag_fps < 25) then {
-						sleep 90;
-					};
-					if (!isNull _this) then {
-						_vehAgent = vehicle _this;
-						if (_vehAgent == _this) then {							
-							deletevehicle _this;							
+	
+		[_vehicles, _cur_tgt_pos] spawn {
+		
+			params ["_vehicles", "_cur_tgt_pos"];
+		
+			// arma 3's move problems...
+			{
+				_x doMove _cur_tgt_pos;
+				sleep 3;
+				/*
+				_vehicle = _x;
+				isNil {							
+					_agent = calculatePath [typeof _vehicle,"CARELESS",getposatl _vehicle, _cur_tgt_pos];
+					_agent setVariable ["veh",_vehicle];
+					_agent addEventHandler ["PathCalculated", {
+						_agent = _this select 0;
+						// prevent from EH firing twice? TODO: confirm it works...
+						if ((isNull _agent) || {_agent getVariable ["pathCalculated", false]}) exitWith {};
+						_agent setVariable ["pathCalculated", true];
+						_path = [];
+						{
+							_path pushBack [_x select 0, _x select 1, 250];
+						} foreach (_this select 1);
+						(_agent getVariable "veh") setDriveOnPath _path;	
+						
+						_vehAgent = vehicle _agent;
+						if (_vehAgent == _agent) then {							
+							deletevehicle _agent;							
 						} else {							
 							{_vehAgent deleteVehicleCrew _x} foreach crew _vehAgent;							
 						};											
-						deleteVehicle _vehAgent;											
-					};																				
+						deleteVehicle _vehAgent;
+					}];
+					
+					_agent spawn {										
+						sleep 55;			
+						if (diag_fps < 25) then {
+							sleep 90;
+						};
+						if (!isNull _this) then {
+							_vehAgent = vehicle _this;
+							if (_vehAgent == _this) then {							
+								deletevehicle _this;							
+							} else {							
+								{_vehAgent deleteVehicleCrew _x} foreach crew _vehAgent;							
+							};											
+							deleteVehicle _vehAgent;											
+						};																				
+					};
+					
 				};
-				
-			};
-			*/
-		} foreach _vehicles;
-		sleep 30;	
-		{
-			_x doMove _cur_tgt_pos;
-			sleep 3;
-		} foreach _vehicles;
-		sleep 30;
-		{
-			_x doMove _cur_tgt_pos;
-			sleep 3;
-		} foreach _vehicles;
+				*/
+			} foreach _vehicles;
+			sleep 30;	
+			{
+				_x doMove _cur_tgt_pos;
+				sleep 3;
+			} foreach _vehicles;
+			sleep 30;
+			{
+				_x doMove _cur_tgt_pos;
+				sleep 3;
+			} foreach _vehicles;
+		
+		};
+		
 		sleep 30;
 		
 	} else {
@@ -251,7 +259,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 			_vehPlayer = vehicle _x;
 			if (!(_vehPlayer in _playerVehs)) then {
 				_playerVehs pushBack _vehPlayer;
-				if ((_vehPlayer isKindOf "Air") || {(_type != "CAP") && {!captive _vehPlayer} && {(_vehPlayer isKindOf "StaticWeapon") || {(_vehPlayer distance2D _cur_tgt_pos) < _radius}}}) then {
+				if ((_vehPlayer isKindOf "Air") || {(_type != "CAP") && {!captive _vehPlayer} && {(_vehPlayer isKindOf "StaticWeapon") || {_vehPlayer isKindOf "B_APC_Tracked_01_AA_F"} || {_vehPlayer isKindOf "RHS_M6"} || {(_vehPlayer distance2D _cur_tgt_pos) < _radius}}}) then {
 					_grp reveal [_vehPlayer, 4];
 				};
 			};
@@ -260,6 +268,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 		if ((count _playerVehs) > 0) then {
 			_grp setCombatMode "RED";
 			_grp setBehaviour "COMBAT";
+			sleep 10;
 			{
 				if (isNull assignedTarget _x) then {
 					_x doTarget (selectRandom _playerVehs);
