@@ -4,7 +4,7 @@
 #include "..\..\x_setup.sqf"
 
 private _grp = _this;
-sleep 30;
+sleep 90;
 if (!isNull _grp && {(units _grp) findIf {alive _x} > -1}) then {
 	private _ma = format ["d_is_def_mm%1", _grp];
 	[_ma, [0,0,0], "ICON", d_e_marker_color, [0.5,0.5], localize "STR_DOM_MISSIONSTRING_964", 0, d_isle_defense_marker] remoteExecCall ["d_fnc_CreateMarkerGlobal", 2];
@@ -13,7 +13,7 @@ if (!isNull _grp && {(units _grp) findIf {alive _x} > -1}) then {
 		if (!isNull _lead) then {
 			[_ma, getPosWorld _lead] remoteExecCall ["setMarkerPos", 2];
 		};
-		sleep (10 + random 10);
+		sleep (50 + random 20);
 	};
 	_ma remoteExecCall ["deleteMarker", 2];
 };

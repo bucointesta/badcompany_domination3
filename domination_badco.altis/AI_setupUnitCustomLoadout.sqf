@@ -142,7 +142,8 @@ _this spawn {
 		_mag = (primaryWeaponMagazine _this) select 0;
 		
 		//if vehicle crew force into default
-		if ((vehicle _this) != _this) then {
+		private _vehThis = vehicle _this;
+		if ((_vehThis != _this) && {!(_vehThis isKindOf d_non_steer_para)} && {_this in [driver _vehThis, gunner _vehThis, commander _vehThis]}) then {
 			_this removeWeapon _primary;
 			_primary = "hgun_esd_01_dummy_F";
 		};

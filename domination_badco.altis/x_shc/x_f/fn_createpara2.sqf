@@ -67,9 +67,14 @@ if (alive _chopper && {(((getposATL _chopper) select 2) > 20) && {alive driver _
 		_one_unit addEventHandler ["HandleDamage",{
 			_return = _this select 2;
 			_source = _this select 3;
-			_unit = _this select 0;		
+			_unit = _this select 0;
+			_selection = _this select 1;
 			if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
-				_return = 0;
+				if (_selection isEqualTo "") then {
+					_return = damage _unit;
+				} else {
+					_return = _unit getHit _selection;
+				};
 			};
 			_return 
 		}];

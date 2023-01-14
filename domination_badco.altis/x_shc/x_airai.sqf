@@ -385,7 +385,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 					_vehicles set [_forEachIndex, -1];
 				} else {
 					_x setFuel 1;
-					_x setVehicleAmmoDef 1;
+					_x setVehicleAmmo 1;
 				};
 			} forEach _vehicles;
 			_vehicles = _vehicles - [-1];

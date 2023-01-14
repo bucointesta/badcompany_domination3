@@ -126,9 +126,14 @@ private _make_jump = {
 			_one_unit addEventHandler ["HandleDamage",{
 				_return = _this select 2;
 				_source = _this select 3;
-				_unit = _this select 0;		
+				_unit = _this select 0;
+				_selection = _this select 1;
 				if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
-					_return = 0;
+					if (_selection isEqualTo "") then {
+						_return = damage _unit;
+					} else {
+						_return = _unit getHit _selection;
+					};
 				};
 				_return 
 			}];
@@ -166,20 +171,53 @@ private _make_jump = {
 		(units _paragrp) remoteExecCall ["d_fnc_addceo", 2];
 #endif
 		_paragrp allowFleeing 0;
-		_paragrp setCombatMode "YELLOW";
-		_paragrp setBehaviour "AWARE";
+		_paragrp setFormation "WEDGE";
 		
-		[_paragrp, d_cur_tgt_pos, d_cur_target_radius] spawn {
-			scriptName "spawn_x_createpara3_usegroup";
-			params ["_grp", "_pos"];
-			sleep 40;
-			if ((units _grp) findIf {alive _x} > -1) then {
-				[_grp, _pos, [_pos, _this select 2], [10, 20, 50], "", 0] spawn d_fnc_MakePatrolWPX;
-				_grp setVariable ["d_PATR", true];
-				if (d_with_dynsim == 0) then {
-					_grp enableDynamicSimulation true;
+		private _grpTarget = [];
+		
+		if (!d_mt_radio_down) then {
+			_grpTarget = markerpos "d_main_target_radiotower";
+		} else {
+			if (!d_mt_mobile_hq_down) then {
+				_grpTarget = getpos d_mt_mobile_hq_obj;
+			} else {
+			
+				[_paragrp, d_cur_tgt_pos, d_cur_target_radius] spawn {
+					scriptName "spawn_x_createpara3_usegroup";
+					params ["_grp", "_pos"];
+					sleep 40;
+					if ((units _grp) findIf {alive _x} > -1) then {
+						[_grp, _pos, [_pos, _this select 2], [10, 20, 50], "", 0] spawn d_fnc_MakePatrolWPX;
+						_grp setVariable ["d_PATR", true];
+						if (d_with_dynsim == 0) then {
+							_grp enableDynamicSimulation true;
+						};
+					};
 				};
+			
 			};
+		
+		};
+		
+		if ((count _grpTarget) > 0) then {
+			
+			private _wpTroops = _paragrp addWaypoint [_grpTarget, 10];
+			_wpTroops setWaypointType "MOVE";
+			_wpTroops setWaypointSpeed "FULL";
+			_wpTroops setWaypointBehaviour "AWARE";
+			_wpTroops setWaypointCombatMode "GREEN";
+			_wpTroops setWaypointStatements ["true", "if (local this) then {(group this) setBehaviour 'COMBAT'; (group this) setCombatMode 'RED'; (group this) setVariable ['d_PATR', true]; [group this, d_cur_tgt_pos, [d_cur_tgt_pos, d_cur_target_radius], [10, 20, 50], '', 0] spawn d_fnc_MakePatrolWPX; {_x forceSpeed -1; _x setUnitPos 'AUTO'; _x enableAI 'AUTOCOMBAT';} foreach thisList;};"];
+			_paragrp setCurrentWaypoint _wpTroops;
+			
+			{
+				_x forceSpeed 20;
+				_x setUnitPosWeak "MIDDLE";
+				_x disableAI "AUTOCOMBAT";
+			} forEach (units _paragrp);
+			
+			_paragrp setCombatMode "GREEN";
+			_paragrp setBehaviour "AWARE";
+			
 		};
 		
 		d_c_attacking_grps pushBack _paragrp;

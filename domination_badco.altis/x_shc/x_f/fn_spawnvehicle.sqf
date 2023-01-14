@@ -75,13 +75,38 @@ if (_typev1 isKindOf "Air") then {
 	_veh = _typev1 createVehicle _posv1;
 	
 	// Hunter: anti-bad driving (does not cover flipping...)
+	// + Tigris-RHS damage compat
 	_veh addEventHandler ["HandleDamage",{
 		_return = _this select 2;
 		_source = _this select 3;
-		_unit = _this select 0;		
-		if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
-			_return = 0;
-		};
+		_unit = _this select 0;
+		_selection = _this select 1;
+		
+		#ifndef __RHS__
+			if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
+				if (_selection isEqualTo "") then {
+					_return = damage _unit;
+				} else {
+					_return = _unit getHit _selection;
+				};
+			};
+		#else
+			if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
+				if (_selection isEqualTo "") then {
+					_return = damage _unit;
+				} else {
+					_return = _unit getHit _selection;
+				};
+			} else {
+				if (_unit isKindOf "O_APC_Tracked_02_AA_F") then {
+					if (_selection isEqualTo "") then {
+						_return = (damage _unit) + (_return*2.5);
+					} else {
+						_return = (_unit getHit _selection) + (_return*2.5);
+					};
+				};
+			};
+		#endif
 		_return 
 	}];
 	/*private _svec = sizeOf _typev1;
@@ -102,9 +127,14 @@ private _crew = [_veh, _grp] call d_fnc_spawnCrew;
 	_x addEventHandler ["HandleDamage",{
 		_return = _this select 2;
 		_source = _this select 3;
-		_unit = _this select 0;		
+		_unit = _this select 0;
+		_selection = _this select 1;
 		if (((_this select 4) == "") && {(isnull _source) || {((side _source) getFriend (side _unit)) >= 0.6}}) then {
-			_return = 0;
+			if (_selection isEqualTo "") then {
+				_return = damage _unit;
+			} else {
+				_return = _unit getHit _selection;
+			};
 		};
 		_return 
 	}];
