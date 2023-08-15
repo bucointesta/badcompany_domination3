@@ -34,9 +34,9 @@ d_f_check_trigger = ([d_cur_tgt_pos, [d_cur_target_radius + 300, d_cur_target_ra
 
 sleep 3.234;
 #ifndef __TT__
-private _nrcamps = (round random 6) max 3;
+private _nrcamps = (ceil random 7) max 4;
 #else
-private _nrcamps = (ceil random 6) max 4;
+private _nrcamps = (ceil random 7) max 4;
 #endif
 
 d_sum_camps = _nrcamps;

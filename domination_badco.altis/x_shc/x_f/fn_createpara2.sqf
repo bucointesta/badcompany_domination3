@@ -52,13 +52,19 @@ if (alive _chopper && {(((getposATL _chopper) select 2) > 20) && {alive driver _
 		(0.12 + (random 0.04))
 	};
 	private _real_units = ["sabotage", d_enemy_side_short] call d_fnc_getunitlistm;
-	if (count _real_units < 6) then {
-		while {count _real_units < 6} do {
-			_real_units pushBack (selectRandom _real_units);
+	//Hunter: get full capacity of chopper and decide unit count from there...
+	_chopperCap = _chopper emptyPositions "Cargo";
+	if (count _real_units < _chopperCap) then {
+		while {count _real_units < _chopperCap} do {
+			sleep 0.1;
+			_real_units = _real_units + (["sabotage", d_enemy_side_short] call d_fnc_getunitlistm);
 		};
+	} else {
+		sleep 0.1;
 	};
 	private _paragrp = [d_side_enemy] call d_fnc_creategroup;
 	{
+		if (_foreachIndex == _chopperCap) exitWith {};
 		private _pposcx = getPosATL _chopper;
 		_one_unit = _paragrp createUnit [_x, [_pposcx # 0, _pposcx # 1, 0], [], 0,"NONE"];
 		if (Hz_customUnitLoadouts) then {

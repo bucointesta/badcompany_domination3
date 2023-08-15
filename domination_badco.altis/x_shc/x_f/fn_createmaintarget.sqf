@@ -71,14 +71,14 @@ _selectitvec = nil;
 __TRACE_1("","_type_list_guard")
 
 params ["_trgobj", "_radius"];
-private _patrol_radius = _radius + 300 + random 300;
+private _patrol_radius = _radius*1.2;
 private _trg_center = if (_trgobj isEqualType objNull) then {getPosATL _trgobj} else {_trgobj};
 __TRACE_1("","_trg_center")
 __TRACE_3("","_trgobj","_radius","_patrol_radius")
 __TRACE_1("","_this")
 
 #ifndef __TT__
-d_num_barracks_objs = (ceil random 7) max 4;
+d_num_barracks_objs = (ceil random 8) max 5;
 __TRACE_1("","d_num_barracks_objs")
 d_mt_barracks_obj_ar = [];
 private ["_iccount", "_ecounter", "_poss"];

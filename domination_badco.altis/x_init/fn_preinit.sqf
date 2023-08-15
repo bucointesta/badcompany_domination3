@@ -843,7 +843,7 @@ if (!d_tt_tanoa) then {
 	//Hunter: convert to player number scaled functions
 	d_number_attack_planes = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 45) exitWith {0};
+		if (_p < 40) exitWith {0};
 		if (_p < 55) exitWith {1};
 		2
 	};
@@ -856,7 +856,7 @@ if (!d_tt_tanoa) then {
 		private _p = call d_fnc_PlayersNumber;
 		if (_p < 22) exitWith {0};
 		if (_p < 40) exitWith {1};
-		if (_p < 59) exitWith {2};
+		if (_p < 55) exitWith {2};
 		3
 	};
 	
@@ -930,15 +930,14 @@ if (!d_tt_tanoa) then {
 	// Hunter: convert to function to scaled for player count
 	d_airai_AHrespawntime = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 43) exitWith {1500};
-		if (_p < 55) exitWith {1200};		
-		if (_p < 60) exitWith {1050};		
+		if (_p < 35) exitWith {1200};
+		if (_p < 43) exitWith {1020};	
 		900
 	};
 	d_airai_CASrespawntime = {
 		private _p = call d_fnc_PlayersNumber;
-		if (_p < 55) exitWith {1800};
-		if (_p < 60) exitWith {1500};
+		if (_p < 45) exitWith {1800};
+		if (_p < 50) exitWith {1500};
 		1200
 	};
 	d_airai_CAPrespawntime = {
@@ -1070,7 +1069,7 @@ if (!d_tt_tanoa) then {
 	// Hunter: type of CAS plane that will fly over main target
 #ifndef __CUP__
 	d_airai_attack_plane = switch (d_enemy_side_short) do {
-		case "E": {["O_Plane_CAS_02_Cluster_F","I_Plane_Fighter_03_Cluster_F","I_Plane_Fighter_04_F"]};
+		case "E": {["O_Plane_CAS_02_dynamicLoadout_F","I_Plane_Fighter_03_dynamicLoadout_F","I_Plane_Fighter_04_F"]};
 		case "W": {[["LIB_FW190F8", "LIB_FW190F8_4", "LIB_FW190F8_2", "LIB_FW190F8_5", "LIB_FW190F8_3"], ["B_Plane_CAS_01_F"]] select (!d_ifa3lite)};
 		case "G": {["I_Plane_Fighter_03_CAS_F"]};
 	};
@@ -1098,7 +1097,7 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 #ifndef __CUP__
 	// type of enemy chopper that will fly over the main target
 	d_airai_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["O_Heli_Attack_02_F","I_Heli_light_03_F","O_T_VTOL_02_infantry_grey_F"]};
+		case "E": {["O_Heli_Attack_02_dynamicLoadout_F","I_Heli_light_03_dynamicLoadout_F","O_T_VTOL_02_infantry_dynamicLoadout_F"]};
 		case "W": {[["LIB_Ju87_Italy2", "LIB_Ju87_Italy", "LIB_Ju87"], ["B_Heli_Attack_01_F"]] select (!d_ifa3lite)};
 		case "G": {["I_Heli_light_03_F"]};
 	};
@@ -1114,7 +1113,7 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 #ifdef __RHS__
 	// type of enemy chopper that will fly over the main target
 	d_airai_attack_chopper = switch (d_enemy_side_short) do {
-		case "E": {["RHS_Ka52_vvsc","rhsgref_cdf_Mi24D","rhsgref_cdf_Mi24D_early","rhsgref_mi24g_CAS","rhsgref_cdf_Mi35","rhs_mi28n_vvsc","rhsgref_cdf_reg_Mi17Sh"]};
+		case "E": {["rhsgref_cdf_Mi24D","rhsgref_cdf_Mi24D_early","rhsgref_mi24g_CAS","rhsgref_cdf_Mi35","rhs_mi28n_vvsc"]};
 		case "W": {["RHS_AH64D","RHS_AH64DGrey","RHS_AH64D_wd","RHS_AH1Z","RHS_AH1Z_wd"]};
 		case "G": {["I_Heli_light_03_F"]};
 	};

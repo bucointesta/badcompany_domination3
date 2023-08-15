@@ -117,6 +117,52 @@ while {true} do {
 	
 	sleep 1.011;
 	
+	private _pylons = [];
+	private _pylonPaths = (configProperties [configFile >> "CfgVehicles" >> _heli_type >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
+	
+	switch (_heli_type) do {
+	
+		case "rhsgref_cdf_su25": {
+			_pylons = ["rhs_mag_kh29D","rhs_mag_kh29D","rhs_mag_kh25MTP","rhs_mag_kh25MTP","rhs_mag_kh25MTP","rhs_mag_kh25MTP","rhs_mag_R73M","rhs_mag_R73M","rhs_mag_R60M","rhs_mag_R60M","rhs_ASO2_CMFlare_Chaff_Magazine_x4"];
+		};		
+		case "O_Plane_CAS_02_dynamicLoadout_F": {
+			_pylons = ["PylonRack_1Rnd_Missile_AA_03_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AA_03_F"];			
+		};
+		case "I_Plane_Fighter_03_dynamicLoadout_F": {
+			_pylons = ["PylonRack_1Rnd_LG_scalpel","PylonRack_1Rnd_AAA_missiles","PylonRack_3Rnd_LG_scalpel","PylonWeapon_300Rnd_20mm_shells","PylonRack_3Rnd_LG_scalpel","PylonRack_1Rnd_AAA_missiles","PylonRack_1Rnd_LG_scalpel"];
+		};
+		case "I_Plane_Fighter_04_F" : {
+			_pylons = ["PylonMissile_Missile_BIM9X_x1","PylonMissile_Missile_BIM9X_x1","PylonRack_Missile_BIM9X_x1","PylonRack_Missile_BIM9X_x1","PylonRack_Missile_AGM_02_x2","PylonRack_Missile_AGM_02_x2"];
+		};
+		case "O_Plane_Fighter_02_F" : {
+			_pylons = ["PylonMissile_Missile_AA_R73_x1","PylonMissile_Missile_AA_R73_x1","PylonMissile_Missile_AA_R73_x1","PylonMissile_Missile_AA_R73_x1","PylonMissile_Missile_AA_R77_x1","PylonMissile_Missile_AA_R77_x1","PylonMissile_Missile_AA_R73_x1","PylonMissile_Missile_AA_R73_x1","PylonMissile_Missile_AA_R77_x1","PylonMissile_Missile_AA_R77_x1","PylonMissile_Missile_AA_R77_INT_x1","PylonMissile_Missile_AA_R77_INT_x1","PylonMissile_Missile_KH58_INT_x1"];
+		};
+		case "O_Plane_Fighter_02_Stealth_F" : {
+			_pylons = ["","","","","","","PylonMissile_Missile_AA_R73_x1","PylonMissile_Missile_AA_R73_x1","PylonMissile_Missile_AA_R77_x1","PylonMissile_Missile_AA_R77_x1","PylonMissile_Missile_AA_R77_INT_x1","PylonMissile_Missile_AA_R77_INT_x1","PylonMissile_Missile_KH58_INT_x1"];
+		};
+		case "I_Heli_light_03_dynamicLoadout_F" : {
+			_pylons = ["PylonWeapon_300Rnd_20mm_shells","PylonRack_12Rnd_PG_missiles"];
+		};
+		case "O_Heli_Attack_02_dynamicLoadout_F" : {
+			_pylons = ["PylonRack_4Rnd_LG_scalpel","PylonRack_20Rnd_Rocket_03_AP_F","PylonRack_20Rnd_Rocket_03_AP_F","PylonRack_1Rnd_Missile_AA_03_F"];
+		};
+		case "O_T_VTOL_02_infantry_dynamicLoadout_F" : {
+			_pylons = ["PylonRack_1Rnd_Missile_AA_03_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AGM_01_F","PylonRack_1Rnd_Missile_AA_03_F"];
+		};
+	
+	};
+	
+	if ((count _pylons) > 0) then {
+		{
+			private _veh = _x;
+			{ _veh removeWeaponGlobal getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon") } forEach getPylonMagazines _veh;
+			{ _veh setPylonLoadout [_forEachIndex + 1, _x, true, _pylonPaths select _forEachIndex] } forEach _pylons;
+		} foreach _vehicles;
+	};
+	
+	
+	
+	
 	//_grp allowFleeing 0;
 	
 	_grp setCombatMode "GREEN";
@@ -190,14 +236,19 @@ while {true} do {
 				};
 				*/
 			} foreach _vehicles;
-			sleep 30;	
+			sleep 30;
+			
 			{
-				_x doMove _cur_tgt_pos;
+				if ((speed _x) < 20) then {
+					_x doMove _cur_tgt_pos;
+				};
 				sleep 3;
 			} foreach _vehicles;
 			sleep 30;
 			{
-				_x doMove _cur_tgt_pos;
+				if ((speed _x) < 20) then {
+					_x doMove _cur_tgt_pos;
+				};
 				sleep 3;
 			} foreach _vehicles;
 		
