@@ -40,13 +40,20 @@ if (!isNull _killer && {(_killer call d_fnc_isplayer) && {(vehicle _killer) != (
 	private _namek = [_par # 6, "Unknown"] select (isNil "_par");
 	
 	private _ramKill = false;
-	if (((vehicle _killed) != _killed) && {!alive (vehicle _killed)}) then {
+	if (((vehicle _killed) != _killed) && {(!alive (vehicle _killed)) || {(getDammage (vehicle _killed)) > 0.79}}) then {
 		_ramKill = true;
 	}; 
-	if ((((vehicle _killer) iskindOf "LandVehicle") || {((vehicle _killer) iskindOf "Ship")}) && {_killer == (driver vehicle _killer)} && {
-		// Hunter: notify this as teamkilling  but don't activate tk counter for this one... could still be innocent
+	if (((vehicle _killer) iskindOf "LandVehicle") && {_killer == (driver vehicle _killer)} && {(_killer distance d_flag_base) < 700} && {
+		// tolerate up to 2 roadkill tk's, 3rd one is punished
 		if ((vehicle _killed) == _killed) then {
-			true
+			private _varStr = (getPlayerUID _killer) + "_runOverKillCount";
+			missionNamespace setVariable [_varStr, (missionNamespace getVariable [_varStr, 0]) + 1];
+			if ((missionNamespace getVariable _varStr) > 2) then {
+				_ramKill = true;
+				false
+			} else {
+				true
+			}			
 		} else {
 			_ramKill = true;
 			false
