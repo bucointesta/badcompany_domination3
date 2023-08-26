@@ -115,12 +115,20 @@ while {true} do {
 			if (!_ifdamage) then {_vec_a set [3,-1]};
 			sleep 0.5;
 			_vec = createVehicle [_vec_a # 6, _vec_a # 4, [], 0, "NONE"]; //"NONE"
-			if ((_number_v == 3009) || (_number_v == 3010)) then {
+			/*
+			if ((_number_v == 3009)
+			#ifndef __RHS__
+				|| (_number_v == 3010)
+			#endif
+			) then {
 				_vec setObjectTextureGlobal [0, "textures\po30orca.paa"];
 			};
-			if ((_number_v == 3005) || (_number_v == 3007)) then {
-				_vec setObjectTextureGlobal [0, "\a3\air_f\Heli_Light_01\Data\heli_light_01_ext_ion_co.paa"];
-			};
+			#ifdef __RHS__
+				if (_number_v == 3010) then {
+					_vec setObjectTextureGlobal [0, "textures\venom.paa"];
+				};
+			#endif
+			*/
 			_vec setDir (_vec_a # 5);
 			_vec setPos (_vec_a # 4);
 			private _cposc = _vec_a # 4;
@@ -171,7 +179,7 @@ while {true} do {
 			_vec enableCopilot false;
 			_vec remoteExecCall ["d_fnc_initvec", [0, -2] select isDedicated];
 		};
-		sleep (20 + random 10);
+		//sleep (20 + random 10);
 	} forEach d_helirespawn2_ar;
 	sleep (20 + random 10);
 };

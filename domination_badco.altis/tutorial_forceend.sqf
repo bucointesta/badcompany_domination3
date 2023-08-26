@@ -14,6 +14,6 @@ d_still_in_intro = false;
 ppEffectDestroy tutorialBackgroundEffect;
 xr_phd_invulnerable = false;
 2 fadeSound 1;
-enableRadio true;
+//enableRadio true;
 showChat true;
 player forceWalk false;

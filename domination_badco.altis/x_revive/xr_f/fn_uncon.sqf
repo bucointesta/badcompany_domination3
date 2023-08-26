@@ -6,7 +6,7 @@
 if (isDedicated) exitWith {};
 
 disableSerialization;
-enableRadio false;
+//enableRadio false;
 if (d_earplugs_fitted) then {
 	1 fadeSound 0.2;
 } else {
@@ -97,7 +97,7 @@ __TRACE("starting main uncon loop")
 			};
 			__TRACE("set capture false player")
 			[player, false] remoteExecCall ["setCaptive"];
-			enableRadio true;
+			//enableRadio true;
 			__TRACE_1("","xr_u_pl_died")
 			if (!xr_u_pl_died) then {
 				if (!(player getVariable "xr_hasusedmapclickspawn")) then {

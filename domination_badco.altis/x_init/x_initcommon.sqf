@@ -68,6 +68,10 @@ if (isServer) then {
 		_date set [4,_min];
 		setDate _date;
 		
+		// random start time
+		sleep 1;
+		skipTime (random 24);
+		
 		waitUntil {
 			sleep 120;
 			daytime > 20
@@ -621,8 +625,13 @@ d_choppers = [
 	["D_HR6",2,"d_chopper6",3006,"n_air","ColorBlue","Lilburd-1",""],
 	["D_HR7",2,"d_chopper7",3007,"n_air","ColorBlue","Lilburd-2",""],
 	["D_HR8",3,"d_chopper8",3008,"n_air","ColorBlue","Reaper",""],
-	["D_HR9",2,"d_chopper9",3009,"n_air","ColorBlue","Blackwater-1",""],
-	["D_HR10",2,"d_chopper10",3010,"n_air","ColorBlue","Blackwater-2",""],
+	#ifdef __RHS__
+		["D_HR9",2,"d_chopper9",3009,"n_air","ColorBlue","Blackwater",""],
+		["D_HR10",2,"d_chopper10",3010,"n_air","ColorBlue","Valkyrie",""],
+	#else
+		["D_HR9",2,"d_chopper9",3009,"n_air","ColorBlue","Blackwater-1",""],
+		["D_HR10",2,"d_chopper10",3010,"n_air","ColorBlue","Blackwater-2",""],
+	#endif
 	["D_HR11",2,"d_chopper11",3011,"n_air","ColorBlack","Nazgul",""],
 	["D_MH1",3,"d_chopper12",3012,"n_air","ColorRed","M3",""],
 	["D_CJ1",3,"d_plane3",3103,"n_plane","ColorBlue","Fortress", ""],

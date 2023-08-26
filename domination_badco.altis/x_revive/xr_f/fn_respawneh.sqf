@@ -5,7 +5,7 @@
 
 private _tmpeh = player addEventhandler ["handleDamage", {0}];
 
-enableRadio false;
+//enableRadio false;
 0 fadeSound 0;
 //player setPos (markerPos "xr_resp_marker");
 player setVehiclePosition [markerPos "xr_resp_marker", [], 0, "NONE"]; // CAN_COLLIDE ?

@@ -32,20 +32,25 @@ while {true} do {
 		private _empty = {alive _x} count (crew _vec) == 0; //true if empty
 
 /*script for respawn if abandoned, set to work only with bikes*/	
-		if ((_number_v >= 700) && {_number_v < 800}) then {  
+		if ((_number_v >= 700) && {_number_v < 800}) then {
+		
 			if (_empty) then {
 				private _empty_respawn = _vec_a select 5;
 				if (_empty_respawn == -1) then {
-					if ((!alive _vec) || {_vec distance2D (_vec_a select 2) > 10} || {(getDammage _vec) > 0.3}) then { //distance from initial respawn
+					if ((!alive _vec) || {_vec distance2D (_vec_a select 2) > 10} || {(getDammage _vec) > 0.1}) then { //distance from initial respawn
 						_vec_a set [5, time + 60]; // abandoned timeout
 						d_vrespawn2_ar set [_forEachIndex, _vec_a];
 					};
 				} else {
 					if (time > _empty_respawn) then {
-						private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
-						sleep 0.1;
-						if ({_x distance2D _vec < 20} count _runits == 0) then { //distance from other player
+						if (!alive _vec) then {
 							_disabled = true;
+						} else {
+							private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
+							sleep 0.1;
+							if ({_x distance2D _vec < 20} count _runits == 0) then { //distance from other player
+								_disabled = true;
+							};
 						};
 					};
 				};
@@ -54,36 +59,37 @@ while {true} do {
 				_vec_a set [5, -1];
 				d_vrespawn2_ar set [_forEachIndex, _vec_a];
 			};
-		};
+			
+		} else {
 		
-		//add respawn for dead timer
-		if (_number_v < 1000) then {  
-			if ((!alive _vec) || {(underwater _vec) && {!(_vec iskindof "SDV_01_base_F")}}) then {
-				private _respawnTimer = _vec_a select 5;
-				if (_respawnTimer == -1) then {
-					_vec_a set [5, time + 900]; // currently 15 minutes for all)
-					d_vrespawn2_ar set [_forEachIndex, _vec_a];
-				} else {
-					if (time > _respawnTimer) then {
-							_disabled = true; //do respawn
-							_vec_a set [5, -1]; //reset timer
-							d_vrespawn2_ar set [_forEachIndex, _vec_a];
+			//add respawn for dead timer
+			if (_number_v < 1000) then {
+				if ((!alive _vec) || {(underwater _vec) && {!(_vec iskindof "SDV_01_base_F")}}) then {
+					private _respawnTimer = _vec_a select 5;
+					if (_respawnTimer == -1) then {
+						_vec_a set [5, time + 900]; // currently 15 minutes for all
+						d_vrespawn2_ar set [_forEachIndex, _vec_a];
+					} else {
+						if (time > _respawnTimer) then {
+								_disabled = true; //do respawn
+						};
 					};
 				};
 			};
-		};
-
-		__TRACE_1("","_vec call d_fnc_OutOfBounds")
+			
+			__TRACE_1("","_vec call d_fnc_OutOfBounds")
 		
-		if (_empty && {!_disabled && {alive _vec && {_vec call d_fnc_OutOfBounds}}}) then {
-			private _outb = _vec getVariable "d_OUT_OF_SPACE";
-			if (_outb != -1) then {
-				if (time > _outb) then {_disabled = true};
+			if (_empty && {!_disabled && {alive _vec && {_vec call d_fnc_OutOfBounds}}}) then {
+				private _outb = _vec getVariable "d_OUT_OF_SPACE";
+				if (_outb != -1) then {
+					if (time > _outb) then {_disabled = true};
+				} else {
+					_vec setVariable ["d_OUT_OF_SPACE", time + 900];
+				};
 			} else {
-				_vec setVariable ["d_OUT_OF_SPACE", time + 600];
+				_vec setVariable ["d_OUT_OF_SPACE", -1];
 			};
-		} else {
-			_vec setVariable ["d_OUT_OF_SPACE", -1];
+			
 		};
 		
 		sleep 0.01;
@@ -92,6 +98,10 @@ while {true} do {
 		__TRACE_1("","underwater _vec")
 		
 		if (_disabled) then {
+		
+			//reset timer
+			_vec_a set [5, -1];
+			
 			private _fuelleft = _vec getVariable ["d_fuel", 1];
 			/*remove 1 ammobox from total count*/
 			if (_vec getVariable ["d_ammobox", false]) then {
@@ -100,13 +110,10 @@ while {true} do {
 			if (_number_v < 100) then {
 				private _dhqcamo = _vec getVariable ["d_MHQ_Camo", objNull];
 				if (!isNull _dhqcamo) then {deleteVehicle _dhqcamo};
-			};
-			
+			};			
 			_ammbox = _vec getvariable ["actualAmmobox",objNull];			
-			if (!isNull _ammbox) then {
-			
-				deleteVehicle _ammbox;
-			
+			if (!isNull _ammbox) then {			
+				deleteVehicle _ammbox;			
 			};				
 			
 			private _isitlocked = _vec getVariable ["d_vec_islocked", false]; // || {_vec call d_fnc_isVecLocked};
@@ -124,12 +131,16 @@ while {true} do {
 			_customsArray = [_vec];		
 			{_customsArray pushBack _x;} foreach _customs;		
 			_customsArray call BIS_fnc_initVehicle;
-			if ((_number_v == 806) || (_number_v == 807)) then {
+			/*
+			if (_number_v == 807) then {
 				_vec setObjectTextureGlobal [0, "textures\offroad4.paa"];
 			};
-			if (_number_v == 808) then {
-				_vec setObjectTextureGlobal [0, "textures\suv4.paa"];
-			};
+			#ifndef __RHS__
+				if (_number_v == 808) then {
+					_vec setObjectTextureGlobal [0, "textures\suv4.paa"];
+				};
+			#endif
+			*/
 			_vec setDir (_vec_a # 3);
 			sleep 0.1;
 			_vec setPosATL (_vec_a # 2);
@@ -213,7 +224,7 @@ while {true} do {
 			sleep 0.01;
 			_vec remoteExecCall ["d_fnc_initvec", [0, -2] select isDedicated];
 		};
-		sleep (8 + random 5);
+		//sleep (8 + random 5);
 	} forEach d_vrespawn2_ar;
 	sleep (8 + random 5);
 };

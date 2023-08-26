@@ -60,6 +60,7 @@ d_arsenal_opened = false;
 player disableConversation true;
 if (!d_with_ai) then {
 	enableSentences false;
+	enableRadio false;
 };
 [player, "NoVoice"] remoteExecCall ["setSpeaker", -2, false];
 
@@ -1120,6 +1121,7 @@ player addEventHandler ["Respawn",{
 	_unit remoteExecCall ["d_fnc_addScoreHandler",2,false];
 }];
 
+/*
 player addEventHandler ["Respawn",{
 	params ["_unit", "_corpse"];
 	_unit spawn {
@@ -1129,5 +1131,6 @@ player addEventHandler ["Respawn",{
 		};
 	};	
 }];
+*/
 
 diag_log [diag_frameno, diag_ticktime, time, "Dom x_setupplayer.sqf processed"];

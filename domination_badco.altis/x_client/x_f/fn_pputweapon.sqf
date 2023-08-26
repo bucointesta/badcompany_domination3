@@ -3,7 +3,6 @@
 #define THIS_FILE "fn_pputweapon.sqf"
 #include "..\..\x_setup.sqf"
 
-//Hunter: needs revision
 /*
 
 //if (isDedicated) exitWith {};
@@ -23,4 +22,12 @@ diag_log format ["container %1", _container];
 
 */
 
-call d_fnc_save_layoutgear;
+params ["_unit", "_container", "_item"];
+
+private _parent = objectParent _container;
+
+if ((!local _parent) && {_parent isKindOf "CAManBase"}) then {
+	
+	[_parent, _container, _item] remoteExecCall ["d_fnc_ptakeweapon", _parent, false];
+
+};

@@ -4,7 +4,7 @@ d_tutorialStartingPos = getpos player;
 tutorialError = true;
 player forceWalk true;
 0 fadeSound 0;
-enableRadio false;
+//enableRadio false;
 showChat false;
 uisleep 3;
 //"d_introtxt1" cutText [format [localize "STR_DOM_MISSIONSTRING_1434", actionKeysNames "TeamSwitch"], "PLAIN"];
@@ -95,13 +95,13 @@ player switchMove "";
 player forceWalk false;
 ppEffectDestroy tutorialBackgroundEffect;
 2 fadeSound 1;
-enableRadio true;
+//enableRadio true;
 showChat true;
 
 waitUntil {(player distance _box) > 8.5};
 
 0 fadeSound 0;
-enableRadio false;
+//enableRadio false;
 showChat false;
 tutorialBackgroundEffect = ppEffectCreate ["ColorCorrections", 1587];
 tutorialBackgroundEffect ppEffectEnable true;
@@ -165,7 +165,7 @@ d_tutorialMHQ = {
 	tutorialError = true;
 	player forceWalk true;
 	0 fadeSound 0;
-	enableRadio false;
+	//enableRadio false;
 	showChat false;
 	closeDialog 0;
 	xr_phd_invulnerable = true;
@@ -199,7 +199,7 @@ d_tutorialMHQ = {
 	__WAITFORHINTCCLOSED;
 	
 	2 fadeSound 1;
-	enableRadio true;
+	//enableRadio true;
 	showChat true;
 	player forceWalk false;
 	ppEffectDestroy tutorialBackgroundEffect;
@@ -208,7 +208,7 @@ d_tutorialMHQ = {
 };
 
 2 fadeSound 1;
-enableRadio true;
+//enableRadio true;
 showChat true;
 uisleep 2;
 (findDisplay 46) displayRemoveEventHandler ["KeyDown",tutorialEscEH];

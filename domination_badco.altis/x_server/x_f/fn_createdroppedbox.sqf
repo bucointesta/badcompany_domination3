@@ -48,26 +48,42 @@ _box addEventHandler ["Killed",{
 	publicVariable "d_num_ammo_boxes";
 
 }];
-//merge with launcher crate stuff -- very inefficient to do this every time but too lazy rip
-#ifdef __RHS__			
-	private _createType = "rhsusf_launcher_crate";
-#else
-	private _createType = "I_CargoNet_01_ammo_F";
-#endif
-_dummybox = _createType createVehicleLocal [0,0,10000];
-_itemType = (getMagazineCargo _dummybox) select 0;
-_itemType pushBack ((getWeaponCargo _dummybox) select 0);
-_itemCount = (getMagazineCargo _dummybox) select 1;
-_itemCount pushBack ((getWeaponCargo _dummybox) select 1);
-deleteVehicle _dummybox;
-{
-	_box addItemCargoGlobal [_x,_itemCount select _foreachIndex];
-} foreach _itemType;
-#ifdef __RHS__			
-	_box addItemCargoGlobal ["FirstAidKit",10];
-	_box addItemCargoGlobal ["Toolkit",1];
-	_box addItemCargoGlobal ["rhs_weap_m72a7",10];
-	_box addItemCargoGlobal ["rhs_weap_M136",10];
-#else
 
-#endif
+if (!(_unit getVariable ["d_ammobox_isEmpty", false])) then {
+
+	//merge with launcher crate stuff -- very inefficient to do this every time but too lazy rip
+
+	#ifdef __RHS__			
+		private _createType = "rhsusf_launcher_crate";
+	#else
+		private _createType = "I_CargoNet_01_ammo_F";
+	#endif
+	_dummybox = _createType createVehicleLocal [0,0,10000];
+	_itemType = (getMagazineCargo _dummybox) select 0;
+	_itemType pushBack ((getWeaponCargo _dummybox) select 0);
+	_itemCount = (getMagazineCargo _dummybox) select 1;
+	_itemCount pushBack ((getWeaponCargo _dummybox) select 1);
+	deleteVehicle _dummybox;
+	{
+		_box addItemCargoGlobal [_x,_itemCount select _foreachIndex];
+	} foreach _itemType;
+	#ifdef __RHS__			
+		_box addItemCargoGlobal ["FirstAidKit",10];
+		_box addItemCargoGlobal ["Toolkit",1];
+		_box addItemCargoGlobal ["rhs_weap_m72a7",10];
+		_box addItemCargoGlobal ["rhs_weap_M136",10];
+	#else
+
+	#endif
+
+} else {
+
+	clearItemCargoGlobal _box;
+	clearBackpackCargoGlobal _box;
+	clearMagazineCargoGlobal _box;
+	clearWeaponCargoGlobal _box;
+	
+	// reset to default for the next box
+	_unit setVariable ["d_ammobox_isEmpty", false, true];
+
+};

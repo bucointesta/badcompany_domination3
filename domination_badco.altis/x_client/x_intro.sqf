@@ -6,7 +6,7 @@ if (isDedicated) exitWith {};
 
 diag_log [diag_frameno, diag_ticktime, time, "Dom intro started"];
 
-enableRadio false;
+//enableRadio false;
 
 disableSerialization;
 
@@ -14,16 +14,14 @@ waitUntil {sleep 0.112;!isNil "d_preloaddone"};
 sleep 0.01;
 
 //JIP set texture for bad co uniforms
+/*
 {
-
-	if ((str _x) in d_badcompany) then {
-	
+	if ((str _x) in d_badcompany) then {	
 		_x setObjectTexture [0, "\A3\Characters_F\Common\Data\basicbody_black_co.paa"];
-		_x setObjectTexture [1, "\A3\Characters_F\Common\Data\basicbody_black_co.paa"];
-		
+		_x setObjectTexture [1, "\A3\Characters_F\Common\Data\basicbody_black_co.paa"];		
 	};
-
 } foreach allPlayers;
+*/
 
 private _playerUID = getPlayerUID player;
 
@@ -206,7 +204,7 @@ if (_firstTimeJoined) then {
 
 };
 
-enableRadio true;
+//enableRadio true;
 showChat true;
 
 #ifndef __IFA3LITE__
@@ -240,10 +238,18 @@ if (!_uidcheck_done && {!(d_uid_reserved_slots isEqualTo [])} && {!(membersarr i
 			}) then {
 				_reservedSlotCheckPassed = false;
 				execVM "x_client\x_reservedslot3.sqf";
-			};		
+			};
 		};
-		d_uid_reserved_slots = nil;
-		membersarr = nil;
+	} else {
+		if ((_playerUID in membersarr) && {!(_playerUID in adminarr)}) then {
+			if (((count (squadParams player)) == 0) || {
+				_clanTag = ((squadParams player) select 0) select 0;
+				(_clanTag != "Bad Co") && {_clanTag != "B.A.D. PMC"}
+			}) then {
+				_reservedSlotCheckPassed = false;
+				execVM "x_client\x_reservedslot3.sqf";
+			};
+		};
 	};
 };
 
@@ -251,8 +257,8 @@ if (!_reservedSlotCheckPassed) exitWith {};
 
 if ((!isnil "adminarr") && {_playerUID in adminarr}) then {
 
-	// enable command channel for admins
-	2 enableChannel [true, true];
+	// enable global channel for admins
+	0 enableChannel [true, true];
 	
 	d_spectating = false;
 	player addAction ["<t color='#CCCC00'>Spectate Players</t﻿﻿>",{d_spectating = true; hintc "To stop spectating, you need to spectate yourself in FIRST PERSON and use your scroll wheel menu options."; sleep 1; waituntil {isnull (findDisplay 57)}; ["Initialize", [player, [], false, true, true, true, true, true, true, true]] call BIS_fnc_EGSpectator;},[],-99,false,true,"","!d_spectating"];
@@ -325,7 +331,6 @@ if ((!isnil "adminarr") && {_playerUID in adminarr}) then {
 		
 };
 
-enableSentences false;
 
 /*
 sleep 5;
@@ -384,8 +389,8 @@ if (true) then {
 		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
 		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a RIFLEMAN. Your role is to be the main manpower in combat to help achieve your team's objectives.</t><br/><br/>
 		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and disposable launchers.</t><br/>
-		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry large backpacks.</t><br/>
 		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators and you can deploy MAVs.</t>", _key];
 	};
 	if (str player in d_grenadiers) exitWith {
@@ -394,8 +399,8 @@ if (true) then {
 		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
 		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a GRENADIER. Your main role is to provide support to your team in medium range combat with smoke and HE grenades. Use your HE grenades as a force multiplier and your smokes for concealment and to mark targets.</t><br/><br/>
 		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and grenade launchers.</t><br/>
-		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry medium backpacks.</t><br/>
 		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>", _key];
 	};
 	if (str player in d_autoriflemen) exitWith {
@@ -404,8 +409,8 @@ if (true) then {
 		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
 		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an AUTOMATIC RIFLEMAN. Your main role is to support friendlies by suppressing enemy contacts at all ranges.</t><br/><br/>
 		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and machine guns.</t><br/>
-		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small backpacks.</t><br/>
 		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>", _key];
 	};
 	if (str player in d_snipers) exitWith {
@@ -414,8 +419,8 @@ if (true) then {
 		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
 		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MARKSMAN. Your main role is to support your team by providing precision fire at medium and long range.</t><br/><br/>
 		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles, sniper rifles and sniper optics.</t><br/>
-		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can only carry small backpacks.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry medium backpacks.</t><br/>
 		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>", _key];
 	};
 	if (str player in d_spotters) exitWith {
@@ -434,8 +439,8 @@ if (true) then {
 		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
 		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MISSILE SPECIALIST. Your main role is to support your team by engaging enemy ground and air vehicles.</t><br/><br/>
 		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles and all launchers.</t><br/>
-		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small backpacks.</t><br/>
 		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use laser designators.</t>", _key];
 	};
 	if (str player in d_saboteurs) exitWith {
@@ -453,7 +458,7 @@ if (true) then {
 		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
 		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a MEDEVAC PILOT. Your main role is to provide rapid air transport for medical operations.</t><br/><br/>
 		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols and submachineguns.</t><br/>
-		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms.</t>", _key];
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear pilot uniforms and use medical items.</t>", _key];
 	};
 	if (str player in d_medics) exitWith {
 		"Welcome to Bad Company Domination!" hintc parseText format [
@@ -461,8 +466,8 @@ if (true) then {
 		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
 		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are a COMBAT MEDIC. Your main role is to support your team by healing and reviving wounded friendlies on the battlefield.</t><br/><br/>
 		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns, assault rifles.</t><br/>
-		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light, medium and heavy armor.</t><br/>
-		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small and medium backpacks.</t><br/>
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear heavy armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry medium backpacks.</t><br/>
 		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use medkits and laser designators.</t>", _key];
 	};
 	if (str player in d_is_engineer) exitWith {
@@ -471,9 +476,9 @@ if (true) then {
 		<t color='#FF5500' shadow='1' shadowColor='#000000' size='1.5'>Press and hold  %1  to use the mission menu.</t><br/><br/>
 		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an ENGINEER. Your main role is to repair friendly vehicles, destroy enemy targets with explosives and defuse enemy mines.</t><br/><br/>
 		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns and assault rifles.</t><br/>
-		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear light and medium armor.</t><br/>
-		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry small, medium and large backpacks.</t><br/>
-		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use toolkits.</t>", _key];
+		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear medium armor.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry large backpacks.</t><br/>
+		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use toolkits and carry explosives.</t>", _key];
 	};
 	/*
 	if (str player in d_attack_pilots) exitWith {

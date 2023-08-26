@@ -10,7 +10,7 @@ _carried = objNull;
 
 if (_action == "load") then {
 	if (_cargo == "") then {
-		_near = (nearestObjects [_loadpos, ["Car", "Tank", "Ship"], 10]) select {alive _x};
+		_near = (nearestObjects [_loadpos, ["Car", "Tank", "Ship"], 10]) select {(alive _x) && {(locked _x) != 2}};
 		_obj = _near select 0;
 		
 		if((count crew (vehicle _obj)) > 0) then {_carried = vehicle _obj;} else {_carried = _obj;};

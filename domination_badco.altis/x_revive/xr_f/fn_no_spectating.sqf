@@ -16,7 +16,7 @@ if (!isNil "xr_stopspect" && {!xr_stopspect}) then  {
 	sleep 0.2;
 };
 xr_stopspect = false;
-enableRadio false;
+//enableRadio false;
 params ["_withresp"];
 __TRACE_1("","_withresp")
 if (_withresp) then {
@@ -68,7 +68,7 @@ __TRACE("main no spectating one frame loop starts")
 		player switchCamera "INTERNAL";
 		xr_spectcam cameraEffect ["Terminate", "Back"];
 		camDestroy xr_spectcam;
-		enableRadio true;
+		//enableRadio true;
 		xr_x_withresp = nil;
 		xr_no_spect_campos = nil;
 		__TRACE("no spectating ended, one frame removed")

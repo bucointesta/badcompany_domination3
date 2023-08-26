@@ -9,7 +9,7 @@ __TRACE_1("start","_this")
 player setVariable ["xr_presptime", 6];
 setPlayerRespawnTime 6;
 __TRACE("respawn time 6")
-enableRadio false;
+//enableRadio false;
 if (!isNil "d_eng_can_repfuel" && {!d_eng_can_repfuel}) then {
 	player setVariable ["d_old_eng_can_repfuel", d_eng_can_repfuel];
 };

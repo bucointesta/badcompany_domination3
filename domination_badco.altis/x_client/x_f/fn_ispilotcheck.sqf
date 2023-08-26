@@ -38,12 +38,15 @@ if (_vecnum == 3012) exitWith {
 };
 
 if (_vecnum == 3011) exitWith {hint "This is an admin reserved chopper";false};
-if (((_vecnum == 3009) || {_vecnum == 3010}) && {!(_enterer in ["d_badco_2","d_badco_8"])}) exitWith {hint "Only Bad Company pilots can fly this chopper";false};
-if ((_vecnum == 3009) || {_vecnum == 3010}) exitWith {true};
-if (((_vecnum == 806) || {(_vecnum == 807) || {_vecnum == 808}}) && {!(_enterer in d_uid_reserved_slots)}) exitWith {hint "Only Bad Company members can drive this car";false};
+
+if ((_vec isKindOf "Air") && {!(_enterer in _pilots)}) exitWith {hint "You need to be a pilot to fly this aircraft";false};
+
+if (((_vecnum == 3009) || {_vecnum == 3010}) && {!(call d_fnc_isbadco)}) exitWith {hint "This vehicle is reserved for Bad Company members";false};
+
+if ((_vecnum in [806,807,808,721,729,730]) && {!(call d_fnc_isbadco)}) exitWith {hint "This vehicle is reserved for Bad Company members";false};
+
 //if (((_vecnum == 3008) || {_vecnum == 3101} || {_vecnum == 3102} || {_vecnum == 3005}) && {!(_enterer in d_attack_pilots)}) exitWith {hint "You need to be an attack pilot to fly this vehicle";false};
 //if ((_vec isKindOf "Air") && {!((_enterer in d_attack_pilots) || {_enterer in _transPilots})}) exitWith {hint "You need to be a pilot to fly this vehicle";false};
-if ((_vec isKindOf "Air") && {!(_enterer in _pilots)}) exitWith {hint "You need to be a pilot to fly this aircraft";false};
 
 #ifndef __RHS__
 	// Jet nerf

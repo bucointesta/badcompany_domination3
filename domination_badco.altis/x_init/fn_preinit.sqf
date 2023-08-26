@@ -460,6 +460,9 @@ if (_isserv_or_hc) then {
 };
 
 if (isServer) then {
+
+	call compile preprocessFileLineNumbers "DOMI_MEMBERS\members.sqf";
+
 	d_with_ace = isClass (configFile>>"CfgPatches">>"ace_main");
 	publicVariable "d_with_ace";
 	d_database_found = false;
@@ -567,7 +570,12 @@ if (isServer) then {
 if (_isserv_or_hc) then {
 	if (isServer) then {
 		if (d_weather == 0) then {
-			0 setOvercast (random 1);
+			0 setOvercast (random [0.0, 0.0, 1.0]);
+			private _rain = random [0.0, 0.1, 1.0];
+			if (_rain < 0.1) then {
+			_rain = 0;
+			};
+			0 setRain _rain;
 			if (d_enable_fog == 0) then {
 				private _fog = if (random 100 > 90) then {
 					[random 0.1, 0.1, 20 + (random 40)]
@@ -579,8 +587,10 @@ if (_isserv_or_hc) then {
 			} else {
 				0 setFog [0, 0, 0];
 				0 spawn {
-					sleep 100;
-					0 setFog [0, 0, 0];
+					while {true} do {
+						sleep 100;
+						0 setFog [0, 0, 0];
+					};
 				};
 			};
 			forceWeatherChange;
@@ -1567,6 +1577,11 @@ if (hasInterface) then {
 						disableRemoteSensors true;
 					};
 					removeMissionEventHandler ["EachFrame", _thisEventHandler];
+					// Hunter: see if this prevents the invincibility bug
+					[] spawn {
+						sleep 1;
+						xr_phd_invulnerable = false;
+					};
 				};
 			};
 		};

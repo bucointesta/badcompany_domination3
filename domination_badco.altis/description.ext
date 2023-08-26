@@ -377,7 +377,7 @@ class Params {
 	class d_weather {
 		title = "$STR_DOM_MISSIONSTRING_1164";
 		values[] = {0,1};
-		default = 1;
+		default = 0;
 		texts[] = {"$STR_DOM_MISSIONSTRING_1006","$STR_DOM_MISSIONSTRING_1007"};
 	};
 	
@@ -1023,6 +1023,7 @@ class Params {
 #include "x_dlg\PylonLoadoutDialog.hpp"
 #include "x_dlg\TransferScoreDialog.hpp"
 #include "x_dlg\AirTaxiDialog.hpp"
+#include "x_dlg\AmmoboxDialog.hpp"
 
 class CfgSounds {
 	sounds[] = {d_IncomingChallenge2};
@@ -1450,7 +1451,7 @@ class CfgDebriefing
 	{
 		title = "Problem with Clan Tag";
 		subtitle = "";
-		description = "There is a problem with your clan tag. Please make sure you have followed the instructions on how to add your clan tag to your profile and that your name is spelled correctly. If you did everything correctly and it's still not working, please contact recruitment staff for support. You will not be able to use reserved slots until the problem is resolved.";
+		description = "There is a problem with your clan tag. Please make sure you have followed the instructions on how to add your clan tag to your profile and that your name is spelled correctly. If you did everything correctly and it's still not working, please contact recruitment staff for support. You will not be able to play on the server until the problem is resolved.";
 		pictureBackground = "";
 		picture = "";
 		pictureColor[] = {0.6,0.1,0.2,1};

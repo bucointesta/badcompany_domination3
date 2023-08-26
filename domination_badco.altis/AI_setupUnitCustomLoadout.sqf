@@ -107,11 +107,13 @@ _this spawn {
 			};
 		
 			case ((secondaryWeapon _this) == "rhs_weap_rpg26") : {
-				_this addWeapon "launch_O_Vorona_green_F";
-				_this addSecondaryWeaponItem "Vorona_HEAT";
-				_this addBackpack "rhs_assault_umbts";
-				_container = backpackContainer _this;
-				_container addMagazineCargoGlobal ["Vorona_HEAT", 4];
+				if ((random 1) < 0.5) then {
+					_this addWeapon "launch_O_Vorona_green_F";
+					_this addSecondaryWeaponItem "Vorona_HEAT";
+					_this addBackpack "rhs_assault_umbts";
+					_container = backpackContainer _this;
+					_container addMagazineCargoGlobal ["Vorona_HEAT", 4];
+				};				
 			};
 			
 			case (((backpack _this) == "rhs_rpg") && {(secondaryWeapon _this) == ""}) : {

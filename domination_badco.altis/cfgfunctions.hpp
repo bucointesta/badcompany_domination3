@@ -154,6 +154,7 @@ class cfgFunctions {
 			addc(forbidden_item);
 			addc(badco_uniform);
 			addc(replenishbox);
+			addc(isbadco);
 		};
 		class Dom_UI {
 			file = "x_client\x_f\x_ui";
