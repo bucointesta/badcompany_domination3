@@ -127,12 +127,10 @@ d_pilot_only = ["U_I_pilotCoveralls","U_B_PilotCoveralls","U_B_HeliPilotCoverall
 	if (_box == d_ammobox_15) then {
 		{d_standardItems pushBackUnique (_x select 0); false} count _items;
 	};
-	if (_box == d_ammobox_1) then {	
-		{		
-			if (!((_x select 0) in d_grenadelaunchers)) then {			
-				d_defaultWeapons pushBackUnique ([_x select 0] call BIS_fnc_baseWeapon);				
-			};		
-		} foreach _weapons;		
+	if (_box == d_ammobox_1) then {
+		{
+			d_defaultWeapons pushBackUnique ([_x select 0] call BIS_fnc_baseWeapon);
+		} foreach _weapons;
 		{		
 			d_defaultMagazines pushBackUnique (_x select 0);		
 		} foreach _magazines;		
@@ -180,10 +178,10 @@ d_pilot_only = ["U_I_pilotCoveralls","U_B_PilotCoveralls","U_B_HeliPilotCoverall
 } ForEach d_static_ammoboxes;
 
 {
-
 	d_defaultBackpacks pushBackUnique _x;
-
 } foreach d_small_backpacks;
+
+d_defaultWeapons = d_defaultWeapons - d_grenadelaunchers;
 
 //d_whitelistWeapons = d_whitelistWeapons - d_defaultWeapons;
 //d_whitelistMagazines = d_whitelistMagazines - d_defaultMagazines;

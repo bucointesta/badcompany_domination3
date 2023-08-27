@@ -65,14 +65,14 @@ while {true} do {
 		
 		//add respawn for dead timer
 		if (_ifdamage && {(!alive _vec) || {underwater _vec}}) then {
-			private _respawnTimer = _vec_a select 7;
+			private _respawnTimer = _vec_a select 8;
 			if (_respawnTimer == -1) then {
-				_vec_a set [7, time + (_vec_a select 8)];
+				_vec_a set [8, time + (_vec_a select 7)];
 				d_helirespawn2_ar set [_forEachIndex, _vec_a];
 			} else {
 				if (time > _respawnTimer) then {
 						_disabled = true; //do respawn
-						_vec_a set [7, -1]; //reset timer
+						_vec_a set [8, -1]; //reset timer
 						d_helirespawn2_ar set [_forEachIndex, _vec_a];
 				};
 			};

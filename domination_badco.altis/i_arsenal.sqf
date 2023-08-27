@@ -113,7 +113,7 @@
 			if (_unit in d_snipers) then {
 			
 					restrictions_allowedWeapons = _defaultWeps + d_sniping_rifles;
-					restrictions_allowedItems = _defaultItems + d_medium_armors + d_heavy_armors + d_sniper_optics + d_sniper_only + d_rangefindersanddesignators;					
+					restrictions_allowedItems = _defaultItems + d_medium_armors + d_heavy_armors + d_sniper_optics + d_sniper_only + d_rangefindersanddesignators;
 			
 			// spotters are removed
 			} else {
@@ -158,7 +158,7 @@
 		
 			restrictions_allowedWeapons = _defaultWeps + d_launchers
 			#ifdef __RHS__
-				+ ["rhs_weap_m72a7","rhs_weap_M136"];
+				+ ["rhs_weap_m72a7","rhs_weap_M136", "rhs_weap_panzerfaust60_used"];
 			#else
 				+ ["launch_NLAW_F"];
 			#endif;
@@ -173,7 +173,7 @@
 		
 			restrictions_allowedWeapons = _defaultWeps 
 			#ifdef __RHS__
-				+ ["rhs_weap_m72a7","rhs_weap_M136", "rhs_weap_panzerfaust60", "rhs_weap_rpg75"]
+				+ ["rhs_weap_m72a7","rhs_weap_M136", "rhs_weap_panzerfaust60", "rhs_weap_rpg75", "rhs_weap_panzerfaust60_used"]
 			#else
 				+ ["launch_NLAW_F"]
 			#endif
@@ -193,7 +193,7 @@
 		} foreach ["rhs_m136_mag","rhs_m72a7_mag","rhs_m136_hp_mag","rhs_m136_hedp_mag","rhs_rpg26_mag","rhs_rshg2_mag", "rhs_rpg18_mag", "rhs_fgm148_magazine_AT_empty", "rhs_panzerfaust60_mag", "rhs_rpg75_mag"];
 		{	
 			restrictions_allowedWeapons pushback _x;		
-		} foreach ["rhs_weap_M136_used","rhs_weap_m72a7_used","rhs_weap_rpg26_used","rhs_weap_rshg2_used","rhs_weap_M136_hedp_used","rhs_weap_M136_hp_used", "rhs_weap_rpg18_used", "rhs_weap_panzerfaust60_used", "rhs_weap_rpg75_used"];
+		} foreach ["rhs_weap_M136_used","rhs_weap_m72a7_used","rhs_weap_rpg26_used","rhs_weap_rshg2_used","rhs_weap_M136_hedp_used","rhs_weap_M136_hp_used", "rhs_weap_rpg18_used", "rhs_weap_rpg75_used"];
 	#else
 		{	
 			restrictions_allowedMagazines pushback _x;		
