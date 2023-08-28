@@ -426,20 +426,20 @@ if (isServer) then {
 	// unique number must be between 3000 and 3999
 	if (!d_ifa3lite) then {
 		[
-		[d_chopper_1,3001,true,1200],[d_chopper_2,3002,true,900],[d_chopper_3,3003,true,900],
-		[d_chopper_4,3004,true,1200],[d_chopper_5,3005,true,1200],[d_chopper_13,3013,true,1200],
-		[d_chopper_6,3006,true,900],[d_chopper_7,3007,true,900],[d_chopper_8,3008,true,1200],
-		[d_chopper_9,3009,true,1200],[d_chopper_10,3010,true,900],[d_chopper_11,3011,true,1200],
-		[d_chopper_12,3012,true,1200],
+		[d_chopper_1,3001,true,900],[d_chopper_2,3002,true,900],[d_chopper_3,3003,true,900],
+		[d_chopper_4,3004,true,900],[d_chopper_5,3005,true,900],[d_chopper_13,3013,true,900],
+		[d_chopper_6,3006,true,600],[d_chopper_7,3007,true,600],[d_chopper_8,3008,true,1200],
+		[d_chopper_9,3009,true,1200],[d_chopper_10,3010,true,1200],[d_chopper_11,3011,true,900],
+		[d_chopper_12,3012,true,900],
 		
-		[d_attack_1,3101,true,1800],
-		[d_attack_2,3102,true,1800],
+		[d_attack_1,3101,true,1200],
+		[d_attack_2,3102,true,600],
 		[d_plane_1,3103,true,900]
 		
 		] call compile preprocessFileLineNumbers "x_server\x_inithelirespawn2.sqf";
 	};
 	// editor varname, unique number
-	//0-99 = MHQ, 100-199 = Medic vehicles, 200-299 = Fuel, Repair, Reammo trucks, 300-399 = Engineer Salvage trucks, 400-499 = Transport trucks	
+	//0-99 = MHQ, 100-199 = Medic vehicles, 200-299 = Fuel, Repair, Reammo trucks, 300-399 = Engineer Salvage trucks, 400-499 = Transport trucks
 	private _var = [
 	
 		[d_vec_mhq_1,0,-1],[d_vec_mhq_2,1,-1],[d_vec_mhq_3,2,-1],

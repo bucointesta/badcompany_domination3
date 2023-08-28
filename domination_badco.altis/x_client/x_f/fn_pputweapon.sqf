@@ -26,7 +26,7 @@ params ["_unit", "_container", "_item"];
 
 private _parent = objectParent _container;
 
-if ((!local _parent) && {_parent isKindOf "CAManBase"}) then {
+if ((isPlayer _parent) && {_parent != player}) then {
 	
 	[_parent, _container, _item] remoteExecCall ["d_fnc_ptakeweapon", _parent, false];
 

@@ -13,8 +13,7 @@ d_vrespawn2_ar = [];
 		private _vposp = if ((_vec isKindOf "Air") || {_vec isKindOf "Ship"}) then {
 			(getPosATL _vec) vectorAdd [0, 0, 0.1];
 		} else {
-			//getPosATL _vec;
-			(getPosATL _vec) vectorAdd [0, 0, 0.1];
+			getPosATL _vec;
 		};
 		/*
 		if (count _x == 2) then {

@@ -19,9 +19,12 @@ if (d_without_nvg == 0 && {_item call d_fnc_isnvgoggles}) then {
 
 _item = [_item] call BIS_fnc_baseWeapon;
 
+_disallowedItemFound = false;
+
 if (!(_item in restrictions_allAllowedItems)) then {
 
 	debug_forbidden_item = _item;
+	_disallowedItemFound = true;
 	
 	player removeItems _item;
 	player unlinkItem _item;
@@ -47,12 +50,38 @@ if (!(_item in restrictions_allAllowedItems)) then {
 		removeVest player;
 	};
 	if ((backpack player) == _item) exitWith {
-		removeBackpack player;
+		//some problem with removing backpacks... try a delay
+		_item spawn {
+			sleep 1;
+			waitUntil {(backpack player) == _this};
+			removeBackpack player;
+		};
 	};
 
+};
 
+if (_disallowedItemFound) then {
 	hint "You cannot use this item with your chosen role.";
-
+} else {
+	if ((uniform player) == _item) exitWith {
+		{
+			[player, uniformContainer player, _x] call d_fnc_ptakeweapon;
+		} foreach (uniformItems player);
+	};
+	if ((vest player) == _item) exitWith {
+		{
+			[player, vestContainer player, _x] call d_fnc_ptakeweapon;
+		} foreach (vestItems player);
+	};
+	if ((backpack player) == _item) exitWith {
+		_item spawn {
+			sleep 1;
+			waitUntil {(backpack player) == _this};
+			{
+				[player, backpackContainer player, _x] call d_fnc_ptakeweapon;
+			} foreach (backpackItems player);
+		};
+	};
 };
 
 // disable remote connecting to base AA

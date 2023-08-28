@@ -4,7 +4,7 @@ if (isServer) then {
 
 		while {true} do {
 		
-			sleep 600;
+			sleep 300;
 		
 			_playerVics = [];
 			// this probably doesn't cover all exceptions...
