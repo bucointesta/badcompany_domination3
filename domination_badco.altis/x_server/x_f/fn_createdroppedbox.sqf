@@ -84,6 +84,8 @@ if (!(_unit getVariable ["d_ammobox_isEmpty", false])) then {
 	clearWeaponCargoGlobal _box;
 	
 	// reset to default for the next box
-	_unit setVariable ["d_ammobox_isEmpty", false, true];
+	_unit setVariable ["d_ammobox_isEmpty", false, true];	
 
 };
+
+[_box] remoteExecCall ["KPCF_fnc_manageActions", 0, true];

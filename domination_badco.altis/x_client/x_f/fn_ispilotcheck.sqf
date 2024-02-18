@@ -14,6 +14,95 @@ if ((_vecnum >= 900) && {_vecnum < 950} && {!(_enterer in d_crewmen)}) exitWith 
 	false
 };
 
+if ((_vecnum >= 940) && {_vecnum < 950}) then {
+	if (player == (gunner _vec)) then {
+		_vec spawn {
+			private _noSightVicTypes = ["rhsusf_M142_usarmy_D", "rhsgref_cdf_b_reg_BM21"];
+			private _mags = [];
+			private _hasSights = true;
+			if ((typeof vehicle player) in _noSightVicTypes) then {
+				_hasSights = false;
+			};
+			private _sleepTime = [0.1, 0.75] select _hasSights;
+			private _gun = _this getVariable ["gun", ""];
+			if (_gun == "") then {
+				_gun = currentWeapon _this;
+				_this setVariable ["gun", _gun, true];
+			};
+			
+			// start in a locked state by default
+			private _locked = true;
+			_this removeWeaponTurret [_gun, [0]];
+			_this setTurretLimits [[0], 0, 0, 0, 0];
+			sleep 1;
+			
+			while {(alive player) && {(gunner _this) == player}} do {
+				if (((count allPlayers) < 50)
+				|| {(_this distance2D (markerPos "d_base_marker")) < 1500}
+				|| {(_this distance2D d_cur_tgt_pos) < 3500}
+				|| {((getposATL _this) select 2) > 10}
+				|| {({(_x distance d_cur_tgt_pos) < 1000} count playableUnits) < 6}) then {
+					if (!_locked) then {
+						_locked = true;
+						_this removeWeaponTurret [_gun, [0]];
+						_this setTurretLimits [[0], 0, 0, 0, 0];
+					};
+					if (cameraView == "GUNNER") then {
+						#ifndef __RHS__
+							_this switchCamera "INTERNAL";
+						#else
+							_this switchCamera "EXTERNAL";
+						#endif
+					};
+					hintSilent "Artillery is disabled when:\n\n1) There are less than 50 players on the server\n\n2) You are closer than 1.5 km to base\n\n3) You are closer than 3.5 km to the AO.\n\n4) There are less than 6 players within 1 km of the AO to give you targets.";
+				} else {
+					if (_locked) then {
+						_locked = false;
+						_this addWeaponTurret [_gun, [0]];
+						_this setTurretLimits [[0]]; //reset
+						hintSilent "";
+					};
+					if (!_hasSights) then {
+						hintSilent format ["Gun Azimuth: %1\nGun Elevation: %2", call {
+							_wdir = _this weaponDirection _gun;
+							_wdir_deg = round ((_wdir select 0) atan2 (_wdir select 1));
+							if (_wdir_deg < 0) then {
+								_wdir_deg = _wdir_deg + 360
+							};
+							_wdir_deg
+						}, deg(_this animationPhase "mainGun")];
+					};
+				};
+				_mags = magazines _this;
+				{
+					if (_x in _mags) then {
+						_this removeMagazinesTurret [_x, [0]];
+					};
+				} foreach 
+					#ifndef __RHS__
+						["4Rnd_155mm_Mo_guided","6Rnd_155mm_Mo_mine","2Rnd_155mm_Mo_Cluster","2Rnd_155mm_Mo_LG","6Rnd_155mm_Mo_AT_mine"];
+					#else
+						["rhs_mag_155mm_m712_2","rhs_mag_155mm_m731_1","rhs_mag_155mm_raams_1","rhs_mag_155mm_m864_3"];
+					#endif
+				
+				sleep _sleepTime;
+			};
+			if (_locked) then {
+				hintSilent "";
+			};
+		};
+	} else {
+		if (isNull gunner _vec) then {
+			private _gun = _vec getVariable ["gun", ""];
+			if (_gun == "") then {
+				_gun = currentWeapon _vec;
+				_vec setVariable ["gun", _gun, true];
+				_vec removeWeapon _gun;
+			};
+		};		
+	};	
+};
+
 //so medevac pilots can't fly other choppers
 //_transPilots = d_transport_pilots - ["d_medpilot"];
 

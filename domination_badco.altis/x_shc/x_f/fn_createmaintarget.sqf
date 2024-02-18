@@ -300,10 +300,12 @@ if (!d_no_more_observers) then {
 		private _xpos = _wp_array_inf select _xx_ran;
 		_wp_array_inf deleteAt _xx_ran;
 		__TRACE("from createmaintarget 1")
-		private _observer = ([_xpos, _unit_array, _agrp] call d_fnc_makemgroup) # 0;
+		// Hunter: Make these guys garrison buildings instead
+		private _observer = ([_xpos, _unit_array, _agrp, false] call d_fnc_makemgroup) # 0;
+		_observer disableAI "PATH";
+		_agrp setVariable ["d_defend", true];
+		[_agrp,500,true,[100,1],true,2] execVM "logistics\garrison.sqf";
 		_agrp deleteGroupWhenEmpty true;
-		[_agrp, _xpos, [_trg_center, _radius/2], [5, 20, 40], "", 0] spawn d_fnc_MakePatrolWPX;
-		_agrp setVariable ["d_PATR", true];
 		if (d_with_dynsim == 0) then {
 			_agrp enableDynamicSimulation true;
 		};

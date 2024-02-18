@@ -185,6 +185,7 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 										ropeDestroy _x;
 									} forEach (_ropes select {!isNull _x});
 									detach _liftobj;
+									sleep 1; // Hunter: account for crazy attach/detach network delay
 									_liftPos set [2,0.1];
 									_liftobj setposatl _liftPos;
 									sleep 1;
@@ -192,7 +193,8 @@ while {alive _chopper && {alive player && {player in _chopper}}} do {
 									// don't detach if ropes were broken by desync... keep using legacy system
 									if ((count (ropeAttachedObjects _chopper)) > 0) then {
 										_liftPos = getpos _liftobj;
-										detach _liftobj;					
+										detach _liftobj;
+										sleep 1; // Hunter: account for crazy attach/detach network delay
 										_liftPos set [2, (((getposatl _chopper) select 2) - 15) max 3];
 										_liftobj setposatl _liftPos;
 										[_liftobj, velocity _chopper] remoteExecCall ["setVelocity", _liftobj, false];

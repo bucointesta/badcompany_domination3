@@ -477,7 +477,7 @@ if (true) then {
 		<t color='#A545FF' shadow='1' shadowColor='#000000' size='1.6'>You are an ENGINEER. Your main role is to repair friendly vehicles, destroy enemy targets with explosives and defuse enemy mines.</t><br/><br/>
 		<t color='#00FF00' shadow='1' shadowColor='#000000' size='1.2'>You can use pistols, submachineguns and assault rifles.</t><br/>
 		<t color='#FF3010' shadow='1' shadowColor='#000000' size='1.2'>You can wear medium armor.</t><br/>
-		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry large backpacks.</t><br/>
+		<t color='#FF4030' shadow='1' shadowColor='#000000' size='1.2'>You can carry medium backpacks.</t><br/>
 		<t color='#FF5050' shadow='1' shadowColor='#000000' size='1.2'>You can use toolkits and carry explosives.</t>", _key];
 	};
 	/*

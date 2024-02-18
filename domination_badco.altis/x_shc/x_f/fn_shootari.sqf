@@ -7,7 +7,7 @@ if !(call d_fnc_checkSHC) exitWith {};
 params ["_pos_enemy", "_kind"];
 
 private _which = [d_ArtyShellsBlufor, d_ArtyShellsOpfor] select (d_enemy_side == "EAST");
-private _height = 150;
+private _height = 1000;
 
 private _type = call {
 	if (_kind == 0) exitWith {_which # 2};
@@ -15,7 +15,6 @@ private _type = call {
 	_height = 1; _which # 1
 };
 
-private _num_shells = if (_kind in [0, 1]) then {
 #ifndef __TT__
 	if (d_searchintel # 4 == 1) then {
 #else
@@ -23,10 +22,11 @@ private _num_shells = if (_kind in [0, 1]) then {
 #endif
 		_pos_enemy remoteExecCall ["d_fnc_doarti", [0, -2] select isDedicated];
 	};
-	3 + (ceil random 3)
-} else {
-	1
-}; 
+
+private _num_shells = 4 + (ceil random 4);
+if (_kind == 0) then {
+	_num_shells = 2;
+};
 
 // Hunter: increased "flight time" for better long-range arty simulation
 sleep 45 + (random 15);
@@ -35,5 +35,8 @@ for "_i" from 0 to (_num_shells - 1) do {
 	_npos set [2, _height];
 	private _shell = createVehicle [_type, _npos, [], 0, "NONE"];
 	_shell setVelocity [0, 0, -150];
-	 sleep 0.923 + ((ceil random 10) / 10);
+	sleep 0.923 + ((ceil random 10) / 10);
+	if (_kind == 0) then {
+		sleep 5;
+	};
 };

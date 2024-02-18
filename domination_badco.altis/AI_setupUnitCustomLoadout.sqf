@@ -106,8 +106,11 @@ _this spawn {
 				_container addMagazineCargoGlobal [_glMag, 12];
 			};
 		
-			case ((secondaryWeapon _this) == "rhs_weap_rpg26") : {
-				if ((random 1) < 0.5) then {
+			case ((secondaryWeapon _this) == "rhs_weap_rpg26") : {			
+				if (((group _this) getVariable ["vorona_diceroll", -1]) == -1) then {
+					(group _this) setVariable ["vorona_diceroll", random 1];
+				};
+				if (((group _this) getVariable ["vorona_diceroll", -1]) < 0.5) then {
 					_this addWeapon "launch_O_Vorona_green_F";
 					_this addSecondaryWeaponItem "Vorona_HEAT";
 					_this addBackpack "rhs_assault_umbts";

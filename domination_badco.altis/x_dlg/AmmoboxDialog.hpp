@@ -23,7 +23,7 @@ class d_AmmoboxDialog {
 			class rtjyhrtj: RscButton
 			{
 				idc = 1600;
-				text = "Load Ammo Box"; //--- ToDo: Localize;
+				text = "Load Default (Pre-filled) Box"; //--- ToDo: Localize;
 				x = 0.15;
 				y = 0.22;
 				w = 0.7;
@@ -36,7 +36,7 @@ class d_AmmoboxDialog {
 			class ccbvbc: RscButton
 			{
 				idc = 1601;
-				text = "Load Empty Box"; //--- ToDo: Localize;
+				text = "Load Custom (Empty) Box"; //--- ToDo: Localize;
 				x = 0.15;
 				y = 0.54;
 				w = 0.7;

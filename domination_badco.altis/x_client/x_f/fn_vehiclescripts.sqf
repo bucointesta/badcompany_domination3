@@ -12,6 +12,18 @@ private _vecnum = _vec getvariable ["d_vec",0];
 if ((_vec isKindOf "ParachuteBase") || {_vec isKindOf "BIS_Steerable_Parachute"}) exitWith {};
 private _do_exit = false;
 
+// disable manual fire
+[] spawn {
+	waitUntil {
+		(vehicle player) != player
+	};
+	while {(vehicle player) != player} do {
+		if (isManualFire vehicle player) then {
+			player action ["manualFireCancel", vehicle player];
+		};
+	};
+};
+
 if (!(d_clientScriptsAr # 1) && {!isNil "d_player_autokick_time"}) then {
 	if (time >= d_player_autokick_time) exitWith {
 		d_clientScriptsAr set [1, true];

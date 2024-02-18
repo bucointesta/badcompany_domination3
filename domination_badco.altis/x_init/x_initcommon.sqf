@@ -689,7 +689,9 @@ d_p_vecs = [
 	["D_T03",902,"d_tank3","n_mech_inf","ColorBlue","Lava-1",""],["D_T04",903,"d_tank4","n_mech_inf","ColorBlue","Lava-2",""],
 	["D_T05",904,"d_tank5","n_mech_inf","ColorBlue","Target",""],["D_T06",905,"d_tank6","n_mech_inf","ColorBlue","Ram-1",""],
 	["D_T07",906,"d_tank7","n_mech_inf","ColorBlue","Ram-2",""],["D_T08",907,"d_tank8","n_mech_inf","ColorBlue","Stinger",""],
-	["D_T09",908,"d_tank9","n_armor","ColorBlue","Sander",""]
+	["D_T09",908,"d_tank9","n_armor","ColorBlue","Sander",""],
+	
+	["D_A01",940,"d_arty1","n_art","ColorBlue","Thumper",""],["D_A02",941,"d_arty2","n_art","ColorBlue","Hellfire",""]
 ];
 if (d_ifa3lite) then {
 	d_p_vecs pushBack ["D_TR11",500,"d_truck11","n_support","ColorGreen","W1",""];

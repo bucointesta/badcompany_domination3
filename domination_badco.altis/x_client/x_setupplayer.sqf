@@ -1108,6 +1108,9 @@ if (d_with_ai) then {
 	enableEnvironment [false, true];
 };
 
+//Hunter: disable arty computer
+enableEngineArtillery false;
+
 if (isMultiplayer) then {
 	execVM "x_client\x_intro.sqf";
 } else {

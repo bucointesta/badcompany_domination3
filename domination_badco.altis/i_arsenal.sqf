@@ -91,7 +91,7 @@
 		case (_unit in d_is_engineer) : {
 		
 			restrictions_allowedWeapons = _defaultWeps;
-			restrictions_allowedBackpacks = _defaultBackpacks + d_large_backpacks + d_medium_backpacks + d_engineer_backpacks;
+			restrictions_allowedBackpacks = _defaultBackpacks + d_medium_backpacks + d_engineer_backpacks;
 			restrictions_allowedItems = _defaultItems + d_engineer_only  + d_medium_armors + d_rangefindersanddesignators;
 			restrictions_allowedMagazines = _defaultMags + d_explosives;
 		

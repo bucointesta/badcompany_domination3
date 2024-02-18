@@ -29,16 +29,6 @@ overviewText = "$STR_DOM_MISSIONSTRING_1828";
 enableDebugConsole = 2;
 #endif
 
-class Header {
-#ifndef __TT__
-	gameType = COOP;
-#else
-	gameType = CTI;
-#endif
-	minPlayers = 1;
-	maxPlayers = 68;
-};
-
 joinUnassigned = 1;
 
 // 0 = Global, 1 = Side, 2 = Command, 3 = Group, 4 = Vehicle, 5 = Direct, 6 = System
@@ -86,7 +76,9 @@ class CfgRemoteExec {
 		class bis_fnc_endmission {mode = 0; allowedTargets = 1; jip = 0;};
 
 		// security risk...
-		class bis_fnc_debugconsoleexec {};	
+		class bis_fnc_debugconsoleexec {};
+		
+		class KPCF_fnc_manageActions {jip = 1;};
 		
 		class d_fnc_initZeus {allowedTargets=2;};
 		class d_fnc_addScoreHandler {allowedTargets=2;};	
@@ -1024,6 +1016,9 @@ class Params {
 #include "x_dlg\TransferScoreDialog.hpp"
 #include "x_dlg\AirTaxiDialog.hpp"
 #include "x_dlg\AmmoboxDialog.hpp"
+
+#include "KP-Cratefiller\KPGUI\KPGUI_defines.hpp"
+#include "KP-Cratefiller\KPCF\ui\KPCF_dialog.hpp"
 
 class CfgSounds {
 	sounds[] = {d_IncomingChallenge2};
