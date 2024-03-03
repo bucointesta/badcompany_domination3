@@ -310,7 +310,7 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 			_vehPlayer = vehicle _x;
 			if (!(_vehPlayer in _playerVehs)) then {
 				_playerVehs pushBack _vehPlayer;
-				if ((_vehPlayer isKindOf "Air") || {(_type != "CAP") && {!captive _vehPlayer} && {(_vehPlayer isKindOf "StaticWeapon") || {_vehPlayer isKindOf "B_APC_Tracked_01_AA_F"} || {_vehPlayer isKindOf "RHS_M6"} || {(_vehPlayer distance2D _cur_tgt_pos) < _radius}}}) then {
+				if ((_vehPlayer isKindOf "Air") || {(_type != "CAP") && {(_vehPlayer isKindOf "StaticWeapon") || {(typeof _vehPlayer) in ["B_APC_Tracked_01_AA_F", "RHS_M6", "B_MBT_01_arty_F", "B_MBT_01_mlrs_F", "rhsusf_m109d_usarmy", "rhsusf_M142_usarmy_D"]} || {(_vehPlayer distance2D _cur_tgt_pos) < _radius}}}) then {
 					_grp reveal [_vehPlayer, 4];
 				};
 			};
@@ -320,12 +320,14 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 			_grp setCombatMode "RED";
 			_grp setBehaviour "COMBAT";
 			sleep 10;
+			/*
 			{
 				if (isNull assignedTarget _x) then {
 					_x doTarget (selectRandom _playerVehs);
 				};
 			} foreach _mmvevs;
 			sleep 15;
+			*/
 		} else {
 			_grp setCombatMode "YELLOW";
 			_grp setBehaviour "AWARE";

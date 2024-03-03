@@ -303,6 +303,8 @@ if (!d_no_more_observers) then {
 		// Hunter: Make these guys garrison buildings instead
 		private _observer = ([_xpos, _unit_array, _agrp, false] call d_fnc_makemgroup) # 0;
 		_observer disableAI "PATH";
+		_observer setUnitPos "UP";
+		_observer addWeapon "Binocular";
 		_agrp setVariable ["d_defend", true];
 		[_agrp,500,true,[100,1],true,2] execVM "logistics\garrison.sqf";
 		_agrp deleteGroupWhenEmpty true;
@@ -310,6 +312,7 @@ if (!d_no_more_observers) then {
 			_agrp enableDynamicSimulation true;
 		};
 		_agrp setBehaviour "STEALTH";
+		_agrp setCombatMode "GREEN";
 		_observer addEventHandler ["killed", {d_nr_observers = d_nr_observers - 1;
 			if (d_nr_observers == 0) then {
 #ifndef __TT__

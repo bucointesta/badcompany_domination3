@@ -284,11 +284,11 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 					[[1,1], 1] // jeep with gl
 				];				
 				d_footunits_guard = [
-					[3,3], // basic groups
+					[4,4], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[3,3], // basic groups
+					[4,4], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
@@ -359,7 +359,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				];
 				d_footunits_guard_static = [
 					[0,0], // basic groups
-					[5,5] // specop groups
+					[6,6] // specop groups
 				];			
 			};
 			default {
@@ -378,7 +378,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 				d_vec_numbers_patrol = [
 					[[2,2], 2], // tanks
 					[[2,2], 2], // tracked apc
-					[[2,2], 2], // wheeled apc
+					[[2,2], 3], // wheeled apc
 					[[0,0], 0], // jeep with mg
 					[[0,0], 0] // jeep with gl
 				];				
@@ -387,12 +387,12 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 					[0,0] // specop groups
 				];
 				d_footunits_patrol = [
-					[5,5], // basic groups
+					[7,7], // basic groups
 					[0,0] // specop groups
 				];
 				d_footunits_guard_static = [
 					[0,0], // basic groups
-					[5,5] // specop groups
+					[7,7] // specop groups
 				];		
 			};		
 		};	

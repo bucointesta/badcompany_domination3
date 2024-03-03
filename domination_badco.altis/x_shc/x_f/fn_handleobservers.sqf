@@ -11,7 +11,7 @@ private _targets = [];
 
 sleep 10.123;
 while {d_nr_observers > 0} do {
-	if (_e_ari_avail && {(call d_fnc_PlayersNumber) > 44}) then {
+	if (_e_ari_avail && {d_mt_spotted} && {(call d_fnc_PlayersNumber) > 44}) then {
 		_targets = playableUnits apply {[_x, _x distance d_cur_tgt_pos]};
 		_targets sort true;
 		_targets = _targets apply {_x select 0};
@@ -21,10 +21,11 @@ while {d_nr_observers > 0} do {
 				
 				// Hunter: only use HE or cluster >:D
 				_e_ari_avail = false;
-				_nextaritime = time + 200 + (random 200);
-				if (({((side _x) == d_player_side) && {(d_side_enemy knowsAbout _x) > 1.25}} count (_enemy nearEntities ["CAManBase", 100])) < 5) then {
+				_nextaritime = time + 260 + (random 200);
+				if (({(_x in playableUnits) && {!captive _x} && {(d_side_enemy knowsAbout _x) > 1.25}} count (_enemy nearEntities ["CAManBase", 100])) < 6) then {
 					[getPosWorld _enemy, 1] spawn d_fnc_shootari;
 				} else {
+					_nextaritime = _nextaritime + 120;
 					[getPosWorld _enemy, 0] spawn d_fnc_shootari;
 				};
 			};

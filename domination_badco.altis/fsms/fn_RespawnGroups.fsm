@@ -43,8 +43,8 @@ link19[] = {14,15};
 link20[] = {15,2};
 link21[] = {16,17};
 link22[] = {18,17};
-globals[] = {0.000000,0,0,0,0,640,480,1,49,6316128,1,-228.328583,321.893341,473.582977,-141.020248,923,1031,1};
-window[] = {2,-1,-1,-1,-1,918,200,1160,200,3,941};
+globals[] = {0.000000,0,0,0,0,640,480,1,49,6316128,1,-396.286530,489.851135,660.415344,-328.449005,923,1030,1};
+window[] = {2,-1,-1,-1,-1,1033,670,1630,315,3,941};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -212,17 +212,15 @@ class FSM
        "};" \n
        "" \n
        "_counter = _counter + 1;" \n
-       "private _basetime = 180;" \n
-       "private _maxtime = 120;" \n
+       "private _basetime = 205;" \n
+       "private _mintime = 115;" \n
        "if (_isInfGrp) then {" \n
-       "	_basetime = 120;" \n
-       "	_maxtime = 40;" \n
+       "	_basetime = 115;" \n
+       "	_mintime = 25;" \n
        "};" \n
        "" \n
-       "private _multiplyFactor = [1, 1.2] select d_mt_radio_down;" \n
-       "" \n
        "_timenow = if (_dowaitfg) then {" \n
-       "	time + (((_basetime - (([1, count (allPlayers - (entities ""HeadlessClient_F""))] select isMultiplayer) * 3)) max _maxtime) + random 10)*_multiplyFactor" \n
+       "	time + (((_basetime - (([1, count (allPlayers - (entities ""HeadlessClient_F""))] select isMultiplayer) * 2)) max _mintime) + random 10)" \n
        "} else {" \n
        "	time + 3" \n
        "};" \n

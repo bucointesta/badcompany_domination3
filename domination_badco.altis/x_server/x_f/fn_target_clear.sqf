@@ -201,6 +201,13 @@ if !(d_maintargets_list isEqualTo []) then {
 	if (d_database_found && {d_db_auto_save}) then {
 		["d_dom_db_autosave", objNull] call d_fnc_saveprogress2db;
 	};
+	
+	// Hunter: delay before next AO spawns
+	sleep 300;
+	if ((call d_fnc_PlayersNumber) > 44) then {
+		sleep 300;
+	};
+	
 	0 spawn d_fnc_createnexttarget;
 } else {
 #ifdef __TT__
