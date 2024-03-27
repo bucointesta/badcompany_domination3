@@ -60,9 +60,9 @@ if (!(_unit getVariable ["d_ammobox_isEmpty", false])) then {
 	#endif
 	_dummybox = _createType createVehicleLocal [0,0,10000];
 	_itemType = (getMagazineCargo _dummybox) select 0;
-	_itemType pushBack ((getWeaponCargo _dummybox) select 0);
+	_itemType append ((getWeaponCargo _dummybox) select 0);
 	_itemCount = (getMagazineCargo _dummybox) select 1;
-	_itemCount pushBack ((getWeaponCargo _dummybox) select 1);
+	_itemCount append ((getWeaponCargo _dummybox) select 1);
 	deleteVehicle _dummybox;
 	{
 		_box addItemCargoGlobal [_x,_itemCount select _foreachIndex];
