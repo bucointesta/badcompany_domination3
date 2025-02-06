@@ -9,9 +9,12 @@ private _dragee = player getVariable "xr_cursorTarget";
 
 if (player getVariable ["xr_is_dragging", false] || {_dragee getVariable ["xr_dragged", false]}) exitWith {};
 
+// Hunter: remove prone dragging
+/*
 if (stance player == "PRONE") exitWith {
 	[_dragee] spawn xr_fnc_dragprone;
 };
+*/
 
 if (isNull _dragee || {!alive player}) exitWith {};
 
