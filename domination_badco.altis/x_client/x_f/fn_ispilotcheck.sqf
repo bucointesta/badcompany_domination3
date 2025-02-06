@@ -117,7 +117,11 @@ if (_enterer == "d_medpilot") exitWith {
 			hint "You are not authorized to fly this aircraft!";
 			false		
 		} else {
-			true
+			if ((_vecnum in [806,807,808,721,729,730]) && {!(call d_fnc_isbadco)}) then {
+				false
+			} else {
+				true
+			}
 		}
 	}
 };
@@ -130,9 +134,7 @@ if (_vecnum == 3011) exitWith {hint "This is an admin reserved chopper";false};
 
 if ((_vec isKindOf "Air") && {!(_enterer in _pilots)}) exitWith {hint "You need to be a pilot to fly this aircraft";false};
 
-if (((_vecnum == 3009) || {_vecnum == 3010}) && {!(call d_fnc_isbadco)}) exitWith {hint "This vehicle is reserved for Bad Company members";false};
-
-if ((_vecnum in [806,807,808,721,729,730]) && {!(call d_fnc_isbadco)}) exitWith {hint "This vehicle is reserved for Bad Company members";false};
+if ((_vecnum in [806,807,808,721,729,730,3009,3010]) && {!(call d_fnc_isbadco)}) exitWith {hint "This vehicle is reserved for Bad Company members";false};
 
 //if (((_vecnum == 3008) || {_vecnum == 3101} || {_vecnum == 3102} || {_vecnum == 3005}) && {!(_enterer in d_attack_pilots)}) exitWith {hint "You need to be an attack pilot to fly this vehicle";false};
 //if ((_vec isKindOf "Air") && {!((_enterer in d_attack_pilots) || {_enterer in _transPilots})}) exitWith {hint "You need to be a pilot to fly this vehicle";false};
