@@ -14,6 +14,11 @@ private _uinf = [];
 private _grp = [_grp_in, [_side] call d_fnc_creategroup] select (_grp_in isEqualType 0);
 private _pos = selectRandom _wp_array;
 
+//Hunter: add this to use when customising loadouts
+if ((toLower _grptype) == "specops") then {
+	_grp setVariable ["d_isSpecOps", true];
+};
+
 __TRACE_1("","_grp")
 
 private _msize = 0;
@@ -56,7 +61,8 @@ if (_add_to_ar_type > 0) then {
 	};
 };
 
-_grp allowFleeing (((floor random 3) + 1) / 10);
+//_grp allowFleeing (((floor random 3) + 1) / 10);
+_grp allowFleeing 0;
 
 private _sleepti = [5, 15] select (_grptype == "allmen" || {_grptype == "specops"});
 
@@ -123,7 +129,6 @@ switch (_type) do {
 	};
 	case "attack": {
 		_grp setBehaviour "AWARE";
-		_grp setCombatMode "RED";
 		private _gwp = _grp addWaypoint [_target_pos, 30];
 		_gwp setWaypointtype "SAD";
 		_gwp setWaypointCombatMode "RED";
@@ -137,7 +142,7 @@ switch (_type) do {
 		_x setSkill 1;	
 	};
 } foreach units _grp;
-_grp setBehaviour "COMBAT";
+//_grp setBehaviour "COMBAT";
 
 if (d_with_dynsim == 0) then {
 	[_grp, _sleepti] spawn {
