@@ -30,7 +30,17 @@ xr_drag_keyDownEHId = (findDisplay 46) displayAddEventHandler ["KeyDown", {_this
 _dragee setVariable ["xr_dragged", true, true];
 player remoteExec ["xr_fnc_draghelper", _dragee];
 _unit playMoveNow "acinpknlmstpsraswrfldnon";
+
+// Hunter: fix respawn-teleport exploit
+private _drageePos = getpos _dragee;
 sleep 2;
+if (((getpos _dragee) distance2D _drageePos) > 20) exitWith {
+	player setVariable ["xr_pisinaction", false];
+	player setVariable ["xr_is_dragging", false];
+	[_unit, ""] remoteExecCall ["switchMove"];
+	_dragee setVariable ["xr_dragged", false, true];
+	(findDisplay 46) displayRemoveEventHandler ["KeyDown", xr_drag_keyDownEHId];
+};
 
 [_dragee, "AinjPpneMstpSnonWrflDnon"] remoteExecCall ["switchMove"];
 //[_dragee, "AinjPpneMrunSnonWnonDb"] remoteExecCall ["switchMove"];
