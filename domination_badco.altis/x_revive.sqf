@@ -3,7 +3,7 @@
 
 // set max lives to -1 to have unlimited lives
 if (isNil "xr_max_lives") then {
-	xr_max_lives = 30;
+	xr_max_lives = -1;
 };
 
 // show markers on map where unit died
