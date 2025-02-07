@@ -20,7 +20,7 @@ if (_unit getVariable ["xr_ReviveAction", -9999] == -9999) then {
 		/* 9 code executed on interruption*/{},
 		/* 10 arguments */					[_unit],
 		/* 11 action duration */			[25, 16] select (player getUnitTrait "medic"),
-		/* 12 priority */					20,
+		/* 12 priority */					9999999,
 		/* 13 remove on completion */		false,
 		/* 14 show unconscious */			false
 	] call bis_fnc_holdActionAdd;
