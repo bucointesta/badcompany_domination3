@@ -42556,7 +42556,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				name="d_bike_55";
+				name="d_vec_bike_55";
 			};
 			id=8695;
 			type="C_Scooter_Transport_01_F";
@@ -42573,7 +42573,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				name="d_bike_54";
+				name="d_vec_bike_54";
 			};
 			id=8697;
 			type="C_Scooter_Transport_01_F";
@@ -42590,7 +42590,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				name="d_bike_53";
+				name="d_vec_bike_53";
 			};
 			id=8698;
 			type="C_Scooter_Transport_01_F";
@@ -42607,7 +42607,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				name="d_bike_52";
+				name="d_vec_bike_52";
 			};
 			id=8699;
 			type="C_Scooter_Transport_01_F";
@@ -42624,7 +42624,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				name="d_bike_51";
+				name="d_vec_bike_51";
 			};
 			id=8700;
 			type="C_Scooter_Transport_01_F";
@@ -42641,7 +42641,7 @@ class Mission
 			side="Empty";
 			class Attributes
 			{
-				name="d_bike_50";
+				name="d_vec_bike_50";
 			};
 			id=8701;
 			type="C_Scooter_Transport_01_F";
@@ -44164,7 +44164,7 @@ class Mission
 			flags=2;
 			class Attributes
 			{
-				init="0 = [group this] execvm ""logistics\boat_patrols.sqf"";";
+				init="if (isServer) then {[group this] execvm ""logistics\boat_patrols.sqf"";};";
 			};
 			id=8765;
 			type="O_Boat_Armed_01_hmg_F";
@@ -44594,7 +44594,7 @@ class Mission
 			flags=2;
 			class Attributes
 			{
-				init="0 = [group this] execvm ""logistics\boat_patrols.sqf"";";
+				init="if (isServer) then {[group this] execvm ""logistics\boat_patrols.sqf"";};";
 			};
 			id=8773;
 			type="O_Boat_Armed_01_hmg_F";
@@ -44964,7 +44964,7 @@ class Mission
 			flags=2;
 			class Attributes
 			{
-				init="0 = [group this] execvm ""logistics\boat_patrols.sqf"";";
+				init="if (isServer) then {[group this] execvm ""logistics\boat_patrols.sqf"";};";
 			};
 			id=8778;
 			type="O_Boat_Armed_01_hmg_F";
@@ -45306,7 +45306,7 @@ class Mission
 			flags=2;
 			class Attributes
 			{
-				init="0 = [group this] execvm ""logistics\boat_patrols.sqf"";";
+				init="if (isServer) then {[group this] execvm ""logistics\boat_patrols.sqf"";};";
 			};
 			id=8783;
 			type="O_Boat_Armed_01_hmg_F";
