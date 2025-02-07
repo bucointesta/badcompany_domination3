@@ -13,9 +13,6 @@ if (!isServer) then {
 call compile preprocessFileLineNumbers "x_shc\x_f\x_shcfunctions.sqf";
 #endif
 
-Hz_customUnitLoadouts = true;
-AI_setupUnitCustomLoadout = compile preprocessFileLineNumbers "AI_setupUnitCustomLoadout.sqf";
-
 if (hasInterface) then {
 	// Hunter: set this to a default low value so people don't forget their setting at high and then complain about low FPS...
 	//private _vd = profileNamespace getVariable ["dom_viewdistance", d_InitialViewDistance];
