@@ -204,7 +204,7 @@
 	restrictions_allowedBackpacks pushBack "B_Parachute";
 	
 	//vanilla weps will load vanilla stanag so need to unrestrict that too... 
-	restrictions_allowedWeapons pushBackUnique "30Rnd_556x45_Stanag";
+	restrictions_allowedMagazines pushBackUnique "30Rnd_556x45_Stanag";
 	
 	if (!(call d_fnc_isbadco)) then {
 	
