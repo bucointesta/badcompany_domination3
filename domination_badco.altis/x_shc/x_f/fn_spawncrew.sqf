@@ -13,11 +13,21 @@ if (count _crew > 0) then {
 	_crew joinSilent _grp;
 	deleteGroup _grp_old;
 	
+	/*
 	private _subskill = if (diag_fps > 29) then {
 		(0.1 + (random 0.2))
 	} else {
 		(0.12 + (random 0.04))
 	};
+	*/
+	
+	{
+		// Hunter: Max out crew skills
+		_x setSkill 1;
+		if (Hz_customUnitLoadouts) then {
+			_x call AI_setupUnitCustomLoadout;
+		};
+	} foreach _crew;
 	
 #ifdef __IFA3LITE__
 	if (random 100 > 80 && {_vec isKindOf "Wheeled_APC" || {_vec isKindOf "Wheeled_APC_F" || {_vec isKindOf "Tracked_APC"}}}) then {
@@ -36,6 +46,10 @@ if (count _crew > 0) then {
 					for "_i" from 1 to _counter do {
 						private _one_unit = _grp createUnit [selectRandom _munits, _pos, [], 10, "NONE"];
 						[_one_unit] joinSilent _grp;
+						_one_unit call AI_setSkill;
+						if (Hz_customUnitLoadouts) then {
+							_one_unit call AI_setupUnitCustomLoadout;
+						};
 						_one_unit moveInCargo _vec;
 #ifdef __GROUPDEBUG__
 						// does not subtract if a unit dies!
@@ -65,11 +79,7 @@ if (count _crew > 0) then {
 		_x setUnitAbility ((d_skill_array # 0) + (random (d_skill_array # 1)));
 		_x setSkill ["aimingAccuracy", _subskill];
 		_x setSkill ["spotTime", _subskill];
-		*/
-		_x call AI_setSkill;
-		if (Hz_customUnitLoadouts) then {
-			_x call AI_setupUnitCustomLoadout;
-		};	
+		*/	
 	} forEach _crew;
 	if !(isNull (driver _vec)) then {(driver _vec) setRank "LIEUTENANT"};
 	if !(isNull (gunner _vec)) then {(gunner _vec) setRank "SERGEANT"};

@@ -10,6 +10,7 @@ private _npos = _pos;
 
 __TRACE_1("","_this")
 
+// Hunter: skill is now set in spawncrew function
 //private _grpskill = (d_skill_array # 0) + (random (d_skill_array # 1));
 
 _the_vecs resize _numvecs;
@@ -57,11 +58,8 @@ for "_n" from 0 to _nnvnum do {
 		_vec setVariable ["d_liftit", true, true];
 	};
 };
+
+// Hunter: skill is now set in spawncrew function
 //(leader _grp) setSkill _grpskill;
-{
-
-	_x call AI_setSkill;
-
-} foreach units _grp;
 
 [_the_vecs, _crews]

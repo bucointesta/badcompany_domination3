@@ -136,14 +136,6 @@ switch (_type) do {
 	};
 };
 
-// Hunter: Max out all vehicle AI skills
-{
-	if ((vehicle _x) != _x) then {	
-		_x setSkill 1;	
-	};
-} foreach units _grp;
-//_grp setBehaviour "COMBAT";
-
 if (d_with_dynsim == 0) then {
 	[_grp, _sleepti] spawn {
 		sleep (_this select 1);

@@ -44,7 +44,11 @@ while {true} do {
 	_units = units _grp;
 		
 	{
-		_x call AI_setupUnitCustomLoadout;	
+		// Hunter: Max out crew skills
+		_x setSkill 1;
+		if (Hz_customUnitLoadouts) then {
+			_x call AI_setupUnitCustomLoadout;
+		};		
 	} foreach _units;
 
 	{

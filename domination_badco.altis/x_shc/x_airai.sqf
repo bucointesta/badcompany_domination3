@@ -101,11 +101,7 @@ while {true} do {
 		case "CAP": {_vec flyInHeight 1000;};
 		case "AH": {_vec flyInHeight 250;};
 		case "CAS": {_vec flyInHeight 500;};
-		};		
-		_vec setSkill 1;
-		{
-			_x setSkill 1;
-		} foreach crew _vec;
+		};
 
 		_vec remoteExec ["d_fnc_airmarkermove", 2];
 		__TRACE_1("","_vec")
@@ -113,6 +109,7 @@ while {true} do {
 	};
 	_grp deleteGroupWhenEmpty true;
 	
+	//Hunter: custom setskill handled by createcrew now
 	//(leader _grp) setSkill _grpskill;
 	
 	sleep 1.011;
