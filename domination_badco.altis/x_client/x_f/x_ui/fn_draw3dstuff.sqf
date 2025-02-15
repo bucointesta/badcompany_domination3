@@ -9,11 +9,11 @@
 
 private _pos_cam = positionCameraToWorld [0,0,0];
 
-private ["_distp", "_cwt", "_col", "_ico"];
+private ["_distp", "_cwt", "_col", "_ico", "_alpha"];
 {
 	_x params ["_obj"];
-	_distp = _pos_cam distance _obj;
-	if (_distp < 250) then {
+	_distp = _pos_cam distance2d _obj;
+	if (_distp < 200) then {
 		_cwt = _obj getVariable ["d_curreptime" , -1];
 		_scale = 0.033;
 		if (_cwt == -1) then {			
@@ -27,6 +27,7 @@ private ["_distp", "_cwt", "_col", "_ico"];
 	};
 } forEach d_3draw_ar;
 
+/*
 {
 	_x params ["_box"];
 	if (!isNull _box) then {
@@ -38,6 +39,28 @@ private ["_distp", "_cwt", "_col", "_ico"];
 		};
 	};
 } forEach d_all_p_a_boxes;
+*/
+
+#ifdef __CARRIER__
+if ((_pos_cam inArea "d_base_marker") || {(_pos_cam distance2D d_the_carrier) < 300}) then {
+#else
+if (_pos_cam inArea "d_base_marker") then {
+#endif
+
+	{
+		_box = _x;
+		if (!isNull _box) then {
+			_distp = _pos_cam distance2d _box;
+			if (_distp < 70) then {
+				_scale = 0.044 - (_distp / 9000);
+				_pos = ASLToAGL ((getPosASL _box) vectorAdd [0, 0, 1.5 + _distp*0.05]);
+				_alpha = 1 - (_distp / 200);
+				drawIcon3D ["#(argb,8,8,3)color(0,0,0,0)", [0,1,0.2,_alpha], _pos, 1, 1, 0, "Virtual Arsenal", 1, _scale, "RobotoCondensed"];
+			};
+		};
+	} foreach d_arsenal_boxes;
+
+};
 
 if (d_with_ai) then {
 	{
@@ -49,15 +72,15 @@ if (d_with_ai) then {
 };
 
 {
-	_distp = _pos_cam distance _x;
-	if (_distp < 150) then {
+	_distp = _pos_cam distance2D _x;
+	if (_distp < 50) then {
 		drawIcon3D ["#(argb,8,8,3)color(0,0,0,0)", [0, 0, 1, 1 - (_distp / 200)], ASLToAGL ((visiblePositionASL _x) vectorAdd [0,0, 5 + (_distp * 0.05)]), 1, 1, 0, format ["MHQ %1", _x getVariable "d_ma_text"], 1, 0.033 - (_distp / 9000), "RobotoCondensed"];
 	};
 } forEach (d_mhq_3ddraw select {alive _x});
 
 {
-	_distp = _pos_cam distance _x;
-	if (_distp < 150) then {
+	_distp = _pos_cam distance2D _x;
+	if (_distp < 50) then {
 		_m = 1 - (_distp / 200);
 		_ico = if !((_x getVariable "d_SIDE") in d_own_sides) then {
 			_lin = floor (linearConversion [0, _x getVariable "d_CAPTIME", _x getVariable "d_CURCAPTIME", 0, 24]) min 24;

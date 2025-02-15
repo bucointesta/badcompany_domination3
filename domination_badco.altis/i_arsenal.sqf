@@ -1,5 +1,7 @@
 #include "x_setup.sqf"
 
+d_arsenal_boxes = [];
+
 [] spawn {
 
 	waitUntil {sleep 1; ((str player) find "d_") != -1};
@@ -14,8 +16,6 @@
 	
 	_cratePositionMarkers = ["arsenalMain","arsenalBadCo"];
 	_unit = str player;
-
-	d_arsenal_boxes = [];
 	item_check_isArsenal = false;
 	item_check_arsenalChecked = false;
 		
@@ -280,31 +280,6 @@
 	} foreach _cratePositionMarkers;
 
 	"AmmoboxLocal" call BIS_fnc_arsenal;
-
-
-	addMissionEventHandler ["Draw3D", {
-
-		_pos_cam = positionCameraToWorld [0,0,0];
-			
-		if (_pos_cam inArea "d_base_marker") then {
-		
-			{
-				_box = _x;
-				if (!isNull _box) then {
-					_distp = _pos_cam distance _box;				
-					if (_distp < 70) then {
-						_pos = getPosATL _box;
-						_scale = 0.044 - (_distp / 9000);
-						_pos set [2, 1.5 + (_distp * 0.05)];
-						_alpha = 1 - (_distp / 200);
-						drawIcon3D ["#(argb,8,8,3)color(0,0,0,0)", [0,1,0.2,_alpha], _pos, 1, 1, 0, "Virtual Arsenal", 1, _scale, "RobotoCondensed"];
-					};
-				};			
-			} foreach d_arsenal_boxes;
-		
-		};
-
-	}];
 	
 	//to override RHS script error causing game freeze when opening arsenal with no weapon...
 	[missionNamespace, "arsenalOpened"] call BIS_fnc_removeAllScriptedEventHandlers; 
