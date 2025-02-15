@@ -103,7 +103,7 @@ while {true} do {
 			
 			_ammbox = _vec getvariable ["actualAmmobox",objNull];			
 			if (!isNull _ammbox) then {
-			
+				deleteMarker (_ammbox getVariable ["boxMarker", ""]);
 				deleteVehicle _ammbox;
 			
 			};	
@@ -134,17 +134,18 @@ while {true} do {
 			private _cposc = _vec_a # 4;
 			__TRACE_2("","_vec","_cposc")
 			if (surfaceIsWater _cposc) then {
-				private _asl_height;
+				private _asl_height = -99;
 				if (!isNil "d_the_carrier") then {
 					_asl_height = d_the_carrier getVariable "d_asl_height";
 				};
-				if (isNil "_asl_height") then {
-					_asl_height = (getPosASL d_FLAG_BASE) # 2;
+				if (_asl_height == -99) then {
+					_asl_height = ((getPosASL d_FLAG_BASE) # 2) + 0.01;
 				};
 				_cposc set [2, _asl_height];
 				[_vec, _cposc] spawn {
 					params ["_vec", "_cposc"];
 					sleep 1;
+					_vec setVectorUp [0,0,1];
 					_vec setPosASL _cposc;
 					_vec setDamage 0;
 				};
@@ -157,7 +158,7 @@ while {true} do {
 				_vec allowCrewInImmobile true;
 			};
 			
-			_vec setFuel _fuelleft;
+			//_vec setFuel _fuelleft;
 			_vec setDamage 0;
 			[_vec, _skinpoly] call d_fnc_skinpolyresp;
 			_skinpoly = nil;
