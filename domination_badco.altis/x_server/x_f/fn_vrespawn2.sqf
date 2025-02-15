@@ -31,19 +31,19 @@ while {true} do {
 			
 		private _empty = {alive _x} count (crew _vec) == 0; //true if empty
 
-/*script for respawn if abandoned, set to work only with bikes*/	
+/*script for respawn if abandoned, set to work only with bikes and jetskis*/	
 		if ((_number_v >= 700) && {_number_v < 800}) then {
 		
 			if (_empty) then {
 				private _empty_respawn = _vec_a select 5;
 				if (_empty_respawn == -1) then {
-					if ((!alive _vec) || {_vec distance2D (_vec_a select 2) > 10} || {(getDammage _vec) > 0.1}) then { //distance from initial respawn
+					if ((!alive _vec) || {underwater _vec} || {_vec distance2D (_vec_a select 2) > 10} || {(getDammage _vec) > 0.1}) then { //distance from initial respawn
 						_vec_a set [5, time + 60]; // abandoned timeout
 						d_vrespawn2_ar set [_forEachIndex, _vec_a];
 					};
 				} else {
 					if (time > _empty_respawn) then {
-						if (!alive _vec) then {
+						if ((!alive _vec) || {underwater _vec}) then {
 							_disabled = true;
 						} else {
 							private _runits = ((allPlayers - entities "HeadlessClient_F") select {!isNil "_x" && {!isNull _x}});
@@ -113,6 +113,7 @@ while {true} do {
 			};			
 			_ammbox = _vec getvariable ["actualAmmobox",objNull];			
 			if (!isNull _ammbox) then {			
+				deleteMarker (_ammbox getVariable ["boxMarker", ""]);
 				deleteVehicle _ammbox;			
 			};				
 			
