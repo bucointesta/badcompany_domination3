@@ -56812,7 +56812,7 @@ class Mission
 				textures="rhs_desert";
 			};
 			id=5990;
-			type="rhsusf_M1239_M2_Deploy_socom_d";
+			type="rhsusf_M1239_M2_socom_d";
 			class CustomAttributes
 			{
 				class Attribute0
