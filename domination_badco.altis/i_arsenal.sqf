@@ -268,7 +268,14 @@
 			5
 		];
 		
+		_box setVariable ["d_no_lift", true];
+		_box enableRopeAttach false;
 		
+		// experimental
+		_box spawn {
+			sleep 10;
+			_this enableSimulation false;
+		};
 
 	} foreach _cratePositionMarkers;
 

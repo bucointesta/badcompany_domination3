@@ -35,6 +35,8 @@ if (_isBoat) then {
 	_box setpos _box_pos;
 };
 _box setDamage 0.8;
+_box setVariable ["d_no_lift", true, true];
+_box enableRopeAttach false;
 _markerName = createMarker [_mname, _box_pos];
 _markerName setMarkerShape "ICON";
 _markerName setMarkerType "hd_dot";
