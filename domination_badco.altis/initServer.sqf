@@ -3,6 +3,20 @@
 #define THIS_FILE "initServer.sqf"
 #include "x_setup.sqf"
 diag_log [diag_frameno, diag_ticktime, time, "Executing MPF initServer.sqf"];
+
+// Hunter: destroy vehicles that AI killed by driving into water...
+addMissionEventHandler ["Drowned", {
+	params ["_vehicle", "_drowned"];	
+	if (_drowned
+		&& {local _vehicle}
+		&& {alive _vehicle}
+		&& {waterDamaged _vehicle}
+		&& {({isPlayer _x} count crew _vehicle) < 1}
+	) then {
+		_vehicle setDamage [1, false];
+	};	
+}];
+
 if (d_with_bis_dynamicgroups == 0) then {
 	["Initialize", [true]] call BIS_fnc_dynamicGroups;
 };
