@@ -25,6 +25,10 @@ private _sm_vec = _ogroup createUnit [_type, _poss, [], 0, "NONE"];
 _ogroup deleteGroupWhenEmpty true;
 _sm_vec call d_fnc_removenvgoggles_fak;
 _sm_vec call d_fnc_addkillednormal;
+if (Hz_customUnitLoadouts) then {
+	_sm_vec call AI_setupUnitCustomLoadout;
+};
+_sm_vec setSkill 1;
 d_x_sm_rem_ar pushBack _sm_vec;
 sleep 2.123;
 if (!_issniper) then {

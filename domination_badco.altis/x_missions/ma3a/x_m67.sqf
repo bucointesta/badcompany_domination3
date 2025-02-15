@@ -22,7 +22,16 @@ if (call d_fnc_checkSHC) then {
 	_sm_vec call d_fnc_removenvgoggles_fak;
 	_sm_vec addEventHandler ["killed", {_this call d_fnc_KilledSMTarget500}];
 	d_x_sm_rem_ar pushBack _sm_vec;
-	removeAllWeapons _sm_vec;
+	if (Hz_customUnitLoadouts) then {
+		_sm_vec call AI_setupUnitCustomLoadout;
+		_sm_vec spawn {
+			sleep 5;
+			removeAllWeapons _this;
+			removeVest _this;
+		};
+	} else {
+		removeAllWeapons _sm_vec;
+	};
 	sleep 2.123;
 	["specops", 3, "allmen", 4, _poss, 10, true] spawn d_fnc_CreateInf;
 	sleep 2.123;

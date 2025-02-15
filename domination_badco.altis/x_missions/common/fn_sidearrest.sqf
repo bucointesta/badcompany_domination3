@@ -17,7 +17,16 @@ if (isNull _officer) then {
 	_officer call d_fnc_removenvgoggles_fak;
 	_officer addEventHandler ["killed", {_this call d_fnc_KilledSMTarget500}];
 	d_x_sm_rem_ar pushBack _officer;
-	removeAllWeapons _officer;
+	if (Hz_customUnitLoadouts) then {
+		_officer call AI_setupUnitCustomLoadout;
+		_officer spawn {
+			sleep 5;
+			removeAllWeapons _this;
+			removeVest _this;
+		};
+	} else {
+		removeAllWeapons _officer;
+	};
 	sleep 2.123;
 	private _leadero = leader _ogroup;
 	_leadero setRank "COLONEL";

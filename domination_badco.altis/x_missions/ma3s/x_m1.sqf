@@ -26,6 +26,10 @@ if (call d_fnc_checkSHC) then {
 	_ogroup deleteGroupWhenEmpty true;
 	_sm_vec call d_fnc_removenvgoggles_fak;
 	_sm_vec call d_fnc_addkillednormal;
+	if (Hz_customUnitLoadouts) then {
+		_sm_vec call AI_setupUnitCustomLoadout;
+	};
+	_sm_vec setSkill 1;
 	sleep 2.123;
 	private _bpos = getPosATL _fortress;
 	_bpos set [2, 1];

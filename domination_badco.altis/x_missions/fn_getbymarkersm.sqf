@@ -131,7 +131,7 @@ switch (tolower (_sm_ar # 1)) do {
 	};
 	case "eliminategovmember": {
 		if (call d_fnc_checkSHC) then {
-			[d_x_sm_pos # 0, _sm_ar # 7, d_soldier_officer, false, (_sm_ar # 3) call _boolorarrayfnc, (_sm_ar # 4) call _boolorarrayfnc] spawn d_fnc_sideelimofficer;
+			[d_x_sm_pos # 0, _sm_ar # 7, d_government_member, false, (_sm_ar # 3) call _boolorarrayfnc, (_sm_ar # 4) call _boolorarrayfnc] spawn d_fnc_sideelimofficer;
 		};
 	};
 	case "eliminatesniper": {

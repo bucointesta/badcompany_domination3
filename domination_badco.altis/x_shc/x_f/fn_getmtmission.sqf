@@ -16,6 +16,7 @@ sleep 1.0112;\
 _newgroup deleteGroupWhenEmpty true; \
 _newgroup allowFleeing 0;\
 _newgroup setVariable ["d_defend", true]; \
+_newgroup setVariable ["d_isSpecOps", true]; \
 [_newgroup, _poss] spawn d_fnc_taskDefend; \
 if (d_with_dynsim == 0) then { \
 	_newgroup spawn { \
@@ -44,6 +45,9 @@ switch (_sec_kind) do {
 		[_vec] joinSilent _newgroup;
 		_newgroup deleteGroupWhenEmpty true;
 		_vec call d_fnc_removenvgoggles_fak;
+		if (Hz_customUnitLoadouts) then {
+			_vec call AI_setupUnitCustomLoadout;
+		};
 		private _svec = sizeOf d_soldier_officer;
 		private _isFlat = (getPosATL _vec) isFlatEmpty [_svec / 2, -1, 0.7, _svec, 0, false, _vec]; // 150
 		if (count _isFlat > 1 && {_poss distance2D _isFlat < 100}) then {
@@ -52,7 +56,7 @@ switch (_sec_kind) do {
 		};
 		_vec setPos _poss;
 		_vec setRank "COLONEL";
-		_vec setSkill 0.3;
+		_vec setSkill 1;
 		_vec disableAI "PATH";
 		d_delinfsm  pushBack _vec;
 		d_fixor_var = _vec;
@@ -241,12 +245,20 @@ switch (_sec_kind) do {
 		};
 		_vec setPos _poss;
 		_vec setRank "COLONEL";
-		_vec setSkill 0.3;
+		_vec setSkill 1;
 		_vec disableAI "PATH";
 		d_delinfsm  pushBack _vec;
 		d_fixor_var = _vec;
-		_vec addMagazines ["16Rnd_9x21_Mag", 2];
 		_vec addWeapon "hgun_Rook40_F";
+		_vec addHandgunItem "16Rnd_9x21_Mag";
+		_vec addVest "V_CarrierRigKBT_01_light_Olive_F";
+		_vec addMagazines ["16Rnd_9x21_Mag", 7];
+		if ((goggles _vec) == "") then {
+			_vec addGoggles "G_Shades_Red";
+		};
+		if ((headgear _vec) == "") then {
+			_vec addHeadgear "H_Cap_tan";
+		};
 		if ({_x == 1} count d_searchintel < count d_searchintel) then {
 			d_intel_unit = _vec;
 			d_searchbody = _vec; publicVariable "d_searchbody";
@@ -290,12 +302,20 @@ switch (_sec_kind) do {
 		};
 		_vec setPos _poss;
 		_vec setRank "COLONEL";
-		_vec setSkill 0.3;
+		_vec setSkill 1;
 		d_fixor_var = _vec;
 		d_delinfsm  pushBack _vec;
 		_vec disableAI "PATH";
-		_vec addMagazines ["16Rnd_9x21_Mag", 2];
 		_vec addWeapon "hgun_Rook40_F";
+		_vec addHandgunItem "16Rnd_9x21_Mag";
+		_vec addVest "V_CarrierRigKBT_01_light_Olive_F";
+		_vec addMagazines ["16Rnd_9x21_Mag", 7];
+		if ((goggles _vec) == "") then {
+			_vec addGoggles "G_Shades_Red";
+		};
+		if ((headgear _vec) == "") then {
+			_vec addHeadgear "H_Cap_tan";
+		};
 		if ({_x == 1} count d_searchintel < count d_searchintel) then {
 			d_intel_unit = _vec;
 			d_searchbody = _vec; publicVariable "d_searchbody";

@@ -1,5 +1,6 @@
 d_sm_fortress = "Land_Cargo_House_V2_F";
 d_functionary = "C_Nikos_aged";
+d_government_member = "C_Man_formal_4_F";
 d_fuel_station = "Land_FuelStation_Build_F";//Land_FuelStation_Shed_F
 d_sm_cargo = switch (d_enemy_side_short) do {
 	case "E": {"rhs_typhoon_vdv"};
@@ -43,8 +44,7 @@ d_sm_tank = switch (d_enemy_side_short) do {
 	case "G": {"I_MBT_03_cannon_F"};
 };
 d_sm_HunterGMG = switch (d_enemy_side_short) do {
-	//case "E": {"rhsgref_BRDM2_HQ_vmf"}; //replace gref vehicles
-	case "E": {"rhs_gaz66_r142_msv"};
+	case "E": {"rhsgref_BRDM2_HQ_vmf"};
 	case "W": {"rhsusf_M1237_M2_usarmy_d"};
 	case "G": {"I_MRAP_03_hmg_F"};
 };
