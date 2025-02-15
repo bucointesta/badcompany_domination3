@@ -13,8 +13,9 @@ call d_fnc_save_layoutgear;
 player setVariable ["d_isinprison", true];
 player allowDamage false;
 xr_phd_invulnerable = true;
-player action ["eject", vehicle player];
-sleep 0.1;
+//player action ["eject", vehicle player];
+moveout player;
+uisleep 1;
 removeAllWeapons player;
 removeallItems player;
 removeAllAssignedItems player;
@@ -30,6 +31,8 @@ hint format ["You are sent to prison for excessive teamkilling. You need to wait
 _release = time + _time;
 while {time < _release} do {
 	if (alive player && {player distance2D _cell > 100}) then {
+		moveout player;
+		uisleep 1;
 		player setPosATL _cell;
 	};
 	sleep 5;

@@ -6,6 +6,9 @@ if (!isServer) exitWith {};
 
 params ["_killed", "", "_killer"];
 
+private _vkiller = vehicle _killer;
+private _vkilled = vehicle _killed;
+
 if ((d_with_ranked || {d_database_found}) && {d_sub_kill_points != 0 && {side (group _killer) getFriend side (group _killed) < 0.6}}) then {
 	_killed addScore d_sub_kill_points;
 };
@@ -31,36 +34,51 @@ if (d_with_ai) then {
 	};
 };
 
-if (!isNull _killer && {(_killer call d_fnc_isplayer) && {(vehicle _killer) != (vehicle _killed)}}) then {
+if (!isNull _killer && {(_killer call d_fnc_isplayer) && {_vkiller != _vkilled}}) then {
+	
+	// Hunter: no need to use the store for this...?
+	/*
 	private _par = d_player_store getVariable (getPlayerUID _killed);
 	__TRACE_1("_killed",_par)
 	private _namep = [_par # 6, "Unknown"] select (isNil "_par");
 	private _par = d_player_store getVariable (getPlayerUID _killer);
 	__TRACE_1("_killer",_par)
 	private _namek = [_par # 6, "Unknown"] select (isNil "_par");
+	*/	
+	private _namep = name _killed;
+	private _namek = name _killer;
 	
-	private _ramKill = false;
-	if (((vehicle _killed) != _killed) && {(!alive (vehicle _killed)) || {(getDammage (vehicle _killed)) > 0.79}}) then {
-		_ramKill = true;
-	}; 
-	if (((vehicle _killer) iskindOf "LandVehicle") && {_killer == (driver vehicle _killer)} && {(_killer distance d_flag_base) < 700} && {
+	// try to ignore deaths from people running into aircraft...
+	if (
+		(_vkiller isKindOf "Air")
+		&& {_vkilled == _killed}
+		&& {(driver _vkiller) == _killer}
+		&& {(_vkiller distance _killed) < 20}
+		&& {((count (_vkiller weaponsTurret [-1])) == 0) || {(needReload _vkiller) == 0} || {_killed getVariable ["AR_Is_Rappelling", false]} || {((getPos _killed) select 2) > 20}}
+	) exitWith {};
+	
+	private _baseKill = (_killed distance2D d_flag_base) < 700;
+		
+	private _baseRamKill = false;
+	
+	if ((_vkiller iskindOf "LandVehicle") && {_killer == (driver _vkiller)} && {_baseKill} && {
 		// tolerate up to 2 roadkill tk's, 3rd one is punished
-		if ((vehicle _killed) == _killed) then {
+		if (_vkilled == _killed) then {
 			private _varStr = (getPlayerUID _killer) + "_runOverKillCount";
 			missionNamespace setVariable [_varStr, (missionNamespace getVariable [_varStr, 0]) + 1];
 			if ((missionNamespace getVariable _varStr) > 2) then {
-				_ramKill = true;
+				_baseRamKill = true;
 				false
 			} else {
 				true
-			}			
+			}
 		} else {
-			_ramKill = true;
+			_baseRamKill = true;
 			false
 		}
-	}) exitWith {
-		[_namep, _namek] remoteExecCall ["d_fnc_unit_tk", [0, -2] select isDedicated];
+	}) then {
+		_baseKill = false;
 	};
 	[_namep, _namek] remoteExecCall ["d_fnc_unit_tk", [0, -2] select isDedicated];
-	[_namek, _namep, _killer, _ramKill] call d_fnc_TKKickCheck;	
+	[_namek, _namep, _killer, _baseKill, _baseRamKill] call d_fnc_TKKickCheck;	
 };
