@@ -1,32 +1,36 @@
 // let the unit settle
 
-private ["_unit","_radius","_buildingslist","_build","_nbuild","_localbuilding","_buildpos","_group","_buildingsleft","_bposleft","_minheight","_capacityarray","_warping","_occupied","_pcnt","_allbpos","_selectedbpos","_limitedPositions","_rnum","_poscoords","_sillyarray","_issilly","_totalPositions","_posx","_posy","_posz","_AccessibleFound","_BB","_BC","_BCworld","_heightEstimate","_widthEstimate","_lengthEstimate","_halfwidthEstimate","_halflengthEstimate","_halfheightEstimate","_t","_stationary","_capacity","_maxcap","_side","_patrolgroup","_remainders","_objectslist","_noposbuildings"];
+private ["_unit","_radius","_buildingslist","_build","_nbuild","_localbuilding","_buildpos","_group","_buildingsleft","_bposleft","_minheight","_capacityarray","_warping","_occupied","_pcnt","_allbpos","_selectedbpos","_limitedPositions","_rnum","_poscoords","_sillyarray","_issilly","_totalPositions","_posx","_posy","_posz","_AccessibleFound","_BB","_BC","_BCworld","_heightEstimate","_widthEstimate","_lengthEstimate","_halfwidthEstimate","_halflengthEstimate","_halfheightEstimate","_t","_stationary","_capacity","_maxcap","_side","_patrolgroup","_remainders","_objectslist","_noposbuildings","_centerPos"];
 sleep 1;
 _t = time;
 
-_minheight = _this select 5;
-if (isNil("_minheight")) then {
-  _minheight  = 0;
+_minheight = 0;
+if ((count _this) > 5) then {
+  _minheight = _this select 5;
 };
 
 _group = _this select 0;
 _cleanup = units _group;
 
 _unit = leader _group;
+_centerPos = getpos _unit;
+if ((count _this) > 6) then {
+	_centerPos = _this select 6;
+};
 _radius = _this select 1;
 _stationary = _this select 2;
 
-_capacityarray = _this select 3;
-if ((count _capacityarray) == 0) then {
-  _capacityarray  = [60,0];
+_capacityarray  = [60,0];
+if ((count _this) > 3) then {
+  _capacityarray = _this select 3;
 };
 
 _capacity = _capacityarray select 0;
 _maxcap = _capacityarray select 1;
 
-_warping = _this select 4;
-if (isNil("_warping")) then {
-  _warping  = false;
+_warping  = false;
+if ((count _this) > 4) then {
+  _warping = _this select 4;
 };
 
 
@@ -48,7 +52,7 @@ _side = side _unit;
 //_patrolgroup = missionnamespace getvariable (format ["group1%1",name _unit]);
 _remainders = creategroup _side;
 
-_objectslist = nearestObjects [_unit,["House"],_radius];
+_objectslist = nearestObjects [_centerPos,["House"],_radius];
 _buildingslist = [];
 _buildingsleft = [];
 _noposbuildings = [];

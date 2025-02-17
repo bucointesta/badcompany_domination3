@@ -10,7 +10,7 @@ _carried = objNull;
 
 if (_action == "load") then {
 	if (_cargo == "") then {
-		_near = (nearestObjects [_loadpos, ["Car", "Tank", "Ship"], 10]) select {(alive _x) && {(locked _x) != 2}};
+		_near = (nearestObjects [_loadpos, ["Car", "Tank", "Ship"], 10]) select {(alive _x) && {(locked _x) != 2} && {isNull attachedTo _x}};
 		
 		if ((count _near) == 0) exitWith {};
 		
