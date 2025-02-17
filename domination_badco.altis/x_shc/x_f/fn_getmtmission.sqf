@@ -90,9 +90,8 @@ switch (_sec_kind) do {
 	};
 	case 2: {
 		__getPos;
-		private _ctype = "Land_Radar_Small_F";
-		private _vec = createVehicle [_ctype, _poss, [], 0, "NONE"];
-		private _svec = sizeOf _ctype;
+		private _vec = createVehicle [d_sm_small_radar, _poss, [], 0, "NONE"];
+		private _svec = sizeOf d_sm_small_radar;
 		private _isFlat = (getPosATL _vec) isFlatEmpty [_svec / 2, -1, 0.7, _svec, 0, false, _vec]; // 150
 		if (count _isFlat > 1) then {
 			if (_poss distance2D _isFlat < 100) then {
@@ -125,6 +124,30 @@ switch (_sec_kind) do {
 			_this call d_fnc_MTSMTargetKilled;
 			_this call d_fnc_handleDeadVec;
 		}];
+		#ifdef __RHS__
+			#ifdef __CUP_TAKISTAN__
+				switch (true) do {
+					case (_typev1 isKindOf "RHS_UAZ_Base") : {
+						[_veh, ["Camo3",1]] call BIS_fnc_initvehicle;
+					};
+					case (_typev1 isKindOf "RHS_UAZ_DShKM_Base") : {
+						[_veh, ["Camo",1]] call BIS_fnc_initvehicle;
+					};
+					case (_typev1 isKindOf "rhsgref_BRDM2") : {
+						[_veh, ["khaki",1]] call BIS_fnc_initvehicle;
+					};
+					case (_typev1 isKindOf "rhs_btr60_base") : {
+						[_veh, ["3tone",1]] call BIS_fnc_initvehicle;
+					};
+					case (_typev1 isKindOf "rhs_t80u") : {
+						[_veh, ["tricolor",1]] call BIS_fnc_initvehicle;
+					};
+					default {
+						[_veh, ["rhs_sand",1]] call BIS_fnc_initvehicle;
+					};
+				};
+			#endif
+		#endif
 		d_fixor_var = _vec;
 		d_mtmissionobj = _vec;
 		sleep 1.0112;
@@ -146,6 +169,30 @@ switch (_sec_kind) do {
 			_this call d_fnc_MTSMTargetKilled;
 			_this call d_fnc_handleDeadVec;
 		}];
+		#ifdef __RHS__
+			#ifdef __CUP_TAKISTAN__
+				switch (true) do {
+					case (_typev1 isKindOf "RHS_UAZ_Base") : {
+						[_veh, ["Camo3",1]] call BIS_fnc_initvehicle;
+					};
+					case (_typev1 isKindOf "RHS_UAZ_DShKM_Base") : {
+						[_veh, ["Camo",1]] call BIS_fnc_initvehicle;
+					};
+					case (_typev1 isKindOf "rhsgref_BRDM2") : {
+						[_veh, ["khaki",1]] call BIS_fnc_initvehicle;
+					};
+					case (_typev1 isKindOf "rhs_btr60_base") : {
+						[_veh, ["3tone",1]] call BIS_fnc_initvehicle;
+					};
+					case (_typev1 isKindOf "rhs_t80u") : {
+						[_veh, ["tricolor",1]] call BIS_fnc_initvehicle;
+					};
+					default {
+						[_veh, ["rhs_sand",1]] call BIS_fnc_initvehicle;
+					};
+				};
+			#endif
+		#endif
 		d_fixor_var = _vec;
 		d_mtmissionobj = _vec;
 		sleep 1.0112;
@@ -171,9 +218,8 @@ switch (_sec_kind) do {
 	};
 	case 6: {
 		__getPos;
-		private _fact = "Land_dp_transformer_F";
-		private _vec = createVehicle [_fact, _poss, [], 0, "NONE"];
-		private _svec = sizeOf _fact;
+		private _vec = createVehicle [d_sm_land_transformer, _poss, [], 0, "NONE"];
+		private _svec = sizeOf d_sm_land_transformer;
 		private _isFlat = (getPosATL _vec) isFlatEmpty [_svec / 2, -1, 0.7, _svec, 0, false, _vec]; // 150
 		if (count _isFlat > 1 && {_poss distance2D _isFlat < 100}) then {
 			_isFlat set [2,0];
@@ -190,14 +236,8 @@ switch (_sec_kind) do {
 	};
 	case 7: {
 		__getPos;
-		/*_fact = switch (d_enemy_side_short) do {
-			case "E": {"Land_spp_Transformer_F"};
-			case "W": {"Land_spp_Transformer_F"};
-			case "G": {"Land_spp_Transformer_F"};
-		};*/
-		private _fact = "Land_Factory_Main_F";
-		private _vec = createVehicle [_fact, _poss, [], 0, "NONE"];
-		private _svec = sizeOf _fact;
+		private _vec = createVehicle [d_sm_land_factory, _poss, [], 0, "NONE"];
+		private _svec = sizeOf d_sm_land_factory;
 		private _isFlat = (getPosATL _vec) isFlatEmpty [_svec / 2, -1, 0.7, _svec, 0, false, _vec]; // 150
 		if (count _isFlat > 1 && {_poss distance2D _isFlat < 100}) then {
 			_isFlat set [2,0];

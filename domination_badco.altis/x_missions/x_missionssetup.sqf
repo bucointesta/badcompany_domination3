@@ -10,29 +10,29 @@ d_sm_fname = "x_m";
 // to remove a specific side mission just remove the index from d_sm_array
 #ifdef __ALTIS__
 d_sm_array =
-	[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,
+	[0,1,2,3,4,5,6,7,8/*,9*/,10,11,12,13,14,15,16,17,18,19,
 	20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
-	41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,
-	61,62,63,64,65,66,67,68,69,70,71,72,73,74,100,101,102,103,104,105,106];
+	41,42/*,43*/,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,
+	61,62,63,64,65,66,67,68,69,70,71/*,72,73*/,74,100,101,102,103,104,105,106];
 #endif
 #ifdef __ROSCHE__
 	d_sm_array = [];
 #endif
 #ifdef __CUP_CHERNARUS__
 d_sm_array =
-	[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,
+	[0,1,2,3,4,5,6,7,8/*,9*/,10,11,12,13,14,15,16,17,18,19,
 	20,21,22,23,24,25,26,27,28,29,31,32,33,34,36,37,38,39,40,
-	41,42,44,45,46,47,48,49,50,51,52];
+	41,42,44,45,46,47,48,49,50,51,52,61];
 #endif
 #ifdef __CUP_TAKISTAN__
 d_sm_array =
-	[0,1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17,18,19,
+	[0,1,2,3,4,5,6,8/*,9*/,10,11,12,13,14,15,16,17,18,19,
 	20,21,22,23,24,25,26,27,28,29,31,32,33,36,
-	40,41,42,44,46,47,49,50,51,52];
+	40,41,42,44,46,47,49,50,51,52,61];
 #endif
 #ifdef __CUP_SARA__
 d_sm_array =
-	[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,
+	[0,1,2,3,4,5,6,7,8/*,9*/,10,11,12,13,14,15,16,17,18,19,
 	20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,
 	40,41,42,44,45,46,47,48,49,50,51,52];
 #endif
@@ -51,13 +51,13 @@ d_sm_array =
 #endif
 #ifdef __TANOA__
 d_sm_array =
-	[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,
+	[0,1,2,3,4,5,6,7,8/*,9*/,10,11,12,13,14,15,16,17,19,
 	20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,
 	40,41,42,44,47,48,49,50,51,52,53,64,100,101,102,103,104,105,106];
 #endif
 #ifdef __STRATIS__
 d_sm_array =
-	[0,1,3,4,6,8,9,11,12,14,19,20,23,29,31,32,36,40,42,44,51,52];
+	[0,1,3,4,6,8/*,9*/,11,12,14,19,20,23,29,31,32,36,40,42,44,51,52];
 #endif
 #ifdef __MALDEN__
 d_sm_array =
@@ -103,7 +103,7 @@ if (call d_fnc_checkSHC) then {
 	// at least wheeled AI vehicles try to stay on the road somehow
 #ifdef __ALTIS__
 	d_sm_convoy_vehicles = switch (d_enemy_side_short) do {
-		case "E": {["O_MRAP_02_hmg_F","O_APC_Wheeled_02_rcws_F", "O_MRAP_02_gmg_F", "O_Truck_03_repair_F", "O_Truck_03_fuel_F", "O_Truck_03_ammo_F", "O_APC_Wheeled_02_rcws_F"]};
+		case "E": {["I_APC_Wheeled_03_cannon_F","O_APC_Wheeled_02_rcws_F", "I_APC_Wheeled_03_cannon_F", "O_T_Truck_02_Box_F", "O_T_Truck_02_fuel_F", "O_T_Truck_02_Ammo_F", "O_APC_Tracked_02_AA_F"]};
 		case "W": {["B_MRAP_01_hmg_F","B_APC_Wheeled_01_cannon_F", "B_MRAP_01_gmg_F", "B_Truck_01_Repair_F", "B_Truck_01_fuel_F", "B_Truck_01_ammo_F", "B_APC_Wheeled_01_cannon_F"]};
 		case "G": {["I_MRAP_03_gmg_F","I_APC_tracked_03_cannon_F", "I_MBT_03_cannon_F", "I_Truck_02_box_F", "I_Truck_02_fuel_F", "I_Truck_02_ammo_F", "I_APC_tracked_03_cannon_F"]};
 	};
@@ -181,7 +181,7 @@ if (call d_fnc_checkSHC) then {
 #endif
 #ifdef __RHS__
 	d_sm_convoy_vehicles = switch (d_enemy_side_short) do {
-		case "E": {["rhs_btr80a_vdv","rhs_btr80a_vdv", "rhs_btr70_vdv", "RHS_Ural_Repair_VDV_01", "RHS_Ural_Fuel_VDV_01", "RHS_Ural_VDV_01", "RHS_Ural_Zu23_VDV_01"]};
+		case "E": {["rhs_btr80a_vdv","rhsgref_cdf_zsu234", "rhs_btr80a_vdv", "rhsgref_cdf_ural_repair", "rhsgref_cdf_ural_fuel", "rhsgref_nat_ural", "O_APC_Tracked_02_AA_F"]};
 		case "W": {["rhsusf_M1117_D","RHS_M6", "RHS_M2A3_BUSKIII", "rhsusf_M977A4_REPAIR_usarmy_d", "rhsusf_M977A4_AMMO_usarmy_d", "rhsusf_M978A4_usarmy_d", "RHS_M2A2_BUSKI"]};
 		case "G": {["I_MRAP_03_gmg_F","I_APC_tracked_03_cannon_F", "I_MBT_03_cannon_F", "I_Truck_02_box_F", "I_Truck_02_fuel_F", "I_Truck_02_ammo_F", "I_APC_tracked_03_cannon_F"]};
 	};

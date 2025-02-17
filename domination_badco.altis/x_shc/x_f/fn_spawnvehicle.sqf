@@ -49,6 +49,14 @@ if (_typev1 isKindOf "Air") then {
 	_veh setDir _azi;
 	_veh setPos _posv1;
 	
+	#ifdef __RHS__
+		#ifdef __CUP_TAKISTAN__
+			if (_typev1 isKindOf "rhs_mig29s_base") then {
+				[_veh, ["RHS_TKA",1]] call BIS_fnc_initvehicle;
+			};
+		#endif
+	#endif
+	
 	//if (_sim == "AIRPLANEX" || {_sim == "AIRPLANE"}) then {
 	if (_typev1 isKindOf "Plane") then {
 		private _v = velocity _veh;
@@ -120,6 +128,32 @@ if (_typev1 isKindOf "Air") then {
 	_veh allowCrewInImmobile true;
 	_veh setDir _azi;
 	//_veh setVehiclePosition [_veh, [], 0, "NONE"];
+	
+	#ifdef __RHS__
+		#ifdef __CUP_TAKISTAN__
+			switch (true) do {
+				case (_typev1 isKindOf "RHS_UAZ_Base") : {
+					[_veh, ["Camo3",1]] call BIS_fnc_initvehicle;
+				};
+				case (_typev1 isKindOf "RHS_UAZ_DShKM_Base") : {
+					[_veh, ["Camo",1]] call BIS_fnc_initvehicle;
+				};
+				case (_typev1 isKindOf "rhsgref_BRDM2") : {
+					[_veh, ["khaki",1]] call BIS_fnc_initvehicle;
+				};
+				case (_typev1 isKindOf "rhs_btr60_base") : {
+					[_veh, ["3tone",1]] call BIS_fnc_initvehicle;
+				};
+				case (_typev1 isKindOf "rhs_t80u") : {
+					[_veh, ["tricolor",1]] call BIS_fnc_initvehicle;
+				};
+				default {
+					[_veh, ["rhs_sand",1]] call BIS_fnc_initvehicle;
+				};
+			};
+		#endif
+	#endif
+	
 };
 
 private _crew = [_veh, _grp] call d_fnc_spawnCrew;

@@ -111,7 +111,7 @@ switch (_type) do {
 			_grp setVariable ["d_defend", true];
 			// Hunter: Make these guys garrison buildings instead
 			//[_grp, _pos] spawn d_fnc_taskDefend;
-			[_grp,500,true,[100,4],true,2] execVM "logistics\garrison.sqf";
+			[_grp,d_cur_target_radius + 50,true,[60,6],true,2,d_cur_tgt_pos] execVM "logistics\garrison.sqf";
 		} else {
 			_grp setCombatMode "RED";
 			_grp setFormation selectRandom ["COLUMN","STAG COLUMN","WEDGE","ECH LEFT","ECH RIGHT","VEE","LINE","FILE","DIAMOND"];

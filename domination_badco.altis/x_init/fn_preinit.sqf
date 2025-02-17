@@ -60,6 +60,7 @@ d_rhs = true;
 d_HeliHEmpty = "Land_HelipadEmpty_F";
 
 // BLUFOR, OPFOR or INDEPENDENT for own side, setup in x_setup.sqf
+d_rhs_blufor = false;
 #ifdef __OWN_SIDE_BLUFOR__
 d_own_side = "WEST";
 d_own_sides = ["WEST"];
@@ -74,7 +75,6 @@ d_own_sides = [["EAST", "GUER"], ["EAST"]] select (!d_ifa3lite);
 d_own_sides_o = [[opfor, independent], [opfor]] select (!d_ifa3lite);
 d_enemy_side = "WEST";
 d_enemy_side_short = "W";
-d_rhs_blufor = false;
 #endif
 #ifdef __OWN_SIDE_INDEPENDENT__
 d_own_side = "GUER";
@@ -88,6 +88,7 @@ d_own_side = "WEST";
 d_own_sides = ["WEST"];
 d_enemy_side = "GUER";
 d_enemy_side_short = "G";
+d_rhs_blufor = true;
 #endif
 
 d_side_enemy = call {
@@ -284,13 +285,17 @@ d_servicepoint_building = "Land_Cargo_House_V2_F";
 
 d_illum_tower = "Land_TTowerBig_2_F";
 #ifndef __IFA3LITE__
-	#ifdef __ALTIS__
+	#ifndef __RHS__
 		d_wcamp = "Land_Cargo_Patrol_V1_F";
 	#else
-		d_wcamp = "Land_Cargo_Patrol_V3_F";
+		#ifdef __CUP_TAKISTAN__
+			d_wcamp = "Land_Cargo_Patrol_V3_F";
+		#else
+			d_wcamp = "Land_Cargo_Patrol_V2_F";
+		#endif
 	#endif
 #else
-d_wcamp = "Land_Misc_deerstand";
+	d_wcamp = "Land_Misc_deerstand";
 #endif
 
 d_mash = "Land_TentDome_F";
@@ -433,17 +438,24 @@ if (isNil "d_cas_available_time") then {
 
 d_non_steer_para = "NonSteerable_Parachute_F";
 
+private _mapSizeModified = false;
+
 private _confmapsize = call {
 	if !(markerPos "d_whole_island" isEqualTo [0,0,0]) exitWith {
 		private _ret = (markerSize "d_whole_island" # 0) * 2;
 		deleteMarkerLocal "d_whole_island";
 		_ret
 	};
-	if (worldName == "Chernarus_winter") exitWith {15360};
-	if (worldName == "Malden") exitWith {12800};
-	getNumber(configFile>>"CfgWorlds">>worldName>>"mapSize")
+	if ((toLower worldName) == "altis") exitWith {30720};
+	_mapSizeModified = true;
+	floor (getNumber(configFile>>"CfgWorlds">>worldName>>"mapSize")*1.2)
 };
-d_island_center = [_confmapsize / 2, _confmapsize / 2, 300];
+
+if (_mapSizeModified) then {
+	d_island_center = [floor (_confmapsize / 2.4), floor (_confmapsize / 2.4), 300];	
+} else {
+	d_island_center = [_confmapsize / 2, _confmapsize / 2, 300];
+};
 
 d_island_x_max = _confmapsize;
 d_island_y_max = _confmapsize;
@@ -845,7 +857,8 @@ if (!d_tt_tanoa) then {
 #endif
 #ifdef __RHS__
 	d_arti_observer_W = [["rhsusf_army_ocp_jfo"], ["rhsusf_army_ucp_fso"], ["rhsusf_usmc_marpat_d_fso"], ["rhsusf_usmc_marpat_d_jfo"]];
-	d_arti_observer_E = [["rhs_vmf_recon_rifleman_scout_akm"], ["rhs_vmf_recon_rifleman_scout"]];
+	//d_arti_observer_E = [["rhs_vmf_recon_rifleman_scout_akm"], ["rhs_vmf_recon_rifleman_scout"]];
+	d_arti_observer_E = [["O_G_Soldier_A_F"]];
 #endif
 	d_arti_observer_G = [["I_Soldier_TL_F"]];
 	
@@ -1071,26 +1084,48 @@ if (!d_tt_tanoa) then {
 	d_isle_defense_marker = "n_mech_inf";
 
 	d_air_radar = switch (d_enemy_side_short) do {
-		case "W": {"Land_Radar_Small_F"};
-		case "E": {"Land_Radar_Small_F"};
-		case "G": {"Land_Radar_Small_F"};
+		case "W": {"Land_MobileRadar_01_radar_F"};
+		case "E": {"Land_MobileRadar_01_radar_F"};
+		case "G": {"Land_MobileRadar_01_radar_F"};
 	};
-
-	#ifdef __ALTIS__
-		d_enemy_hq = switch (d_enemy_side_short) do {
-			case "E": {"Land_Cargo_HQ_V1_F"};
-			case "W": {"Land_Cargo_HQ_V1_F"};
-			case "G": {"Land_Cargo_HQ_V1_F"};
-		};
-	#else
-		d_enemy_hq = switch (d_enemy_side_short) do {
-			case "E": {"Land_Cargo_HQ_V3_F"};
-			case "W": {"Land_Cargo_HQ_V3_F"};
-			case "G": {"Land_Cargo_HQ_V3_F"};
+	
+	#ifdef __RHS__
+		d_air_radar = switch (d_enemy_side_short) do {
+			case "W": {"Land_MobileRadar_01_radar_F"};
+			case "E": {"rhs_p37"};
+			case "G": {"Land_MobileRadar_01_radar_F"};
 		};
 	#endif
 
-	// Hunter: type of CAS plane that will fly over main target
+	d_enemy_hq = switch (d_enemy_side_short) do {
+		case "E": {"Land_Cargo_HQ_V1_F"};
+		case "W": {"Land_Cargo_HQ_V1_F"};
+		case "G": {"Land_Cargo_HQ_V1_F"};
+	};
+
+	#ifdef __RHS__
+		#ifdef __CUP_TAKISTAN__
+			d_enemy_hq = switch (d_enemy_side_short) do {
+				case "E": {"Land_Cargo_HQ_V3_F"};
+				case "W": {"Land_Cargo_HQ_V3_F"};
+				case "G": {"Land_Cargo_HQ_V3_F"};
+			};
+		#else
+			d_enemy_hq = switch (d_enemy_side_short) do {
+				case "E": {"Land_Cargo_HQ_V2_F"};
+				case "W": {"Land_Cargo_HQ_V2_F"};
+				case "G": {"Land_Cargo_HQ_V2_F"};
+			};
+		#endif
+	#endif
+
+//Hunter: add CAP
+d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
+#ifdef __RHS__	
+	d_airai_CAP_plane = ["rhsgref_cdf_mig29s","rhsgref_cdf_mig29s","RHS_T50_vvs_051","RHS_T50_vvs_052","rhsgref_cdf_mig29s"];
+#endif
+
+// Hunter: type of CAS plane that will fly over main target
 #ifndef __CUP__
 	d_airai_attack_plane = switch (d_enemy_side_short) do {
 		case "E": {["O_Plane_CAS_02_dynamicLoadout_F","I_Plane_Fighter_03_dynamicLoadout_F","I_Plane_Fighter_04_F"]};
@@ -1105,17 +1140,12 @@ if (!d_tt_tanoa) then {
 	};
 #endif
 
-//Hunter: add CAP
-d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
-
 #ifdef __RHS__
 	d_airai_attack_plane = switch (d_enemy_side_short) do {
 		case "E": {["rhsgref_cdf_su25"]};
 		case "W": {["RHS_A10","rhsusf_f22"]};
 		case "G": {["I_Plane_Fighter_03_CAS_F"]};
 	};
-	
-	d_airai_CAP_plane = ["rhsgref_cdf_mig29s","rhsgref_cdf_mig29s","RHS_T50_vvs_051","RHS_T50_vvs_052","rhsgref_cdf_mig29s"];
 #endif
 
 #ifndef __CUP__
@@ -1258,10 +1288,13 @@ d_airai_CAP_plane = ["O_Plane_Fighter_02_Stealth_F","O_Plane_Fighter_02_F"];
 	
 	// same as barracks building. But enemy AI vehicles do not spawn inside the main target area but outside
 	// if destroyed no more enemy vehicles respawn
-	#ifdef __ALTIS__
-		d_vehicle_building = "Land_Cargo_HQ_V1_F";
-	#else
-		d_vehicle_building = "Land_Cargo_HQ_V3_F";
+	d_vehicle_building = "Land_Cargo_HQ_V1_F";
+	#ifdef __RHS__
+		#ifdef __CUP_TAKISTAN__
+			d_vehicle_building = "Land_Cargo_HQ_V3_F";
+		#else
+			d_vehicle_building = "Land_Cargo_HQ_V2_F";
+		#endif
 	#endif
 };
 
@@ -1304,7 +1337,7 @@ if (hasInterface) then {
 	d_create_bike = ["LIB_Willys_MB", "LIB_US_Willys_MB"];
 #endif
 #ifdef __RHS__
-	d_create_bike = [["rhs_tigr_3camo_msv", "RHS_UAZ_MSV_01"], ["rhsusf_mrzr4_d","C_Scooter_Transport_01_F"]] select d_rhs_blufor;
+	d_create_bike = [["rhs_tigr_3camo_msv", "RHS_UAZ_MSV_01"], ["rhsusf_mrzr4_d","B_Quadbike_01_F","C_Scooter_Transport_01_F"]] select d_rhs_blufor;
 #endif
 
 	if (d_weather == 1) then {

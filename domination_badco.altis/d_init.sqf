@@ -65,13 +65,18 @@ d_target_names = [];
 		__TRACE_1("One target found","_ar")
 		d_target_names pushBack _ar;
 	} else {
-		private _nlocs = nearestLocations [getPosWorld _dtar, ["NameCityCapital", "NameCity", "NameVillage"], 500];
+		private _nlocs = nearestLocations [getPosWorld _dtar, ["NameCityCapital", "NameCity", "NameVillage", "NameLocal"], 1500];
 		__TRACE_2("","_dtar","_nlocs")
 		if !(_nlocs isEqualTo []) then {
+			// Hunter: Force exact marker position
+			/*
 			private _locposnl0 = locationPosition (_nlocs # 0);
-			private _nl = nearestLocations [_locposnl0, ["CityCenter"], 300];
+			private _nl = nearestLocations [_locposnl0, ["CityCenter"], 150];
 			__TRACE_2("","_locposnl0","_nl")
 			private _pos = [_locposnl0, locationPosition (_nl # 0)] select !(_nl isEqualTo []);
+			*/
+			private _pos = getPos _dtar;
+			
 			_pos set [2, 0];
 			_ar set [0, _pos]; // position CityCenter
 			if (isServer) then {
@@ -136,18 +141,12 @@ if (isServer) then {
 	};
 	deleteMarker "d_base_wreck_sb";
 	
-	//Hunter: delete unnecessary markers
-	if (d_bonus_vec_type == 3) then {
 
-		{
 
-			deletemarker _x;
 
-		} foreach ["d_wreck_service"];
 
-	};
 	
-	d_FLAG_BASE enableSimulationGlobal false;
+	//d_FLAG_BASE enableSimulationGlobal false;
 };
 
 // position base, side a and b length, direction and circle (false)/rectangle(true), like trigger; for the enemy at base area and marker
@@ -525,7 +524,10 @@ if (isServer) then {
 	//grab the loadout and delete unnecessary units...
 	d_prisonerLoadout = getUnitLoadout d_prisoner_1;
 	publicVariable "d_prisonerLoadout";
-	{d_prison pushback [getPosATL(_x), false]; deletevehicle _x;} foreach units d_prisoners;	
+	{
+		d_prison pushback [getPosATL _x, false];
+		deletevehicle _x;
+	} foreach units d_prisoners;
 	
 };
 
@@ -533,7 +535,7 @@ if (!hasInterface) then {
 	call compile preprocessFileLineNumbers "x_shc\x_shcinit.sqf";
 } else {
 #ifndef __TT__
-	["d_wreck_service", d_wreck_rep,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_0",0,"n_service"] call d_fnc_CreateMarkerLocal;
+	//["d_wreck_service", d_wreck_rep,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_0",0,"n_service"] call d_fnc_CreateMarkerLocal;
 	["d_aircraft_service", d_jet_trigger,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_2",0,"n_service"] call d_fnc_CreateMarkerLocal;
 	if (!d_ifa3lite) then {
 		["d_chopper_service", d_chopper_trigger,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_3",0,"n_service"] call d_fnc_CreateMarkerLocal;
@@ -543,7 +545,7 @@ if (!hasInterface) then {
 	["d_teleporter", d_FLAG_BASE,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_6",0,"mil_flag"] call d_fnc_CreateMarkerLocal;
 	if (d_carrier) then {
 		["d_Ammobox_Reload_C", d_AMMOLOAD_C,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_5",0,"hd_dot"] call d_fnc_CreateMarkerLocal;
-		["d_service_point", d_serviceall_trigger,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_1761",0,"hd_dot"] call d_fnc_CreateMarkerLocal;
+		["d_service_point", d_serviceall_trigger,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_1761",0,"n_service"] call d_fnc_CreateMarkerLocal;
 	};
 #else
 	["d_wreck_service", d_wreck_rep,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_0",0,"n_service"] call d_fnc_CreateMarkerLocal;

@@ -16,6 +16,12 @@ _vec = createVehicle [_vtype, _pos, [], 0, "NONE"];
 	if (_vtype iskindof "B_LSV_01_unarmed_F") then {
 		[_vec, ["Sand",1],["HideDoor1",1,"HideDoor2",1,"HideDoor3",1,"HideDoor4",1]] call BIS_fnc_initVehicle;
 	};
+#else
+	#ifndef __CUP_TAKISTAN__
+		if (_vtype iskindof "rhsusf_mrzr4_d") then {
+			[_vec, ["mud_olive",1]] call BIS_fnc_initVehicle;
+		};
+	#endif
 #endif
 
 _vec setDir direction _unit;

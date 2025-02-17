@@ -292,7 +292,7 @@ class Params {
 		values[] = {-1,2,4,6,8,10,12,14,16,18,21};
 		texts[] = {"$STR_DOM_MISSIONSTRING_969","2","4","6","8","10","12","14","16","18","21"};
 #endif
-		default = 34;
+		default = 99;
 	};
 
 	class d_TimeOfDay {

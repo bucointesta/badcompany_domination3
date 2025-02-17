@@ -23,4 +23,13 @@ if (call d_fnc_checkSHC) then {
 	[_vec] spawn d_fnc_sidesteal;
 	_vec addMPEventHandler ["MPKilled", {if (isServer) then {[_this select 0] call d_fnc_sidempkilled}}];
 	_vec setDamage 0;
+	
+	#ifdef __RHS__
+		[_vec, [[],["antenna_hide",0,"sensors_hide",0]]] call BIS_fnc_initvehicle;
+		private _pylons = ["rhs_mag_kab250_int","rhs_mag_kab250_int","rhs_mag_R77M","rhs_mag_R77M","rhs_mag_R74M2_int","rhs_mag_R74M2_int"];
+		private _pylonPaths = (configProperties [configFile >> "CfgVehicles" >> typeof _vec >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
+		{ _vec removeWeaponGlobal getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon") } forEach getPylonMagazines _vec;
+		{ _vec setPylonLoadout [_forEachIndex + 1, _x, true, _pylonPaths select _forEachIndex] } forEach _pylons;
+	#endif
+	
 };

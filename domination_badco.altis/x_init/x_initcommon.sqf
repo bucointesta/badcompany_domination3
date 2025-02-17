@@ -565,6 +565,7 @@ if (isServer || {!isDedicated && {!hasInterface}}) then {
 	};
 	
 	// enemy ai skill: [base skill, random value (random 0.3) that gets added to the base skill]
+	// Hunter: deprecated
 	d_skill_array = switch (d_EnemySkill) do {
 		case 1: {[0.2,0.1]};
 		case 2: {[0.4,0.2]};

@@ -32,12 +32,14 @@ if (count _crew > 0) then {
 #ifdef __IFA3LITE__
 	if (random 100 > 80 && {_vec isKindOf "Wheeled_APC" || {_vec isKindOf "Wheeled_APC_F" || {_vec isKindOf "Tracked_APC"}}}) then {
 #else
-	if (_vec isKindOf "Wheeled_APC" || {_vec isKindOf "Wheeled_APC_F" || {_vec isKindOf "Tracked_APC"}}) then {
+	// Hunter: add tank since Tracked_APC doesn't exist in Arma 3...
+	if (_vec isKindOf "Wheeled_APC" || {_vec isKindOf "Wheeled_APC_F" || {_vec isKindOf "Tracked_APC"} || {_vec isKindOf "Tank_F"}}) then {
 #endif
 		private _counter = _vec emptyPositions "cargo";
 		__TRACE_2("","typeOf _vec","_counter")
 		if (_counter > 0) then {
-			_counter = (ceil (random _counter)) min 6;
+			// Hunter: don't cap >:D
+			//_counter = (ceil (random _counter)) min 6;
 			if (_counter > 0) then {
 				private _munits = ["allmen", side _grp] call d_fnc_getunitlistm;
 				__TRACE_1("","_munits")

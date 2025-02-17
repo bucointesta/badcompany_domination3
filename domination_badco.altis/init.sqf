@@ -11,7 +11,15 @@ diag_log [diag_frameno, diag_ticktime, time, "Executing Dom init.sqf"];
 d_IS_HC_CLIENT = !isDedicated && {!hasInterface};
 __TRACE_1("","d_IS_HC_CLIENT")
 
-if (!isMultiplayer) then {membersarr = ["_SP_PLAYER_"]; adminarr = ["_SP_PLAYER_"];};
+if (!isMultiplayer) then {
+	membersarr = ["_SP_PLAYER_"];
+	adminarr = ["_SP_PLAYER_"];
+} else {
+	if (isServer && !isDedicated) then {
+		membersarr = [];
+		adminarr = [];
+	};
+};
 if (isDedicated) then {disableRemoteSensors true};
 
 RHSDecalsOff = true;

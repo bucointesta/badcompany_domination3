@@ -8,23 +8,31 @@ d_sm_cargo = switch (d_enemy_side_short) do {
 	case "G": {"I_Truck_02_box_F"};
 };
 //d_sm_hangar = "Land_TentHangar_V1_F"; // Land_TentHangar_V1_F creates 3 objects and adding a killed eh makes it useless as the correct object might never get destroyed
-d_sm_hangar = "Land_Hangar_F";
-d_sm_tent = "Land_TentA_F";
 
-d_sm_land_tankbig = "Land_dp_bigTank_F";
-d_sm_land_transformer = "Land_dp_transformer_F";
-d_sm_barracks = "Land_i_Barracks_V2_F";
-d_sm_land_tanksmall = "Land_dp_smallTank_F";
-d_sm_land_factory = "Land_u_Barracks_V2_F";
-d_sm_small_radar = "Land_Radar_Small_F";
+#ifdef __CUP_TAKISTAN__
+	d_sm_hangar = "Land_Ss_hangard";
+	d_sm_land_tankbig = "Land_Ind_TankBig";
+	d_sm_barracks = "Land_u_Barracks_V2_F";
+#else
+	d_sm_hangar = "Land_Hangar_F";
+	d_sm_land_tankbig = "Land_dp_bigTank_old_F";
+	d_sm_barracks = "Land_Barracks_01_dilapidated_F";
+#endif
+d_sm_tent = "Land_TentA_F";
+d_sm_land_transformer = "Land_Trafostanica_velka";
+d_sm_land_tanksmall = "Land_dp_smallTank_old_F";
+d_sm_land_factory = "Land_Tovarna2";
+d_sm_small_radar = "rhs_p37";
 
 d_soldier_officer = switch (d_enemy_side_short) do {
-	case "E": {"rhs_vdv_officer"};
+	//case "E": {"rhs_vdv_officer"};
+	case "E": {"O_T_Officer_F"};
 	case "W": {"rhsusf_army_ocp_officer"};
 	case "G": {"I_officer_F"};
 };
 d_sniper = switch (d_enemy_side_short) do {
-	case "E": {"rhs_vdv_marksman"};
+	//case "E": {"rhs_vdv_marksman"};
+	case "E": {"I_ghillie_ard_F"};
 	case "W": {"rhsusf_socom_marsoc_sniper_m107"};
 	case "G": {"I_sniper_F"};
 };
@@ -34,17 +42,17 @@ d_sm_arty = switch (d_enemy_side_short) do {
 	case "G": {"B_MBT_01_arty_F"}; // no independent arty in Alpha 3
 };
 d_sm_plane = switch (d_enemy_side_short) do {
-	case "E": {"RHS_T50_vvs_blueonblue"};
+	case "E": {"RHS_T50_vvs_054"};
 	case "W": {"rhsusf_f22"};
 	case "G": {"I_Plane_Fighter_03_CAS_F"};
 };
 d_sm_tank = switch (d_enemy_side_short) do {
-	case "E": {"rhs_t90a_tv"};
+	case "E": {"rhsgref_cdf_t80uk_tv"};
 	case "W": {"rhsusf_m1a2sep1tuskiid_usarmy"};
 	case "G": {"I_MBT_03_cannon_F"};
 };
 d_sm_HunterGMG = switch (d_enemy_side_short) do {
-	case "E": {"rhsgref_BRDM2_HQ_vmf"};
+	case "E": {"rhs_t15_tv"};
 	case "W": {"rhsusf_M1237_M2_usarmy_d"};
 	case "G": {"I_MRAP_03_hmg_F"};
 };
@@ -54,27 +62,27 @@ d_sm_chopper = switch (d_enemy_side_short) do {
 	case "G": {"I_Heli_light_03_F"};
 };
 d_sm_pilottype = switch (d_enemy_side_short) do {
-	case "E": {"rhs_pilot"};
-	case "W": {"rhs_pilot_combat_heli"};
-	case "G": {"I_helipilot_F"};
+	case "E": {"rhsusf_airforce_pilot"};
+	case "W": {"rhs_pilot"};
+	case "G": {"rhsusf_airforce_pilot"};
 };
 d_sm_wrecktype = switch (d_enemy_side_short) do {
-	case "E": {"Land_Wreck_Heli_Attack_01_F"};
+	case "E": {"BlackhawkWreck"};
 	case "W": {"Land_rhs_mi28_wreck"};
-	case "G": {"Land_Wreck_Heli_Attack_02_F"};
+	case "G": {"BlackhawkWreck"};
 };
 d_sm_ammotrucktype = switch (d_enemy_side_short) do {
-	case "E": {"rhs_gaz66_ammo_vdv"};
+	case "E": {"rhsgref_cdf_gaz66_ammo"};
 	case "W": {"rhsusf_M977A4_AMMO_usarmy_d"};
 	case "G": {"I_Truck_02_ammo_F"};
 };
 d_sm_cargotrucktype = switch (d_enemy_side_short) do {
-	case "E": {["O_Truck_03_covered_F","O_T_Truck_03_covered_ghex_F"] select (d_tanoa)};
+	case "E": {"rhsgref_nat_ural"};
 	case "W": {"B_Truck_01_covered_F"};
 	case "G": {"I_Truck_02_covered_F"};
 };
 d_sm_fueltrucktype = switch (d_enemy_side_short) do {
-	case "E": {["O_Truck_03_fuel_F", "O_T_Truck_03_fuel_ghex_F"] select (d_tanoa)};
+	case "E": {"rhsgref_cdf_ural_fuel"};
 	case "W": {"B_Truck_01_fuel_F"};
 	case "G": {"I_Truck_02_fuel_F"};
 };
@@ -84,7 +92,7 @@ d_sm_camo_net = call {
    "CamoNet_INDP_big_F"
 };
 d_sm_medtrucktype = switch (d_enemy_side_short) do {
-	case "E": {"rhs_gaz66_ap2_vdv"};
+	case "E": {"rhsgref_cdf_gaz66_ap2"};
 	case "W": {"rhsusf_M1085A1P2_B_D_Medical_fmtv_usarmy"};
 	case "G": {"I_Truck_02_medical_F"};
 };
