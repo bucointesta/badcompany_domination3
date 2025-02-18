@@ -27,7 +27,7 @@ player setUnitLoadout d_prisonerLoadout;
 player setPosATL _cell;
 xr_phd_invulnerable = false;
 player allowDamage true;
-hint format ["You are sent to prison for excessive teamkilling. You need to wait here for %1 minutes before being released.", round (_time/60)];
+hint format ["You have been sent to prison for excessive teamkilling. You will be released when your sentence expires.", round (_time/60)];
 _release = time + _time;
 while {time < _release} do {
 	if (alive player && {player distance2D _cell > 100}) then {
