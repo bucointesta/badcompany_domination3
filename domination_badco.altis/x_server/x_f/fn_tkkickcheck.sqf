@@ -32,6 +32,10 @@ if (!isNil "_p") then {
 		};
 		[format [localize "STR_DOM_MISSIONSTRING_507", _pna, _numtk], "GLOBAL"] remoteExecCall ["d_fnc_HintChatMsg", [0, -2] select isDedicated];
 		diag_log format ["%1 was sent to prison for teamkilling!", _namek];
+		// need to set this so below check works
+		if (_baseKill) then {
+			_p set [7, d_maxnum_tks_forkick];
+		};
 		_tk call d_fnc_prison_check; //	"LOSER" remoteExecCall ["endMission", _tk];
 		if (d_database_found) then {
 			"extdb3" callExtension format ["1:dom:teankillsAdd:%1", _uid];
