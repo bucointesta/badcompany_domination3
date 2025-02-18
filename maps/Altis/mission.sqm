@@ -21,9 +21,9 @@ class EditorData
 	class Camera
 	{
 		pos[]={27380.584,16.431999,15301.996};
-		dir[]={-0.010207475,-0.88326842,0.46875754};
-		up[]={-0.01922904,0.46886858,0.88306081};
-		aside[]={0.99976492,1.2529199e-08,0.021770393};
+		dir[]={-0.010207592,-0.88326794,0.46875748};
+		up[]={-0.019229349,0.46886849,0.88305861};
+		aside[]={0.99976301,0,0.021770686};
 	};
 };
 binarizationWanted=0;
@@ -599,18 +599,6 @@ class CustomAttributes
 		name="Multiplayer";
 		class Attribute0
 		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					singleType="ARRAY";
-				};
-			};
-		};
-		class Attribute1
-		{
 			property="RespawnButton";
 			expression="true";
 			class Value
@@ -619,6 +607,18 @@ class CustomAttributes
 				{
 					singleType="SCALAR";
 					value=0;
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					singleType="ARRAY";
 				};
 			};
 		};
@@ -725,7 +725,7 @@ class Mission
 			};
 			id=2621;
 			type="Land_Leaflet_04_F";
-			atlOffset=2.0390015;
+			atlOffset=2.0390091;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -1203,7 +1203,7 @@ class Mission
 			};
 			id=2641;
 			type="Land_OfficeChair_01_F";
-			atlOffset=0.011520386;
+			atlOffset=0.011528015;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -4000,7 +4000,7 @@ class Mission
 			};
 			id=2774;
 			type="Land_Microwave_01_F";
-			atlOffset=0.00096893311;
+			atlOffset=0.0009765625;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -4175,7 +4175,7 @@ class Mission
 			};
 			id=2780;
 			type="Land_RiceBox_F";
-			atlOffset=1.0352249;
+			atlOffset=1.0352173;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -26728,7 +26728,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={26646.061,13.166537,24779.379};
-				angles[]={0.054611351,4.9550424,0.030647982};
+				angles[]={0.054611348,4.9550419,0.03064798};
 			};
 			side="Empty";
 			flags=4;
@@ -26736,7 +26736,6 @@ class Mission
 			{
 				skill=0.60000002;
 				name="D_FLAG_BADCO";
-				createAsSimpleObject=1;
 				disableSimulation=1;
 			};
 			id=7636;
@@ -33234,7 +33233,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={26646.697,17.49721,24666.332};
-				angles[]={0.035988688,0.041800633,0.043964844};
+				angles[]={0.035988685,0.041800629,0.04396484};
 			};
 			side="Empty";
 			flags=4;
@@ -33242,7 +33241,6 @@ class Mission
 			{
 				skill=0.60000002;
 				name="D_FLAG_BASE";
-				createAsSimpleObject=1;
 				disableSimulation=1;
 			};
 			id=7987;
