@@ -9,7 +9,7 @@
 	#define G_ARMOR_OFFICER "V_CarrierRigKBT_01_light_Olive_F"
 #else
 	#define G_ARMOR ["rhs_6b3_RPK", "rhs_6b3_VOG", "rhs_6b3_VOG_2"]
-	#define G_ARMOR_OFFICER ""
+	#define G_ARMOR_OFFICER "rhs_6b3_off"
 #endif
 
 #define G_HEADGEAR ["H_Shemag_olive","H_ShemagOpen_tan"]
