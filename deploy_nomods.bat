@@ -2,7 +2,7 @@
 
 
 set mapName=Altis
-set mapExtention=altis
+set mapExtension=altis
 
 
 
@@ -31,18 +31,18 @@ set mapExtention=altis
 
 if exist maps\%mapName%\mission.sqm (
 
-	echo Deploying domination_badco.%mapExtention%...
+	echo Deploying domination_badco.%mapExtension%...
 	
 	if exist __DEPLOYMENT (
 		rmdir __DEPLOYMENT /s /q
 	)
 	
 	mkdir __DEPLOYMENT
-	mkdir __DEPLOYMENT\domination_badco.%mapExtention%
+	mkdir __DEPLOYMENT\domination_badco.%mapExtension%
 	echo Copying files
-	xcopy "domination_badco.altis" "__DEPLOYMENT\domination_badco.%mapExtention%" /s /e /q
+	xcopy "domination_badco.altis" "__DEPLOYMENT\domination_badco.%mapExtension%" /s /e /q
 	echo Copying map files
-	xcopy "maps\%mapName%" "__DEPLOYMENT\domination_badco.%mapExtention%" /s /e /q
+	xcopy "maps\%mapName%" "__DEPLOYMENT\domination_badco.%mapExtension%" /s /e /q
 	
 	echo Done!
 	pause
