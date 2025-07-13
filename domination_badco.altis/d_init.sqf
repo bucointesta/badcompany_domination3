@@ -17,15 +17,15 @@ if (hasInterface) then {
 	// Hunter: set this to a default low value so people don't forget their setting at high and then complain about low FPS...
 	//private _vd = profileNamespace getVariable ["dom_viewdistance", d_InitialViewDistance];
 	private _vd = 2000;
-	setTerrainGrid 50;
+	setTerrainGrid 0;
 	if (_vd > d_MaxViewDistance) then {
 		_vd = d_MaxViewDistance;
 	};
 	setViewDistance _vd;
-	setObjectViewDistance (_vd + 100);
+  private _objvd = _vd*0.9;
+	setObjectViewDistance [_objvd, _objvd*0.1];
 } else {
 	setViewDistance d_InitialViewDistance;
-	setObjectViewDistance (d_InitialViewDistance + 100);
 	
 	Hz_min_desired_server_VD = 2000;
 	Hz_max_desired_server_VD = 5000;

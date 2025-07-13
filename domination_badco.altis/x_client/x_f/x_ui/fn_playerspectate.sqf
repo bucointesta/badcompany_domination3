@@ -24,6 +24,8 @@ if !(["IsInitialized"] call BIS_fnc_EGSpectator) then {
 				if (!isNil "d_spect_viewdistance") then {
 					if (d_spect_viewdistance != viewDistance) then {
 						setViewDistance d_spect_viewdistance;
+            private _objvd = d_spect_viewdistance*0.9;
+            setObjectViewDistance [_objvd, _objvd*0.1];
 					};
 					d_spect_viewdistance = nil;
 				};
@@ -43,6 +45,8 @@ if !(["IsInitialized"] call BIS_fnc_EGSpectator) then {
 	if (!isNil "d_spect_viewdistance") then {
 		if (d_spect_viewdistance != viewDistance) then {
 			setViewDistance d_spect_viewdistance;
+      private _objvd = d_spect_viewdistance*0.9;
+      setObjectViewDistance [_objvd, _objvd*0.1];
 		};
 		d_spect_viewdistance = nil;
 	};
