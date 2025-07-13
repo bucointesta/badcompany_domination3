@@ -35,6 +35,15 @@ if (call d_fnc_checkSHC) then {
 		private _pylonPaths = (configProperties [configFile >> "CfgVehicles" >> typeof _vec >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
 		{ _vec removeWeaponGlobal getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon") } forEach getPylonMagazines _vec;
 		{ _vec setPylonLoadout [_forEachIndex + 1, _x, true, _pylonPaths select _forEachIndex] } forEach _pylons;
-	#endif
+	#else
+    if ((typeof _vec) == "B_Heli_Transport_01_pylons_F") then {
+      private _pylonPaths = (configProperties [configFile >> "CfgVehicles" >> "B_Heli_Transport_01_pylons_F" >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
+      private _pylons = ["PylonRack_12Rnd_PGM_missiles","PylonRack_12Rnd_missiles","PylonRack_12Rnd_missiles","PylonRack_12Rnd_PGM_missiles"];
+      if ((count _pylons) > 0) then {
+        { _vec removeWeaponGlobal getText (configFile >> "CfgMagazines" >> "B_Heli_Transport_01_pylons_F" >> "pylonWeapon") } forEach getPylonMagazines _vec;
+        { _vec setPylonLoadout [_forEachIndex + 1, _vec, true, _pylonPaths select _forEachIndex] } forEach _pylons;
+      };
+    }; 
+  #endif
 	
 };

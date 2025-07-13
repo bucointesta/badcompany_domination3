@@ -56,7 +56,7 @@ d_sm_HunterGMG = switch (d_enemy_side_short) do {
 };
 d_sm_chopper = switch (d_enemy_side_short) do {
 	//case "E": {"O_Heli_Transport_04_covered_F"};
-	case "E": {"O_T_VTOL_02_infantry_dynamicLoadout_F"};
+	case "E": {"B_Heli_Transport_01_pylons_F"};
 	case "W": {"B_Heli_Attack_01_F"};
 	case "G": {"I_Heli_light_03_F"};
 };
