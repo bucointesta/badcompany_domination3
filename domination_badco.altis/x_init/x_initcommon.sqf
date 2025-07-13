@@ -610,7 +610,7 @@ if (hasInterface) then {
 	// rank needed to fly the wreck lift chopper
 	d_wreck_lift_rank = "CAPTAIN";
 
-	d_graslayer_index = [1, 0] select (d_GrasAtStart == 1);
+	d_graslayer_index = [2, 0] select (d_GrasAtStart == 1);
 
 	d_disable_viewdistance = d_ViewdistanceChange == 1;
 };
