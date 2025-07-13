@@ -46,7 +46,7 @@ if (!(d_clientScriptsAr # 1) && {!isNil "d_player_autokick_time"}) then {
 if (_do_exit) exitWith {};
 
 //Hunter: Doesn't just check for pilots, but drivers of reserved vehicles too
-if (((_position == "driver") || {(_turret select 0 == 0) && {_position == "gunner"}}) && {!([str _enterer,_vec,_vecnum] call d_fnc_isPilotCheck)}) exitWith {				
+if (((_position == "driver") || {(_position == "gunner") && {(((count _turret) > 0) && {(_turret select 0) == 0}) || {_vec isKindOf "StaticWeapon"}}}) && {!([str _enterer,_vec,_vecnum] call d_fnc_isPilotCheck)}) exitWith {				
 	//player action ["getOut", _vec];
 	moveout player;
 	_vec spawn {
@@ -60,9 +60,12 @@ if (((_position == "driver") || {(_turret select 0 == 0) && {_position == "gunne
 };
 
 if (_vec isKindOf "Air") then {
+	// Hunter: disable pylon customisation
+	/*
 	if (!unitIsUAV _vec && {isClass (configFile>>"CfgVehicles">>(typeOf _vec)>>"Components">>"TransportPylonsComponent")}) then {
 		_vec call d_fnc_addpylon_action;
 	};
+	*/
 	if (_vec isKindOf "Helicopter") then {
 		0 spawn d_fnc_chop_hudsp;
 		// currently the only way to disable slingload assistant and rope action for sling loadling.
@@ -161,6 +164,28 @@ if (_vec isKindOf "Air") then {
 		d_playerInMHQ = true;
 		[_vec] spawn d_fnc_mhqCheckNearTarget;
 	};
+  if ((_vec iskindof "StaticWeapon") && {!(_vec getVariable ["staticWepCustomDmgHandlerAdded", false])}) then {
+  
+  _vec setVariable ["staticWepCustomDmgHandlerAdded", true];
+  
+  _vec addEventHandler ["HandleDamage", {
+  
+    _return = _this select 2;
+		_source = _this select 3;
+		_unit = _this select 0;
+		_selection = _this select 1;
+    
+    if (_selection isEqualTo "") then {
+      _return = (damage _unit) + (_return*10);
+    } else {
+      _return = (_unit getHit _selection) + (_return*10);
+    };
+    
+    _return
+    
+  }];
+  
+};
 };
 if (_do_exit) exitWith {};
 
@@ -172,7 +197,7 @@ if (d_with_ranked || {d_database_found}) then {
 		[_vec] call d_fnc_playerveccheck;
 	};
 };
-if (d_without_vec_ti == 0) then {
+if ((d_without_vec_ti == 0) || {_vec isKindOf "StaticWeapon"}) then {
 	_vec disableTIEquipment true;
 };
 if (d_without_vec_nvg == 0) then {

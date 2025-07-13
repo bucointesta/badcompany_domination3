@@ -45,16 +45,16 @@ while {xr_carry} do {
 	};
 	if (alive _dragee && {!(_dragee getVariable ["xr_pluncon", false])}) exitWith {
 		detach _dragee;
+    player removeAction xr_dropAction;
+		xr_dropAction = -3333;
+		xr_carry = false;
 		sleep 0.5;
 		[_unit, ""] remoteExecCall ["switchMove"];
 		[_dragee, 102] remoteExecCall ["xr_fnc_handlenet"];
-		player removeAction xr_dropAction;
-		xr_dropAction = -3333;
-		xr_carry = false;
 	};
 
 	//check that dragged unit still exists
-	if (isNull _dragee || {!alive _unit} || {_found_anim && {!((animationState _unit) in _anims)}}) exitWith {
+	if (isNull _dragee || {!alive _unit} || {(vehicle _unit) != _unit} || {_found_anim && {!((animationState _unit) in _anims)}}) exitWith {
 		player removeAction xr_dropAction;
 		xr_dropAction = -3333;
 		if (!isNull _dragee) then {

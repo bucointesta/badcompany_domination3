@@ -5,6 +5,13 @@
 
 if (isDedicated) exitWith {};
 
+if (item_check_isInArsenal) exitWith {
+
+	player setUnitLoadout [item_check_arsenalSavedLoadout, true];
+  item_check_isInArsenal = false;
+
+};
+
 private _lg = player getVariable "d_respawngear";
 if (!isNil "_lg") then {
 	player setUnitLoadout [_lg, false];

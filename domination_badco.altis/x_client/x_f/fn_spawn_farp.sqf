@@ -9,10 +9,17 @@ if (player getVariable ["d_isinaction", false]) exitWith {
 	d_commandingMenuIniting = false;
 };
 
-if (player distance2D d_FLAG_BASE < 30) exitWith {
+if (player distance2D d_FLAG_BASE < 2000) exitWith {
 	systemChat (localize "STR_DOM_MISSIONSTRING_246");
 	d_commandingMenuIniting = false;
 };
+
+#ifdef __CARRIER__
+	if (player distance2D d_flag_airfield < 2000) exitWith {
+		systemChat (localize "STR_DOM_MISSIONSTRING_246");
+		d_commandingMenuIniting = false;
+	};
+#endif
 
 if ((player call d_fnc_GetHeight) > 5) exitWith {
 	systemChat (localize "STR_DOM_MISSIONSTRING_241");
@@ -26,6 +33,11 @@ if !((player getVariable "d_farp_pos") isEqualTo []) exitWith {
 
 if (((player nearEntities ["Truck_F", 20]) select {(_x getVariable ["d_vec_type", ""]) == "Engineer"}) isEqualTo []) exitWith {
 	systemChat (localize "STR_DOM_MISSIONSTRING_243");
+	d_commandingMenuIniting = false;
+};
+
+if ((player distance2D d_cur_tgt_pos) < 2000) exitWith {
+	systemChat "You cannot deploy a FARP this close to the AO";
 	d_commandingMenuIniting = false;
 };
 

@@ -108,6 +108,7 @@ while {true} do {
 		sleep 0.1;
 	};
 	_grp deleteGroupWhenEmpty true;
+	_grp setFormation "WEDGE";
 	
 	//Hunter: custom setskill handled by createcrew now
 	//(leader _grp) setSkill _grpskill;

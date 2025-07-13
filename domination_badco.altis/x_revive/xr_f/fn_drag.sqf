@@ -106,7 +106,7 @@ while {xr_drag} do {
 		xr_drag = false;
 	};
 
-	if (!alive _unit) exitWith {
+	if ((!alive _unit) || {(vehicle _unit) != _unit}) exitWith {
 		player removeAction xr_dropAction;
 		xr_dropAction = -3333;
 		if (xr_carryAction != -3333) then {
