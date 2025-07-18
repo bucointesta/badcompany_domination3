@@ -17,7 +17,11 @@ while {d_nr_observers > 0} do {
 		_targets = _targets apply {_x select 0};
 		{
 			_enemy = vehicle _x;
-			if (alive _enemy && {!captive _enemy && {(speed _enemy) < 2} && {d_side_enemy knowsAbout _enemy > 3.25 && {!((vehicle _enemy) isKindOf "Air") && {(_enemy distance2D (markerpos "d_base_marker")) > 1500}}}}) then {
+			if (alive _enemy && {!captive _enemy && {(speed _enemy) < 2} && {d_side_enemy knowsAbout _enemy > 3.25 && {!((vehicle _enemy) isKindOf "Air") && {(_enemy distance2D (markerpos "d_base_marker")) > 1500}
+			#ifdef __CARRIER__
+				&& {(_enemy distance2D (markerpos "Start")) > 1000}
+			#endif
+			}}}) then {
 				
 				// Hunter: only use HE or cluster >:D
 				_e_ari_avail = false;

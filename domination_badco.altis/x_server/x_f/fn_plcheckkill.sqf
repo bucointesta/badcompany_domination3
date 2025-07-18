@@ -57,7 +57,11 @@ if (!isNull _killer && {(_killer call d_fnc_isplayer) && {_vkiller != _vkilled}}
 		&& {((count (_vkiller weaponsTurret [-1])) == 0) || {(needReload _vkiller) == 0} || {_killed getVariable ["AR_Is_Rappelling", false]} || {((getPos _killed) select 2) > 20}}
 	) exitWith {};
 	
-	private _baseKill = (_killed distance2D d_flag_base) < 700;
+	#ifndef __CARRIER__
+		private _baseKill = (_killed distance2D d_flag_base) < 700;
+	#else
+		private _baseKill = ((_killed distance2D d_flag_airfield) < 700) || {(_killed distance2D d_flag_base) < 1000};
+	#endif
 		
 	private _baseRamKill = false;
 	

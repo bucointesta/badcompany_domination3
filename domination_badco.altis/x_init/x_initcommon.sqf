@@ -617,15 +617,26 @@ if (hasInterface) then {
 // chopper varname, type (0 = lift chopper, 1 = wreck lift chopper, 2 = normal chopper), marker name, unique number (same as in d_init.sqf), marker type, marker color, marker text, chopper string name
 #ifndef __TT__
 d_choppers = [
-	["D_HR1",0,"d_chopper1",3001,"n_air","ColorBlue","Hauler-1", localize "STR_DOM_MISSIONSTRING_7"],
-	["D_HR2",2,"d_chopper2",3002,"n_air","ColorBlue","Raven-1",""],
-	["D_HR3",2,"d_chopper3",3003,"n_air","ColorBlue","Raven-2",""],
-	["D_HR4",0,"d_chopper4",3004,"n_air","ColorBlue","Hauler-2", localize "STR_DOM_MISSIONSTRING_10"],
+	#ifdef __CARRIER__
+		["D_HR1",0,"d_chopper1",3001,"n_air","ColorBlue","Fatman-1", localize "STR_DOM_MISSIONSTRING_7"],
+		["D_HR2",2,"d_chopper2",3002,"n_air","ColorBlue","Squawk-1",""],
+		["D_HR3",2,"d_chopper3",3003,"n_air","ColorBlue","Squawk-2",""],
+		["D_HR4",0,"d_chopper4",3004,"n_air","ColorBlue","Fatman-2", localize "STR_DOM_MISSIONSTRING_10"],
+	#else
+		["D_HR1",0,"d_chopper1",3001,"n_air","ColorBlue","Hauler-1", localize "STR_DOM_MISSIONSTRING_7"],
+		["D_HR2",2,"d_chopper2",3002,"n_air","ColorBlue","Raven-1",""],
+		["D_HR3",2,"d_chopper3",3003,"n_air","ColorBlue","Raven-2",""],
+		["D_HR4",0,"d_chopper4",3004,"n_air","ColorBlue","Hauler-2", localize "STR_DOM_MISSIONSTRING_10"],
+	#endif		
 	["D_HR5",2,"d_chopper5",3005,"n_air","ColorBlue","Bad Bird-1",""],
 	["D_HR13",2,"d_chopper13",3013,"n_air","ColorBlue","Bad Bird-2",""],
 	["D_HR6",2,"d_chopper6",3006,"n_air","ColorBlue","Lilburd-1",""],
 	["D_HR7",2,"d_chopper7",3007,"n_air","ColorBlue","Lilburd-2",""],
-	["D_HR8",3,"d_chopper8",3008,"n_air","ColorBlue","Reaper",""],
+	#ifdef __CARRIER__
+		["D_HR8",3,"d_chopper8",3008,"n_air","ColorBlue","Python",""],
+	#else
+		["D_HR8",3,"d_chopper8",3008,"n_air","ColorBlue","Reaper",""],
+	#endif
 	#ifdef __RHS__
 		["D_HR9",2,"d_chopper9",3009,"n_air","ColorBlue","Blackwater",""],
 		["D_HR10",2,"d_chopper10",3010,"n_air","ColorBlue","Valkyrie",""],
@@ -636,8 +647,14 @@ d_choppers = [
 	["D_HR11",2,"d_chopper11",3011,"n_air","ColorBlack","Nazgul",""],
 	["D_MH1",3,"d_chopper12",3012,"n_air","ColorRed","M3",""],
 	["D_CJ1",3,"d_plane3",3103,"n_plane","ColorBlue","Fortress", ""],
-	["D_PL1",3,"d_plane1",3101,"n_plane","ColorBlue","Hog", ""],
-	["D_PL2",3,"d_plane2",3102,"n_plane","ColorBlue","Lightning", ""]	
+	#ifdef __CARRIER__
+		["D_CJ2",3,"d_plane4",3104,"n_plane","ColorBlue","Ostrich", ""],
+		["D_PL1",3,"d_plane1",3101,"n_plane","ColorBlue","Hydra", ""],
+		["D_PL2",3,"d_plane2",3102,"n_plane","ColorBlue","Wasp", ""]
+	#else
+		["D_PL1",3,"d_plane1",3101,"n_plane","ColorBlue","Hog", ""],
+		["D_PL2",3,"d_plane2",3102,"n_plane","ColorBlue","Lightning", ""]	
+	#endif
 	];
 #else
 d_choppers_blufor = [

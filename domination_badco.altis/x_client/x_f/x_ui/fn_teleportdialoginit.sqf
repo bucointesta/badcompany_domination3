@@ -54,7 +54,11 @@ private _selidx = 0;
 d_respawn_anim_markers = [];
 
 if (_addbase) then {
-	_cidx = _listctrl lbAdd (localize "STR_DOM_MISSIONSTRING_1251");
+	#ifndef __CARRIER__
+		_cidx = _listctrl lbAdd (localize "STR_DOM_MISSIONSTRING_1251");
+	#else
+		_cidx = _listctrl lbAdd "Carrier";
+	#endif
 	_listctrl lbSetData [_cidx, "D_BASE_D"];
 	_selidx = _cidx;
 	d_beam_target = "D_BASE_D";
@@ -114,7 +118,7 @@ private _logtxt = "";
 	_cidx = _listctrl lbAdd (_x # 2);
 	_listctrl lbSetData [_cidx, _x # 0];
 	_listctrl lbSetColor [_cidx, [1,1,1,1]];
-	if (d_last_beam_target == _x # 0) then {
+	if ((d_last_beam_target == _x # 0) || {(d_last_beam_target == "") && {(_x # 0) == "d_air_base"}}) then {
 		_selidx = _cidx;
 		d_respawn_mar_str = _x # 0;
 		d_beam_target = _x # 0;

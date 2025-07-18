@@ -15,6 +15,9 @@ d_arsenal_boxes = [];
 	};
 	
 	_cratePositionMarkers = ["arsenalMain","arsenalBadCo"];
+	#ifdef __CARRIER__
+		_cratePositionMarkers pushBack "arsenalCarrier";
+	#endif
 	_unit = str player;
 	item_check_isArsenal = false;
 	item_check_arsenalChecked = false;
@@ -223,7 +226,15 @@ d_arsenal_boxes = [];
 	{
 
 		_box = "CargoNet_01_box_F" createVehicleLocal (markerPos _x);
-		_box setposatl [(markerPos _x) select 0, (markerPos _x) select 1,2];
+		#ifdef __CARRIER__
+			if (surfaceIsWater markerpos _x) then {
+				_box setposasl [(markerPos _x) select 0, (markerPos _x) select 1, ((getPosASL D_FLAG_BASE) select 2) + 2];
+			} else {
+				_box setposatl [(markerPos _x) select 0, (markerPos _x) select 1,2];
+			};
+		#else
+			_box setposatl [(markerPos _x) select 0, (markerPos _x) select 1,2];
+		#endif
 		player reveal _box;
 		
 		clearWeaponCargo _box;

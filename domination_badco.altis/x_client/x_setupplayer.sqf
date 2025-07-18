@@ -122,13 +122,18 @@ if !(d_additional_respawn_points isEqualTo []) then {
 #else
 				private _dadao = missionNamespace getVariable (_x # 1);
 				_x set [1, getPos _dadao];
-				_dadao addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx}];
+				_dadao addAction [format ["<t color='#ff0000' size='2.0'>%1</t>", localize "STR_DOM_MISSIONSTRING_533"], {_this call d_fnc_teleportx}];
 				if (d_ParaAtBase == 0) then {
 					_dadao setVariable ["d_jf_id", _dadao addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_296"], {_this spawn d_fnc_paraj}, 0]];
 				};
+				//Hunter: disable this
+				/*
 				if (count _x > 4 && {_x # 4}) then {
 					_dadao addAction [format ["<t color='#7F7F7F'>%1</t>", localize "STR_DOM_MISSIONSTRING_1816"], {[0, 0, 0, [d_create_bike # 0, 1]] spawn d_fnc_bike}];
 				};
+				*/
+				// Hunter: add spectate option
+				_dadao addaction [format ["<t color='#e5e500'>%1</t>", localize "STR_DOM_MISSIONSTRING_1745"], {_this call d_fnc_playerspectate},[],-10];
 #endif
 			};
 		};
@@ -318,6 +323,8 @@ if (d_ParaAtBase == 0) then {
 #endif
 };
 
+// Hunter: this is just terrible...
+/*
 if (d_MissionType != 2) then {
 	{
 		if (d_jumpflag_vec == "") then {
@@ -327,6 +334,7 @@ if (d_MissionType != 2) then {
 		};
 	} forEach ((allMissionObjects d_flag_pole) select {!isNil {_x getVariable "d_is_jf"} && {isNil {_x getVariable "d_jf_id"}}});
 };
+*/
 
 if (d_all_sm_res) then {d_cur_sm_txt = localize "STR_DOM_MISSIONSTRING_522"} else {[false] spawn d_fnc_getsidemissionclient};
 
@@ -400,7 +408,8 @@ d_all_ammoloads = (allMissionObjects "HeliH") select {(str _x) select [0, 10] ==
 		d_3draw_ar pushBack [d_chopper_trigger, localize "STR_DOM_MISSIONSTRING_528", 5];
 	};
 	if (d_carrier) then {
-		d_3draw_ar pushBack [d_flag_airfield, localize "STR_DOM_MISSIONSTRING_1760", 5];
+		//d_3draw_ar pushBack [d_flag_airfield, localize "STR_DOM_MISSIONSTRING_1760", 5];
+		d_3draw_ar pushBack [d_flag_airfield, localize "STR_DOM_MISSIONSTRING_1644", 2.5];
 	};
 	{
 		d_3draw_ar pushBack [_x, localize "STR_DOM_MISSIONSTRING_1761", 5];
@@ -1124,6 +1133,9 @@ player addEventHandler ["Respawn",{
 	_unit remoteExecCall ["d_fnc_addScoreHandler",2,false];
 }];
 
+if ((!isNil "d_badco_helicontroller") && {call d_fnc_isbadco}) then {
+	 d_badco_helicontroller addAction ["Deploy UH-1Y", "logistics\deploybadcochopper.sqf", nil, 50, true, true, "", "true", 2];
+};
 /*
 player addEventHandler ["Respawn",{
 	params ["_unit", "_corpse"];

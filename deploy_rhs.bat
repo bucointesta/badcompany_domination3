@@ -5,6 +5,8 @@ set mapName=Takistan
 set mapExtension=takistan
 
 
+set mapName=Chernarus
+set mapExtension=chernarus
 
 
 

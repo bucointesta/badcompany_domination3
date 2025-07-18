@@ -9,6 +9,17 @@ if (!isNil "d_heli_kh_ro") then {
 };
 
 if (alive (_this # 2)) then {
+  
+  if ((alive player) && {!(player getVariable ["d_isinprison", false])} && {((_this # 2) isKindOf "AAA_System_01_base_F")
+		|| {(_this # 2) isKindOf "B_Ship_Gun_01_base_F"}
+  || {(_this # 2) isKindOf "B_Ship_MRLS_01_base_F"}}) then {
+    [] spawn {
+      _aaplayer = player;
+      uiSleep 0.2;
+      _aaplayer setPosATL ((getPosATL player) vectorAdd [0,0,-1.5]);
+    };    
+  };
+  
 	if (!isNil {(_this # 2) getVariable "d_plyonloadoutaction"}) then {
 		[(_this # 2), (_this # 2) getVariable "d_plyonloadoutaction"] call bis_fnc_holdActionRemove;
 		(_this # 2) setVariable ["d_plyonloadoutaction", nil];

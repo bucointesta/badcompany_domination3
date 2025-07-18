@@ -430,7 +430,8 @@ if (isServer) then {
 		
 		[d_attack_1,3101,true,1200],
 		[d_attack_2,3102,true,600],
-		[d_plane_1,3103,true,900]
+		[d_plane_1,3103,true,900],
+		[d_plane_2,3104,true,1200]
 		
 		] call compile preprocessFileLineNumbers "x_server\x_inithelirespawn2.sqf";
 	};
@@ -438,22 +439,28 @@ if (isServer) then {
 	//0-99 = MHQ, 100-199 = Medic vehicles, 200-299 = Fuel, Repair, Reammo trucks, 300-399 = Engineer Salvage trucks, 400-499 = Transport trucks
 	private _var = [
 	
-		[d_vec_mhq_1,0,-1],[d_vec_mhq_2,1,-1],[d_vec_mhq_3,2,-1],
+		[d_vec_mhq_1,0,-1],[d_vec_mhq_2,1,-1],		
+		[d_vec_mhq_3,2,-1], //not on all maps but the script is able to handle nil variables
 		
 		[d_vec_med_1,100,-1],[d_vec_med_2,101,-1],[d_vec_rep_1,200,-1],[d_vec_fuel_1,201,-1],[d_vec_ammo_1,202,-1],
 		[d_vec_rep_2,203,-1],[d_vec_fuel_2,204,-1], [d_vec_ammo_2,205,-1],[d_vec_eng_1,300,-1],[d_vec_eng_2,301,-1],
 		[d_vec_trans_1,400,-1],[d_vec_trans_2,401,-1],[d_vec_trans_3,402,-1],[d_vec_trans_4,403,-1],
 		
-		[d_vec_bike_1,701,-1],[d_vec_bike_10,710,-1],[d_vec_bike_11,711,-1],[d_vec_bike_12,712,-1],[d_vec_bike_13,713,-1],
-		[d_vec_bike_2,702,-1],[d_vec_bike_20,720,-1],[d_vec_bike_21,721,-1],[d_vec_bike_22,722,-1],[d_vec_bike_23,723,-1],
-		[d_vec_bike_24,724,-1],[d_vec_bike_25,725,-1],[d_vec_bike_26,726,-1],[d_vec_bike_27,727,-1],[d_vec_bike_28,728,-1],
-		[d_vec_bike_29,729,-1],[d_vec_bike_30,730,-1],[d_vec_bike_31,731,-1],[d_vec_bike_32,732,-1],[d_vec_bike_5,705,-1],
-		[d_vec_bike_6,706,-1],[d_vec_bike_7,707,-1],
+		[d_vec_bike_1,701,-1],[d_vec_bike_6,706,-1],[d_vec_bike_11,711,-1],[d_vec_bike_16,716,-1],[d_vec_bike_21,721,-1],
+		[d_vec_bike_2,702,-1],[d_vec_bike_7,707,-1],[d_vec_bike_12,712,-1],[d_vec_bike_17,717,-1],[d_vec_bike_22,722,-1],
+		[d_vec_bike_3,703,-1],[d_vec_bike_8,708,-1],[d_vec_bike_13,713,-1],[d_vec_bike_18,718,-1],[d_vec_bike_23,723,-1],
+		[d_vec_bike_4,704,-1],[d_vec_bike_9,709,-1],[d_vec_bike_14,714,-1],[d_vec_bike_19,719,-1],[d_vec_bike_24,724,-1],
+		[d_vec_bike_5,705,-1],[d_vec_bike_10,710,-1],[d_vec_bike_15,715,-1],[d_vec_bike_20,720,-1],[d_vec_bike_25,725,-1],
+		[d_vec_bike_26,726,-1],[d_vec_bike_29,729,-1],[d_vec_bike_32,732,-1],
+		[d_vec_bike_27,727,-1],[d_vec_bike_30,730,-1],
+		[d_vec_bike_28,728,-1],[d_vec_bike_31,731,-1],
 		
-		#ifdef __ALTIS__
-			[d_vec_bike_14,714,-1],[d_vec_bike_15,715,-1],[d_vec_bike_16,716,-1],[d_vec_bike_17,717,-1],[d_vec_bike_18,718,-1],
-			[d_vec_bike_19,719,-1],
-		#endif
+		// jetskis
+		[d_vec_bike_50,750,-1],[d_vec_bike_55,755,-1],[d_vec_bike_60,760,-1],[d_vec_bike_65,765,-1],[d_vec_bike_70,770,-1],
+		[d_vec_bike_51,751,-1],[d_vec_bike_56,756,-1],[d_vec_bike_61,761,-1],[d_vec_bike_66,766,-1],[d_vec_bike_71,771,-1],
+		[d_vec_bike_52,752,-1],[d_vec_bike_57,757,-1],[d_vec_bike_62,762,-1],[d_vec_bike_67,767,-1],[d_vec_bike_72,772,-1],
+		[d_vec_bike_53,753,-1],[d_vec_bike_58,758,-1],[d_vec_bike_63,763,-1],[d_vec_bike_68,768,-1],[d_vec_bike_73,773,-1],
+		[d_vec_bike_54,754,-1],[d_vec_bike_59,759,-1],[d_vec_bike_64,764,-1],[d_vec_bike_69,769,-1],[d_vec_bike_74,774,-1],
 		
 		[d_vec_car_1,801,-1], [d_vec_car_2,802,-1], [d_vec_car_3,803,-1],[d_vec_car_4,804,-1],
 		[d_vec_car_5,805,-1], [d_vec_car_6,806,-1], [d_vec_car_7,807,-1], [d_vec_car_8,808,-1],[d_vec_car_9,809,-1],
@@ -468,7 +475,17 @@ if (isServer) then {
 		
 		[d_vec_arty_1,940,-1],[d_vec_arty_2,941,-1],
 		
-		[d_vec_baseaa_1,950,-1]
+		[d_vec_baseaa_1,950,-1],		
+		[d_vec_baseaa_2,951,-1],
+		[d_vec_baseaa_3,980,-1],
+		//[d_vec_baseaa_4,990,-1],
+		[d_vec_baseaa_5,981,-1],
+		//[d_vec_baseaa_6,991,-1],
+		[d_vec_baseaa_7,982,-1],
+		//[d_vec_baseaa_8,992,-1],
+		[d_vec_baseaa_9,952,-1],
+		[d_vec_baseaa_10,953,-1],
+		[d_vec_baseaa_11,964,-1]
 		
 		];
 		
@@ -546,6 +563,7 @@ if (!hasInterface) then {
 	if (d_carrier) then {
 		["d_Ammobox_Reload_C", d_AMMOLOAD_C,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_5",0,"hd_dot"] call d_fnc_CreateMarkerLocal;
 		["d_service_point", d_serviceall_trigger,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_1761",0,"n_service"] call d_fnc_CreateMarkerLocal;
+    ["d_teleporter_airbase", d_flag_airfield,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_6",0,"mil_flag"] call d_fnc_CreateMarkerLocal;
 	};
 #else
 	["d_wreck_service", d_wreck_rep,"ICON","ColorYellow",[1,1],localize "STR_DOM_MISSIONSTRING_0",0,"n_service"] call d_fnc_CreateMarkerLocal;
@@ -569,6 +587,8 @@ if (!hasInterface) then {
 		"Start","d_chopper_serviceR","d_wreck_serviceR","d_teleporter_1","d_aircraft_serviceR","bonus_airR","bonus_vehiclesR","d_Ammobox ReloadR","Start_opfor","d_vehicle_serviceR", "d_runwaymarker_o", "d_runwaymarker"];
 #endif
 
+	// Hunter: unnecessary
+	/*
 	private _icounter_o = 0;
 	private _icounter_b = 0;
 	private _icounter_i = 0;
@@ -616,7 +636,7 @@ if (!hasInterface) then {
 		};
 		d_additional_respawn_points pushBack [format ["d_add_farp_%1", _x], str _x, _name, _side, true, getPosASL _x];
 	} forEach (_allmissobjs select {(str _x) select [0, 9] == "d_respawn_point"});
-
+	*/
 	if (d_with_ranked) then {
 		if (d_rhs) then {
 			call compile preprocessFileLineNumbers "i_weapons_rhs.sqf";

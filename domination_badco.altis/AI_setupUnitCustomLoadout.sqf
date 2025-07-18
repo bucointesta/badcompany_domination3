@@ -1,31 +1,69 @@
 #include "x_setup.sqf"
 
-
-#define G_UNIFORMS ([["U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Para_1_F"],["U_I_C_Soldier_Para_3_F"]] select (_isSpecops || {_isOfficer}))
-#define G_VESTS ["V_TacChestrig_oli_F","V_TacChestrig_grn_F","V_TacChestrig_cbr_F"]
+#ifndef __RHS__
+  #define G_UNIFORMS ([["U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Para_1_F"],["U_I_C_Soldier_Para_3_F"]] select (_isSpecops || {_isOfficer}))
+  #define G_VESTS ["V_TacChestrig_oli_F","V_TacChestrig_grn_F","V_TacChestrig_cbr_F"]
+#else
+  #ifdef __CUP_TAKISTAN__
+    #define G_UNIFORMS ([["U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Para_1_F"],["U_I_C_Soldier_Para_3_F"]] select (_isSpecops || {_isOfficer}))
+    #define G_VESTS ["V_TacChestrig_oli_F","V_TacChestrig_grn_F","V_TacChestrig_cbr_F"]
+  #else
+    #define G_UNIFORMS ([["rhs_uniform_afghanka_vsr_2"],["rhsgref_uniform_para_ttsko_urban"]] select _isSpecops)
+    #define G_VESTS ["rhs_chicom"]
+  #endif
+#endif
 
 #ifndef __RHS__
 	#define G_ARMOR ["V_CarrierRigKBT_01_light_EAF_F", "V_CarrierRigKBT_01_light_Olive_F"]
 	#define G_ARMOR_OFFICER "V_CarrierRigKBT_01_light_Olive_F"
 #else
-	#define G_ARMOR ["rhs_6b3_RPK", "rhs_6b3_VOG", "rhs_6b3_VOG_2"]
-	#define G_ARMOR_OFFICER "rhs_6b3_off"
+  #ifdef __CUP_TAKISTAN__
+    #define G_ARMOR ["rhs_6b3_RPK", "rhs_6b3_VOG", "rhs_6b3_VOG_2"]
+    #define G_ARMOR_OFFICER "rhs_6b3_off"
+  #else
+    #define G_ARMOR ([["rhs_6b5_vsr"],["rhs_6b45_rifleman"]] select _isSpecops)
+    #define G_ARMOR_OFFICER "rhs_6b5_officer_vsr"
+  #endif
 #endif
 
-#define G_HEADGEAR ["H_Shemag_olive","H_ShemagOpen_tan"]
+#ifndef __RHS__
+  #define G_HEADGEAR ["H_Shemag_olive","H_ShemagOpen_tan"]
+#else
+  #ifdef __CUP_TAKISTAN__
+    #define G_HEADGEAR ["H_Shemag_olive","H_ShemagOpen_tan"]
+  #else
+    #define G_HEADGEAR ["rhs_fieldcap_m88_vsr"]
+  #endif
+#endif
 
 #ifndef __RHS__
 	#define G_HELMET (["H_PASGT_basic_olive_F", "H_HelmetAggressor_F"] select _isSpecops)
 #else
-	#define G_HELMET (["rhsgref_helmet_pasgt_olive", "rhs_altyn_novisor"] select _isSpecops)
+  #ifdef __CUP_TAKISTAN__
+    #define G_HELMET (["rhsgref_helmet_pasgt_olive", "rhs_altyn_novisor"] select _isSpecops)
+  #else
+    #define G_HELMET (["rhs_6b27m_green", "rhs_altyn_novisor"] select _isSpecops)
+  #endif
 #endif
 
-#define G_FACEWEAR ([["G_Bandanna_tan","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_aviator"],["G_Bandanna_shades"]] select _isSpecops)
+#ifndef __RHS__
+  #define G_FACEWEAR ([["G_Bandanna_tan","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_aviator"],["G_Bandanna_shades"]] select _isSpecops)
+#else
+  #ifdef __CUP_TAKISTAN__
+    #define G_FACEWEAR ([["G_Bandanna_tan","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_aviator"],["G_Bandanna_shades"]] select _isSpecops)
+  #else
+    #define G_FACEWEAR ([["G_Balaclava_oli"],["G_Balaclava_blk"]] select _isSpecops)
+  #endif
+#endif
 
 #ifndef __RHS__
 	#define G_BACKPACKS ([["B_FieldPack_cbr","B_FieldPack_green_F","B_FieldPack_oli"], ["B_FieldPack_green_F"]] select _isSpecops)
 #else
-	#define G_BACKPACKS ([["rhs_rd54"], ["rhs_assault_umbts"]] select _isSpecops)
+  #ifdef __CUP_TAKISTAN__
+    #define G_BACKPACKS ([["rhs_rd54"], ["rhs_assault_umbts"]] select _isSpecops)
+  #else
+    #define G_BACKPACKS ([["rhs_rd54_flora2"], ["rhs_tortila_black"]] select _isSpecops)
+  #endif
 #endif
 
 #define G_RIFLE1FROM "arifle_Katiba_F"
@@ -169,19 +207,49 @@ if ((vehicle _this) != _this) then {
 	} else {
 			if (_isSpecops || {(call d_fnc_PlayersNumber) >= 15}) then {
 			_unit addHeadgear G_HELMET;
-			if (_isSpecops || {(random 1) < 0.5}) then {
-				_unit linkItem (selectRandom G_FACEWEAR);
-			};
+      
+      #ifdef __RHS__
+        #ifdef __CUP_TAKISTAN__
+          if (_isSpecops || {(random 1) < 0.5}) then {
+            _unit linkItem (selectRandom G_FACEWEAR);
+          };
+        #else
+          _unit linkItem (selectRandom G_FACEWEAR);
+        #endif
+      #else
+        if (_isSpecops || {(random 1) < 0.5}) then {
+          _unit linkItem (selectRandom G_FACEWEAR);
+        };
+      #endif
+			
 			if (_isSpecops || {(daytime > 19) || {daytime < 5}}) then {
 				_unit linkItem G_NVGTO;
 			};
 		} else {
-			if ((random 1) < 0.5) then {
-				_unit addheadgear (selectRandom G_HEADGEAR);
-			} else {
-				removeHeadgear _unit;
-				_unit linkItem (selectRandom G_FACEWEAR);
-			};
+      #ifdef __RHS__
+        #ifdef __CUP_TAKISTAN__
+          if ((random 1) < 0.5) then {
+            _unit addheadgear (selectRandom G_HEADGEAR);
+          } else {
+            removeHeadgear _unit;
+            _unit linkItem (selectRandom G_FACEWEAR);
+          };
+        #else
+          if ((random 1) < 0.5) then {
+            _unit addheadgear (selectRandom G_HEADGEAR);
+          } else {
+            removeHeadgear _unit;
+          };
+          _unit linkItem (selectRandom G_FACEWEAR);
+        #endif
+      #else
+        if ((random 1) < 0.5) then {
+          _unit addheadgear (selectRandom G_HEADGEAR);
+        } else {
+          removeHeadgear _unit;
+          _unit linkItem (selectRandom G_FACEWEAR);
+        };
+      #endif			
 		};
 	};	
 	
@@ -348,6 +416,13 @@ if ((vehicle _this) != _this) then {
 			#endif
 		};
 		case "launch_O_Vorona_brown_F" : {
+      #ifdef __RHS__
+        #ifndef __CUP_TAKISTAN__
+          _unit removeWeapon "launch_O_Vorona_brown_F";
+          _unit addWeapon "launch_O_Vorona_green_F";
+          _unit addSecondaryWeaponItem "Vorona_HEAT";
+        #endif
+      #endif
 			_unit addMagazines ["Vorona_HEAT", 2];
 		};
 	};

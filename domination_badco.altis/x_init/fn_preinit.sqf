@@ -1374,7 +1374,7 @@ if (hasInterface) then {
 	#ifndef __RHS__
 	["B_Truck_01_covered_F", "B_Truck_01_transport_F", "B_Truck_01_mover_F", "B_Heli_Transport_03_F","I_Boat_Armed_01_minigun_F"];
 	#else
-	["RHSUSF_M1078A1P2_B_D_CP_FMTV_USARMY","RHSUSF_M1078A1P2_B_M2_D_FMTV_USARMY","RHSUSF_M1083A1P2_B_M2_D_FMTV_USARMY","RHS_CH_47F_10","RHSUSF_MKVSOC"];
+	["RHSUSF_M1078A1P2_B_D_CP_FMTV_USARMY","RHSUSF_M1078A1P2_B_M2_D_FMTV_USARMY","RHSUSF_M1083A1P2_B_M2_D_FMTV_USARMY","RHS_CH_47F_10","RHSUSF_MKVSOC","rhsusf_CH53E_USMC"];
 	#endif
 #endif
 #ifdef __OWN_SIDE_OPFOR__
@@ -1551,7 +1551,7 @@ if (hasInterface) then {
 	d_additional_respawn_points = [];
 	
 #ifdef __CARRIER__
-	d_additional_respawn_points pushBack ["d_air_base", "d_flag_airfield", localize "STR_DOM_MISSIONSTRING_1760", blufor, true, getPosASL D_FLAG_BASE];
+	d_additional_respawn_points pushBack ["d_air_base", "d_flag_airfield", "Air Base", blufor, true, getPosASL D_FLAG_BASE];
 #endif
 
 	d_add_resp_points_uni = [];

@@ -9,19 +9,24 @@ private _vecnum =  param [2];
 
 if (_enterer == "d_admin") exitWith {true};
 
-if ((_vecnum >= 900) && {_vecnum < 950} && {!(_enterer in d_crewmen)}) exitWith {
+if ((((_vecnum >= 900) && {_vecnum < 950}) || {(_vecnum >= 980) && {_vecnum < 1000}}) && {!(_enterer in d_crewmen)}) exitWith {
 	hint "You need to be a crewman to use this vehicle.";
 	false
 };
 
-if ((_vecnum >= 940) && {_vecnum < 950}) then {
+if (((_vecnum >= 940) && {_vecnum < 950}) || {(_vecnum >= 980) && {_vecnum < 1000}}) then {
 	if (player == (gunner _vec)) then {
 		_vec spawn {
 			private _noSightVicTypes = ["rhsusf_M142_usarmy_D", "rhsgref_cdf_b_reg_BM21"];
+			private _shipWeaponTypes = ["B_Ship_Gun_01_F"];
 			private _mags = [];
 			private _hasSights = true;
 			if ((typeof vehicle player) in _noSightVicTypes) then {
 				_hasSights = false;
+			};
+      private _isNotShipWeapon = true;
+      if ((typeof vehicle player) in _shipWeaponTypes) then {
+				_isNotShipWeapon = false;
 			};
 			private _sleepTime = [0.1, 0.75] select _hasSights;
 			private _gun = _this getVariable ["gun", ""];
@@ -38,9 +43,9 @@ if ((_vecnum >= 940) && {_vecnum < 950}) then {
 			
 			while {(alive player) && {(gunner _this) == player}} do {
 				if (((count allPlayers) < 50)
-				|| {(_this distance2D (markerPos "d_base_marker")) < 1500}
-				|| {(_this distance2D d_cur_tgt_pos) < 3500}
-				|| {((getposATL _this) select 2) > 10}
+				|| {_isNotShipWeapon && ((_this distance2D (markerPos "d_base_marker")) < 1500)}
+				|| {_isNotShipWeapon && ((_this distance2D d_cur_tgt_pos) < 3500)}
+				|| {_isNotShipWeapon && (((getposATL _this) select 2) > 10)}
 				|| {({(_x distance d_cur_tgt_pos) < 1000} count playableUnits) < 6}) then {
 					if (!_locked) then {
 						_locked = true;
@@ -51,9 +56,13 @@ if ((_vecnum >= 940) && {_vecnum < 950}) then {
 						#ifndef __RHS__
 							_this switchCamera "INTERNAL";
 						#else
-							_this switchCamera "EXTERNAL";
+              if (_isNotShipWeapon) then {
+                _this switchCamera "EXTERNAL";
+              } else {
+                _this switchCamera "INTERNAL";
+              };
 						#endif
-					};
+					};          
 					hintSilent "Artillery is disabled when:\n\n1) There are less than 50 players on the server\n\n2) You are closer than 1.5 km to base\n\n3) You are closer than 3.5 km to the AO.\n\n4) There are less than 6 players within 1 km of the AO to give you targets.";
 				} else {
 					if (_locked) then {
@@ -80,9 +89,9 @@ if ((_vecnum >= 940) && {_vecnum < 950}) then {
 					};
 				} foreach 
 					#ifndef __RHS__
-						["4Rnd_155mm_Mo_guided","6Rnd_155mm_Mo_mine","2Rnd_155mm_Mo_Cluster","2Rnd_155mm_Mo_LG","6Rnd_155mm_Mo_AT_mine"];
+						["4Rnd_155mm_Mo_guided","6Rnd_155mm_Mo_mine","2Rnd_155mm_Mo_Cluster","2Rnd_155mm_Mo_LG","6Rnd_155mm_Mo_AT_mine","magazine_ShipCannon_120mm_HE_guided_shells_x2","magazine_ShipCannon_120mm_HE_LG_shells_x2","magazine_ShipCannon_120mm_HE_cluster_shells_x2","magazine_ShipCannon_120mm_mine_shells_x6","magazine_ShipCannon_120mm_AT_mine_shells_x6"];
 					#else
-						["rhs_mag_155mm_m712_2","rhs_mag_155mm_m731_1","rhs_mag_155mm_raams_1","rhs_mag_155mm_m864_3"];
+						["rhs_mag_155mm_m712_2","rhs_mag_155mm_m731_1","rhs_mag_155mm_raams_1","rhs_mag_155mm_m864_3","magazine_ShipCannon_120mm_HE_guided_shells_x2","magazine_ShipCannon_120mm_HE_LG_shells_x2","magazine_ShipCannon_120mm_HE_cluster_shells_x2","magazine_ShipCannon_120mm_mine_shells_x6","magazine_ShipCannon_120mm_AT_mine_shells_x6"];
 					#endif
 				
 				sleep _sleepTime;
@@ -134,7 +143,7 @@ if (_vecnum == 3011) exitWith {hint "This is an admin reserved chopper";false};
 
 if ((_vec isKindOf "Air") && {!(_enterer in _pilots)}) exitWith {hint "You need to be a pilot to fly this aircraft";false};
 
-if ((_vecnum in [806,807,808,721,729,730,3009,3010]) && {!(call d_fnc_isbadco)}) exitWith {hint "This vehicle is reserved for Bad Company members";false};
+if ((_vecnum in [806,807,808,721,729,730,756,757,3009,3010]) && {!(call d_fnc_isbadco)}) exitWith {hint "This vehicle is reserved for Bad Company members";false};
 
 //if (((_vecnum == 3008) || {_vecnum == 3101} || {_vecnum == 3102} || {_vecnum == 3005}) && {!(_enterer in d_attack_pilots)}) exitWith {hint "You need to be an attack pilot to fly this vehicle";false};
 //if ((_vec isKindOf "Air") && {!((_enterer in d_attack_pilots) || {_enterer in _transPilots})}) exitWith {hint "You need to be a pilot to fly this vehicle";false};

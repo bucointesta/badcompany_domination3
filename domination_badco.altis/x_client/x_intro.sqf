@@ -92,7 +92,12 @@ if (_firstTimeJoined) then {
 	#ifndef __TT__
 	d_intro_color = switch (d_own_side) do {case "WEST": {[0.85,0.88,1,1]};case "EAST": {[1,0.36,0.34,1]};case "GUER": {[1,1,0,1]};};
 	_camstart = markerPos "d_camstart";
-	deleteMarkerLocal "d_camstart";
+	//deleteMarkerLocal "d_camstart";
+		#ifdef __CARRIER__
+			if ((player distance2D (markerpos "d_camstart_c")) < (player distance2D (markerpos "d_camstart"))) then {
+				_camstart = markerpos "d_camstart_c";
+			};
+		#endif
 	#else
 	private "_camstart";
 	if (side (group player) == blufor) then {

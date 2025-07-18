@@ -181,7 +181,13 @@ if (call d_fnc_checkSHC) then {
 #endif
 #ifdef __RHS__
 	d_sm_convoy_vehicles = switch (d_enemy_side_short) do {
-		case "E": {["rhs_btr80a_vdv","rhsgref_cdf_zsu234", "rhs_btr80a_vdv", "rhsgref_cdf_ural_repair", "rhsgref_cdf_ural_fuel", "rhsgref_nat_ural", "O_APC_Tracked_02_AA_F"]};
+		case "E": {["rhs_btr80a_vdv","rhsgref_cdf_zsu234", "rhs_btr80a_vdv", "rhsgref_cdf_ural_repair", "rhsgref_cdf_ural_fuel", "rhsgref_nat_ural",
+      #ifdef __CUP_TAKISTAN__
+        "O_APC_Tracked_02_AA_F"
+      #else
+        "O_T_APC_Tracked_02_AA_ghex_F"
+      #endif
+      ]};
 		case "W": {["rhsusf_M1117_D","RHS_M6", "RHS_M2A3_BUSKIII", "rhsusf_M977A4_REPAIR_usarmy_d", "rhsusf_M977A4_AMMO_usarmy_d", "rhsusf_M978A4_usarmy_d", "RHS_M2A2_BUSKI"]};
 		case "G": {["I_MRAP_03_gmg_F","I_APC_tracked_03_cannon_F", "I_MBT_03_cannon_F", "I_Truck_02_box_F", "I_Truck_02_fuel_F", "I_Truck_02_ammo_F", "I_APC_tracked_03_cannon_F"]};
 	};

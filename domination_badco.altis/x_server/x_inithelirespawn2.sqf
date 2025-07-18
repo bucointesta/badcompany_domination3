@@ -17,6 +17,35 @@ each chopper is an array composed like this:
 7) time of inactivity left (during countdown) before respawn or -1 
 8) time of inactivity before respawn or -1 
 */
+// Hunter: Xeno runs this code on mission.sqm individually on all carrier-placed aircraft...
+if (d_carrier) then {
+	_this spawn {
+		sleep 1;
+		_pos = [];
+		_flagHeight = ((getPosASL d_FLAG_BASE) select 2) + 0.01;
+		{
+			_height = _flagHeight;
+			_vec_a = _x;
+			_vec_a params ["_vec"];
+			if (!isNil "_vec" && {!isNull _vec}) then {
+				if (surfaceIsWater getpos _vec) then {
+					_pos = getPosASL _vec;
+					_objs = nearestObjects [_pos, ["Land_MapBoard_F"], 100, true];
+					if ((count _objs) > 0) then {
+						_height = ((getPosASL (_objs select 0)) select 2) + 0.01;
+					};
+          _pos set [2, _height];
+          _vec enableSimulation true;
+					_vec setVectorUp [0,0,1];					
+					_vec setPosASL _pos;
+					_vec setDamage 0;
+				};
+			};
+		} foreach _this;
+	};
+};
+
+
 d_helirespawn2_ar = [];
 {
 	private _vec_a = _x;
@@ -24,6 +53,9 @@ d_helirespawn2_ar = [];
 	if (!isNil "_vec" && {!isNull _vec}) then {
 		_vec_a params ["", "_number_v", "_ifdamage"];
 		private _vposp = (getPosATL _vec) vectorAdd [0, 0, 0.1];
+		if ((d_carrier) && {surfaceIsWater getpos _vec}) then {
+			_vposp set [2, ((getPosASL d_FLAG_BASE) select 2) + 0.1];
+		};
 		d_helirespawn2_ar pushBack [_vec, _number_v, _ifdamage, -1, _vposp, direction _vec, typeOf _vec, _vec_a # 3, -1, _vec call d_fnc_getskinpoly];
 		
 		_vec setVariable ["d_OUT_OF_SPACE", -1];
