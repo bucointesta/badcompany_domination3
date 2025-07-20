@@ -32,7 +32,7 @@ if (d_carrier) then {
 					_pos = getPosASL _vec;
 					_objs = nearestObjects [_pos, ["Land_MapBoard_F"], 100, true];
 					if ((count _objs) > 0) then {
-						_height = ((getPosASL (_objs select 0)) select 2) + 0.01;
+						_height = ((getPosASL (_objs select 0)) select 2) + 0.1;
 					};
           _pos set [2, _height];
           _vec enableSimulation true;
@@ -54,7 +54,19 @@ d_helirespawn2_ar = [];
 		_vec_a params ["", "_number_v", "_ifdamage"];
 		private _vposp = (getPosATL _vec) vectorAdd [0, 0, 0.1];
 		if ((d_carrier) && {surfaceIsWater getpos _vec}) then {
-			_vposp set [2, ((getPosASL d_FLAG_BASE) select 2) + 0.1];
+      private _pos = getPosASL _vec;
+      private _objs = nearestObjects [_pos, ["Land_MapBoard_F"], 100, true];
+      private _isHangarChopper = false;
+      if (_number_v == 3010) then {
+        _isHangarChopper = true;
+      };
+      if ((count _objs) > 0) then {
+        _vposp set [2, ((getPosASL (_objs select 0)) select 2) + 1];
+        if (_isHangarChopper) then {
+          _vposp set [2, ((getPosASL (_objs select 0)) select 2) + 0.1];
+        };
+        _vposp = ASLToATL _vposp; // waves change ASL, so try to grab a stable ATL pos specific to the vehicle at init
+      };      
 		};
 		d_helirespawn2_ar pushBack [_vec, _number_v, _ifdamage, -1, _vposp, direction _vec, typeOf _vec, _vec_a # 3, -1, _vec call d_fnc_getskinpoly];
 		

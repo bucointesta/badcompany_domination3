@@ -114,7 +114,17 @@ while {true} do {
 			deleteVehicle _vec;
 			if (!_ifdamage) then {_vec_a set [3,-1]};
 			sleep 0.5;
-			_vec = createVehicle [_vec_a # 6, _vec_a # 4, [], 0, "NONE"]; //"NONE"
+      
+      private _vec = objNull;
+      if (d_carrier) then {
+        if (_number_v == 3010) then {
+          _vec = createVehicle [_vec_a # 6, (_vec_a # 4) vectorAdd [0,0,50000], [], 0, "NONE"];
+        } else {
+          _vec = createVehicle [_vec_a # 6, _vec_a # 4, [], 0, "NONE"];
+        };
+      } else {
+        _vec = createVehicle [_vec_a # 6, _vec_a # 4, [], 0, "NONE"];
+      };			
 			/*
 			if ((_number_v == 3009)
 			#ifndef __RHS__
@@ -129,39 +139,28 @@ while {true} do {
 				};
 			#endif
 			*/
-			_vec setDir (_vec_a # 5);
-			_vec setPos (_vec_a # 4);
+      
+      //_vec setFuel _fuelleft;
+			[_vec, _skinpoly] call d_fnc_skinpolyresp; // important to have it early in case it changes geometry 
+			_skinpoly = nil;
+			
+      _vec setDir (_vec_a # 5);
 			private _cposc = _vec_a # 4;
 			__TRACE_2("","_vec","_cposc")
-			if (surfaceIsWater _cposc) then {
-				private _asl_height = -99;
-				if (!isNil "d_the_carrier") then {
-					_asl_height = d_the_carrier getVariable "d_asl_height";
-				};
-				if (_asl_height == -99) then {
-					_asl_height = ((getPosASL d_FLAG_BASE) # 2) + 0.01;
-				};
-				_cposc set [2, _asl_height];
-				[_vec, _cposc] spawn {
-					params ["_vec", "_cposc"];
-					sleep 1;
-					_vec setVectorUp [0,0,1];
-					_vec setPosASL _cposc;
-					_vec setDamage 0;
-				};
-			};
+      if (surfaceIsWater _cposc) then {
+        _vec setVectorUp [0,0,1];
+      };
+      _vec setPosATL _cposc;
+      
 			_vec setVariable ["d_vec_islocked", _isitlocked];
 			if (_isitlocked) then {_vec lock true};
 			
 			if (unitIsUAV _vec) then {
 				createVehicleCrew _vec;
 				_vec allowCrewInImmobile true;
-			};
+			};			
 			
-			//_vec setFuel _fuelleft;
 			_vec setDamage 0;
-			[_vec, _skinpoly] call d_fnc_skinpolyresp;
-			_skinpoly = nil;
 			
 			_vec addEventhandler ["local", {_this call d_fnc_heli_local_check}];
 			
