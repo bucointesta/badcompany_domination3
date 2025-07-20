@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={14102.342,3.670675,11900.304};
-		dir[]={-0.66312021,-0.73908883,0.11868942};
-		up[]={-0.72756994,0.67356443,0.13022448};
-		aside[]={0.17619026,-1.5993719e-06,0.9843877};
+		pos[]={14141.331,-6.6480737,11936.655};
+		dir[]={-0.71049511,-0.52616519,-0.46731386};
+		up[]={-0.43959972,0.85038131,-0.28913793};
+		aside[]={-0.54953045,3.7183054e-07,0.83549517};
 	};
 };
 binarizationWanted=0;
@@ -687,6 +687,18 @@ class CustomAttributes
 		name="Multiplayer";
 		class Attribute0
 		{
+			property="RespawnTemplates";
+			expression="true";
+			class Value
+			{
+				class data
+				{
+					singleType="ARRAY";
+				};
+			};
+		};
+		class Attribute1
+		{
 			property="RespawnButton";
 			expression="true";
 			class Value
@@ -695,18 +707,6 @@ class CustomAttributes
 				{
 					singleType="SCALAR";
 					value=0;
-				};
-			};
-		};
-		class Attribute1
-		{
-			property="RespawnTemplates";
-			expression="true";
-			class Value
-			{
-				class data
-				{
-					singleType="ARRAY";
 				};
 			};
 		};
@@ -46173,19 +46173,19 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={15015.615,27.388458,12004.889};
-				angles[]={0,4.6134238,0};
+				position[]={15015.615,27.38858,12004.889};
+				angles[]={0,4.6134286,0};
 			};
 			side="Empty";
 			class Attributes
 			{
 				lock="UNLOCKED";
 				name="d_attack_2";
-				pylons="FIR_AIM9M_P_1rnd_M;FIR_AIM9M_LAU115_P_2rnd_M;FIR_AIM120B_LAU115_P_1rnd_M;FIR_AIM120B_P_1rnd_M;FIR_GBU55_Navy_P_1rnd_M;FIR_AIM120B_P_1rnd_M;FIR_AIM120B_LAU115_P_1rnd_M;FIR_AIM9M_LAU115_P_2rnd_M;FIR_AIM9M_P_1rnd_M;";
+				pylons="FIR_AIM9M_P_1rnd_M;FIR_AIM9M_LAU115_P_2rnd_M;FIR_AIM120B_LAU115_P_1rnd_M;FIR_AIM120B_P_1rnd_M;FIR_Empty_P_1rnd_M;FIR_AIM120B_P_1rnd_M;FIR_AIM120B_LAU115_P_1rnd_M;FIR_AIM9M_LAU115_P_2rnd_M;FIR_AIM9M_P_1rnd_M;";
 			};
 			id=2098;
 			type="FIR_F18C_VMFA321";
-			atlOffset=0.50320244;
+			atlOffset=0.50332451;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -46217,7 +46217,7 @@ class Mission
 			{
 				lock="UNLOCKED";
 				name="d_attack_1";
-				pylons="FIR_AIM9M_LAU115_P_1rnd_M;FIR_AGM65D_P_1rnd_M;FIR_GBU12_Navy_P_3rnd_M;FIR_GBU12_Navy_P_3rnd_M;FIR_AGM65D_P_1rnd_M;FIR_AIM9M_LAU115_P_1rnd_M;;FIR_Gunpod_Nomodel_P_1rnd_M;";
+				pylons="FIR_AIM9M_LAU115_P_1rnd_M;FIR_AGM65E_P_1rnd_M;FIR_Mk82_GP_P_3rnd_M;FIR_GBU12_Navy_P_3rnd_M;FIR_AGM65E_P_1rnd_M;FIR_AIM9M_LAU115_P_1rnd_M;FIR_Empty_P_1rnd_M;FIR_Gunpod_Nomodel_P_1rnd_M;";
 			};
 			id=2101;
 			type="FIR_AV8B_VMA311";
@@ -46461,10 +46461,11 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={14965.334,25.6418,12031.633};
-				angles[]={0,4.7842784,0};
+				position[]={14965.334,25.707733,12031.634};
+				angles[]={0,4.7842789,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 				skill=0.60000002;
@@ -46473,7 +46474,7 @@ class Mission
 			};
 			id=2115;
 			type="Land_MapBoard_Enoch_F";
-			atlOffset=164.87915;
+			atlOffset=0.065601349;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -51261,7 +51262,7 @@ class Mission
 			class Attributes
 			{
 				lock="UNLOCKED";
-				init="if (isServer) then {" \n "this setVariable [""BIS_enableRandomization"",false];" \n "this setObjectTexture [0, ""#(rgb,8,8,3)color(0.1,0.1,0.1,0.8)""];" \n "};";
+				init="if (isServer) then {" \n "this setVariable [""BIS_enableRandomization"",false];" \n "};" \n "this setObjectTexture [0, ""#(rgb,8,8,3)color(0.1,0.1,0.1,0.8)""];";
 				name="d_vec_bike_56";
 				textures="Grey";
 			};
@@ -51335,7 +51336,7 @@ class Mission
 			class Attributes
 			{
 				lock="UNLOCKED";
-				init="if (isServer) then {" \n "this setVariable [""BIS_enableRandomization"",false];" \n "this setObjectTexture [0, ""#(rgb,8,8,3)color(0.1,0.1,0.1,0.8)""];" \n "};";
+				init="if (isServer) then {" \n "this setVariable [""BIS_enableRandomization"",false];" \n "};" \n "this setObjectTexture [0, ""#(rgb,8,8,3)color(0.1,0.1,0.1,0.8)""];";
 				name="d_vec_bike_57";
 				textures="Grey";
 			};
@@ -63577,7 +63578,7 @@ class Mission
 			};
 			id=2967;
 			type="rhsusf_CH53E_USMC";
-			atlOffset=1.0428143;
+			atlOffset=2.0905514;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -63613,7 +63614,7 @@ class Mission
 			};
 			id=2969;
 			type="rhsusf_CH53E_USMC";
-			atlOffset=1.4594002;
+			atlOffset=2.8541565;
 			class CustomAttributes
 			{
 				class Attribute0

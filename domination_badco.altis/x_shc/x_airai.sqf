@@ -443,7 +443,12 @@ _pat_pos set [2, _cur_tgt_pos select 2]
 		};
 		if (_vehicles isEqualTo []) exitWith {
 			__TRACE("_vehicles array IS empty")
-			{deleteVehicle _x} forEach _funits;
+      _funits spawn {
+        _funits = +_this;
+        sleep 30;
+        {deleteVehicle _x} forEach _funits;
+      };
+      sleep 2;
 			_funits = [];
 			_vehicles = [];
 		};

@@ -1134,7 +1134,7 @@ player addEventHandler ["Respawn",{
 }];
 
 if ((!isNil "d_badco_helicontroller") && {call d_fnc_isbadco}) then {
-	 d_badco_helicontroller addAction ["Deploy UH-1Y", "logistics\deploybadcochopper.sqf", nil, 50, true, true, "", "true", 2];
+	 d_badco_helicontroller addAction ["<t color='#808080' size='2.0'>Deploy UH-1Y</t>", "logistics\deploybadcochopper.sqf", nil, 50, true, true, "", "true", 2];
 };
 /*
 player addEventHandler ["Respawn",{

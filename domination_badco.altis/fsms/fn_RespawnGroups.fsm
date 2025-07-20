@@ -44,7 +44,7 @@ link20[] = {15,2};
 link21[] = {16,17};
 link22[] = {18,17};
 globals[] = {0.000000,0,0,0,0,640,480,1,49,6316128,1,-396.286530,489.851135,660.415344,-328.449005,923,1030,1};
-window[] = {2,-1,-1,-1,-1,1033,670,1630,315,3,941};
+window[] = {2,-1,-1,-1,-1,822,104,1064,104,3,941};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -157,7 +157,7 @@ class FSM
        "private _isInfGrp = false;" \n
        "if (_onegrpar isEqualType []) then {" \n
        "	private _grp = _onegrpar select 0;" \n
-       "	if (isNull _grp || {(units _grp) findIf {alive _x} == -1}) then {" \n
+       "	if (isNull _grp || {(units _grp) findIf {alive _x} == -1} || {(units _grp) findIf {(isNull assignedVehicle _x) || {canMove assignedVehicle _x}} == -1}) then {" \n
        "		_mg_array = _onegrpar select 1;" \n
        "		if ((_mg_array select 0) in [""allmen"", ""specops""]) then {" \n
        "			if  (!d_mt_barracks_down) then {" \n
@@ -198,6 +198,7 @@ class FSM
        "			};" \n
        "			d_respawn_ai_groups set [_counter, -1];" \n
        "		} else {" \n
+       "			{_x setdamage 1;} foreach units _grp;" \n
        "			if (!d_mt_mobile_hq_down) then {" \n
        "				private _resp_mid = _mg_array select 11;" \n
        "				_mg_array set [1, [[_resp_mid select 0, 600, 400, _resp_mid select 1] call d_fnc_GetRanPointSquare]];" \n
