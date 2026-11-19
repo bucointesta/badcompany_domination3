@@ -453,7 +453,10 @@ private _confmapsize = call {
 	floor (getNumber(configFile>>"CfgWorlds">>worldName>>"mapSize")*1.2)
 };
 
-if (_mapSizeModified) then {
+if (_mapSizeModified) then {	
+	if (_confmapsize == 0) then {
+		_confmapsize = worldSize*1.2;
+	};	
 	d_island_center = [floor (_confmapsize / 2.4), floor (_confmapsize / 2.4), 300];	
 } else {
 	d_island_center = [_confmapsize / 2, _confmapsize / 2, 300];
