@@ -735,7 +735,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="BadCo Domination RHS Chernarus";
+		briefingName="BadCo Domination RHS Chernarus Winter";
 		overviewText="Bad Company Domination";
 		resistanceWest=0;
 		resistanceEast=1;
