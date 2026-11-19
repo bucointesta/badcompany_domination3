@@ -50,7 +50,7 @@ if (d_GrasAtStart == 1) then {setTerrainGrid 50};
 
 if (isServer) then {
 
-	//Hunter: Bad method. Works only if you leave time inside editor at midnight...
+	//Hunter: The original was a bad method. Works only if you leave time inside editor at midnight...
 	//skipTime d_TimeOfDay;
 	
 	// d_TimeOfDay as a parameter is now obsolete. use editor to grab set time
@@ -63,6 +63,11 @@ if (isServer) then {
 			sleep 1;
 			((call d_fnc_PlayersNumber) > 0)
 		};
+		
+		_overcast = overcast;
+		_rain = rain;
+		_fog = fog;
+		
 		_date = date;
 		_date set [3,_hour];
 		_date set [4,_min];
@@ -72,20 +77,28 @@ if (isServer) then {
 		sleep 1;
 		skipTime (random 24);
 		
-		waitUntil {
-			sleep 120;
-			daytime > 20
-		};
-		setTimeMultiplier 4.0;
-		waitUntil {
-			sleep 120;
-			daytime < _hour
-		};
-		waitUntil {
-			sleep 120;
-			daytime > _hour
-		};
-		setTimeMultiplier 1.0;
+		sleep 1;
+		0 setOvercast _overcast;
+		0 setRain _rain;
+		0 setFog _fog;
+		forceWeatherChange;
+		
+		while {true} do {
+				waitUntil {
+				sleep 120;
+				daytime > 20
+			};
+			setTimeMultiplier 4.0;
+			waitUntil {
+				sleep 120;
+				daytime < _hour
+			};
+			waitUntil {
+				sleep 120;
+				daytime > _hour
+			};
+			setTimeMultiplier 1.0;			
+		};		
 	};
 
 };

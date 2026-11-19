@@ -44,8 +44,9 @@ class FSM
     {
       name = "Change_Weather";
       init = /*%FSM<STATEINIT""">*/"private _ransecs = 1800 + random 600;" \n
-       "_ransecs setOvercast (random [0.0, 0.0, 1.0]);" \n
-       "private _rain = random [0.0, 0.1, 1.0];" \n
+       "private _overcast = random d_weather_overcastDistribution;" \n
+       "_ransecs setOvercast _overcast;" \n
+       "private _rain = random d_weather_rainDistribution;" \n
        "if (_rain < 0.1) then {" \n
        "_rain = 0;" \n
        "};" \n
@@ -53,15 +54,15 @@ class FSM
        "" \n
        "_wchange = time + (2400 + (random 1800)) + _ransecs;" \n
        "" \n
-       "if (d_enable_fog == 0) then {" \n
-       "	private _fog = [[0,0,0], [random 0.1, 0.1, 20 + (random 40)]] select (random 100 > 90);" \n
-       "	400 setFog _fog;" \n
+       "if (d_enable_fog == 0 || {d_WithWinterWeather == 0}) then {" \n
+       "	private _fog = [[0,0,0], [random [0.05, 0.2, 1.0], 0, 20 + (random 40)]] select (((_overcast > 0.7) && {(random 1) < 0.5}));" \n
+       "	_ransecs setFog _fog;" \n
        "} else {" \n
        "	0 setFog [0,0,0];" \n
        "};" \n
        "" \n
        "if (d_WithWinterWeather == 0) then {" \n
-       "	private _ww = if (_overCast > 0.5) then {if (rain <= 0.3) then {1} else {2}} else {0};" \n
+       "	private _ww = if (_overCast > 0.7) then {if (_rain <= 0.3) then {1} else {2}} else {0};" \n
        "	if (_ww != d_winterw) then {" \n
        "		d_winterw = _ww;" \n
        "		publicVariable ""d_winterw"";" \n

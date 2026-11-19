@@ -571,6 +571,19 @@ if (isServer) then {
 			paramsArray = nil;
 		};
 	};
+	
+#ifdef __WINTER__
+		d_WithWinterWeather = 0;
+#endif
+	
+	if (d_WithWinterWeather == 0) then {
+			d_weather_overcastDistribution = [0.0, 0.75, 1.0];
+			d_weather_rainDistribution = [0.0, 0.15, 0.5];
+	} else {
+			d_weather_overcastDistribution = [0.0, 0.0, 1.0];
+			d_weather_rainDistribution = [0.0, 0.1, 1.0]; 
+	};
+
 	call compile preprocessFileLineNumbers "x_init\x_initcommon.sqf";
 	
 	d_house_objects = [];
@@ -582,15 +595,16 @@ if (isServer) then {
 if (_isserv_or_hc) then {
 	if (isServer) then {
 		if (d_weather == 0) then {
-			0 setOvercast (random [0.0, 0.0, 1.0]);
-			private _rain = random [0.0, 0.1, 1.0];
+			private _overcast = random d_weather_overcastDistribution;
+			0 setOvercast _overcast;
+			private _rain = random d_weather_rainDistribution;
 			if (_rain < 0.1) then {
 			_rain = 0;
 			};
 			0 setRain _rain;
-			if (d_enable_fog == 0) then {
-				private _fog = if (random 100 > 90) then {
-					[random 0.1, 0.1, 20 + (random 40)]
+			if (d_enable_fog == 0 || {d_WithWinterWeather == 0}) then {
+				private _fog = if ((_overcast > 0.7) && {(random 1) < 0.5}) then {
+					[random [0.05, 0.2, 1.0], 0, 20 + (random 40)]
 				} else {
 					[0,0,0]
 				};
@@ -607,7 +621,7 @@ if (_isserv_or_hc) then {
 			};
 			forceWeatherChange;
 			if (d_WithWinterWeather == 0) then {
-				d_winterw = [0, [2, 1] select (rain <= 0.3)] select (overcast > 0.5);
+				d_winterw = [0, [2, 1] select (_rain <= 0.3)] select (_overcast > 0.7);
 				publicVariable "d_winterw";
 			};
 		} else {

@@ -10,6 +10,8 @@ set mapExtension=chernarus
 
 
 
+set mapName=Chernarus_Winter
+set mapExtension=Chernarus_Winter
 
 
 
