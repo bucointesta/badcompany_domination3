@@ -447,6 +447,8 @@ private _confmapsize = call {
 		_ret
 	};
 	if ((toLower worldName) == "altis") exitWith {30720};
+	if ((toLower worldName) == "chernarus_winter") exitWith {_mapSizeModified = true; 18432};
+	if ((toLower worldName) == "chernarus_summer") exitWith {_mapSizeModified = true; 18432};
 	_mapSizeModified = true;
 	floor (getNumber(configFile>>"CfgWorlds">>worldName>>"mapSize")*1.2)
 };
